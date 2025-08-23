@@ -283,8 +283,15 @@ function CharizardModel({ capabilities, performanceSettings, onError }: {
       } else {
         setIdleTime(prev => prev + state.clock.getDelta());
         if (idleTime > 2) { // Reduced idle time before auto-rotation
-          const autoRotationSpeed = capabilities.isLowEnd ? 0.003 : 0.005; // Increased auto-rotation speed
-          group.current.rotation.y += autoRotationSpeed;
+          // Gentle oscillation instead of continuous rotation
+          const oscillationSpeed = capabilities.isLowEnd ? 0.5 : 0.8; 
+          const oscillationAmount = 0.3; // How far it oscillates from center
+          const targetRotation = Math.sin(state.clock.elapsedTime * oscillationSpeed) * oscillationAmount;
+          group.current.rotation.y = THREE.MathUtils.lerp(
+            group.current.rotation.y, 
+            targetRotation, 
+            0.02
+          );
         }
       }
       
