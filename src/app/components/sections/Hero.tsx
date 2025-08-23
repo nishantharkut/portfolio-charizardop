@@ -111,28 +111,20 @@ function CharizardModel({ capabilities, performanceSettings, onError }: {
   const [hasEntered, setHasEntered] = useState(false);
   const [modelReady, setModelReady] = useState(false);
   const { gl, size } = useThree();
-  const { setModelLoaded } = useLoading();
+  // No longer need setModelLoaded - page loads independently
 
   // Detect mobile viewport
   const isMobileViewport = typeof window !== 'undefined' && window.innerWidth <= 768;
 
-  // Notify when model is loaded and ready
+  // Notify when model is loaded and ready (non-blocking)
   useEffect(() => {
     if (scene && !modelReady) {
       setModelReady(true);
-      setModelLoaded(true);
+      // Don't call setModelLoaded - let page load independently
     }
-  }, [scene, modelReady, setModelLoaded]);
+  }, [scene, modelReady]);
 
-  // Fallback timeout to ensure loading completes
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      console.log('Loading timeout reached, forcing completion');
-      setModelLoaded(true);
-    }, 5000); // 5 second timeout
-
-    return () => clearTimeout(timeout);
-  }, [setModelLoaded]);
+  // No fallback timeout needed - page should load regardless of 3D model
 
   // Optimize model based on device capabilities
   useEffect(() => {
@@ -319,7 +311,7 @@ function CharizardModel({ capabilities, performanceSettings, onError }: {
 
 // Fallback Component for Mobile Devices - Shows Charizard GIF instead of 3D model
 function CharizardFallback() {
-  const { setModelLoaded } = useLoading();
+  // No longer need setModelLoaded - page loads independently
   return (
     <div className="absolute inset-0 flex items-center justify-center md:justify-end md:pr-16 -translate-y-24 md:translate-y-0">
       <div className="w-[350px] h-[350px] sm:w-[400px] sm:h-[400px] md:w-[450px] md:h-[450px] lg:w-[500px] lg:h-[500px]">
@@ -339,12 +331,12 @@ function CharizardFallback() {
             }}
             loading="eager"
             onLoad={() => {
-              console.log('Charizard GIF loaded successfully - calling setModelLoaded(true)');
-              setModelLoaded(true); // Complete loading for mobile GIF
+              console.log('Charizard GIF loaded successfully');
+              // Don't call setModelLoaded - let page load independently
             }}
             onError={() => {
-              console.error('Failed to load Charizard GIF - calling setModelLoaded(true) anyway');
-              setModelLoaded(true); // Complete loading even on error to avoid infinite loading
+              console.error('Failed to load Charizard GIF');
+              // Don't call setModelLoaded - let page load independently
             }}
           />
         </motion.div>
@@ -564,13 +556,13 @@ export default function Hero() {
             </Canvas>
           </ErrorBoundary>
         ) : (
-          /* Fallback when Canvas has errors */
-          <div className="w-full h-full flex items-center justify-center">
-            <div className="text-center text-white/70">
-              <div className="w-16 h-16 mx-auto mb-4 bg-orange-500/20 rounded-full flex items-center justify-center">
-                <div className="w-8 h-8 bg-orange-500 rounded"></div>
+          /* Fallback when Canvas has errors - positioned on the right side where 3D model should be */
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-1/2 right-8 md:right-16 lg:right-24 -translate-y-1/2 text-center text-white/70">
+              <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 bg-orange-500/20 rounded-full flex items-center justify-center">
+                <div className="w-6 h-6 md:w-8 md:h-8 bg-orange-500 rounded animate-pulse"></div>
               </div>
-              <p className="text-sm">3D Model Loading...</p>
+              <p className="text-xs md:text-sm font-medium">3D Model Loading...</p>
             </div>
           </div>
         )}        {/* Ambient glow behind model - restore original positioning */}
