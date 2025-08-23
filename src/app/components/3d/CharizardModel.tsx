@@ -132,16 +132,14 @@ export default function CharizardModel({ scale = 1.2, position = [0, 0, 0], onLo
     }
   });
 
+  // Don't render anything if there's an error - let the parent handle fallback
+  if (modelError || !scene) {
+    return null;
+  }
+
   return (
     <group ref={group} position={position} scale={scale as any} dispose={null}>
-      {!modelError && scene ? (
-        <primitive object={scene} />
-      ) : (
-        <mesh>
-          <boxGeometry args={[1, 1, 1]} />
-          <meshStandardMaterial color="orange" />
-        </mesh>
-      )}
+      <primitive object={scene} />
     </group>
   );
 }

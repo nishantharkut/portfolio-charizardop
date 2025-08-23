@@ -7,6 +7,7 @@ import { Environment, PerspectiveCamera, OrbitControls, ContactShadows, useGLTF,
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import TypewriterRoles from '../ui/RotatingRoles';
 import { useLoading } from '../../contexts/LoadingContext';
+import ErrorBoundary from '../../../components/ErrorBoundary';
 import * as THREE from 'three';
 
 // Device and Browser Detection Hook
@@ -91,27 +92,20 @@ function PerformanceController({ onPerformanceChange }: { onPerformanceChange: (
 }
 
 // Optimized Charizard Model Component with LOD and Performance Features
-function CharizardModel({ capabilities, performanceSettings }: { 
+function CharizardModel({ capabilities, performanceSettings, onError }: { 
   capabilities: any, 
-  performanceSettings: any 
+  performanceSettings: any,
+  onError?: () => void
 }) {
   const group = useRef<THREE.Group>(null!);
   const [modelError, setModelError] = useState(false);
   
-  // Safe model loading with error handling
-  let scene: THREE.Group | undefined;
-  let animations: THREE.AnimationClip[] = [];
+  // Always call useGLTF - let ErrorBoundary handle loading errors
+  const gltf = useGLTF('/models/charizard.glb');
+  const { scene, animations } = gltf;
   
-  try {
-    const gltf = useGLTF('/models/charizard.glb');
-    scene = gltf.scene;
-    animations = gltf.animations || [];
-  } catch (error) {
-    console.warn('Charizard model failed to load:', error);
-    setModelError(true);
-  }
-  
-  const { actions, names } = useAnimations(animations, group);
+  // Always call these hooks regardless of error state
+  const { actions, names } = useAnimations(animations || [], group);
   const [fitted, setFitted] = useState(false);
   const [idleTime, setIdleTime] = useState(0);
   const [hasEntered, setHasEntered] = useState(false);
@@ -311,16 +305,14 @@ function CharizardModel({ capabilities, performanceSettings }: {
     }
   });
 
+  // Don't render anything if there's no scene
+  if (!scene) {
+    return null;
+  }
+
   return (
     <group ref={group} dispose={null}>
-      {!modelError && scene ? (
-        <primitive object={scene} />
-      ) : (
-        <mesh>
-          <boxGeometry args={[1, 1, 1]} />
-          <meshStandardMaterial color="orange" />
-        </mesh>
-      )}
+      <primitive object={scene} />
     </group>
   );
 }
@@ -378,6 +370,7 @@ export default function Hero() {
     pixelRatio: 1,
     enableEffects: false
   });
+  const [hasCanvasError, setHasCanvasError] = useState(false);
 
   // Update performance settings once client is ready
   useEffect(() => {
@@ -466,21 +459,47 @@ export default function Hero() {
     <section className="relative w-full h-screen overflow-hidden">
       {/* Optimized 3D Canvas with Performance Monitoring */}
       <div className="absolute inset-0 pointer-events-none">
-        <Canvas 
-          shadows={performanceSettings.shadows}
-          gl={{ 
-            antialias: performanceSettings.antialias, 
-            alpha: true,
-            powerPreference: "high-performance",
-            failIfMajorPerformanceCaveat: false
-          }} 
-          dpr={[1, performanceSettings.pixelRatio]}
-          className="!bg-transparent w-full h-full"
-          style={{ pointerEvents: 'none', touchAction: 'none' }}
-          onWheel={(e) => e.preventDefault()}
-          onScroll={(e) => e.preventDefault()}
-          frameloop="always" // Always animate for maximum speed
-        >
+        {!hasCanvasError ? (
+          <ErrorBoundary 
+            onError={(error) => {
+              console.error('Canvas ErrorBoundary caught error:', error);
+              setHasCanvasError(true);
+            }}
+            fallback={
+              <div className="w-full h-full flex items-center justify-center">
+                <div className="text-center text-white/70">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-orange-500/20 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-orange-500 rounded"></div>
+                  </div>
+                  <p className="text-sm">3D Rendering Error</p>
+                </div>
+              </div>
+            }
+          >
+            <Canvas 
+              shadows={performanceSettings.shadows}
+              gl={{ 
+                antialias: performanceSettings.antialias, 
+                alpha: true,
+                powerPreference: "high-performance",
+                failIfMajorPerformanceCaveat: false
+              }} 
+              dpr={[1, performanceSettings.pixelRatio]}
+              className="!bg-transparent w-full h-full"
+              style={{ pointerEvents: 'none', touchAction: 'none' }}
+              onWheel={(e) => e.preventDefault()}
+              onScroll={(e) => e.preventDefault()}
+              frameloop="always" // Always animate for maximum speed
+              onCreated={({ gl }) => {
+                // Handle WebGL context loss
+                const canvas = gl.domElement;
+                canvas.addEventListener('webglcontextlost', (e) => {
+                  console.warn('WebGL context lost, switching to fallback');
+                  e.preventDefault();
+                  setHasCanvasError(true);
+                });
+              }}
+            >
           <AdaptiveDpr pixelated />
           <PerformanceController onPerformanceChange={setPerformanceSettings} />
           
@@ -507,7 +526,11 @@ export default function Hero() {
               </>
             )}
             
-            <CharizardModel capabilities={capabilities} performanceSettings={performanceSettings} />
+            <CharizardModel 
+              capabilities={capabilities} 
+              performanceSettings={performanceSettings} 
+              onError={() => setHasCanvasError(true)}
+            />
             
             {!capabilities.isLowEnd && (
               <ContactShadows 
@@ -538,9 +561,19 @@ export default function Hero() {
               enableRotate={false}
               enableDamping={false}
             />
-        </Canvas>
-        
-        {/* Ambient glow behind model - restore original positioning */}
+            </Canvas>
+          </ErrorBoundary>
+        ) : (
+          /* Fallback when Canvas has errors */
+          <div className="w-full h-full flex items-center justify-center">
+            <div className="text-center text-white/70">
+              <div className="w-16 h-16 mx-auto mb-4 bg-orange-500/20 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-orange-500 rounded"></div>
+              </div>
+              <p className="text-sm">3D Model Loading...</p>
+            </div>
+          </div>
+        )}        {/* Ambient glow behind model - restore original positioning */}
         <div className="absolute top-1/2 right-1/2 translate-x-1/4 -translate-y-1/2 w-96 h-96 opacity-30 [mask-image:radial-gradient(circle,black,transparent_70%)] bg-[radial-gradient(circle,rgba(255,140,40,0.4),transparent_60%)]" />
       </div>
 
