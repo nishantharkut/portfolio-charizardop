@@ -104,6 +104,14 @@ function CharizardModel({ capabilities, performanceSettings, onError }: {
   const gltf = useGLTF('/models/charizard.glb');
   const { scene, animations } = gltf;
   
+  // Debug logging
+  useEffect(() => {
+    console.log('CharizardModel: gltf object:', gltf);
+    console.log('CharizardModel: scene:', scene);
+    console.log('CharizardModel: scene type:', typeof scene);
+    console.log('CharizardModel: scene children:', scene?.children?.length);
+  }, [gltf, scene]);
+  
   // Always call these hooks regardless of error state
   const { actions, names } = useAnimations(animations || [], group);
   const [fitted, setFitted] = useState(false);
@@ -307,8 +315,11 @@ function CharizardModel({ capabilities, performanceSettings, onError }: {
 
   // Don't render anything if there's no scene
   if (!scene) {
+    console.warn('CharizardModel: No scene available, returning null');
     return null;
   }
+
+  console.log('CharizardModel: Rendering scene with', scene.children?.length, 'children');
 
   return (
     <group ref={group} dispose={null}>
