@@ -13,7 +13,21 @@ interface CharizardModelProps {
 
 export default function CharizardModel({ scale = 1.2, position = [0, 0, 0], onLoaded }: CharizardModelProps) {
   const group = useRef<THREE.Group>(null!);
-  const { scene, animations } = useGLTF('/models/charizard.glb');
+  const [modelError, setModelError] = useState(false);
+  
+  // Safe model loading with error handling
+  let scene: THREE.Group | undefined;
+  let animations: THREE.AnimationClip[] = [];
+  
+  try {
+    const gltf = useGLTF('/models/charizard.glb');
+    scene = gltf.scene;
+    animations = gltf.animations || [];
+  } catch (error) {
+    console.warn('Charizard model failed to load:', error);
+    setModelError(true);
+  }
+  
   const { actions, names } = useAnimations(animations, group);
   const [fitted, setFitted] = useState(false);
   const [idleTime, setIdleTime] = useState(0);
@@ -120,7 +134,14 @@ export default function CharizardModel({ scale = 1.2, position = [0, 0, 0], onLo
 
   return (
     <group ref={group} position={position} scale={scale as any} dispose={null}>
-      <primitive object={scene} />
+      {!modelError && scene ? (
+        <primitive object={scene} />
+      ) : (
+        <mesh>
+          <boxGeometry args={[1, 1, 1]} />
+          <meshStandardMaterial color="orange" />
+        </mesh>
+      )}
     </group>
   );
 }
