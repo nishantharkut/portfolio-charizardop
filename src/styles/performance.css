@@ -1,0 +1,308 @@
+/* Performance-optimized CSS classes */
+
+/* GPU acceleration for commonly animated elements */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Performance mode styles for low-end devices */
+.performance-mode * {
+  animation-duration: 0.01ms !important;
+  animation-delay: 0.01ms !important;
+  transition-duration: 0.01ms !important;
+  transition-delay: 0.01ms !important;
+}
+
+.performance-mode .complex-animation {
+  display: none;
+}
+
+/* Device-specific optimizations */
+.device-low * {
+  animation-duration: 0.3s !important;
+  transition-duration: 0.2s !important;
+}
+
+.device-low .heavy-animation {
+  animation: none !important;
+  transform: none !important;
+}
+
+.device-low .complex-filter {
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.low-power-mode .particle-system {
+  display: none !important;
+}
+
+.low-power-mode .complex-shader {
+  opacity: 0.5 !important;
+  filter: none !important;
+}
+
+/* Optimized scroll containers */
+.scroll-container {
+  contain: layout style paint;
+  overflow-anchor: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Reduce motion for accessibility and performance */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .motion-reduce-disable {
+    display: none !important;
+  }
+}
+
+/* Device-specific optimizations */
+@media (max-width: 768px) {
+  .mobile-optimized {
+    transform: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+  }
+  
+  .desktop-only {
+    display: none !important;
+  }
+  
+  .mobile-hidden {
+    display: none !important;
+  }
+}
+
+/* Container queries for component-level optimizations */
+@container (max-width: 768px) {
+  .responsive-container .heavy-animation {
+    animation: none !important;
+  }
+}
+
+/* Layout containment for better performance */
+.contained-layout {
+  contain: layout;
+}
+
+.contained-style {
+  contain: style;
+}
+
+.contained-paint {
+  contain: paint;
+}
+
+.contained-size {
+  contain: size;
+}
+
+.contained-strict {
+  contain: strict;
+}
+
+/* Optimized transforms */
+.translate-gpu {
+  transform: translate3d(var(--tw-translate-x), var(--tw-translate-y), 0);
+}
+
+/* Content visibility optimization */
+.auto-visibility {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 1000px;
+}
+
+/* Scroll performance */
+.scroll-smooth-optimized {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+@supports (scroll-behavior: smooth) {
+  .scroll-smooth-optimized {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Image loading optimization */
+.optimized-image {
+  content-visibility: auto;
+}
+
+/* Animation performance classes */
+.animate-optimized {
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Critical rendering path optimization */
+.above-fold {
+  content-visibility: visible;
+}
+
+.below-fold {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
+}
+
+/* Memory efficient gradients */
+.efficient-gradient {
+  background-image: linear-gradient(
+    45deg,
+    rgba(59, 130, 246, 0.1),
+    rgba(147, 51, 234, 0.1)
+  );
+}
+
+/* Optimized shadows */
+.efficient-shadow {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.device-low .efficient-shadow {
+  box-shadow: none;
+}
+
+/* Reduce paint complexity */
+.simple-border {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+}
+
+/* Performance monitoring indicators */
+.fps-indicator {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 12px;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* Low-end device optimizations */
+@media (max-device-width: 768px) and (-webkit-max-device-pixel-ratio: 2) {
+  .low-end-optimization {
+    transform: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+}
+
+/* High contrast mode optimizations */
+@media (prefers-contrast: high) {
+  .high-contrast-optimize {
+    filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+
+/* Battery level optimizations */
+@media (prefers-reduced-data: reduce) {
+  .data-heavy {
+    display: none !important;
+  }
+}
+
+/* Optimized blur effects */
+.optimized-blur {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.device-low .optimized-blur {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Frame rate optimization classes */
+.fps-30 {
+  animation-duration: calc(var(--animation-duration) * 2) !important;
+}
+
+.fps-15 {
+  animation-duration: calc(var(--animation-duration) * 4) !important;
+}
+
+/* Efficient particle systems */
+.particle-optimized {
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+.device-low .particle-optimized {
+  display: none;
+}
+
+/* WebGL fallback styles */
+.webgl-fallback {
+  background: linear-gradient(45deg, #1e40af, #7c3aed);
+  opacity: 0.3;
+}
+
+/* Intersection observer optimization */
+.lazy-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.lazy-animate.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.device-low .lazy-animate {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+/* Memory efficient animations */
+.memory-efficient {
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
+}
+
+.memory-efficient.animate {
+  animation-play-state: running;
+}
+
+/* Optimized hover states */
+.optimized-hover {
+  transition: transform 0.2s ease;
+}
+
+.optimized-hover:hover {
+  transform: translateY(-2px);
+}
+
+.device-low .optimized-hover:hover {
+  transform: none;
+}
+
+/* CPU usage indicators */
+.high-cpu .intensive-animation {
+  animation-play-state: paused !important;
+}
+
+.high-cpu .gpu-intensive {
+  display: none !important;
+}

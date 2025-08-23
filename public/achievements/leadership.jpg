@@ -1,0 +1,17 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="leadership" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#leadership)"/>
+  <text x="200" y="130" font-family="Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" fill="white">Team Leadership</text>
+  <text x="200" y="160" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white">Product Launch Success</text>
+  <circle cx="150" cy="80" r="15" fill="rgba(255,255,255,0.8)"/>
+  <circle cx="200" cy="65" r="18" fill="rgba(255,255,255,1)"/>
+  <circle cx="250" cy="80" r="15" fill="rgba(255,255,255,0.8)"/>
+  <circle cx="120" cy="105" r="12" fill="rgba(255,255,255,0.6)"/>
+  <circle cx="280" cy="105" r="12" fill="rgba(255,255,255,0.6)"/>
+  <circle cx="200" cy="110" r="12" fill="rgba(255,255,255,0.7)"/>
+</svg>

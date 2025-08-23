@@ -1,0 +1,44 @@
+{
+  "hero": {
+    "badge": "Creative Technologist",
+    "title": "About",
+    "subtitle": "Passionate creator, innovative engineer, and design enthusiast crafting the future of web experiences",
+    "profileImage": "https://i.scdn.co/image/ab67616d0000b273d9985092cd88bffd97653b58",
+    "profileAlt": "Nishant Harkut",
+    "profileCaption": "Nishant Harkut"
+  },
+  "aboutSections": [
+    {
+      "title": "The Creative Technologist",
+      "content": [
+        "Hi, I'm Nishant Harkut, a passionate creative technologist who thrives at the intersection of art and engineering. With over 7 years of experience in web development, I've evolved from a curious developer into a multi-disciplinary creator who believes that technology should be both functional and beautiful.",
+        "My journey began with a simple fascination for how websites work, but it quickly grew into a deep passion for creating digital experiences that not only solve problems but also inspire and delight users. I've had the privilege of working with companies like Blue Cube Digital and Brane Enterprises, where I led innovative projects that pushed the boundaries of what's possible on the web."
+      ]
+    },
+    {
+      "title": "Technical Philosophy",
+      "content": [
+        "I believe in the power of full-stack thinking – understanding every layer of a project from the database to the user interface. This holistic approach allows me to create cohesive experiences where every technical decision serves the overall vision. Whether I'm optimizing database queries, crafting pixel-perfect animations, or architecting scalable systems, I always consider the bigger picture.",
+        "My technical toolkit spans modern frontend frameworks like React and Next.js, powerful 3D libraries like Three.js, robust backend technologies, and creative tools like Blender and GSAP. But more than just knowing the tools, I understand how to use them to tell stories and create meaningful connections with users."
+      ]
+    },
+    {
+      "title": "Beyond the Code",
+      "content": [
+        "When I'm not coding, you'll find me exploring the latest in 3D art and animation, experimenting with AI/ML integration, or diving deep into cybersecurity practices. I'm also passionate about photography and music production, which fuel my creativity and provide fresh perspectives on visual storytelling and audio-visual synchronization.",
+        "I'm a firm believer in continuous learning and giving back to the community. I actively contribute to open-source projects, mentor aspiring developers, and share my knowledge through technical articles and speaking engagements. The tech community has given me so much, and I'm committed to helping others on their journey."
+      ]
+    },
+    {
+      "title": "Looking Forward",
+      "content": [
+        "As I continue my journey as an independent creator, I'm excited about the future of web technology. From WebAssembly and progressive web apps to the integration of AI in creative workflows, there's never been a more exciting time to be building for the web. I'm always looking for opportunities to collaborate with like-minded individuals and organizations who share my passion for pushing creative and technical boundaries."
+      ]
+    }
+  ],
+  "stats": [
+    { "number": "7+", "label": "Years Experience" },
+    { "number": "20+", "label": "Projects Delivered" },
+    { "number": "3", "label": "Companies" }
+  ]
+}

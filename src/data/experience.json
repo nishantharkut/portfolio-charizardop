@@ -1,0 +1,131 @@
+{
+  "experienceData": [
+    {
+      "id": 1,
+      "position": "Senior Web Developer",
+      "company": "Blue Cube Digital",
+      "year": "2017",
+      "duration": "2017 - 2020",
+      "description": "Led web development initiatives, creating responsive and accessible web applications with modern technologies. Managed full-stack projects from conception to deployment.",
+      "responsibilities": [
+        "Developed and maintained complex web applications using PHP, MySQL, and JavaScript",
+        "Created responsive, accessible web pages following modern web standards",
+        "Built and managed CMS dashboards for content management",
+        "Collaborated with design teams to implement pixel-perfect UI/UX",
+        "Optimized application performance and database queries"
+      ],
+      "technologies": ["PHP", "MySQL", "JavaScript", "HTML5", "CSS3", "jQuery", "Bootstrap"],
+      "achievements": [
+        "Improved page load times by 40% through optimization techniques",
+        "Successfully delivered 15+ client projects on time and within budget",
+        "Implemented responsive design system reducing development time by 30%"
+      ],
+      "logo": "/logos/blue-cube.svg"
+    },
+    {
+      "id": 2,
+      "position": "Associate Solution Leader",
+      "company": "Brane Enterprises",
+      "year": "2020",
+      "duration": "2020 - 2023",
+      "description": "Spearheaded innovative web solutions and product prototypes, focusing on cutting-edge technologies and 3D interfaces. Led cross-functional teams in delivering scalable solutions.",
+      "responsibilities": [
+        "Architected and developed reusable components and microservices",
+        "Built interactive 3D UI interfaces compatible with TypeScript",
+        "Led product prototype development from concept to production",
+        "Implemented performance optimizations and modern development practices",
+        "Mentored junior developers and conducted code reviews"
+      ],
+      "technologies": ["TypeScript", "React", "Three.js", "Node.js", "WebGL", "Docker", "AWS"],
+      "achievements": [
+        "Developed 3D interface system adopted across 5+ products",
+        "Led team of 6 developers in successful product launch",
+        "Reduced development time by 50% through reusable component library",
+        "Implemented CI/CD pipeline improving deployment efficiency by 60%"
+      ],
+      "logo": "/logos/brane.svg"
+    },
+    {
+      "id": 3,
+      "position": "Freelance Developer & Creative Technologist",
+      "company": "Independent",
+      "year": "NOW",
+      "duration": "2023 - Present",
+      "description": "Providing specialized 3D and web development services while continuously expanding expertise across emerging technologies and creative applications.",
+      "responsibilities": [
+        "Delivered custom 3D web experiences for various clients",
+        "Developed full-stack applications with modern frameworks",
+        "Created interactive portfolios and marketing websites",
+        "Provided technical consulting for creative projects",
+        "Researched and implemented cutting-edge web technologies"
+      ],
+      "technologies": ["Next.js", "React", "Three.js", "Blender", "GSAP", "Framer Motion", "TypeScript", "Tailwind CSS"],
+      "achievements": [
+        "Completed 20+ successful freelance projects",
+        "Expanded skill set to include AI/ML integration and cybersecurity practices",
+        "Built award-winning 3D portfolio website",
+        "Achieved 98% client satisfaction rate"
+      ],
+      "logo": "/logos/freelance.svg"
+    }
+  ],
+  "coreSkills": [
+    "Frontend Development",
+    "3D Web Experiences",
+    "Backend Architecture",
+    "UI/UX Design",
+    "Creative Technology",
+    "Performance Optimization",
+    "Team Leadership",
+    "Client Relations"
+  ],
+  "highlights": [
+    { 
+      "number": "50+", 
+      "label": "Projects Completed",
+      "description": "Successful delivery across web apps, 3D experiences, and enterprise solutions",
+      "icon": "FaRocket"
+    },
+    { 
+      "number": "98%", 
+      "label": "Client Satisfaction",
+      "description": "Consistent high-quality delivery and exceptional client relationships",
+      "icon": "FaStar"
+    },
+    { 
+      "number": "6", 
+      "label": "Team Members Led",
+      "description": "Successfully managed and mentored development teams",
+      "icon": "FaUsers"
+    },
+    { 
+      "number": "40%", 
+      "label": "Performance Gains",
+      "description": "Average improvement in application performance and load times",
+      "icon": "FaBolt"
+    }
+  ],
+  "technologyEvolution": [
+    {
+      "period": "2017-2019",
+      "title": "Foundation Years",
+      "description": "Building core web development skills and learning industry best practices",
+      "technologies": ["PHP", "MySQL", "JavaScript", "jQuery", "HTML5", "CSS3", "Bootstrap"],
+      "color": "from-blue-500 to-purple-500"
+    },
+    {
+      "period": "2020-2022",
+      "title": "Modern Stack Adoption",
+      "description": "Embracing modern frameworks and expanding into 3D web experiences",
+      "technologies": ["React", "TypeScript", "Node.js", "Three.js", "WebGL", "GSAP", "Docker"],
+      "color": "from-purple-500 to-pink-500"
+    },
+    {
+      "period": "2023-Present",
+      "title": "Innovation & Leadership",
+      "description": "Leading edge technologies and mentoring next-generation developers",
+      "technologies": ["Next.js", "Blender", "AI/ML Integration", "Cybersecurity", "AWS", "Framer Motion"],
+      "color": "from-pink-500 to-orange-500"
+    }
+  ]
+}

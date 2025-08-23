@@ -1,0 +1,51 @@
+{
+  "navigation": {
+    "links": [
+      { "href": "/", "label": "Home" },
+      { "href": "/about", "label": "About Me" },
+      { "href": "/experience", "label": "Experience" },
+      { "href": "/projects", "label": "Projects" },
+      { "href": "/achievements", "label": "Achievements" }
+    ]
+  },
+  "footer": {
+    "navigationSections": [
+      { 
+        "title": "NAVIGATE",
+        "links": [
+          { "label": "About Me", "href": "#about" },
+          { "label": "Experience", "href": "#experience" },
+          { "label": "Projects", "href": "#projects" },
+          { "label": "Skills", "href": "#skills" },
+          { "label": "Contact", "href": "#contact" }
+        ]
+      },
+      { 
+        "title": "MY WORK",
+        "links": [
+          { "label": "GitHub Portfolio", "href": "https://github.com/nishantharkut" },
+          { "label": "Live Projects", "href": "#projects" },
+          { "label": "Case Studies", "href": "/case-studies" },
+          { "label": "Design Portfolio", "href": "/designs" },
+          { "label": "Blog Posts", "href": "/blog" }
+        ]
+      },
+      { 
+        "title": "RESOURCES",
+        "links": [
+          { "label": "Resume/CV", "href": "/resume.pdf" },
+          { "label": "Recommendations", "href": "/recommendations" },
+          { "label": "Certificates", "href": "/certificates" },
+          { "label": "Speaking", "href": "/talks" },
+          { "label": "Open Source", "href": "https://github.com/nishantharkut?tab=repositories" }
+        ]
+      }
+    ],
+    "socialLinks": [
+      { "label": "GitHub", "href": "https://github.com/nishantharkut", "icon": "FaGithub" },
+      { "label": "LinkedIn", "href": "https://linkedin.com/in/nishantharkut", "icon": "FaLinkedin" },
+      { "label": "Twitter", "href": "https://twitter.com", "icon": "FaTwitter" },
+      { "label": "Instagram", "href": "https://instagram.com/nishantharkut", "icon": "FaInstagram" }
+    ]
+  }
+}

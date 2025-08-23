@@ -1,0 +1,111 @@
+{
+  "skills": [
+    {
+      "category": "Frontend Development",
+      "technologies": ["React", "Next.js", "TypeScript", "Tailwind CSS", "GSAP", "Three.js"],
+      "level": 95
+    },
+    {
+      "category": "Backend Development", 
+      "technologies": ["Node.js", "Express", "PHP", "Python", "PostgreSQL", "MongoDB"],
+      "level": 88
+    },
+    {
+      "category": "3D & Creative",
+      "technologies": ["Blender", "Three.js", "WebGL", "Substance Painter", "After Effects"],
+      "level": 92
+    },
+    {
+      "category": "DevOps & Tools",
+      "technologies": ["Docker", "AWS", "Git", "CI/CD", "Linux", "Nginx"],
+      "level": 85
+    },
+    {
+      "category": "Design & UX",
+      "technologies": ["Figma", "Adobe Creative Suite", "UI/UX Design", "Prototyping"],
+      "level": 90
+    },
+    {
+      "category": "Emerging Tech",
+      "technologies": ["AI/ML Integration", "Cybersecurity", "Progressive Web Apps", "WebAssembly"],
+      "level": 78
+    }
+  ],
+  "skillGroups": [
+    { "title": "Frontend", "items": ["React", "Next.js", "TypeScript", "TailwindCSS", "Three.js"] },
+    { "title": "Backend", "items": ["Node.js", "Express", "Prisma", "PostgreSQL", "REST", "GraphQL"] },
+    { "title": "UI / UX", "items": ["Wireframing", "Figma", "Prototyping", "Accessibility", "Design Systems"] },
+    { "title": "Creative", "items": ["After Effects", "Premiere Pro", "Illustrator", "Blender"] },
+    { "title": "Security", "items": ["OWASP", "Auth", "Encryption", "Threat Modeling"] },
+    { "title": "AI / ML", "items": ["Python", "Pandas", "TensorFlow", "LLMs Basics"] }
+  ],
+  "interests": [
+    {
+      "title": "3D Art & Animation",
+      "description": "Creating immersive 3D experiences and animations that blend art with technology",
+      "icon": "FaPalette"
+    },
+    {
+      "title": "Creative Technology",
+      "description": "Exploring the intersection of creativity and cutting-edge technology",
+      "icon": "FaRocket"
+    },
+    {
+      "title": "Game Development", 
+      "description": "Building interactive experiences and exploring game mechanics",
+      "icon": "FaGamepad"
+    },
+    {
+      "title": "AI & Machine Learning",
+      "description": "Integrating AI tools and exploring machine learning applications",
+      "icon": "FaRobot"
+    },
+    {
+      "title": "Photography",
+      "description": "Capturing moments and exploring visual storytelling through photography",
+      "icon": "FaCamera"
+    },
+    {
+      "title": "Music Production",
+      "description": "Creating electronic music and exploring audio-visual synchronization",
+      "icon": "FaMusic"
+    }
+  ],
+  "timeline": [
+    {
+      "year": "2015",
+      "title": "Started Journey",
+      "description": "Began learning web development and discovered passion for creative coding"
+    },
+    {
+      "year": "2017",
+      "title": "First Professional Role",
+      "description": "Joined Blue Cube Digital as a Web Developer, focusing on PHP and frontend technologies"
+    },
+    {
+      "year": "2019",
+      "title": "3D Discovery",
+      "description": "Discovered Blender and started incorporating 3D elements into web projects"
+    },
+    {
+      "year": "2020",
+      "title": "Leadership Role",
+      "description": "Promoted to Associate Solution Leader at Brane Enterprises, leading innovative projects"
+    },
+    {
+      "year": "2022",
+      "title": "Full-Stack Mastery",
+      "description": "Mastered modern frameworks like React, Next.js, and advanced 3D web technologies"
+    },
+    {
+      "year": "2023",
+      "title": "Independent Journey",
+      "description": "Started freelancing and building cutting-edge portfolio projects"
+    },
+    {
+      "year": "2024",
+      "title": "Continuous Growth",
+      "description": "Expanding into AI/ML integration and advanced cybersecurity practices"
+    }
+  ]
+}

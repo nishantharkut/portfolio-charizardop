@@ -1,0 +1,309 @@
+/* Experience Section Styles with Theme Support */
+
+.experience-section {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.experience-title {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.experience-title h2 {
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+.experience-title .career-text {
+  color: var(--color-text);
+}
+
+.experience-title .ampersand {
+  color: var(--color-accent);
+  font-weight: 300;
+}
+
+.experience-title .experience-text {
+  color: var(--color-accent);
+}
+
+/* Timeline Styles */
+.timeline-container {
+  position: relative;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 15px;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--color-accent), transparent);
+}
+
+@media (min-width: 768px) {
+  .timeline-line {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.timeline-spark {
+  position: absolute;
+  left: 14px;
+  width: 12px;
+  height: 12px;
+  z-index: 10;
+  background: var(--color-accent-light);
+  border-radius: 50%;
+  filter: blur(1px);
+  box-shadow: 
+    0 0 8px 2px rgba(255, 217, 112, 0.8), 
+    0 0 12px 5px var(--color-accent-glow);
+  animation: sparkle 0.6s ease-out infinite alternate;
+}
+
+@media (min-width: 768px) {
+  .timeline-spark {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* Experience Items */
+.experience-item {
+  margin-bottom: 3rem;
+  position: relative;
+  padding-left: 3rem;
+}
+
+@media (min-width: 640px) {
+  .experience-item {
+    margin-bottom: 4rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .experience-item {
+    margin-bottom: 5rem;
+    padding-left: 0;
+  }
+  
+  .experience-item.left-aligned {
+    text-align: right;
+    padding-right: calc(50% + 40px);
+  }
+  
+  .experience-item.right-aligned {
+    text-align: left;
+    padding-left: calc(50% + 40px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .experience-item {
+    margin-bottom: 7rem;
+  }
+}
+
+/* Desktop Layout */
+.experience-desktop {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .experience-desktop {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.experience-year {
+  font-size: 3rem;
+  color: var(--color-accent);
+  font-weight: 300;
+}
+
+.experience-position {
+  font-size: 1.875rem;
+  color: var(--color-text);
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+}
+
+.experience-company {
+  font-size: 1.25rem;
+  color: var(--color-accent);
+  font-weight: 300;
+}
+
+/* Mobile Layout */
+.experience-mobile {
+  display: block;
+  margin-bottom: 1rem;
+  backdrop-filter: blur(8px);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+}
+
+@media (min-width: 768px) {
+  .experience-mobile {
+    display: none;
+  }
+}
+
+.experience-mobile-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.experience-mobile-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.experience-mobile .experience-position {
+  font-size: 1.125rem;
+  line-height: 1.25;
+}
+
+@media (min-width: 640px) {
+  .experience-mobile .experience-position {
+    font-size: 1.25rem;
+  }
+}
+
+.experience-mobile .experience-company {
+  font-size: 1rem;
+  margin-top: 0.25rem;
+}
+
+@media (min-width: 640px) {
+  .experience-mobile .experience-company {
+    font-size: 1.125rem;
+  }
+}
+
+.experience-mobile .experience-year {
+  font-size: 1.5rem;
+  margin-left: 1rem;
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .experience-mobile .experience-year {
+    font-size: 1.875rem;
+  }
+}
+
+/* Description Styles */
+.experience-description {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 640px) {
+  .experience-description {
+    font-size: 1rem;
+  }
+}
+
+.experience-description.mobile {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 640px) {
+  .experience-description.mobile {
+    font-size: 1rem;
+  }
+}
+
+.experience-description.desktop {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .experience-description.desktop {
+    display: block;
+  }
+}
+
+/* Button Styles */
+.experience-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  background: linear-gradient(to right, var(--color-accent), var(--color-accent-dark));
+  color: var(--color-text);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+
+.experience-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 15px -3px var(--shadow-accent);
+}
+
+.experience-button svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Animations */
+@keyframes sparkle {
+  0% {
+    opacity: 0.6;
+    transform: translate(-50%, 0) scale(0.8);
+    box-shadow: 
+      0 0 5px 2px rgba(255, 217, 112, 0.5), 
+      0 0 8px 4px var(--color-accent-glow);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1.2);
+    box-shadow: 
+      0 0 10px 4px rgba(255, 217, 112, 0.8), 
+      0 0 20px 6px var(--color-accent-glow),
+      0 0 30px 10px var(--color-accent-transparent);
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767px) {
+  .experience-section {
+    overflow-x: hidden;
+  }
+}
+
+@media (max-width: 320px) {
+  .experience-section {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+  .timeline-content {
+    padding-left: 3.5rem;
+  }
+}
+
+/* Ensure smooth transitions between breakpoints */
+@media (min-width: 768px) {
+  .timeline-mobile-layout {
+    display: none;
+  }
+}

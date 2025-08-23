@@ -1,0 +1,158 @@
+{
+  "achievements": [
+    {
+      "id": 1,
+      "title": "Portfolio Website Featured on Awwwards",
+      "category": "Web Design Recognition",
+      "description": "My portfolio website was featured on Awwwards for innovative 3D web design and exceptional user experience.",
+      "details": "Recognition for pushing the boundaries of web design by seamlessly integrating 3D elements with performant web technologies. The site showcased advanced GSAP animations, Three.js integration, and responsive design principles.",
+      "date": "2024",
+      "organization": "Awwwards",
+      "link": "https://awwwards.com/featured-portfolio",
+      "image": "/achievements/awwwards.jpg",
+      "badge": "🏆",
+      "impact": [
+        "Featured on homepage for innovative design approach",
+        "Increased portfolio traffic by 300%",
+        "Generated 15+ new client inquiries",
+        "Recognized for technical innovation in 3D web experiences"
+      ],
+      "featured": true
+    },
+    {
+      "id": 2,
+      "title": "Leading Team to Successful Product Launch",
+      "category": "Leadership Achievement",
+      "description": "Successfully led a cross-functional team of 6 developers to deliver a complex 3D web application ahead of schedule.",
+      "details": "Managed the complete development lifecycle of a cutting-edge product featuring real-time 3D visualization, WebGL optimization, and collaborative features. Implemented agile methodologies and established CI/CD pipelines.",
+      "date": "2023",
+      "organization": "Brane Enterprises",
+      "image": "/achievements/leadership.jpg",
+      "badge": "👥",
+      "impact": [
+        "Delivered project 2 weeks ahead of deadline",
+        "Achieved 99.9% uptime in first 6 months",
+        "Reduced development costs by 25%",
+        "Implemented scalable architecture serving 10k+ users"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Open Source Contribution Recognition",
+      "category": "Community Impact",
+      "description": "Significant contributions to popular open-source 3D web libraries, improving performance and accessibility.",
+      "details": "Contributed critical performance optimizations and accessibility features to Three.js ecosystem. Created comprehensive documentation and tutorials that helped thousands of developers.",
+      "date": "2023",
+      "organization": "Three.js Community",
+      "link": "https://github.com/threejs/three.js/pulls",
+      "image": "/achievements/opensource.jpg",
+      "badge": "🌟",
+      "impact": [
+        "50+ merged pull requests improving core functionality",
+        "Documentation viewed by 50k+ developers monthly",
+        "Performance improvements benefiting entire ecosystem",
+        "Mentored 20+ new contributors to open source"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Client Satisfaction Excellence",
+      "category": "Professional Achievement",
+      "description": "Maintained 98% client satisfaction rate across 20+ freelance projects with zero delivery delays.",
+      "details": "Consistently delivered high-quality web solutions exceeding client expectations. Specialized in complex 3D web experiences, e-commerce platforms, and custom CMS solutions.",
+      "date": "2023-2024",
+      "organization": "Freelance Practice",
+      "image": "/achievements/client-satisfaction.jpg",
+      "badge": "⭐",
+      "impact": [
+        "98% client satisfaction rate",
+        "100% on-time delivery record",
+        "80% client retention rate",
+        "Average project value increase of 40%"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Technical Innovation Award",
+      "category": "Innovation Recognition",
+      "description": "Recognized for developing innovative solutions that bridge the gap between creative design and technical implementation.",
+      "details": "Created groundbreaking workflows for integrating Blender 3D assets with web technologies, enabling designers to create interactive 3D experiences without coding knowledge.",
+      "date": "2022",
+      "organization": "Tech Innovation Summit",
+      "image": "/achievements/innovation.jpg",
+      "badge": "💡",
+      "impact": [
+        "Workflow adopted by 500+ designers globally",
+        "Reduced 3D web development time by 60%",
+        "Featured in 3 industry publications",
+        "Presented at international web design conference"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Performance Optimization Champion",
+      "category": "Technical Excellence",
+      "description": "Achieved exceptional performance optimization results across multiple high-traffic web applications.",
+      "details": "Implemented advanced optimization techniques including code splitting, lazy loading, WebGL optimization, and CDN strategies resulting in significant performance improvements.",
+      "date": "2021-2023",
+      "organization": "Various Projects",
+      "image": "/achievements/performance.jpg",
+      "badge": "⚡",
+      "impact": [
+        "Average page load time reduction of 65%",
+        "Core Web Vitals scores above 95",
+        "Reduced server costs by 40% through optimization",
+        "Improved user engagement by 85%"
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "id": 1,
+      "name": "AWS Certified Solutions Architect",
+      "issuer": "Amazon Web Services",
+      "date": "2023",
+      "credentialId": "AWS-SAA-2023-001",
+      "image": "/certifications/aws.png",
+      "skills": ["Cloud Architecture", "Scalable Systems", "Security", "Cost Optimization"]
+    },
+    {
+      "id": 2,
+      "name": "Google Cloud Professional Developer",
+      "issuer": "Google Cloud",
+      "date": "2023",
+      "credentialId": "GCP-PD-2023-002",
+      "image": "/certifications/gcp.png",
+      "skills": ["Serverless Computing", "Kubernetes", "CI/CD", "Monitoring"]
+    },
+    {
+      "id": 3,
+      "name": "Certified Ethical Hacker (CEH)",
+      "issuer": "EC-Council",
+      "date": "2024",
+      "credentialId": "CEH-2024-003",
+      "image": "/certifications/ceh.png",
+      "skills": ["Penetration Testing", "Vulnerability Assessment", "Security Protocols"]
+    }
+  ],
+  "awards": [
+    {
+      "id": 1,
+      "title": "Best Creative Use of Technology",
+      "event": "Web Design Awards 2023",
+      "position": "Winner",
+      "year": "2023",
+      "description": "Recognized for innovative integration of 3D elements in web design",
+      "image": "/awards/creative-tech.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Outstanding Portfolio Design",
+      "event": "CSS Design Awards",
+      "position": "Site of the Day",
+      "year": "2024",
+      "description": "Featured as Site of the Day for exceptional design and user experience",
+      "image": "/awards/css-design.jpg"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "Fendi 3D Experience",
+      "category": "3D Modeling & Web Development",
+      "shortDescription": "Immersive 3D luxury fashion experience with advanced modeling and interactive elements.",
+      "fullDescription": "A cutting-edge 3D web experience for Fendi, combining high-end fashion visualization with interactive storytelling. Built with advanced 3D modeling techniques and optimized for web performance.",
+      "techStack": ["Blender", "Three.js", "React", "WebGL", "Substance Painter", "GSAP"],
+      "implementation": [
+        "Created highly detailed 3D models using Blender with industry-standard topology",
+        "Implemented real-time material and lighting systems with Substance Painter",
+        "Optimized 3D assets for web performance using compression and LOD techniques",
+        "Built interactive product showcases with smooth camera transitions and animations"
+      ],
+      "liveLink": "https://fendi-3d-demo.vercel.app",
+      "githubLink": "https://github.com/username/fendi-3d",
+      "image": "/images/project1.jpg",
+      "featured": true
+    },
+    {
+      "id": 2,
+      "title": "Executive Spaces",
+      "category": "Full-Stack Web Development",
+      "shortDescription": "Corporate workspace management platform with dynamic content and admin functionality.",
+      "fullDescription": "A comprehensive workspace management solution designed for executive environments, featuring dynamic content management, booking systems, and administrative dashboards.",
+      "techStack": ["JavaScript", "PHP", "MySQL", "ScrollMagic", "CSS3", "HTML5"],
+      "implementation": [
+        "Developed responsive frontend with ScrollMagic for engaging scroll-based animations",
+        "Built robust backend API with PHP and MySQL for data management",
+        "Implemented secure admin panel with role-based access control",
+        "Created dynamic booking system with real-time availability updates"
+      ],
+      "liveLink": "https://executive-spaces.com",
+      "githubLink": "https://github.com/username/executive-spaces",
+      "image": "/images/project2.jpg",
+      "featured": true
+    },
+    {
+      "id": 3,
+      "title": "Games Catalog Platform",
+      "category": "React Web Application",
+      "shortDescription": "Modern gaming discovery platform with advanced filtering and recommendation systems.",
+      "fullDescription": "A sophisticated gaming platform that helps users discover, review, and track their favorite games with intelligent recommendation algorithms and social features.",
+      "techStack": ["React", "TypeScript", "Express.js", "MongoDB", "Node.js", "Socket.io"],
+      "implementation": [
+        "Built type-safe frontend with React and TypeScript for enhanced developer experience",
+        "Developed RESTful API with Express.js and comprehensive error handling",
+        "Implemented real-time features using Socket.io for live user interactions",
+        "Created intelligent recommendation system based on user preferences and behavior"
+      ],
+      "liveLink": "https://games-catalog-demo.vercel.app",
+      "githubLink": "https://github.com/username/games-catalog",
+      "image": "/images/project3.jpg",
+      "featured": true
+    },
+    {
+      "id": 4,
+      "title": "Portfolio Website v2",
+      "category": "Modern Web Development",
+      "shortDescription": "High-performance portfolio with 3D elements and advanced animations.",
+      "fullDescription": "A cutting-edge portfolio website showcasing modern web development techniques, featuring 3D elements, advanced animations, and optimized performance.",
+      "techStack": ["Next.js", "TypeScript", "GSAP", "Three.js", "Tailwind CSS", "Framer Motion"],
+      "implementation": [
+        "Leveraged Next.js 14 with App Router for optimal performance and SEO",
+        "Integrated complex 3D scenes with Three.js and optimized rendering pipeline",
+        "Created smooth scroll-based animations using GSAP and ScrollTrigger",
+        "Implemented responsive design system with Tailwind CSS and custom components"
+      ],
+      "liveLink": "https://portfolio-v2.vercel.app",
+      "githubLink": "https://github.com/username/portfolio-v2",
+      "image": "/images/project4.jpg",
+      "featured": true
+    },
+    {
+      "id": 5,
+      "title": "React Native Finance App",
+      "category": "Mobile Development",
+      "shortDescription": "Cross-platform financial management app with real-time data and secure transactions.",
+      "fullDescription": "A comprehensive financial management application built for iOS and Android, featuring real-time market data, secure transactions, and intuitive user experience.",
+      "techStack": ["React Native", "TypeScript", "Firebase", "Redux", "Expo", "Stripe API"],
+      "implementation": [
+        "Developed cross-platform mobile app with React Native and TypeScript",
+        "Integrated Firebase for real-time data synchronization and authentication",
+        "Implemented secure payment processing using Stripe API with PCI compliance",
+        "Created responsive UI components with smooth animations and gestures"
+      ],
+      "liveLink": "https://apps.apple.com/finance-tracker",
+      "githubLink": "https://github.com/username/finance-app",
+      "image": "/images/project5.jpg",
+      "featured": true
+    },
+    {
+      "id": 6,
+      "title": "E-Commerce Dashboard",
+      "category": "Dashboard & Analytics",
+      "shortDescription": "Comprehensive analytics dashboard for e-commerce platforms with real-time insights.",
+      "fullDescription": "A powerful analytics and management dashboard designed for e-commerce businesses, providing real-time insights, inventory management, and sales optimization tools.",
+      "techStack": ["Vue.js", "Node.js", "PostgreSQL", "Chart.js", "Express", "Redis"],
+      "implementation": [
+        "Built responsive dashboard interface with Vue.js and component-based architecture",
+        "Developed high-performance backend with Node.js and PostgreSQL for data processing",
+        "Implemented real-time analytics using WebSockets and Redis for caching",
+        "Created interactive data visualizations with Chart.js and custom D3.js components"
+      ],
+      "liveLink": "https://ecommerce-dashboard-demo.vercel.app",
+      "githubLink": "https://github.com/username/ecommerce-dashboard",
+      "image": "/images/project6.jpg"
+    }
+  ]
+}

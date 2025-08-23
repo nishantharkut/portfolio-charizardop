@@ -1,0 +1,16 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="performance" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a8edea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fed6e3;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#performance)"/>
+  <text x="200" y="130" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#333">Performance</text>
+  <text x="200" y="160" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#333">Optimization</text>
+  <text x="200" y="185" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#333">Champion</text>
+  <polygon points="120,70 130,60 140,70 130,80" fill="rgba(51,51,51,0.3)"/>
+  <polygon points="180,60 195,45 210,60 195,75" fill="rgba(51,51,51,0.4)"/>
+  <polygon points="260,70 270,60 280,70 270,80" fill="rgba(51,51,51,0.3)"/>
+  <text x="200" y="55" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#333">⚡</text>
+</svg>

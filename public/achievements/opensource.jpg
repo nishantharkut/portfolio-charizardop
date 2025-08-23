@@ -1,0 +1,14 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="opensource" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#24292e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0366d6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#opensource)"/>
+  <text x="200" y="130" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="white">Open Source</text>
+  <text x="200" y="160" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white">Community Impact</text>
+  <circle cx="200" cy="80" r="25" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+  <circle cx="200" cy="80" r="15" fill="rgba(255,255,255,0.4)"/>
+  <circle cx="200" cy="80" r="8" fill="rgba(255,255,255,0.8)"/>
+</svg>

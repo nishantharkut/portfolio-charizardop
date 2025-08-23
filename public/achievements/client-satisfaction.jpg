@@ -1,0 +1,17 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="client" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5576c;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#client)"/>
+  <text x="200" y="120" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="white">98%</text>
+  <text x="200" y="150" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="white">Client Satisfaction</text>
+  <text x="200" y="180" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="white">Excellence Standard</text>
+  <polygon points="200,50 205,60 215,60 207,68 210,78 200,73 190,78 193,68 185,60 195,60" fill="#ffcc00"/>
+  <polygon points="170,65 173,70 178,70 175,73 176,78 170,75 164,78 165,73 162,70 167,70" fill="#ffcc00"/>
+  <polygon points="230,65 233,70 238,70 235,73 236,78 230,75 224,78 225,73 222,70 227,70" fill="#ffcc00"/>
+  <polygon points="150,85 153,90 158,90 155,93 156,98 150,95 144,98 145,93 142,90 147,90" fill="#ffcc00"/>
+  <polygon points="250,85 253,90 258,90 255,93 256,98 250,95 244,98 245,93 242,90 247,90" fill="#ffcc00"/>
+</svg>
