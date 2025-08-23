@@ -6,7 +6,6 @@ import { useRef, useEffect, useState, useMemo, useCallback } from 'react';
 import { Environment, PerspectiveCamera, OrbitControls, ContactShadows, useGLTF, useAnimations, AdaptiveDpr, PerformanceMonitor } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import TypewriterRoles from '../ui/RotatingRoles';
-import { useLoading } from '../../contexts/LoadingContext';
 import ErrorBoundary from '../../../components/ErrorBoundary';
 import * as THREE from 'three';
 
@@ -92,10 +91,11 @@ function PerformanceController({ onPerformanceChange }: { onPerformanceChange: (
 }
 
 // Optimized Charizard Model Component with LOD and Performance Features
-function CharizardModel({ capabilities, performanceSettings, onError }: { 
+function CharizardModel({ capabilities, performanceSettings, onError, onModelLoaded }: { 
   capabilities: any, 
   performanceSettings: any,
-  onError?: () => void
+  onError?: () => void,
+  onModelLoaded?: () => void
 }) {
   const group = useRef<THREE.Group>(null!);
   const [modelError, setModelError] = useState(false);
@@ -110,6 +110,7 @@ function CharizardModel({ capabilities, performanceSettings, onError }: {
   const [idleTime, setIdleTime] = useState(0);
   const [hasEntered, setHasEntered] = useState(false);
   const [modelReady, setModelReady] = useState(false);
+  const [isModelLoaded, setIsModelLoaded] = useState(false);
   const { gl, size } = useThree();
   // No longer need setModelLoaded - page loads independently
 
@@ -120,9 +121,11 @@ function CharizardModel({ capabilities, performanceSettings, onError }: {
   useEffect(() => {
     if (scene && !modelReady) {
       setModelReady(true);
+      setIsModelLoaded(true); // Set local loading state
+      onModelLoaded?.(); // Notify parent component
       // Don't call setModelLoaded - let page load independently
     }
-  }, [scene, modelReady]);
+  }, [scene, modelReady, onModelLoaded]);
 
   // No fallback timeout needed - page should load regardless of 3D model
 
@@ -370,6 +373,7 @@ export default function Hero() {
     enableEffects: false
   });
   const [hasCanvasError, setHasCanvasError] = useState(false);
+  const [isModelLoading, setIsModelLoading] = useState(true);
 
   // Update performance settings once client is ready
   useEffect(() => {
@@ -529,6 +533,7 @@ export default function Hero() {
               capabilities={capabilities} 
               performanceSettings={performanceSettings} 
               onError={() => setHasCanvasError(true)}
+              onModelLoaded={() => setIsModelLoading(false)}
             />
             
             {!capabilities.isLowEnd && (
@@ -605,6 +610,34 @@ export default function Hero() {
             {/* RIGHT SIDE - Space for 3D Model (Canvas renders seamlessly behind) */}
             <div className="relative h-64 sm:h-80 lg:h-full flex items-center justify-center pointer-events-none order-1 lg:order-2">
               {/* Canvas renders absolutely positioned behind this space */}
+              
+              {/* 3D Model Loading Indicator - Shows until model is loaded */}
+              {isModelLoading && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="absolute inset-0 flex items-center justify-center z-20"
+                >
+                  <div className="text-center text-white/70">
+                    <motion.div 
+                      className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 bg-orange-500/20 rounded-full flex items-center justify-center"
+                      animate={{ 
+                        scale: [1, 1.1, 1],
+                        rotate: [0, 180, 360]
+                      }}
+                      transition={{ 
+                        duration: 2, 
+                        repeat: Infinity, 
+                        ease: "easeInOut" 
+                      }}
+                    >
+                      <div className="w-6 h-6 md:w-8 md:h-8 bg-orange-500 rounded animate-pulse"></div>
+                    </motion.div>
+                    <p className="text-xs md:text-sm font-medium">Loading 3D Model...</p>
+                  </div>
+                </motion.div>
+              )}
             </div>
           </div>
         </div>
