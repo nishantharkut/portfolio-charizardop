@@ -115,7 +115,7 @@ const ConceptIcon: React.FC<{ text: string; className?: string }> = ({ text, cla
 const AboutMeContent: React.FC = () => {
   const stats = aboutData.stats;
   const router = useRouter();
-  const { theme } = useTheme();
+  const { actualTheme } = useTheme();
 
   const handleViewAbout = () => {
     router.push('/about');
@@ -127,7 +127,7 @@ const AboutMeContent: React.FC = () => {
       <div className="flex items-center gap-3 mb-3">
         <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 flex items-center justify-center shadow-lg overflow-hidden">
           <Image
-            src={theme === 'light' ? "/nishantharkut-logo-lightbg.png" : "/nishantharkut-logo.png"}
+            src={actualTheme === 'light' ? "/nishantharkut-logo-lightbg.png" : "/nishantharkut-logo.png"}
             alt="Nishant Arkut Logo"
             width={40}
             height={40}

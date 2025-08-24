@@ -44,7 +44,7 @@ export default function AboutPage() {
   const interests = getInterests();
   const timeline = getTimeline();
   const { reloadWithTransition } = usePageReload();
-  const { theme } = useTheme();
+  const { actualTheme } = useTheme();
   const [floatingElements, setFloatingElements] = useState<Array<{left: number, top: number, delay: number, xOffset: number, duration: number}>>([]);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -93,7 +93,7 @@ export default function AboutPage() {
             tint="#ff8c42"
             mouseReact={true}
             mouseStrength={0.3}
-            brightness={theme === 'light' ? 0.3 : 0.7}
+            brightness={actualTheme === 'light' ? 0.3 : 0.7}
           />
         </div>
         {/* Floating Elements */}
