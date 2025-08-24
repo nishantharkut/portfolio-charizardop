@@ -1152,7 +1152,6 @@ const MagicBento: React.FC<BentoProps> = ({
 }) => {
   const gridRef = useRef<HTMLDivElement>(null);
   const isMobile = useMobileDetection();
-  const { theme } = useTheme();
   const shouldDisableAnimations = disableAnimations || isMobile;
 
   return (
