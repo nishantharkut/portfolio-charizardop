@@ -3,14 +3,13 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useTheme } from '../../../contexts/ThemeContext';
 import { getNavigationLinks } from '../../../data';
+import Logo from '../ui/Logo';
 
 export default function Navbar() {
   const links = getNavigationLinks();
-  const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { actualTheme, toggleTheme } = useTheme();
   const pathname = usePathname();
@@ -34,12 +33,6 @@ export default function Navbar() {
     }
   };
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
   return (
     <>
       {/* Desktop Navbar */}
@@ -55,14 +48,7 @@ export default function Navbar() {
             className="flex items-center justify-center w-10 xl:w-12 h-10 xl:h-12 glass-button text-xs xl:text-sm font-semibold tracking-widest hover:scale-105 transition-transform duration-300 overflow-hidden"
             style={{ color: 'var(--color-text)' }}
           >
-            <Image
-              src={actualTheme === 'light' ? "/nishantharkut-logo-lightbg.png" : "/nishantharkut-logo.png"}
-              alt="Nishant Arkut Logo"
-              width={40}
-              height={40}
-              className="w-full h-full object-contain"
-              priority
-            />
+            <Logo width={40} height={40} priority />
           </Link>
           
           <div className="flex-1 flex items-center justify-center gap-6 xl:gap-8 text-xs xl:text-[13px]">
@@ -139,14 +125,7 @@ export default function Navbar() {
             className="flex items-center justify-center w-10 h-10 glass-button text-xs font-semibold tracking-widest hover:scale-105 transition-transform duration-300 overflow-hidden"
             style={{ color: 'var(--color-text)' }}
           >
-            <Image
-              src={actualTheme === 'light' ? "/nishantharkut-logo-lightbg.png" : "/nishantharkut-logo.png"}
-              alt="Nishant Arkut Logo"
-              width={40}
-              height={40}
-              className="w-full h-full object-contain"
-              priority
-            />
+            <Logo width={40} height={40} priority />
           </Link>
 
           <div className="flex items-center gap-2">

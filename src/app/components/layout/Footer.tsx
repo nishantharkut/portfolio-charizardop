@@ -2,11 +2,11 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import Image from 'next/image';
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram } from 'react-icons/fa';
 import { HiMail } from 'react-icons/hi';
 import { getFooterNavigationSections, getSocialLinks } from '../../../data';
 import { useTheme } from '../../../contexts/ThemeContext';
+import Logo from '../ui/Logo';
 
 // Icon mapping for social links
 const socialIconMap = {
@@ -19,7 +19,6 @@ const socialIconMap = {
 export default function Footer() {
   const navigationSections = getFooterNavigationSections();
   const socialLinks = getSocialLinks();
-  const { actualTheme } = useTheme();
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
 
@@ -185,13 +184,7 @@ export default function Footer() {
             
             {/* Logo Circle */}
             <div className="w-8 h-8 bg-gradient-to-br from-orange-600 to-orange-700 rounded-full flex items-center justify-center overflow-hidden">
-              <Image
-                src={actualTheme === 'light' ? "/nishantharkut-logo-lightbg.png" : "/nishantharkut-logo.png"}
-                alt="Nishant Arkut Logo"
-                width={32}
-                height={32}
-                className="w-full h-full object-contain p-1"
-              />
+              <Logo width={32} height={32} className="w-full h-full object-contain p-1" />
             </div>
             
             {/* Social Icons */}

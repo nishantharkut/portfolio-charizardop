@@ -18,7 +18,6 @@ import {
   ChevronRightIcon,
   EllipsisHorizontalIcon
 } from "@heroicons/react/24/outline";
-import Image from "next/image";
 import { 
   SiGithub, 
   SiLinkedin, 
@@ -27,6 +26,7 @@ import {
   SiCodechef 
 } from "react-icons/si";
 import LogoLoop from "./LogoLoop";
+import Logo from "./Logo";
 // Import additional icons for more tech stacks
 import { 
   SiReact, 
@@ -115,7 +115,6 @@ const ConceptIcon: React.FC<{ text: string; className?: string }> = ({ text, cla
 const AboutMeContent: React.FC = () => {
   const stats = aboutData.stats;
   const router = useRouter();
-  const { actualTheme } = useTheme();
 
   const handleViewAbout = () => {
     router.push('/about');
@@ -126,13 +125,7 @@ const AboutMeContent: React.FC = () => {
       {/* Header with avatar */}
       <div className="flex items-center gap-3 mb-3">
         <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 flex items-center justify-center shadow-lg overflow-hidden">
-          <Image
-            src={actualTheme === 'light' ? "/nishantharkut-logo-lightbg.png" : "/nishantharkut-logo.png"}
-            alt="Nishant Arkut Logo"
-            width={40}
-            height={40}
-            className="w-full h-full object-contain p-1"
-          />
+          <Logo width={40} height={40} className="w-full h-full object-contain p-1" />
         </div>
         <div className="flex-1">
           <h3 className="text-sm md:text-base font-bold text-white group-hover:text-orange-400 transition-colors">Nishant Harkut</h3>
