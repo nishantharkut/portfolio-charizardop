@@ -12,9 +12,9 @@
   "categories": ["portfolio", "developer", "technology"],
   "icons": [
     {
-      "src": "/favicon.ico",
-      "sizes": "16x16 32x32 48x48",
-      "type": "image/x-icon"
+      "src": "/nishantharkut-logo.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png"
     }
   ],
   "screenshots": [
@@ -41,7 +41,7 @@
       "url": "/#projects",
       "icons": [
         {
-          "src": "/favicon.ico",
+          "src": "/nishantharkut-logo.png",
           "sizes": "96x96"
         }
       ]
@@ -53,7 +53,7 @@
       "url": "/#about",
       "icons": [
         {
-          "src": "/favicon.ico",
+          "src": "/nishantharkut-logo.png",
           "sizes": "96x96"
         }
       ]
@@ -65,7 +65,7 @@
       "url": "/#contact",
       "icons": [
         {
-          "src": "/favicon.ico",
+          "src": "/nishantharkut-logo.png",
           "sizes": "96x96"
         }
       ]

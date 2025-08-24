@@ -39,6 +39,13 @@
   --shadow-color: rgba(0, 0, 0, 0.4);
   --shadow-accent: rgba(255, 140, 66, 0.2);
   
+  /* Neubrutalism shadows - whitish for dark mode */
+  --shadow-neubrutalism: rgba(255, 255, 255, 0.7);
+  --shadow-neubrutalism-hover: rgba(255, 255, 255, 0.3);
+  --shadow-neubrutalism-small: rgba(255, 255, 255, 0.6);
+  --shadow-neubrutalism-medium: rgba(255, 255, 255, 0.5);
+  --shadow-neubrutalism-hover-small: rgba(255, 255, 255, 0.2);
+  
   /* Status colors */
   --color-success: #4ade80;
   --color-warning: #fbbf24;
@@ -48,6 +55,31 @@
   /* Grid overlay */
   --grid-color: 255 140 66;
   --grid-opacity: 0.04;
+}
+
+/* Neubrutalism utility classes */
+.neubrutalism-card {
+  border-width: 4px;
+  border-color: var(--color-accent);
+  box-shadow: 8px 8px 0px 0px var(--shadow-neubrutalism);
+  transition: all 0.3s ease;
+}
+
+.neubrutalism-card:hover {
+  box-shadow: 4px 4px 0px 0px var(--shadow-neubrutalism-hover);
+  transform: translate(4px, 4px);
+}
+
+.neubrutalism-button {
+  border-width: 4px;
+  border-color: var(--color-accent);
+  box-shadow: 6px 6px 0px 0px var(--shadow-neubrutalism);
+  transition: all 0.3s ease;
+}
+
+.neubrutalism-button:hover {
+  box-shadow: 3px 3px 0px 0px var(--shadow-neubrutalism-hover);
+  transform: translate(3px, 3px);
 }
 
 /* Performance optimizations - Hardware acceleration for key elements */
@@ -108,6 +140,13 @@
   --color-glass-highlight: rgba(255, 255, 255, 0.95);
   --shadow-color: rgba(45, 45, 45, 0.1);
   --shadow-accent: rgba(230, 116, 41, 0.15);
+  
+  /* Neubrutalism shadows - dark for light mode */
+  --shadow-neubrutalism: rgba(0, 0, 0, 1);
+  --shadow-neubrutalism-hover: rgba(0, 0, 0, 1);
+  --shadow-neubrutalism-small: rgba(0, 0, 0, 1);
+  --shadow-neubrutalism-medium: rgba(0, 0, 0, 1);
+  --shadow-neubrutalism-hover-small: rgba(0, 0, 0, 1);
   
   /* Status colors for light mode */
   --color-success: #22c55e;

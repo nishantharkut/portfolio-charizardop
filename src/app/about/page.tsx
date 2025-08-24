@@ -128,15 +128,19 @@ export default function AboutPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-center lg:text-left"
           >
-            {/* Badge */}
+            {/* Neubrutalism Badge */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="inline-flex items-center gap-2 glass-card px-4 py-2 mb-8"
+              className="inline-flex items-center gap-2 px-4 py-2 mb-8 neubrutalism-button"
+              style={{
+                backgroundColor: 'var(--color-surface)',
+                borderColor: 'var(--color-accent)',
+              }}
             >
               <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--color-accent)' }}></div>
-              <span className="text-sm font-medium" style={{ color: 'var(--color-text)' }}>Creative Technologist</span>
+              <span className="text-sm font-black uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>Creative Technologist</span>
             </motion.div>
 
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 drop-shadow-2xl" style={{ color: 'var(--color-text)' }}>
@@ -183,8 +187,12 @@ export default function AboutPage() {
             >
               <Link 
                 href="/"
-                className="inline-flex items-center gap-2 glass-button px-6 py-3 transition-colors duration-300"
-                style={{ color: 'var(--color-text)' }}
+                className="inline-flex items-center gap-2 px-6 py-3 neubrutalism-button font-black uppercase tracking-wide"
+                style={{ 
+                  backgroundColor: 'var(--color-surface)',
+                  borderColor: 'var(--color-accent)',
+                  color: 'var(--color-text)'
+                }}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -193,8 +201,7 @@ export default function AboutPage() {
               </Link>
               <a 
                 href="#who-i-am"
-                className="inline-flex items-center gap-2 glass-button bg-orange-500/20 border-orange-500/30 px-6 py-3 transition-colors duration-300"
-                style={{ color: 'var(--color-text)' }}
+                className="inline-flex items-center gap-2 px-6 py-3 neubrutalism-button border-orange-500 bg-orange-500 text-black font-black uppercase tracking-wide"
               >
                 Learn More
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -250,7 +257,7 @@ export default function AboutPage() {
             <div className="w-24 h-1 mx-auto mb-8" style={{ background: 'var(--color-accent-gradient)' }}></div>
           </motion.div>
 
-          {/* Who I Am Content - Unified Layout */}
+          {/* Who I Am Content - Neubrutalism Layout */}
           <div className="space-y-8">
             {aboutData.aboutSections.map((section, index) => (
               <motion.div
@@ -259,23 +266,37 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="glass-card p-6 md:p-8"
+                className="h-full"
               >
-                <h3 className="text-xl md:text-2xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>{section.title}</h3>
-                {section.content.map((paragraph, pIndex) => (
-                  <p key={pIndex} className="leading-relaxed mb-4 text-sm md:text-base" style={{ color: 'var(--color-text-secondary)' }}>
-                    {paragraph.split(/(\*\*.*?\*\*)/).map((part, partIndex) => {
-                      if (part.startsWith('**') && part.endsWith('**')) {
-                        return (
-                          <span key={partIndex} className="text-orange-500 font-medium">
-                            {part.slice(2, -2)}
-                          </span>
-                        );
-                      }
-                      return part;
-                    })}
-                  </p>
-                ))}
+                {/* Neubrutalism About Section Card */}
+                <div className="relative w-full min-h-[280px] neubrutalism-card"
+                  style={{
+                    backgroundColor: 'var(--color-surface)',
+                    borderColor: 'var(--color-accent)',
+                  }}
+                >
+                  <div className="p-6 md:p-8 h-full flex flex-col">
+                    <h3 className="text-xl md:text-2xl font-black mb-4 uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
+                      {section.title}
+                    </h3>
+                    <div className="flex-1">
+                      {section.content.map((paragraph, pIndex) => (
+                        <p key={pIndex} className="leading-relaxed mb-4 text-sm md:text-base font-medium" style={{ color: 'var(--color-text-secondary)' }}>
+                          {paragraph.split(/(\*\*.*?\*\*)/).map((part, partIndex) => {
+                            if (part.startsWith('**') && part.endsWith('**')) {
+                              return (
+                                <span key={partIndex} className="text-orange-500 font-black">
+                                  {part.slice(2, -2)}
+                                </span>
+                              );
+                            }
+                            return part;
+                          })}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </motion.div>
             ))}
 
@@ -289,15 +310,18 @@ export default function AboutPage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link 
                   href="/projects"
-                  className="glass-button px-8 py-3 transition-colors duration-300"
-                  style={{ color: 'var(--color-text)' }}
+                  className="px-8 py-3 neubrutalism-button font-black uppercase tracking-wide"
+                  style={{ 
+                    backgroundColor: 'var(--color-surface)',
+                    borderColor: 'var(--color-accent)',
+                    color: 'var(--color-text)'
+                  }}
                 >
                   Explore My Work
                 </Link>
                 <Link 
                   href="/experience"
-                  className="glass-button px-8 py-3 transition-colors duration-300"
-                  style={{ color: 'var(--color-text)' }}
+                  className="px-8 py-3 neubrutalism-button border-orange-500 bg-orange-500 text-black font-black uppercase tracking-wide"
                 >
                   View Experience
                 </Link>
@@ -333,30 +357,29 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="h-full"
               >
-                <StarBorder
-                  as="div"
-                  className="w-full h-[280px]"
-                  color="#ff8c42"
-                  speed="6s"
+                {/* Neubrutalism Skills Card */}
+                <div className="relative w-full h-[280px] neubrutalism-card"
                   style={{
-                    backdropFilter: 'blur(20px)',
-                    border: '1px solid var(--color-border)',
-                    backgroundColor: 'var(--color-glass-bg)',
+                    backgroundColor: 'var(--color-surface)',
+                    borderColor: 'var(--color-accent)',
                   }}
                 >
                   <div className="p-6 h-full flex flex-col">
-                    <h3 className="text-xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>{skill.category}</h3>
+                    <h3 className="text-xl font-black mb-4 uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
+                      {skill.category}
+                    </h3>
                     
                     {/* Progress Bar */}
                     <div className="mb-4">
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm" style={{ color: 'var(--color-text-muted)' }}>Proficiency</span>
-                        <span className="text-sm text-orange-500 font-semibold">{skill.level}%</span>
+                        <span className="text-sm font-black uppercase tracking-wide" style={{ color: 'var(--color-text-muted)' }}>Proficiency</span>
+                        <span className="text-sm text-orange-500 font-black">{skill.level}%</span>
                       </div>
-                      <div className="w-full rounded-full h-2" style={{ backgroundColor: 'var(--color-surface)' }}>
+                      <div className="w-full h-3 border-2 border-black" style={{ backgroundColor: 'var(--color-surface)' }}>
                         <motion.div 
-                          className="bg-gradient-to-r from-[#ff9a1c] to-[#ff6b35] h-2 rounded-full"
+                          className="bg-gradient-to-r from-[#ff9a1c] to-[#ff6b35] h-full border-r-2 border-black"
                           initial={{ width: 0 }}
                           whileInView={{ width: `${skill.level}%` }}
                           viewport={{ once: true }}
@@ -367,17 +390,17 @@ export default function AboutPage() {
 
                     {/* Technologies */}
                     <div className="flex-1">
-                      <h4 className="text-sm mb-3 uppercase tracking-wide" style={{ color: 'var(--color-text-muted)' }}>Technologies</h4>
+                      <h4 className="text-sm mb-3 font-black uppercase tracking-wider" style={{ color: 'var(--color-text-muted)' }}>Technologies</h4>
                       <div className="flex flex-wrap gap-2">
                         {skill.technologies.map((tech, i) => (
-                          <span key={i} className="px-2 py-1 bg-orange-500/20 text-orange-500 text-xs rounded-full">
+                          <span key={i} className="px-2 py-1 border-2 border-orange-500 bg-orange-500/20 text-orange-500 text-xs font-black hover:bg-orange-500 hover:text-black transition-all duration-300 shadow-[var(--shadow-neubrutalism-medium)] hover:shadow-[var(--shadow-neubrutalism-hover-small)] hover:translate-x-[1px] hover:translate-y-[1px] uppercase tracking-wide">
                             {tech}
                           </span>
                         ))}
                       </div>
                     </div>
                   </div>
-                </StarBorder>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -422,12 +445,26 @@ export default function AboutPage() {
                 {/* Timeline Dot */}
                 <div className="absolute left-3 md:left-1/2 md:-translate-x-1/2 w-3 h-3 bg-orange-500 rounded-full border-4" style={{ borderColor: 'var(--color-bg-start)' }} />
 
-                <div className="glass-card p-6">
-                  <div className="flex items-center gap-4 mb-3">
-                    <span className="text-2xl font-bold text-orange-500">{item.year}</span>
-                    <h3 className="text-xl font-bold" style={{ color: 'var(--color-text)' }}>{item.title}</h3>
+                {/* Neubrutalism Timeline Card */}
+                <div className="relative w-full min-h-[160px] neubrutalism-card"
+                  style={{
+                    backgroundColor: 'var(--color-surface)',
+                    borderColor: 'var(--color-accent)',
+                  }}
+                >
+                  <div className="p-6 h-full flex flex-col justify-center">
+                    <div className="flex items-center gap-4 mb-3">
+                      <span className="text-2xl font-black text-orange-500 bg-black px-3 py-1 border-2 border-orange-500 shadow-[var(--shadow-neubrutalism)]">
+                        {item.year}
+                      </span>
+                      <h3 className="text-xl font-black uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
+                        {item.title}
+                      </h3>
+                    </div>
+                    <p className="font-medium" style={{ color: 'var(--color-text-secondary)' }}>
+                      {item.description}
+                    </p>
                   </div>
-                  <p style={{ color: 'var(--color-text-secondary)' }}>{item.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -463,26 +500,27 @@ export default function AboutPage() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="h-full"
                 >
-                  <StarBorder
-                    as="div"
-                    className="w-full h-[200px]"
-                    color="#ff8c42"
-                    speed="6s"
+                  {/* Neubrutalism Interests Card */}
+                  <div className="relative w-full h-[200px] neubrutalism-card"
                     style={{
-                      backdropFilter: 'blur(20px)',
-                      border: '1px solid var(--color-border)',
-                      backgroundColor: 'var(--color-glass-bg)',
+                      backgroundColor: 'var(--color-surface)',
+                      borderColor: 'var(--color-accent)',
                     }}
                   >
                     <div className="p-6 h-full flex flex-col items-center justify-center text-center">
                       <div className="text-4xl mb-4 text-orange-500">
                         {IconComponent && <IconComponent />}
                       </div>
-                      <h3 className="text-lg font-bold mb-3" style={{ color: 'var(--color-text)' }}>{interest.title}</h3>
-                      <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>{interest.description}</p>
+                      <h3 className="text-lg font-black mb-3 uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
+                        {interest.title}
+                      </h3>
+                      <p className="text-sm font-medium line-clamp-3" style={{ color: 'var(--color-text-secondary)' }}>
+                        {interest.description}
+                      </p>
                     </div>
-                  </StarBorder>
+                  </div>
                 </motion.div>
               );
             })}
@@ -508,21 +546,29 @@ export default function AboutPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
                 href="/projects"
-                className="glass-button px-8 py-3 transition-colors duration-300"
-                style={{ color: 'var(--color-text)' }}
+                className="px-8 py-3 neubrutalism-button font-black uppercase tracking-wide"
+                style={{ 
+                  backgroundColor: 'var(--color-surface)',
+                  borderColor: 'var(--color-accent)',
+                  color: 'var(--color-text)'
+                }}
               >
                 View My Work
               </Link>
               <a 
                 href="#contact"
-                className="glass-button px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white transition-colors duration-300"
+                className="px-8 py-3 neubrutalism-button"
               >
                 Get In Touch
               </a>
               <button 
                 onClick={reloadWithTransition}
-                className="glass-button px-6 py-3 transition-colors duration-300 border border-orange-500/30 hover:border-orange-500/50"
-                style={{ color: 'var(--color-accent)' }}
+                className="px-6 py-3 neubrutalism-button"
+                style={{ 
+                  backgroundColor: 'var(--color-surface)',
+                  borderColor: 'var(--color-accent)',
+                  color: 'var(--color-accent)'
+                }}
               >
                 🔄 Test Reload
               </button>

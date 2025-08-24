@@ -22,6 +22,7 @@ interface SplashCursorProps {
   COLOR_UPDATE_SPEED?: number;
   BACK_COLOR?: ColorRGB;
   TRANSPARENT?: boolean;
+  onError?: () => void;
 }
 
 interface Pointer {
@@ -66,7 +67,8 @@ export default function SplashCursor({
   SHADING = true,
   COLOR_UPDATE_SPEED = 10,
   BACK_COLOR = { r: 0.05, g: 0.02, b: 0.01 }, // Warm dark background to complement orange/yellow
-  TRANSPARENT = true
+  TRANSPARENT = true,
+  onError
 }: SplashCursorProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -882,32 +884,40 @@ export default function SplashCursor({
     }
 
     function initFramebuffers() {
-      const simRes = getResolution(config.SIM_RESOLUTION!);
-      const dyeRes = getResolution(config.DYE_RESOLUTION!);
+      try {
+        const simRes = getResolution(config.SIM_RESOLUTION!);
+        const dyeRes = getResolution(config.DYE_RESOLUTION!);
 
-      const texType = ext.halfFloatTexType;
-      const rgba = ext.formatRGBA;
-      const rg = ext.formatRG;
-      const r = ext.formatR;
-      const filtering = ext.supportLinearFiltering ? gl.LINEAR : gl.NEAREST;
-      gl.disable(gl.BLEND);
+        const texType = ext.halfFloatTexType;
+        const rgba = ext.formatRGBA;
+        const rg = ext.formatRG;
+        const r = ext.formatR;
+        
+        // Check if required formats are available
+        if (!rgba || !rgba.internalFormat || !rg || !rg.internalFormat || !r || !r.internalFormat) {
+          console.warn('SplashCursor: Required WebGL formats not available, skipping initialization');
+          return;
+        }
+        
+        const filtering = ext.supportLinearFiltering ? gl.LINEAR : gl.NEAREST;
+        gl.disable(gl.BLEND);
 
-      if (!dye) {
-        dye = createDoubleFBO(
-          dyeRes.width,
-          dyeRes.height,
-          rgba.internalFormat,
-          rgba.format,
-          texType,
-          filtering
-        );
-      } else {
-        dye = resizeDoubleFBO(
-          dye,
-          dyeRes.width,
-          dyeRes.height,
-          rgba.internalFormat,
-          rgba.format,
+        if (!dye) {
+          dye = createDoubleFBO(
+            dyeRes.width,
+            dyeRes.height,
+            rgba.internalFormat,
+            rgba.format,
+            texType,
+            filtering
+          );
+        } else {
+          dye = resizeDoubleFBO(
+            dye,
+            dyeRes.width,
+            dyeRes.height,
+            rgba.internalFormat,
+            rgba.format,
           texType,
           filtering
         );
@@ -958,6 +968,15 @@ export default function SplashCursor({
         texType,
         gl.NEAREST
       );
+    } catch (error) {
+      console.error('SplashCursor: Failed to initialize framebuffers:', error);
+      // Call error callback if provided
+      if (onError) {
+        onError();
+      }
+      // Gracefully handle the error by not initializing the effect
+      return;
+    }
     }
 
     function updateKeywords() {
@@ -985,14 +1004,36 @@ export default function SplashCursor({
     }
 
     updateKeywords();
-    initFramebuffers();
+    
+    // Safely initialize framebuffers with error handling
+    try {
+      initFramebuffers();
+    } catch (error) {
+      console.error('SplashCursor: Failed to initialize, WebGL may not be supported:', error);
+      // Call error callback if provided
+      if (onError) {
+        onError();
+      }
+      return; // Exit early if initialization fails
+    }
 
     let lastUpdateTime = Date.now();
     let colorUpdateTimer = 0.0;
 
     function updateFrame() {
       const dt = calcDeltaTime();
-      if (resizeCanvas()) initFramebuffers();
+      if (resizeCanvas()) {
+        try {
+          initFramebuffers();
+        } catch (error) {
+          console.error('SplashCursor: Failed to reinitialize framebuffers on resize:', error);
+          // Call error callback if provided
+          if (onError) {
+            onError();
+          }
+          return; // Skip this frame if reinitialization fails
+        }
+      }
       updateColors(dt);
       applyInputs();
       step(dt);

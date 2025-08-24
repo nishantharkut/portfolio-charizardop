@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import Image from 'next/image';
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram } from 'react-icons/fa';
 import { HiMail } from 'react-icons/hi';
 import { getFooterNavigationSections, getSocialLinks } from '../../../data';
@@ -31,23 +32,23 @@ export default function Footer() {
 
   return (
     <footer className="relative overflow-hidden">
-      {/* Main Footer Section */}
-      <div className="bg-yellow-400 text-black py-12 px-4 sm:px-6 lg:px-8 relative">
+      {/* Main Footer Section - Combined with Name Section */}
+      <div className="bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 text-white relative">
         
         {/* Grid Background Pattern */}
         <div className="absolute inset-0">
-          <div className="grid grid-cols-12 sm:grid-cols-24 lg:grid-cols-36 h-full opacity-20">
+          <div className="grid grid-cols-12 sm:grid-cols-24 lg:grid-cols-36 h-full opacity-5">
             {Array.from({ length: 72 }).map((_, i) => (
-              <div key={i} className="border-r border-black/30"></div>
+              <div key={i} className="border-r border-orange-500/10"></div>
             ))}
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-12">
+        <div className="max-w-7xl mx-auto relative z-10 py-12 px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row items-start justify-between gap-12 lg:gap-20">
             
             {/* Contact Section */}
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 lg:min-w-[300px]">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -72,12 +73,12 @@ export default function Footer() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="EMAIL"
-                      className="flex-1 bg-white text-black px-3 py-2 font-bold text-sm placeholder-black/60 border border-black outline-none"
+                      className="flex-1 bg-white/10 text-white px-3 py-2 font-bold text-sm placeholder-white/60 border border-white/20 outline-none focus:border-orange-500/50 backdrop-blur-sm"
                       required
                     />
                     <button
                       type="submit"
-                      className="bg-white text-black px-4 py-2 font-bold text-sm border border-l-0 border-black hover:bg-gray-100 transition-colors"
+                      className="bg-orange-600 text-white px-4 py-2 font-bold text-sm border border-l-0 border-orange-600 hover:bg-orange-700 transition-colors"
                     >
                       OK
                     </button>
@@ -88,7 +89,7 @@ export default function Footer() {
                   <motion.p
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-sm font-bold text-green-800"
+                    className="text-sm font-bold text-green-400"
                   >
                     ✓ Thanks! I'll be in touch soon.
                   </motion.p>
@@ -136,11 +137,9 @@ export default function Footer() {
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Large Name Section - Dominant */}
-      <div className="bg-yellow-400 py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Large Name Section - Integrated within same background */}
+        <div className="max-w-7xl mx-auto relative z-10 px-4 sm:px-6 lg:px-8 mt-16">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -151,31 +150,31 @@ export default function Footer() {
             
             {/* Large Brand Text */}
             <div className="flex-1">
-              <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] 2xl:text-[12rem] font-black text-black leading-none tracking-tighter">
+              <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] 2xl:text-[12rem] font-black text-white leading-none tracking-tighter">
                 NISHANT
               </h1>
             </div>
 
             {/* Right Side Info - Compact */}
             <div className="flex flex-col items-end text-right space-y-2">
-              <p className="text-sm font-bold">
+              <p className="text-sm font-bold text-white/90">
                 Open to work & collaborations
               </p>
               
-              <p className="text-xs font-bold">
+              <p className="text-xs font-bold text-white/70">
                 © {new Date().getFullYear()} Nishant. All Rights Reserved
               </p>
               
               <a 
                 href="#contact"
-                className="bg-black text-yellow-400 px-4 py-2 text-xs font-bold hover:bg-gray-800 transition-colors inline-block mt-2"
+                className="bg-orange-600 text-white px-4 py-2 text-xs font-bold hover:bg-orange-700 transition-colors inline-block mt-2"
               >
                 HIRE ME
               </a>
             </div>
           </motion.div>
         </div>
-      </div>
+        </div>
 
       {/* Social Icons Bottom Bar - Minimal */}
       <div className="bg-black py-3">
@@ -183,8 +182,14 @@ export default function Footer() {
           <div className="flex items-center justify-between">
             
             {/* Logo Circle */}
-            <div className="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
-              <span className="text-black font-black text-sm">N</span>
+            <div className="w-8 h-8 bg-gradient-to-br from-orange-600 to-orange-700 rounded-full flex items-center justify-center overflow-hidden">
+              <Image
+                src="/nishantharkut-logo.png"
+                alt="Nishant Arkut Logo"
+                width={32}
+                height={32}
+                className="w-full h-full object-contain p-1"
+              />
             </div>
             
             {/* Social Icons */}
@@ -197,7 +202,7 @@ export default function Footer() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-yellow-400 hover:text-yellow-300 transition-colors"
+                    className="text-white/70 hover:text-orange-500 transition-colors"
                     aria-label={link.label}
                   >
                     <div className="w-5 h-5">

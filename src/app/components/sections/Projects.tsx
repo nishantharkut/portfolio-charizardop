@@ -79,12 +79,17 @@ const Projects = () => {
       // Calculate scroll distance based on actual content width
       const containerWidth = container.offsetWidth;
       const totalWidth = projectFlex.scrollWidth;
-      const scrollDistance = totalWidth - containerWidth;
+      
+      // Add extra space to ensure the "View All Projects" card is properly centered/visible
+      // This ensures the last card is positioned at center or slightly right of center
+      const extraSpace = containerWidth * 0.3; // 30% of container width for better positioning
+      const scrollDistance = totalWidth - containerWidth + extraSpace;
       
       console.log('Projects: Creating horizontal scroll animation', {
         containerWidth,
         totalWidth,
         scrollDistance,
+        extraSpace,
         projectCount: projectBoxes.length
       });
 

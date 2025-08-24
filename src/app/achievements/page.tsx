@@ -116,27 +116,56 @@ export default function AchievementsPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.4 + index * 0.2 }}
-              className="text-center glass-card px-4 py-4 hover:bg-orange-500/10 transition-all duration-300 group cursor-pointer"
+              className="cursor-pointer"
             >
-              <motion.div 
-                className="text-2xl mb-2"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                transition={{ duration: 0.2 }}
+              {/* Neubrutalism Floating Achievement Card */}
+              <div className="relative w-[140px] h-[160px] border-4 border-black transition-all duration-300 shadow-[var(--shadow-neubrutalism)] hover:shadow-[var(--shadow-neubrutalism-hover)] hover:translate-x-[3px] hover:translate-y-[3px] flex flex-col text-center"
+                style={{
+                  backgroundColor: 'var(--color-surface)',
+                }}
               >
-                {achievement.icon}
-              </motion.div>
-              <div className="text-sm font-semibold mb-1 group-hover:text-orange-400 transition-colors" style={{ color: 'var(--color-text)' }}>
-                {achievement.title}
+                {/* Icon Section - FIXED HEIGHT */}
+                <div className="p-3 border-b-4 border-black h-[70px] flex items-center justify-center flex-shrink-0">
+                  <motion.div 
+                    className="text-2xl"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {achievement.icon}
+                  </motion.div>
+                </div>
+                
+                {/* Content Section - FLEXIBLE */}
+                <div className="p-3 flex-1 flex flex-col justify-center">
+                  {/* Title - FIXED HEIGHT */}
+                  <div className="h-[35px] mb-1">
+                    <div className="text-sm font-black uppercase tracking-tight leading-tight line-clamp-2" style={{ color: 'var(--color-text)' }}>
+                      {achievement.title}
+                    </div>
+                  </div>
+                  
+                  {/* Subtitle - FIXED HEIGHT */}
+                  <div className="h-[20px] mb-2">
+                    <p className="text-xs font-medium line-clamp-1" style={{ color: 'var(--color-text-secondary)' }}>
+                      {achievement.subtitle}
+                    </p>
+                  </div>
+                  
+                  {/* Year Badge - FIXED HEIGHT */}
+                  <div className="h-[20px] flex justify-center">
+                    <div className="bg-orange-400 border-2 border-black px-2 py-0.5 text-xs font-black shadow-[var(--shadow-neubrutalism-small)] uppercase tracking-wide">
+                      {achievement.year}
+                    </div>
+                  </div>
+                </div>
               </div>
-              <p className="text-xs mb-1" style={{ color: 'var(--color-text-secondary)' }}>{achievement.subtitle}</p>
-              <div className="text-xs text-orange-500 font-medium">{achievement.year}</div>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* Featured Achievements */}
-      <section id="achievements" className="relative z-10 py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
+      <section id="achievements" className="relative z-10 py-20 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -163,10 +192,15 @@ export default function AchievementsPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <div className="glass-card p-0 overflow-hidden">
-                  <div className="flex flex-col lg:grid lg:grid-cols-5 lg:gap-0">
+                {/* Neubrutalism Featured Achievement Card */}
+                <div className="relative neubrutalism-card overflow-hidden"
+                  style={{
+                    backgroundColor: 'var(--color-surface)',
+                  }}
+                >
+                  <div className="flex flex-col lg:grid lg:grid-cols-5 lg:gap-0 h-full">
                     {/* Image Section */}
-                    <div className="relative h-64 sm:h-72 lg:h-96 lg:col-span-2">
+                    <div className="relative h-64 sm:h-72 lg:h-96 lg:col-span-2 border-b-4 lg:border-b-0 lg:border-r-4 border-black">
                       <Image
                         src={achievement.image}
                         alt={achievement.title}
@@ -175,51 +209,50 @@ export default function AchievementsPage() {
                         sizes="(max-width: 1024px) 100vw, 40vw"
                         priority={index === 0}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-black/30"></div>
                       <div className="absolute top-4 left-4 text-3xl sm:text-4xl z-10 drop-shadow-lg">
                         {achievement.badge}
                       </div>
-                      <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-2 rounded-full text-sm font-semibold shadow-lg z-10">
-                        Featured
+                      <div className="absolute top-4 right-4 bg-yellow-400 border-2 border-black px-3 py-2 font-black text-black text-sm shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide z-10">
+                        FEATURED
                       </div>
                     </div>
 
                     {/* Content Section */}
                     <div className="p-6 sm:p-8 lg:p-10 lg:col-span-3 flex flex-col justify-center">
                       <div className="mb-4">
-                        <p className="text-orange-500 text-sm uppercase tracking-wider font-semibold mb-2">
+                        <p className="text-orange-500 text-sm uppercase tracking-wider font-black mb-2">
                           {achievement.category}
                         </p>
-                        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 leading-tight" style={{ color: 'var(--color-text)' }}>
+                        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight mb-4 leading-tight" style={{ color: 'var(--color-text)' }}>
                           {achievement.title}
                         </h3>
                       </div>
                       
-                      <p className="text-base sm:text-lg mb-6 leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
+                      <p className="text-base sm:text-lg mb-6 leading-relaxed font-medium" style={{ color: 'var(--color-text-secondary)' }}>
                         {achievement.description}
                       </p>
                       
                       <div className="space-y-4 mb-6">
-                        <h4 className="font-semibold text-sm uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
-                          Key Impact
+                        <h4 className="font-black text-sm uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
+                          KEY IMPACT
                         </h4>
                         <ul className="space-y-3">
                           {achievement.impact.slice(0, 3).map((impact, i) => (
-                            <li key={i} className="flex items-start gap-3 text-sm sm:text-base" style={{ color: 'var(--color-text-secondary)' }}>
-                              <span className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></span>
+                            <li key={i} className="flex items-start gap-3 text-sm sm:text-base font-medium" style={{ color: 'var(--color-text-secondary)' }}>
+                              <span className="w-2 h-2 bg-orange-400 border border-black mt-2 flex-shrink-0"></span>
                               <span className="leading-relaxed">{impact}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
                       
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4 border-t border-white/10">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4 border-t-4 border-black">
                         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-                          <span className="text-sm font-medium" style={{ color: 'var(--color-text)' }}>
+                          <span className="text-sm font-black uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
                             {achievement.organization}
                           </span>
-                          <span className="text-orange-500 text-sm font-bold hidden sm:inline">•</span>
-                          <span className="text-sm text-orange-500 font-semibold">
+                          <span className="text-orange-500 text-sm font-black hidden sm:inline">•</span>
+                          <span className="text-sm text-orange-500 font-black uppercase tracking-wide">
                             {achievement.date}
                           </span>
                         </div>
@@ -228,11 +261,11 @@ export default function AchievementsPage() {
                             href={achievement.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-orange-500 hover:text-orange-400 text-sm font-semibold transition-colors duration-300 flex items-center gap-2 self-start sm:self-auto"
+                            className="bg-orange-400 text-black font-black px-4 py-2 border-2 border-black shadow-[var(--shadow-neubrutalism)] hover:shadow-[var(--shadow-neubrutalism-hover-small)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 text-sm uppercase tracking-wide flex items-center gap-2 self-start sm:self-auto"
                           >
-                            View Details 
+                            VIEW DETAILS 
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                             </svg>
                           </a>
                         )}
@@ -261,7 +294,7 @@ export default function AchievementsPage() {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {achievements.filter(a => !a.featured).map((achievement, index) => (
                 <motion.div
                   key={achievement.id}
@@ -271,44 +304,61 @@ export default function AchievementsPage() {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="h-full"
                 >
-                  <div className="glass-card p-6 h-full flex flex-col hover:scale-105 transition-transform duration-300">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="text-3xl">{achievement.badge}</div>
-                      <div className="text-xs bg-orange-500/20 text-orange-500 px-2 py-1 rounded-full font-medium">
+                  {/* Neubrutalism Achievement Card */}
+                  <div className="relative w-full h-[420px] neubrutalism-card flex flex-col"
+                    style={{
+                      backgroundColor: 'var(--color-surface)',
+                    }}
+                  >
+                    {/* Header Section - FIXED HEIGHT */}
+                    <div className="p-6 border-b-4 border-black h-[120px] flex items-center justify-between flex-shrink-0">
+                      <div className="text-4xl">{achievement.badge}</div>
+                      <div className="bg-orange-400 border-2 border-black px-3 py-1.5 font-black text-black text-xs shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide">
                         {achievement.date}
                       </div>
                     </div>
                     
-                    <div className="flex-1">
-                      <p className="text-orange-500 text-xs uppercase tracking-wider font-semibold mb-2">
-                        {achievement.category}
-                      </p>
-                      <h3 className="text-lg sm:text-xl font-bold mb-3 leading-tight" style={{ color: 'var(--color-text)' }}>
-                        {achievement.title}
-                      </h3>
-                      
-                      <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--color-text-secondary)' }}>
-                        {achievement.description}
-                      </p>
-                      
-                      {achievement.organization && (
-                        <p className="text-xs font-medium mb-4 text-orange-400">
-                          {achievement.organization}
+                    {/* Content Section - FLEXIBLE */}
+                    <div className="p-6 flex-1 flex flex-col">
+                      {/* Category & Title - FIXED HEIGHT */}
+                      <div className="h-[80px] mb-4">
+                        <p className="text-orange-500 text-xs uppercase tracking-wider font-black mb-2">
+                          {achievement.category}
                         </p>
-                      )}
-                    </div>
+                        <h3 className="text-lg font-black uppercase tracking-tight leading-tight line-clamp-2" style={{ color: 'var(--color-text)' }}>
+                          {achievement.title}
+                        </h3>
+                      </div>
+                      
+                      {/* Description - FIXED HEIGHT */}
+                      <div className="h-[60px] mb-4">
+                        <p className="text-sm leading-relaxed line-clamp-3 font-medium" style={{ color: 'var(--color-text-secondary)' }}>
+                          {achievement.description}
+                        </p>
+                      </div>
+                      
+                      {/* Organization - FIXED HEIGHT */}
+                      <div className="h-[20px] mb-4">
+                        {achievement.organization && (
+                          <p className="text-xs font-black text-orange-400 uppercase tracking-wide">
+                            {achievement.organization}
+                          </p>
+                        )}
+                      </div>
 
-                    <div className="border-t border-white/10 pt-4 mt-4">
-                      <h4 className="text-xs uppercase tracking-wide font-semibold mb-3" style={{ color: 'var(--color-text)' }}>
-                        Key Impact
-                      </h4>
-                      <div className="space-y-2">
-                        {achievement.impact.slice(0, 2).map((impact, i) => (
-                          <div key={i} className="flex items-start gap-2 text-xs leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
-                            <span className="w-1.5 h-1.5 bg-orange-500 rounded-full mt-1.5 flex-shrink-0"></span>
-                            <span>{impact}</span>
-                          </div>
-                        ))}
+                      {/* Impact Section - FLEXIBLE AT BOTTOM */}
+                      <div className="mt-auto border-t-4 border-black pt-4">
+                        <h4 className="text-xs uppercase tracking-wide font-black mb-3" style={{ color: 'var(--color-text)' }}>
+                          KEY IMPACT
+                        </h4>
+                        <div className="space-y-2">
+                          {achievement.impact.slice(0, 2).map((impact, i) => (
+                            <div key={i} className="flex items-start gap-2 text-xs leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
+                              <span className="w-2 h-2 bg-orange-400 border border-black mt-1.5 flex-shrink-0"></span>
+                              <span className="font-medium">{impact}</span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -337,7 +387,7 @@ export default function AchievementsPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {certifications.map((cert, index) => (
               <motion.div
                 key={cert.id}
@@ -347,50 +397,78 @@ export default function AchievementsPage() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="h-full"
               >
-                <div className="glass-card p-6 h-full flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                  <div className="w-16 h-16 relative mb-4 flex-shrink-0">
-                    <Image
-                      src={cert.image}
-                      alt={cert.name}
-                      fill
-                      className="object-contain"
-                      sizes="64px"
-                    />
-                  </div>
-                  
-                  <div className="flex-1 w-full">
-                    <h3 className="text-lg font-bold mb-2 leading-tight" style={{ color: 'var(--color-text)' }}>
-                      {cert.name}
-                    </h3>
-                    <p className="text-orange-500 text-sm font-semibold mb-2">
-                      {cert.issuer}
-                    </p>
-                    <p className="text-xs mb-4 bg-orange-500/20 text-orange-500 px-2 py-1 rounded-full inline-block">
-                      {cert.date}
-                    </p>
-                  </div>
-                  
-                  <div className="w-full border-t border-white/10 pt-4">
-                    <h4 className="text-xs mb-3 uppercase tracking-wide font-semibold" style={{ color: 'var(--color-text)' }}>
-                      Skills Validated
-                    </h4>
-                    <div className="flex flex-wrap gap-2 justify-center">
-                      {cert.skills.map((skill, i) => (
-                        <span key={i} className="px-3 py-1 bg-orange-500/20 text-orange-500 text-xs rounded-full font-medium">
-                          {skill}
-                        </span>
-                      ))}
+                {/* Neubrutalism Certification Card */}
+                <div className="relative w-full h-[380px] neubrutalism-card flex flex-col"
+                  style={{
+                    backgroundColor: 'var(--color-surface)',
+                  }}
+                >
+                  {/* Logo Section - FIXED HEIGHT */}
+                  <div className="p-6 border-b-4 border-black h-[120px] flex items-center justify-center flex-shrink-0">
+                    <div className="w-16 h-16 relative">
+                      <Image
+                        src={cert.image}
+                        alt={cert.name}
+                        fill
+                        className="object-contain"
+                        sizes="64px"
+                      />
                     </div>
                   </div>
                   
-                  {cert.credentialId && (
-                    <div className="w-full mt-4 pt-3 border-t border-white/10">
-                      <p className="text-xs text-center" style={{ color: 'var(--color-text-secondary)' }}>
-                        <span className="font-medium">Credential ID:</span><br />
-                        <span className="font-mono text-orange-400">{cert.credentialId}</span>
+                  {/* Content Section - FLEXIBLE */}
+                  <div className="p-6 flex-1 flex flex-col text-center">
+                    {/* Title & Issuer - FIXED HEIGHT */}
+                    <div className="h-[80px] mb-4">
+                      <h3 className="text-lg font-black uppercase tracking-tight leading-tight line-clamp-2 mb-2" style={{ color: 'var(--color-text)' }}>
+                        {cert.name}
+                      </h3>
+                      <p className="text-orange-500 text-sm font-black uppercase tracking-wide">
+                        {cert.issuer}
                       </p>
                     </div>
-                  )}
+
+                    {/* Date Badge - FIXED HEIGHT */}
+                    <div className="h-[32px] mb-6 flex justify-center">
+                      <div className="bg-orange-400 border-2 border-black px-3 py-1.5 font-black text-black text-xs shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide">
+                        {cert.date}
+                      </div>
+                    </div>
+                    
+                    {/* Skills Section - FLEXIBLE AT BOTTOM */}
+                    <div className="mt-auto border-t-4 border-black pt-4">
+                      <h4 className="text-xs mb-3 uppercase tracking-wide font-black" style={{ color: 'var(--color-text)' }}>
+                        SKILLS VALIDATED
+                      </h4>
+                      <div className="flex flex-wrap gap-2 justify-center">
+                        {cert.skills.slice(0, 4).map((skill, i) => (
+                          <span key={i} className="bg-orange-400 border-2 border-black text-black text-xs font-bold px-2 py-1 shadow-[var(--shadow-neubrutalism-small)] uppercase tracking-wide whitespace-nowrap">
+                            {skill}
+                          </span>
+                        ))}
+                        {cert.skills.length > 4 && (
+                          <span className="border-2 border-black text-xs font-bold px-2 py-1 shadow-[var(--shadow-neubrutalism-small)] uppercase tracking-wide"
+                            style={{ 
+                              backgroundColor: 'var(--color-surface-hover)', 
+                              color: 'var(--color-text)' 
+                            }}
+                          >
+                            +{cert.skills.length - 4}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    
+                    {/* Credential ID - FIXED AT BOTTOM */}
+                    {cert.credentialId && (
+                      <div className="mt-4 pt-3 border-t-2 border-black">
+                        <p className="text-xs text-center font-medium" style={{ color: 'var(--color-text-secondary)' }}>
+                          <span className="font-black uppercase tracking-wide">ID:</span><br />
+                          <span className="font-mono text-orange-400 text-xs">{cert.credentialId}</span>
+                        </p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -416,7 +494,7 @@ export default function AchievementsPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {awards.map((award, index) => (
               <motion.div
                 key={award.id}
@@ -426,42 +504,53 @@ export default function AchievementsPage() {
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 className="h-full"
               >
-                <div className="glass-card p-0 overflow-hidden h-full hover:scale-105 transition-transform duration-300">
-                  <div className="flex flex-col sm:flex-row h-full">
-                    <div className="relative h-48 sm:h-auto sm:w-1/3">
-                      <Image
-                        src={award.image}
-                        alt={award.title}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 640px) 100vw, 33vw"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent sm:bg-gradient-to-r sm:from-transparent sm:to-black/30"></div>
+                {/* Neubrutalism Award Card */}
+                <div className="relative w-full h-[280px] neubrutalism-card flex"
+                  style={{
+                    backgroundColor: 'var(--color-surface)',
+                  }}
+                >
+                  {/* Image Section - FIXED WIDTH */}
+                  <div className="relative w-[120px] border-r-4 border-black overflow-hidden flex-shrink-0">
+                    <Image
+                      src={award.image}
+                      alt={award.title}
+                      fill
+                      className="object-cover"
+                      sizes="120px"
+                    />
+                  </div>
+                  
+                  {/* Content Section - FLEXIBLE */}
+                  <div className="p-6 flex-1 flex flex-col justify-center">
+                    {/* Badge & Position - FIXED HEIGHT */}
+                    <div className="h-[40px] flex items-center gap-3 mb-4">
+                      <span className="text-2xl">🏆</span>
+                      <div className="bg-yellow-400 border-2 border-black px-3 py-1 font-black text-black text-xs shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide">
+                        {award.position}
+                      </div>
                     </div>
                     
-                    <div className="p-6 sm:w-2/3 flex flex-col justify-center">
-                      <div className="flex items-center gap-3 mb-3">
-                        <span className="text-2xl">🏆</span>
-                        <span className="text-orange-500 text-sm font-bold bg-orange-500/20 px-2 py-1 rounded-full">
-                          {award.position}
-                        </span>
-                      </div>
-                      
-                      <h3 className="text-xl font-bold mb-2 leading-tight" style={{ color: 'var(--color-text)' }}>
+                    {/* Title - FIXED HEIGHT */}
+                    <div className="h-[50px] mb-3">
+                      <h3 className="text-xl font-black uppercase tracking-tight leading-tight line-clamp-2" style={{ color: 'var(--color-text)' }}>
                         {award.title}
                       </h3>
-                      
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-3">
-                        <p className="text-sm font-semibold text-orange-400">
-                          {award.event}
-                        </p>
-                        <span className="text-orange-500 hidden sm:inline">•</span>
-                        <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
-                          {award.year}
-                        </p>
-                      </div>
-                      
-                      <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
+                    </div>
+                    
+                    {/* Event & Year - FIXED HEIGHT */}
+                    <div className="h-[40px] mb-4 flex flex-col justify-center">
+                      <p className="text-sm font-black text-orange-400 uppercase tracking-wide line-clamp-1">
+                        {award.event}
+                      </p>
+                      <p className="text-sm font-bold" style={{ color: 'var(--color-text-secondary)' }}>
+                        {award.year}
+                      </p>
+                    </div>
+                    
+                    {/* Description - FLEXIBLE */}
+                    <div className="flex-1">
+                      <p className="text-sm leading-relaxed font-medium line-clamp-3" style={{ color: 'var(--color-text-secondary)' }}>
                         {award.description}
                       </p>
                     </div>
@@ -491,7 +580,7 @@ export default function AchievementsPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               { number: "20+", label: "Projects Completed", description: "Successfully delivered across various industries" },
               { number: "98%", label: "Client Satisfaction", description: "Consistent high-quality delivery and service" },
@@ -504,18 +593,37 @@ export default function AchievementsPage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="text-center group h-full"
+                className="h-full"
               >
-                <div className="glass-card p-4 sm:p-6 h-full flex flex-col justify-center items-center text-center hover:scale-105 transition-transform duration-300">
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-orange-500 mb-2 group-hover:scale-110 transition-transform duration-300">
-                    {stat.number}
+                {/* Neubrutalism Stats Card */}
+                <div className="relative w-full h-[200px] neubrutalism-card flex flex-col"
+                  style={{
+                    backgroundColor: 'var(--color-surface)',
+                  }}
+                >
+                  {/* Number Section - FIXED HEIGHT */}
+                  <div className="p-4 border-b-4 border-black h-[100px] flex items-center justify-center flex-shrink-0">
+                    <div className="text-3xl md:text-4xl font-black text-orange-400 transition-transform duration-300 group-hover:scale-110 uppercase tracking-wider">
+                      {stat.number}
+                    </div>
                   </div>
-                  <p className="text-sm sm:text-base font-semibold mb-2" style={{ color: 'var(--color-text)' }}>
-                    {stat.label}
-                  </p>
-                  <p className="text-xs leading-tight hidden md:block" style={{ color: 'var(--color-text-secondary)' }}>
-                    {stat.description}
-                  </p>
+                  
+                  {/* Content Section - FLEXIBLE */}
+                  <div className="p-4 flex-1 flex flex-col justify-center text-center">
+                    {/* Label - FIXED HEIGHT */}
+                    <div className="h-[40px] mb-2 flex items-center justify-center">
+                      <p className="text-sm font-black uppercase tracking-wide leading-tight line-clamp-2" style={{ color: 'var(--color-text)' }}>
+                        {stat.label}
+                      </p>
+                    </div>
+                    
+                    {/* Description - FLEXIBLE */}
+                    <div className="flex-1 hidden md:flex items-center">
+                      <p className="text-xs leading-tight font-medium line-clamp-3" style={{ color: 'var(--color-text-secondary)' }}>
+                        {stat.description}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             ))}

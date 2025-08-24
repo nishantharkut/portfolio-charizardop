@@ -1,10 +1,12 @@
 "use client";
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { gsap } from "gsap";
+import { useRouter } from "next/navigation";
 import projectsData from "../../../data/projects.json";
 import achievementsData from "../../../data/achievements.json";
 import experienceData from "../../../data/experience.json";
-import { 
+import aboutData from "../../../data/about.json";
+import {
   ArrowTopRightOnSquareIcon, 
   ArrowDownTrayIcon,
   CodeBracketIcon,
@@ -15,6 +17,7 @@ import {
   ChevronRightIcon,
   EllipsisHorizontalIcon
 } from "@heroicons/react/24/outline";
+import Image from "next/image";
 import { 
   SiGithub, 
   SiLinkedin, 
@@ -106,43 +109,133 @@ const ConceptIcon: React.FC<{ text: string; className?: string }> = ({ text, cla
   </div>
 );
 
-// Projects Component - Show only top 2 featured projects
-const ProjectsContent: React.FC = () => {
-  const featuredProjects = projectsData.projects.filter(project => project.featured).slice(0, 2);
-  
+// Projects Component - Show only top 2 featured projects (compact for fixed dimensions)
+// Enhanced Minimal About Me Component
+const AboutMeContent: React.FC = () => {
+  const stats = aboutData.stats;
+  const router = useRouter();
+
+  const handleViewAbout = () => {
+    router.push('/about');
+  };
+
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex-1 space-y-3">
-        {featuredProjects.map((project, index) => (
-          <div key={project.id} className="p-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-            <h4 className="text-sm font-semibold text-white mb-1">{project.title}</h4>
-            <p className="text-xs text-white/70 mb-2">{project.shortDescription}</p>
-            <div className="flex flex-wrap gap-1">
-              {project.techStack.slice(0, 3).map((tech, i) => (
-                <span key={i} className="text-xs px-2 py-1 bg-orange-500/20 text-orange-300 rounded">
-                  {tech}
-                </span>
-              ))}
-              {project.techStack.length > 3 && (
-                <span className="text-xs px-2 py-1 bg-white/10 text-white/50 rounded">
-                  +{project.techStack.length - 3}
-                </span>
-              )}
-            </div>
+    <div className="h-full p-4 flex flex-col relative">
+      {/* Header with avatar */}
+      <div className="flex items-center gap-3 mb-3">
+        <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 flex items-center justify-center shadow-lg overflow-hidden">
+          <Image
+            src="/nishantharkut-logo.png"
+            alt="Nishant Arkut Logo"
+            width={40}
+            height={40}
+            className="w-full h-full object-contain p-1"
+          />
+        </div>
+        <div className="flex-1">
+          <h3 className="text-sm md:text-base font-bold text-white group-hover:text-orange-400 transition-colors">Nishant Harkut</h3>
+          <p className="text-xs text-orange-400 font-medium">{aboutData.hero.badge}</p>
+        </div>
+      </div>
+
+      {/* Enhanced description - reduced for mobile */}
+      <div className="flex-1 mb-3">
+        <p className="text-xs md:text-sm text-white/70 leading-relaxed group-hover:text-white/90 transition-colors duration-300">
+          <span className="hidden md:inline">Creative technologist with </span><span className="text-orange-400 font-medium">7+ years</span><span className="hidden md:inline"> of experience crafting innovative digital experiences at the intersection of art and engineering.</span>
+          <span className="md:hidden"> experience in full-stack development and creative design.</span>
+        </p>
+      </div>
+
+      {/* Enhanced stats with hover effects - smaller on mobile */}
+      <div className="grid grid-cols-3 gap-1 md:gap-2 mb-3">
+        {stats.map((stat, index) => (
+          <div 
+            key={index} 
+            className="text-center p-1 md:p-2 rounded-lg bg-white/5 hover:bg-orange-500/10 transition-all duration-300 hover:scale-105 cursor-pointer group/stat"
+          >
+            <div className="text-sm md:text-lg font-bold text-orange-400 group-hover/stat:text-orange-300">{stat.number}</div>
+            <div className="text-xs text-white/60 group-hover/stat:text-white/80">{stat.label}</div>
           </div>
         ))}
       </div>
-      <div className="mt-auto pt-4">
-        <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-3" />
-        <button className="w-full py-2.5 px-4 rounded-lg bg-white/10 hover:bg-white/20 transition-colors text-sm font-medium backdrop-blur-sm border border-white/10">
-          Show All Projects
+
+      {/* Call to action - positioned to avoid download button overlap */}
+      <div className="pr-8 md:pr-12">
+        <button 
+          onClick={handleViewAbout}
+          className="w-full py-1.5 md:py-2 px-2 md:px-3 text-xs font-medium text-white/70 hover:text-white hover:bg-white/10 transition-all duration-300 rounded-lg border border-white/20 hover:border-orange-400/50"
+        >
+          <span className="hidden md:inline">View Full Story →</span>
+          <span className="md:hidden">More →</span>
         </button>
       </div>
     </div>
   );
 };
 
-// Achievements Carousel Component - Show recent achievements (max 4-5)
+const ProjectsContent: React.FC = () => {
+  const router = useRouter();
+  const featuredProjects = projectsData.projects.filter(project => project.featured).slice(0, 2);
+  
+  // Add compelling project highlights that make visitors curious
+  const projectHighlights: { [key: number]: string[] } = {
+    1: ["🎯 Real-time 3D rendering at 60fps", "🚀 50% faster load times than competitors"],
+    2: ["⚡ Handles 10k+ concurrent bookings", "🔄 99.9% uptime with auto-scaling"]
+  };
+
+  const handleAllProjectsClick = () => {
+    router.push('/projects');
+  };
+  
+  return (
+    <div className="flex flex-col h-full">
+      <div className="flex-1 space-y-2 md:space-y-3">
+        {featuredProjects.map((project, index) => (
+          <div key={project.id} className="flex-1 p-2 md:p-4 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors group">
+            <h4 className="text-xs md:text-sm font-semibold text-white mb-1 md:mb-2 truncate">{project.title}</h4>
+            <p className="text-xs md:text-sm text-white/70 mb-2 md:mb-3 line-clamp-1 md:line-clamp-2 leading-relaxed">
+              <span className="hidden md:inline">{project.shortDescription}</span>
+              <span className="md:hidden">{project.shortDescription.split(' ').slice(0, 8).join(' ')}...</span>
+            </p>
+            
+            {/* Compelling points that spark curiosity - hidden on mobile for space */}
+            <div className="hidden md:block space-y-2 mb-3">
+              {projectHighlights[project.id]?.map((highlight, i) => (
+                <div key={i} className="flex items-center gap-1">
+                  <span className="text-sm text-green-400 font-medium">{highlight}</span>
+                </div>
+              ))}
+            </div>
+            
+            <div className="flex flex-wrap gap-1 md:gap-1.5">
+              {project.techStack.slice(0, 2).map((tech, i) => (
+                <span key={i} className="text-xs md:text-sm px-1 md:px-2 py-0.5 md:py-1 bg-orange-500/20 text-orange-300 rounded-md">
+                  {tech}
+                </span>
+              ))}
+              {project.techStack.length > 2 && (
+                <span className="text-xs md:text-sm px-1 md:px-2 py-0.5 md:py-1 bg-white/10 text-white/50 rounded-md">
+                  +{project.techStack.length - 2}
+                </span>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="border-t border-white/20 pt-2 md:pt-4 mt-2 md:mt-4">
+        <button 
+          onClick={handleAllProjectsClick}
+          className="w-full py-1.5 md:py-3 px-2 md:px-4 text-xs md:text-sm font-medium text-white/80 hover:text-white transition-colors underline hover:bg-white/5 rounded-lg"
+        >
+          <span className="hidden md:inline">All Projects</span>
+          <span className="md:hidden">More</span>
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// Achievements Carousel Component - Compact for fixed dimensions
 const AchievementsContent: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const recentAchievements = achievementsData.achievements.slice(0, 4);
@@ -159,32 +252,32 @@ const AchievementsContent: React.FC = () => {
   
   return (
     <div className="flex flex-col h-full">
-      <div className="flex-1">
-        <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+      <div className="flex-1 mb-3">
+        <div className="p-2 rounded bg-white/5 border border-white/10 h-full">
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-lg">{currentAchievement.badge}</span>
-            <h4 className="text-sm font-semibold text-white">{currentAchievement.title}</h4>
+            <span className="text-sm">{currentAchievement.badge}</span>
+            <h4 className="text-xs font-semibold text-white truncate">{currentAchievement.title}</h4>
           </div>
-          <p className="text-xs text-white/70 mb-2">{currentAchievement.description}</p>
+          <p className="text-xs text-white/60 mb-2 line-clamp-2">{currentAchievement.description}</p>
           <div className="flex items-center justify-between">
             <span className="text-xs text-orange-300">{currentAchievement.date}</span>
-            <span className="text-xs text-white/50">{currentAchievement.organization}</span>
+            <span className="text-xs text-white/50 truncate">{currentAchievement.organization}</span>
           </div>
         </div>
       </div>
       
-      <div className="flex items-center justify-between mt-4">
+      <div className="flex items-center justify-between">
         <button 
           onClick={prevAchievement}
           className="p-1 rounded hover:bg-white/10 transition-colors"
         >
-          <ChevronLeftIcon className="w-4 h-4" />
+          <ChevronLeftIcon className="w-3 h-3" />
         </button>
         <div className="flex gap-1">
           {recentAchievements.map((_, index) => (
             <div 
               key={index}
-              className={`w-1.5 h-1.5 rounded-full transition-colors ${
+              className={`w-1 h-1 rounded-full transition-colors ${
                 index === currentIndex ? 'bg-orange-500' : 'bg-white/30'
               }`}
             />
@@ -194,17 +287,17 @@ const AchievementsContent: React.FC = () => {
           onClick={nextAchievement}
           className="p-1 rounded hover:bg-white/10 transition-colors"
         >
-          <ChevronRightIcon className="w-4 h-4" />
+          <ChevronRightIcon className="w-3 h-3" />
         </button>
       </div>
     </div>
   );
 };
 
-// Experience Carousel Component - Show current and one past experience
+// Experience Carousel Component - Compact for fixed dimensions
 const ExperienceContent: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const relevantExperience = experienceData.experienceData.slice(0, 2); // Current and one past
+  const relevantExperience = experienceData.experienceData.slice(0, 2);
   
   const nextExperience = () => {
     setCurrentIndex((prev) => (prev + 1) % relevantExperience.length);
@@ -218,38 +311,38 @@ const ExperienceContent: React.FC = () => {
   
   return (
     <div className="flex flex-col h-full">
-      <div className="flex-1">
-        <div className="p-3 rounded-lg bg-white/5 border border-white/10">
-          <h4 className="text-sm font-semibold text-white mb-1">{currentExperience.position}</h4>
-          <p className="text-xs text-orange-300 mb-2">{currentExperience.company} • {currentExperience.duration}</p>
-          <p className="text-xs text-white/70 mb-3">{currentExperience.description}</p>
+      <div className="flex-1 mb-3">
+        <div className="p-2 rounded bg-white/5 border border-white/10 h-full">
+          <h4 className="text-xs font-semibold text-white mb-1 truncate">{currentExperience.position}</h4>
+          <p className="text-xs text-orange-300 mb-2 truncate">{currentExperience.company} • {currentExperience.duration}</p>
+          <p className="text-xs text-white/60 mb-2 line-clamp-2">{currentExperience.description}</p>
           <div className="flex flex-wrap gap-1">
-            {currentExperience.technologies.slice(0, 4).map((tech, i) => (
-              <span key={i} className="text-xs px-2 py-1 bg-blue-500/20 text-blue-300 rounded">
+            {currentExperience.technologies.slice(0, 3).map((tech, i) => (
+              <span key={i} className="text-xs px-1.5 py-0.5 bg-blue-500/20 text-blue-300 rounded">
                 {tech}
               </span>
             ))}
-            {currentExperience.technologies.length > 4 && (
-              <span className="text-xs px-2 py-1 bg-white/10 text-white/50 rounded">
-                +{currentExperience.technologies.length - 4}
+            {currentExperience.technologies.length > 3 && (
+              <span className="text-xs px-1.5 py-0.5 bg-white/10 text-white/50 rounded">
+                +{currentExperience.technologies.length - 3}
               </span>
             )}
           </div>
         </div>
       </div>
       
-      <div className="flex items-center justify-between mt-4">
+      <div className="flex items-center justify-between">
         <button 
           onClick={prevExperience}
           className="p-1 rounded hover:bg-white/10 transition-colors"
         >
-          <ChevronLeftIcon className="w-4 h-4" />
+          <ChevronLeftIcon className="w-3 h-3" />
         </button>
         <div className="flex gap-1">
           {relevantExperience.map((_, index) => (
             <div 
               key={index}
-              className={`w-1.5 h-1.5 rounded-full transition-colors ${
+              className={`w-1 h-1 rounded-full transition-colors ${
                 index === currentIndex ? 'bg-blue-500' : 'bg-white/30'
               }`}
             />
@@ -259,7 +352,7 @@ const ExperienceContent: React.FC = () => {
           onClick={nextExperience}
           className="p-1 rounded hover:bg-white/10 transition-colors"
         >
-          <ChevronRightIcon className="w-4 h-4" />
+          <ChevronRightIcon className="w-3 h-3" />
         </button>
       </div>
     </div>
@@ -454,13 +547,23 @@ const SkillsContent: React.FC = () => {
 
   return (
     <div className="skills-content-wrapper w-full h-full flex flex-col justify-between overflow-hidden">
-      {/* Static Grid Layout - No scrolling, fills entire card with exactly 42 icons (6x7) */}
-      <div className="tech-grid w-full h-full grid grid-cols-6 gap-2 p-2 place-items-center content-center">
+      {/* Desktop: Static Grid Layout - No scrolling, fills entire card with exactly 42 icons (6x7) */}
+      <div className="tech-grid w-full h-full grid grid-cols-6 gap-2 p-2 place-items-center content-center hidden md:grid">
         {allLogos.slice(0, 42).map((logo, index) => (
           <div key={index} className="tech-item flex items-center justify-center">
             {logo.node}
           </div>
         ))}
+      </div>
+      
+      {/* Mobile: Optimized LogoLoop in single row - performance optimized */}
+      <div className="mobile-logo-loop w-full h-full flex items-center justify-center md:hidden">
+        <LogoLoop 
+          logos={allLogos.slice(0, 12)} 
+          direction="left"
+          className="h-10"
+          speed={40}
+        />
       </div>
     </div>
   );
@@ -515,6 +618,7 @@ const cardData: BentoCardProps[] = [
     description: "UI/UX Designer passionate about creating innovative digital experiences",
     icon: <UserIcon className="w-5 h-5" />,
     className: "bento-card--about",
+    content: <AboutMeContent />,
   },
   {
     id: "skills",
@@ -1256,11 +1360,11 @@ const MagicBento: React.FC<BentoProps> = ({
           /* Download icon styling */
           .download-icon {
             position: absolute;
-            bottom: 1.5rem;
-            right: 1.5rem;
+            bottom: 1rem;
+            right: 1rem;
             width: 2.5rem;
             height: 2.5rem;
-            background: rgba(0, 0, 0, 0.8);
+            background: #ff8c42;
             backdrop-filter: blur(8px);
             border-radius: 50%;
             display: flex;
@@ -1269,68 +1373,133 @@ const MagicBento: React.FC<BentoProps> = ({
             color: white;
             cursor: pointer;
             transition: all 0.2s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 140, 66, 0.3);
             z-index: 5;
+            box-shadow: 0 4px 12px rgba(255, 140, 66, 0.3);
           }
           
           .download-icon:hover {
-            background: rgba(0, 0, 0, 0.9);
+            background: #e67c32;
             transform: scale(1.1);
-            border-color: rgba(255, 179, 71, 0.5);
+            border-color: rgba(255, 140, 66, 0.8);
+            box-shadow: 0 6px 20px rgba(255, 140, 66, 0.5);
           }
 
-          /* Mobile responsiveness - Limited to 1-2 rows only */
+          /* Light mode download icon styling */
+          .light .download-icon {
+            background: #ffb366;
+            color: #1a1a1a;
+            border: 1px solid rgba(255, 179, 102, 0.4);
+            box-shadow: 0 4px 12px rgba(255, 179, 102, 0.3);
+          }
+          
+          .light .download-icon:hover {
+            background: #ffa033;
+            border-color: rgba(255, 160, 51, 0.8);
+            box-shadow: 0 6px 20px rgba(255, 160, 51, 0.4);
+          }
+
+          /* Mobile responsiveness - Match Experience/Achievements card dimensions */
           @media (max-width: 768px) {
             .bento-section {
               margin-bottom: 1rem;
+              padding: 0 1rem;
             }
             
             .bento-grid {
-              grid-template-columns: 1fr 1fr !important;
-              grid-template-rows: auto auto !important;
-              height: auto !important;
+              display: grid;
+              grid-template-columns: 1fr !important;
+              grid-template-rows: auto !important;
               gap: 0.75rem;
               margin-bottom: 1rem;
             }
             
-            /* Priority layout for mobile - only show most important cards */
-            .bento-card--about {
-              grid-column: 1 / 3 !important;
-              grid-row: 1 !important;
-              min-height: 160px;
-            }
-            
-            .bento-card--skills {
-              grid-column: 1 !important;
-              grid-row: 2 !important;
-              min-height: 180px;
-            }
-            
-            .bento-card--projects {
-              grid-column: 2 !important;
-              grid-row: 2 !important;
-              min-height: 180px;
-            }
-            
-            /* Hide some cards on mobile to maintain 1-2 rows */
-            .bento-card--experience,
-            .bento-card--achievements {
-              display: none;
-            }
-            
-            .bento-card--social {
-              display: none;
-            }
-            
+            /* Match exact dimensions of Experience/Achievements cards (from attachment) */
             .bento-card {
-              padding: 1rem;
+              padding: 0.75rem;
+              grid-column: 1 !important;
+              grid-row: auto !important;
+              min-height: 140px; /* Same as Experience/Achievements */
+              /* Performance optimizations */
+              will-change: auto;
+              transform: translateZ(0);
+              backface-visibility: hidden;
             }
             
-            /* Adjust content for mobile */
+            /* Reorder cards for mobile */
+            .bento-card--about { order: 1; }
+            .bento-card--projects { order: 2; }
+            .bento-card--skills { order: 3; }
+            .bento-card--experience { order: 4; }
+            .bento-card--achievements { order: 5; }
+            .bento-card--social { 
+              order: 6; 
+              min-height: 60px; /* Keep social links compact as requested */
+            }
+            
+            /* Adjust content for mobile with LogoLoop single row - performance optimized */
             .tech-grid {
-              grid-template-columns: repeat(4, 1fr) !important;
-              grid-template-rows: repeat(4, 1fr) !important;
+              display: none; /* Hide default tech grid on mobile */
+            }
+            
+            /* Show LogoLoop on mobile in single row with performance optimizations */
+            .mobile-logo-loop {
+              display: block;
+              contain: layout style paint;
+              will-change: transform;
+            }
+            
+            /* Disable hover effects on mobile for better performance */
+            .bento-card:hover {
+              background: initial;
+              transform: none;
+            }
+            
+            .bento-card *:hover {
+              transform: none;
+              scale: none;
+            }
+            
+            /* Make social icons compact */
+            .bento-card--social .grid {
               gap: 0.25rem;
+              grid-template-columns: repeat(6, 1fr);
+            }
+            
+            /* Larger download button as requested */
+            .download-icon {
+              bottom: 0.75rem;
+              right: 0.75rem;
+              width: 2.25rem;
+              height: 2.25rem;
+            }
+            
+            /* Compact mobile typography */
+            .bento-card h3,
+            .bento-card h4 {
+              font-size: 0.875rem;
+              margin-bottom: 0.25rem;
+            }
+            
+            .bento-card p {
+              font-size: 0.75rem;
+              line-height: 1.3;
+              margin-bottom: 0.5rem;
+            }
+            
+            /* Reduce stats grid for mobile */
+            .bento-card--about .grid-cols-3 > div {
+              padding: 0.5rem;
+            }
+            
+            /* Compact project content */
+            .bento-card--projects .space-y-2 {
+              gap: 0.5rem;
+            }
+            
+            .bento-card--projects .flex-1 {
+              padding: 0.5rem;
+              margin-bottom: 0.5rem;
             }
           }
         `}
@@ -1399,44 +1568,31 @@ const MagicBento: React.FC<BentoProps> = ({
             );
           })}
           
-          {/* Social icons card - separate from cardData for better layout control */}
+          {/* Social icons card - exactly like the image */}
           <div className={`bento-card bento-card--social ${
             enableBorderGlow ? "bento-card--border-glow" : ""
           }`}>
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-semibold text-white">Connect</h3>
-            </div>
-            <div className="grid grid-cols-3 gap-2 flex-1">
-              {socialIcons.map((social, index) => {
-                const isMoreButton = social.isMore;
-                return (
-                  <a
-                    key={index}
-                    href={social.href}
-                    className={`
-                      aspect-square rounded-xl transition-all duration-200 flex items-center justify-center text-white/80 hover:text-white relative group
-                      ${isMoreButton 
-                        ? 'bg-white/5 hover:bg-white/10 border border-white/20 hover:border-white/30' 
-                        : 'bg-white/10 hover:bg-white/20 hover:scale-105'
-                      }
-                    `}
-                    title={social.name}
-                    onClick={isMoreButton ? (e) => {
-                      e.preventDefault();
-                      // Handle more button click - could open a modal or expand the section
-                    } : undefined}
-                  >
-                    {social.icon}
-                    {isMoreButton && (
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="w-1 h-1 bg-white rounded-full mx-0.5"></div>
-                        <div className="w-1 h-1 bg-white rounded-full mx-0.5"></div>
-                        <div className="w-1 h-1 bg-white rounded-full mx-0.5"></div>
-                      </div>
-                    )}
-                  </a>
-                );
-              })}
+            <div className="grid grid-cols-6 gap-2 h-full items-center">
+              {socialIcons.map((social, index) => (
+                <a
+                  key={index}
+                  href={social.href}
+                  className={`
+                    aspect-square rounded-lg transition-all duration-200 flex items-center justify-center text-white/80 hover:text-white hover:scale-105
+                    ${social.isMore 
+                      ? 'bg-white/10 hover:bg-white/20' 
+                      : 'bg-white/10 hover:bg-white/20'
+                    }
+                  `}
+                  title={social.name}
+                  onClick={social.isMore ? (e) => {
+                    e.preventDefault();
+                    // Handle more button click
+                  } : undefined}
+                >
+                  {social.icon}
+                </a>
+              ))}
             </div>
           </div>
         </div>
