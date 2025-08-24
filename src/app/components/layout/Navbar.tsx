@@ -41,7 +41,12 @@ export default function Navbar() {
           initial={{ y: -40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.55, ease: 'easeOut' }}
-          className="hidden lg:flex items-center gap-6 xl:gap-10 rounded-full pl-4 xl:pl-6 pr-3 h-14 xl:h-16 transition-all duration-300 max-w-7xl w-full glass"
+          className="hidden lg:flex items-center gap-6 xl:gap-10 pl-4 xl:pl-6 pr-3 h-14 xl:h-16 transition-all duration-300 max-w-7xl w-full border-4"
+          style={{
+            backgroundColor: 'var(--color-surface)',
+            borderColor: 'var(--color-accent)',
+            boxShadow: '6px 6px 0px 0px var(--shadow-neubrutalism)'
+          }}
         >
           <Link 
             href="/" 
@@ -67,10 +72,10 @@ export default function Navbar() {
                 >
                   {l.label}
                   <span 
-                    className={`absolute left-1/2 -bottom-1 h-px transition-all duration-300 ${
+                    className={`absolute bottom-0 left-0 h-[2px] transition-all duration-300 ${
                       isActive 
-                        ? 'w-full left-0' 
-                        : 'w-0 group-hover:w-full group-hover:left-0'
+                        ? 'w-full' 
+                        : 'w-0 group-hover:w-full'
                     }`}
                     style={{ background: 'var(--color-accent-gradient)' }} 
                   />
@@ -83,8 +88,21 @@ export default function Navbar() {
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="flex items-center justify-center w-8 xl:w-10 h-8 xl:h-10 glass-button transition-all duration-300"
+              className="flex items-center justify-center w-8 xl:w-10 h-8 xl:h-10 transition-all duration-300 border-2"
               aria-label="Toggle theme"
+              style={{
+                backgroundColor: 'var(--color-surface-elevated)',
+                borderColor: 'var(--color-accent)',
+                boxShadow: '3px 3px 0px 0px var(--shadow-neubrutalism)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.transform = 'translate(3px, 3px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism)';
+                e.currentTarget.style.transform = 'translate(0px, 0px)';
+              }}
             >
               {actualTheme === 'dark' ? (
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" style={{ color: 'var(--color-accent)' }}>
@@ -99,11 +117,20 @@ export default function Navbar() {
             
             <button 
               onClick={handleContactClick}
-              className="glass-button text-xs xl:text-[12px] font-medium px-4 xl:px-6 py-2 xl:py-2.5 transition-all duration-300 fire-glow"
+              className="text-xs xl:text-[12px] font-medium px-4 xl:px-6 py-2 xl:py-2.5 border-2 transition-all duration-300"
               style={{ 
-                background: 'var(--color-accent-gradient)',
-                color: 'white',
-                border: 'none'
+                backgroundColor: 'var(--color-accent)',
+                color: 'var(--color-button-text)',
+                borderColor: 'var(--color-text)',
+                boxShadow: '3px 3px 0px 0px var(--shadow-neubrutalism)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.transform = 'translate(3px, 3px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism)';
+                e.currentTarget.style.transform = 'translate(0px, 0px)';
               }}
             >
               Connect Here
@@ -118,12 +145,30 @@ export default function Navbar() {
           initial={{ y: -40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.55, ease: 'easeOut' }}
-          className="flex items-center justify-between rounded-full pl-4 pr-3 h-14 transition-all duration-300 w-full max-w-sm glass"
+          className="flex items-center justify-between pl-4 pr-3 h-14 transition-all duration-300 w-full max-w-sm border-4"
+          style={{
+            backgroundColor: 'var(--color-surface)',
+            borderColor: 'var(--color-accent)',
+            boxShadow: '4px 4px 0px 0px var(--shadow-neubrutalism)'
+          }}
         >
           <Link 
             href="/" 
-            className="flex items-center justify-center w-10 h-10 glass-button text-xs font-semibold tracking-widest hover:scale-105 transition-transform duration-300 overflow-hidden"
-            style={{ color: 'var(--color-text)' }}
+            className="flex items-center justify-center w-10 h-10 text-xs font-semibold tracking-widest transition-all duration-300 overflow-hidden border-2"
+            style={{ 
+              color: 'var(--color-text)',
+              backgroundColor: 'var(--color-surface-elevated)',
+              borderColor: 'var(--color-accent)',
+              boxShadow: '2px 2px 0px 0px var(--shadow-neubrutalism)'
+            }}
+            onTouchStart={(e) => {
+              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.transform = 'translate(2px, 2px)';
+            }}
+            onTouchEnd={(e) => {
+              e.currentTarget.style.boxShadow = '2px 2px 0px 0px var(--shadow-neubrutalism)';
+              e.currentTarget.style.transform = 'translate(0px, 0px)';
+            }}
           >
             <Logo width={40} height={40} priority />
           </Link>
@@ -132,8 +177,21 @@ export default function Navbar() {
             {/* Theme Toggle Mobile */}
             <button
               onClick={toggleTheme}
-              className="flex items-center justify-center w-8 h-8 glass-button transition-all duration-300"
+              className="flex items-center justify-center w-8 h-8 transition-all duration-300 border-2"
               aria-label="Toggle theme"
+              style={{
+                backgroundColor: 'var(--color-surface-elevated)',
+                borderColor: 'var(--color-accent)',
+                boxShadow: '2px 2px 0px 0px var(--shadow-neubrutalism)'
+              }}
+              onTouchStart={(e) => {
+                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.transform = 'translate(2px, 2px)';
+              }}
+              onTouchEnd={(e) => {
+                e.currentTarget.style.boxShadow = '2px 2px 0px 0px var(--shadow-neubrutalism)';
+                e.currentTarget.style.transform = 'translate(0px, 0px)';
+              }}
             >
               {actualTheme === 'dark' ? (
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" style={{ color: 'var(--color-accent)' }}>
@@ -149,8 +207,21 @@ export default function Navbar() {
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="flex items-center justify-center w-8 h-8 glass-button transition-all duration-300"
+              className="flex items-center justify-center w-8 h-8 transition-all duration-300 border-2"
               aria-label="Toggle menu"
+              style={{
+                backgroundColor: 'var(--color-surface-elevated)',
+                borderColor: 'var(--color-accent)',
+                boxShadow: '2px 2px 0px 0px var(--shadow-neubrutalism)'
+              }}
+              onTouchStart={(e) => {
+                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.transform = 'translate(2px, 2px)';
+              }}
+              onTouchEnd={(e) => {
+                e.currentTarget.style.boxShadow = '2px 2px 0px 0px var(--shadow-neubrutalism)';
+                e.currentTarget.style.transform = 'translate(0px, 0px)';
+              }}
             >
               <svg className="w-4 h-4" style={{ color: 'var(--color-text)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isMobileMenuOpen ? (
@@ -174,7 +245,11 @@ export default function Navbar() {
             transition={{ duration: 0.2 }}
             className="fixed top-20 left-4 right-4 z-40 lg:hidden"
           >
-            <div className="glass-card rounded-2xl p-4">
+            <div className="p-4 border-4" style={{
+              backgroundColor: 'var(--color-surface)',
+              borderColor: 'var(--color-accent)',
+              boxShadow: '6px 6px 0px 0px var(--shadow-neubrutalism)'
+            }}>
               <div className="flex flex-col space-y-3">
                 {links.map(l => {
                   const isActive = isActiveLink(l.href);
@@ -183,13 +258,22 @@ export default function Navbar() {
                       key={l.href}
                       href={l.href}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className={`glass-button text-sm py-2 px-3 transition-all duration-300 ${
+                      className={`text-sm py-2 px-3 transition-all duration-300 border-2 ${
                         isActive ? 'font-semibold' : ''
                       }`}
                       style={{ 
-                        color: isActive ? 'var(--color-text)' : 'var(--color-text-muted)',
-                        background: isActive ? 'var(--color-accent-gradient)' : '',
-                        border: isActive ? 'none' : ''
+                        color: isActive ? 'var(--color-button-text)' : 'var(--color-text)',
+                        backgroundColor: isActive ? 'var(--color-accent)' : 'var(--color-surface-elevated)',
+                        borderColor: 'var(--color-accent)',
+                        boxShadow: '2px 2px 0px 0px var(--shadow-neubrutalism)'
+                      }}
+                      onTouchStart={(e) => {
+                        e.currentTarget.style.boxShadow = 'none';
+                        e.currentTarget.style.transform = 'translate(2px, 2px)';
+                      }}
+                      onTouchEnd={(e) => {
+                        e.currentTarget.style.boxShadow = '2px 2px 0px 0px var(--shadow-neubrutalism)';
+                        e.currentTarget.style.transform = 'translate(0px, 0px)';
                       }}
                     >
                       {l.label}
@@ -203,11 +287,20 @@ export default function Navbar() {
                       setIsMobileMenuOpen(false);
                       handleContactClick();
                     }}
-                    className="block w-full text-center glass-button text-sm font-medium px-4 py-2.5 transition-all duration-300 fire-glow"
+                    className="block w-full text-center text-sm font-medium px-4 py-2.5 border-2 transition-all duration-300"
                     style={{ 
-                      background: 'var(--color-accent-gradient)',
-                      color: 'white',
-                      border: 'none'
+                      backgroundColor: 'var(--color-accent)',
+                      color: 'var(--color-button-text)',
+                      borderColor: 'var(--color-text)',
+                      boxShadow: '3px 3px 0px 0px var(--shadow-neubrutalism)'
+                    }}
+                    onTouchStart={(e) => {
+                      e.currentTarget.style.boxShadow = 'none';
+                      e.currentTarget.style.transform = 'translate(3px, 3px)';
+                    }}
+                    onTouchEnd={(e) => {
+                      e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism)';
+                      e.currentTarget.style.transform = 'translate(0px, 0px)';
                     }}
                   >
                     Connect Here

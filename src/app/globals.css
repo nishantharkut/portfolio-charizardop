@@ -82,6 +82,33 @@
   transform: translate(3px, 3px);
 }
 
+.neubrutalism-input {
+  border-width: 3px;
+  border-color: var(--color-accent);
+  box-shadow: 4px 4px 0px 0px var(--shadow-neubrutalism-small);
+  transition: all 0.3s ease;
+  background-color: var(--color-surface-elevated);
+}
+
+.neubrutalism-input:focus {
+  box-shadow: 2px 2px 0px 0px var(--shadow-neubrutalism-hover-small);
+  transform: translate(2px, 2px);
+  outline: none;
+}
+
+.neubrutalism-tag {
+  border-width: 2px;
+  border-color: var(--color-accent);
+  box-shadow: 2px 2px 0px 0px var(--shadow-neubrutalism-small);
+  transition: all 0.3s ease;
+  background-color: var(--color-surface);
+}
+
+.neubrutalism-tag:hover {
+  box-shadow: none;
+  transform: translate(2px, 2px);
+}
+
 /* Performance optimizations - Hardware acceleration for key elements */
 * {
   /* Enable subpixel antialiasing for better text rendering */
@@ -917,4 +944,10 @@ body::before {
 /* Use a white cursor for dark mode for better visibility */
 .dark * {
   cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='30'%20height='30'%20viewBox='0%200%2024%2024'%3E%3Cpath%20fill='%23fff'%20d='M4.5.79v22.42l6.56-6.57h9.29L4.5.79z'%3E%3C/path%3E%3C/svg%3E"), auto;
+}
+
+/* globals.css or your main CSS file */
+body.light {
+  --bento-bg: #fff8eb;
+  --bento-text: #222;
 }

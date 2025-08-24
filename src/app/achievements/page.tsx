@@ -70,10 +70,10 @@ export default function AchievementsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold mb-6 drop-shadow-2xl" style={{ color: 'var(--color-text)' }}>
+            <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold mb-6 drop-shadow-2xl" style={{ color: '#ffffff' }}>
               My <span className="text-orange-500">Achievements</span>
             </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto mb-8 drop-shadow-lg" style={{ color: 'var(--color-text-secondary)' }}>
+            <p className="text-lg md:text-xl max-w-2xl mx-auto mb-8 drop-shadow-lg" style={{ color: '#ffffff' }}>
               A showcase of milestones, awards, and recognition that mark my journey as a creative technologist
             </p>
             <Link 
@@ -89,79 +89,6 @@ export default function AchievementsPage() {
           </motion.div>
         </div>
 
-        {/* Floating Achievement Cards */}
-        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 hidden md:flex gap-8">
-          {[
-            { 
-              icon: "🏆", 
-              title: "AWS Certified", 
-              subtitle: "Solutions Architect",
-              year: "2024"
-            },
-            { 
-              icon: "🎖️", 
-              title: "Industry Award", 
-              subtitle: "Best Innovation",
-              year: "2023"
-            },
-            { 
-              icon: "📜", 
-              title: "GCP Certified", 
-              subtitle: "Cloud Engineer",
-              year: "2023"
-            }
-          ].map((achievement, index) => (
-            <motion.div
-              key={achievement.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.4 + index * 0.2 }}
-              className="cursor-pointer"
-            >
-              {/* Neubrutalism Floating Achievement Card */}
-              <div className="relative w-[140px] h-[160px] border-4 border-black transition-all duration-300 shadow-[var(--shadow-neubrutalism)] hover:shadow-[var(--shadow-neubrutalism-hover)] hover:translate-x-[3px] hover:translate-y-[3px] flex flex-col text-center"
-                style={{
-                  backgroundColor: 'var(--color-surface)',
-                }}
-              >
-                {/* Icon Section - FIXED HEIGHT */}
-                <div className="p-3 border-b-4 border-black h-[70px] flex items-center justify-center flex-shrink-0">
-                  <motion.div 
-                    className="text-2xl"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {achievement.icon}
-                  </motion.div>
-                </div>
-                
-                {/* Content Section - FLEXIBLE */}
-                <div className="p-3 flex-1 flex flex-col justify-center">
-                  {/* Title - FIXED HEIGHT */}
-                  <div className="h-[35px] mb-1">
-                    <div className="text-sm font-black uppercase tracking-tight leading-tight line-clamp-2" style={{ color: 'var(--color-text)' }}>
-                      {achievement.title}
-                    </div>
-                  </div>
-                  
-                  {/* Subtitle - FIXED HEIGHT */}
-                  <div className="h-[20px] mb-2">
-                    <p className="text-xs font-medium line-clamp-1" style={{ color: 'var(--color-text-secondary)' }}>
-                      {achievement.subtitle}
-                    </p>
-                  </div>
-                  
-                  {/* Year Badge - FIXED HEIGHT */}
-                  <div className="h-[20px] flex justify-center">
-                    <div className="bg-orange-400 border-2 border-black px-2 py-0.5 text-xs font-black shadow-[var(--shadow-neubrutalism-small)] uppercase tracking-wide">
-                      {achievement.year}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
       </section>
 
       {/* Featured Achievements */}
@@ -294,7 +221,7 @@ export default function AchievementsPage() {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
               {achievements.filter(a => !a.featured).map((achievement, index) => (
                 <motion.div
                   key={achievement.id}
@@ -305,21 +232,22 @@ export default function AchievementsPage() {
                   className="h-full"
                 >
                   {/* Neubrutalism Achievement Card */}
-                  <div className="relative w-full h-[420px] neubrutalism-card flex flex-col"
+                  <div
+                    className="relative w-full h-[520px] neubrutalism-card flex flex-col px-6 py-6"
                     style={{
                       backgroundColor: 'var(--color-surface)',
                     }}
                   >
                     {/* Header Section - FIXED HEIGHT */}
-                    <div className="p-6 border-b-4 border-black h-[120px] flex items-center justify-between flex-shrink-0">
+                    <div className="pb-6 border-b-4 border-black h-[120px] flex items-center justify-between flex-shrink-0">
                       <div className="text-4xl">{achievement.badge}</div>
-                      <div className="bg-orange-400 border-2 border-black px-3 py-1.5 font-black text-black text-xs shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide">
+                      <div className="bg-orange-400 border-2 border-black px-4 py-2 font-black text-black text-xs shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide">
                         {achievement.date}
                       </div>
                     </div>
                     
                     {/* Content Section - FLEXIBLE */}
-                    <div className="p-6 flex-1 flex flex-col">
+                    <div className="flex-1 flex flex-col pt-6">
                       {/* Category & Title - FIXED HEIGHT */}
                       <div className="h-[80px] mb-4">
                         <p className="text-orange-500 text-xs uppercase tracking-wider font-black mb-2">
@@ -331,7 +259,7 @@ export default function AchievementsPage() {
                       </div>
                       
                       {/* Description - FIXED HEIGHT */}
-                      <div className="h-[60px] mb-4">
+                      <div className="h-[80px] mb-4">
                         <p className="text-sm leading-relaxed line-clamp-3 font-medium" style={{ color: 'var(--color-text-secondary)' }}>
                           {achievement.description}
                         </p>
@@ -398,46 +326,46 @@ export default function AchievementsPage() {
                 className="h-full"
               >
                 {/* Neubrutalism Certification Card */}
-                <div className="relative w-full h-[380px] neubrutalism-card flex flex-col"
+                <div className="relative w-full h-[440px] neubrutalism-card flex flex-col px-6 pt-2 pb-6"
                   style={{
                     backgroundColor: 'var(--color-surface)',
                   }}
                 >
-                  {/* Logo Section - FIXED HEIGHT */}
-                  <div className="p-6 border-b-4 border-black h-[120px] flex items-center justify-center flex-shrink-0">
-                    <div className="w-16 h-16 relative">
+                  {/* Logo Section - FIXED HEIGHT, less top gap */}
+                  <div className="pb-2 border-b-4 border-black h-[90px] flex items-center justify-center flex-shrink-0">
+                    <div className="w-14 h-14 relative">
                       <Image
                         src={cert.image}
                         alt={cert.name}
                         fill
                         className="object-contain"
-                        sizes="64px"
+                        sizes="56px"
                       />
                     </div>
                   </div>
                   
                   {/* Content Section - FLEXIBLE */}
-                  <div className="p-6 flex-1 flex flex-col text-center">
+                  <div className="flex-1 flex flex-col text-center pt-2">
                     {/* Title & Issuer - FIXED HEIGHT */}
-                    <div className="h-[80px] mb-4">
-                      <h3 className="text-lg font-black uppercase tracking-tight leading-tight line-clamp-2 mb-2" style={{ color: 'var(--color-text)' }}>
+                    <div className="h-[70px] mb-2">
+                      <h3 className="text-base sm:text-lg font-black uppercase tracking-tight leading-tight line-clamp-2 mb-1" style={{ color: 'var(--color-text)' }}>
                         {cert.name}
                       </h3>
-                      <p className="text-orange-500 text-sm font-black uppercase tracking-wide">
+                      <p className="text-orange-500 text-xs sm:text-sm font-black uppercase tracking-wide">
                         {cert.issuer}
                       </p>
                     </div>
 
                     {/* Date Badge - FIXED HEIGHT */}
-                    <div className="h-[32px] mb-6 flex justify-center">
-                      <div className="bg-orange-400 border-2 border-black px-3 py-1.5 font-black text-black text-xs shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide">
+                    <div className="h-[32px] mb-2 flex justify-center">
+                      <div className="bg-orange-400 border-2 border-black px-3 py-1 font-black text-black text-xs shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide">
                         {cert.date}
                       </div>
                     </div>
                     
                     {/* Skills Section - FLEXIBLE AT BOTTOM */}
-                    <div className="mt-auto border-t-4 border-black pt-4">
-                      <h4 className="text-xs mb-3 uppercase tracking-wide font-black" style={{ color: 'var(--color-text)' }}>
+                    <div className="mt-auto border-t-4 border-black pt-3">
+                      <h4 className="text-xs mb-2 uppercase tracking-wide font-black" style={{ color: 'var(--color-text)' }}>
                         SKILLS VALIDATED
                       </h4>
                       <div className="flex flex-wrap gap-2 justify-center">
@@ -461,7 +389,7 @@ export default function AchievementsPage() {
                     
                     {/* Credential ID - FIXED AT BOTTOM */}
                     {cert.credentialId && (
-                      <div className="mt-4 pt-3 border-t-2 border-black">
+                      <div className="mt-3 pt-2 border-t-2 border-black">
                         <p className="text-xs text-center font-medium" style={{ color: 'var(--color-text-secondary)' }}>
                           <span className="font-black uppercase tracking-wide">ID:</span><br />
                           <span className="font-mono text-orange-400 text-xs">{cert.credentialId}</span>
@@ -580,7 +508,7 @@ export default function AchievementsPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
             {[
               { number: "20+", label: "Projects Completed", description: "Successfully delivered across various industries" },
               { number: "98%", label: "Client Satisfaction", description: "Consistent high-quality delivery and service" },
@@ -596,30 +524,30 @@ export default function AchievementsPage() {
                 className="h-full"
               >
                 {/* Neubrutalism Stats Card */}
-                <div className="relative w-full h-[200px] neubrutalism-card flex flex-col"
+                <div className="relative w-full h-[160px] neubrutalism-card flex flex-col"
                   style={{
                     backgroundColor: 'var(--color-surface)',
                   }}
                 >
                   {/* Number Section - FIXED HEIGHT */}
-                  <div className="p-4 border-b-4 border-black h-[100px] flex items-center justify-center flex-shrink-0">
-                    <div className="text-3xl md:text-4xl font-black text-orange-400 transition-transform duration-300 group-hover:scale-110 uppercase tracking-wider">
+                  <div className="p-3 border-b-4 border-black h-[60px] flex items-center justify-center flex-shrink-0">
+                    <div className="text-2xl md:text-3xl font-black text-orange-400 transition-transform duration-300 group-hover:scale-110 uppercase tracking-wider">
                       {stat.number}
                     </div>
                   </div>
                   
                   {/* Content Section - FLEXIBLE */}
-                  <div className="p-4 flex-1 flex flex-col justify-center text-center">
+                  <div className="p-3 flex-1 flex flex-col justify-center text-center overflow-hidden">
                     {/* Label - FIXED HEIGHT */}
-                    <div className="h-[40px] mb-2 flex items-center justify-center">
-                      <p className="text-sm font-black uppercase tracking-wide leading-tight line-clamp-2" style={{ color: 'var(--color-text)' }}>
+                    <div className="h-[28px] mb-1 flex items-center justify-center">
+                      <p className="text-xs md:text-sm font-black uppercase tracking-wide leading-tight line-clamp-2" style={{ color: 'var(--color-text)' }}>
                         {stat.label}
                       </p>
                     </div>
                     
                     {/* Description - FLEXIBLE */}
-                    <div className="flex-1 hidden md:flex items-center">
-                      <p className="text-xs leading-tight font-medium line-clamp-3" style={{ color: 'var(--color-text-secondary)' }}>
+                    <div className="flex-1 flex items-center">
+                      <p className="text-xs leading-tight font-medium line-clamp-2" style={{ color: 'var(--color-text-secondary)' }}>
                         {stat.description}
                       </p>
                     </div>

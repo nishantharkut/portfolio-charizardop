@@ -1175,8 +1175,9 @@ const MagicBento: React.FC<BentoProps> = ({
             background: rgba(40, 40, 43, 0.6);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(255, 179, 71, 0.2);
-            border-radius: 20px;
+            /* Neubrutalism styling */
+            border: 4px solid var(--color-accent);
+            border-radius: 0;
             padding: 1.5rem;
             position: relative;
             overflow: hidden;
@@ -1184,20 +1185,16 @@ const MagicBento: React.FC<BentoProps> = ({
             color: white;
             display: flex;
             flex-direction: column;
-            box-shadow: 
-              0 4px 6px -1px rgba(0, 0, 0, 0.1),
-              0 2px 4px -1px rgba(0, 0, 0, 0.06),
-              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            /* Neubrutalism shadow */
+            box-shadow: 8px 8px 0px 0px var(--shadow-neubrutalism);
             z-index: 2;
             min-height: 140px;
           }
           
           .bento-card:hover {
-            transform: translateX(-2px) scale(1.02);
-            box-shadow: 
-              0 20px 25px -5px rgba(255, 179, 71, 0.1),
-              0 10px 10px -5px rgba(255, 179, 71, 0.04),
-              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            /* Neubrutalism hover effect */
+            box-shadow: 4px 4px 0px 0px var(--shadow-neubrutalism-hover);
+            transform: translate(4px, 4px);
             border-color: rgba(255, 179, 71, 0.4);
           }
           
@@ -1336,12 +1333,12 @@ const MagicBento: React.FC<BentoProps> = ({
           }
           
           .bento-card--experience {
-            grid-column: 1 / 5;
+            grid-column: 4 / 8;
             grid-row: 4 / 6;
           }
           
           .bento-card--achievements {
-            grid-column: 5 / 8;
+            grid-column: 1 / 4;
             grid-row: 4 / 6;
           }
           
@@ -1415,6 +1412,9 @@ const MagicBento: React.FC<BentoProps> = ({
               grid-column: 1 !important;
               grid-row: auto !important;
               min-height: 140px; /* Same as Experience/Achievements */
+              /* Neubrutalism mobile adjustments */
+              border-width: 3px;
+              box-shadow: 4px 4px 0px 0px var(--shadow-neubrutalism);
               /* Performance optimizations */
               will-change: auto;
               transform: translateZ(0);
@@ -1447,6 +1447,8 @@ const MagicBento: React.FC<BentoProps> = ({
             /* Disable hover effects on mobile for better performance */
             .bento-card:hover {
               background: initial;
+              /* Keep neubrutalism shadow but no transform */
+              box-shadow: 4px 4px 0px 0px var(--shadow-neubrutalism);
               transform: none;
             }
             

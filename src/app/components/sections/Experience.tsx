@@ -247,18 +247,43 @@ const Experience = () => {
 
         {/* View Full Experience Button */}
         <div className="text-center mt-16">
-          <div className="inline-flex min-h-[60px] items-center justify-center">
-            <a
-              href="/experience"
-              className="experience-button"
-            >
-              View Full Experience Journey
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </a>
-          </div>
-        </div>
+  <div className="inline-flex min-h-[60px] items-center justify-center">
+    <a
+      href="/experience"
+      className="experience-button inline-flex items-center gap-2 px-4 xl:px-6 py-2 xl:py-2.5 border-2 transition-all duration-300"
+      style={{
+        backgroundColor: 'var(--color-accent)',
+        color: 'var(--color-button-text)',
+        borderColor: 'var(--color-text)',
+        boxShadow: '3px 3px 0px 0px var(--shadow-neubrutalism)',
+        textDecoration: 'none'
+      }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLElement).style.boxShadow = 'none';
+        (e.currentTarget as HTMLElement).style.transform = 'translate(3px, 3px)';
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLElement).style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism)';
+        (e.currentTarget as HTMLElement).style.transform = 'translate(0px, 0px)';
+      }}
+      onTouchStart={(e) => {
+        (e.currentTarget as HTMLElement).style.boxShadow = 'none';
+        (e.currentTarget as HTMLElement).style.transform = 'translate(3px, 3px)';
+      }}
+      onTouchEnd={(e) => {
+        (e.currentTarget as HTMLElement).style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism)';
+        (e.currentTarget as HTMLElement).style.transform = 'translate(0px, 0px)';
+      }}
+      aria-label="View Full Experience Journey"
+    >
+      <span>View Full Experience Journey</span>
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+      </svg>
+    </a>
+  </div>
+</div>
+
       </div>
     </section>
   );

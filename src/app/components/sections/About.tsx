@@ -57,11 +57,20 @@ export default function About() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: 0.6 + index * 0.05 }}
-                  className="px-3 py-1.5 text-xs rounded-full border transition-all duration-200 hover:scale-105"
+                  className="px-3 py-1.5 text-xs border-2 transition-all duration-300"
                   style={{ 
                     color: 'var(--color-text)',
-                    borderColor: 'var(--color-border)',
-                    backgroundColor: 'var(--color-surface)'
+                    borderColor: 'var(--color-accent)',
+                    backgroundColor: 'var(--color-surface)',
+                    boxShadow: '2px 2px 0px 0px var(--shadow-neubrutalism-small)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = 'none';
+                    e.currentTarget.style.transform = 'translate(2px, 2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = '2px 2px 0px 0px var(--shadow-neubrutalism-small)';
+                    e.currentTarget.style.transform = 'translate(0px, 0px)';
                   }}
                 >
                   {skill}
@@ -78,7 +87,21 @@ export default function About() {
             >
               <a
                 href="/about"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#ff9a1c] to-[#ff6b35] text-white rounded-full font-medium transition-all duration-300 hover:shadow-lg hover:scale-105"
+                className="inline-flex items-center gap-2 px-6 py-3 font-medium border-4 transition-all duration-300"
+                style={{
+                  backgroundColor: 'var(--color-accent)',
+                  color: 'var(--color-button-text)',
+                  borderColor: 'var(--color-text)',
+                  boxShadow: '4px 4px 0px 0px var(--shadow-neubrutalism)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.transform = 'translate(4px, 4px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '4px 4px 0px 0px var(--shadow-neubrutalism)';
+                  e.currentTarget.style.transform = 'translate(0px, 0px)';
+                }}
               >
                 Learn More
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

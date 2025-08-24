@@ -47,6 +47,7 @@ export default function AboutPage() {
   const { actualTheme } = useTheme();
   const [floatingElements, setFloatingElements] = useState<Array<{left: number, top: number, delay: number, xOffset: number, duration: number}>>([]);
   const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
@@ -59,6 +60,13 @@ export default function AboutPage() {
       duration: 3 + Math.random() * 4
     }));
     setFloatingElements(newElements);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // If data hasn't loaded yet, show loading state
@@ -129,19 +137,6 @@ export default function AboutPage() {
             className="text-center lg:text-left"
           >
             {/* Neubrutalism Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="inline-flex items-center gap-2 px-4 py-2 mb-8 neubrutalism-button"
-              style={{
-                backgroundColor: 'var(--color-surface)',
-                borderColor: 'var(--color-accent)',
-              }}
-            >
-              <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--color-accent)' }}></div>
-              <span className="text-sm font-black uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>Creative Technologist</span>
-            </motion.div>
 
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 drop-shadow-2xl" style={{ color: 'var(--color-text)' }}>
               <motion.span
@@ -183,28 +178,28 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.4 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              className="flex flex-col gap-3 w-full max-w-[220px] mx-auto mt-2 mb-2 sm:max-w-[260px] lg:flex-row lg:max-w-none lg:mx-0 lg:mt-0 lg:mb-0 lg:gap-4 lg:w-auto justify-center lg:justify-start"
             >
               <Link 
                 href="/"
-                className="inline-flex items-center gap-2 px-6 py-3 neubrutalism-button font-black uppercase tracking-wide"
+                className="neubrutalism-button w-full text-center font-black uppercase tracking-wide flex items-center justify-center gap-2 px-3 py-1.5 text-xs"
                 style={{ 
                   backgroundColor: 'var(--color-surface)',
                   borderColor: 'var(--color-accent)',
                   color: 'var(--color-text)'
                 }}
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
                 Back to Home
               </Link>
               <a 
                 href="#who-i-am"
-                className="inline-flex items-center gap-2 px-6 py-3 neubrutalism-button border-orange-500 bg-orange-500 text-black font-black uppercase tracking-wide"
+                className="neubrutalism-button w-full text-center border-orange-500 bg-orange-500 text-black font-black uppercase tracking-wide flex items-center justify-center gap-2 px-3 py-1.5 text-xs"
               >
                 Learn More
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </a>
@@ -221,21 +216,29 @@ export default function AboutPage() {
             {/* Glow Effect */}
             <div className="absolute inset-0 bg-orange-500/20 rounded-full blur-3xl scale-150 opacity-50"></div>
             
-            <div className="w-80 h-80 lg:w-96 lg:h-96 relative z-10">
-              <TiltedCard
-                imageSrc={aboutData.hero.profileImage}
-                altText={aboutData.hero.profileAlt}
-                captionText={aboutData.hero.profileCaption}
-                containerHeight="100%"
-                containerWidth="100%"
-                imageHeight="100%"
-                imageWidth="100%"
-                rotateAmplitude={10}
-                scaleOnHover={1.05}
-                showMobileWarning={false}
-                showTooltip={true}
-                displayOverlayContent={true}
-              />
+            <div className="w-56 h-56 sm:w-64 sm:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 relative z-10">
+              {isMobile ? (
+                <img
+                  src={aboutData.hero.profileImage}
+                  alt={aboutData.hero.profileAlt}
+                  className="w-full h-full object-cover rounded-sm"
+                />
+              ) : (
+                <TiltedCard
+                  imageSrc={aboutData.hero.profileImage}
+                  altText={aboutData.hero.profileAlt}
+                  captionText={aboutData.hero.profileCaption}
+                  containerHeight="100%"
+                  containerWidth="100%"
+                  imageHeight="100%"
+                  imageWidth="100%"
+                  rotateAmplitude={10}
+                  scaleOnHover={1.05}
+                  showMobileWarning={false}
+                  showTooltip={true}
+                  displayOverlayContent={true}
+                />
+              )}
             </div>
           </motion.div>
         </div>
@@ -561,17 +564,6 @@ export default function AboutPage() {
               >
                 Get In Touch
               </a>
-              <button 
-                onClick={reloadWithTransition}
-                className="px-6 py-3 neubrutalism-button"
-                style={{ 
-                  backgroundColor: 'var(--color-surface)',
-                  borderColor: 'var(--color-accent)',
-                  color: 'var(--color-accent)'
-                }}
-              >
-                🔄 Test Reload
-              </button>
             </div>
           </motion.div>
         </div>

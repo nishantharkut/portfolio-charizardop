@@ -26,38 +26,87 @@ export default function Contact() {
         >
           I&apos;m open to collaborations, freelance opportunities, or just a good conversation about emerging tech, design systems, or creative 3D on the web.
         </motion.p>
-        <div className="min-h-[200px] flex flex-col justify-center border-4 border-black shadow-[8px_8px_0px_black] p-8 max-w-xl" style={{ backgroundColor: 'var(--color-surface)' }}>
+        <div className="min-h-[200px] flex flex-col justify-center border-4 p-8 max-w-xl neubrutalism-card" 
+          style={{ 
+            backgroundColor: 'var(--color-surface)', 
+            borderColor: 'var(--color-accent)',
+            boxShadow: '8px 8px 0px 0px var(--shadow-neubrutalism)'
+          }}>
           <form className="grid gap-6">
             <div className="grid gap-2">
               <label className="text-sm font-medium uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>Name</label>
               <input 
                 type="text" 
-                className="px-4 py-3 text-sm border-2 border-black focus:outline-none focus:shadow-[3px_3px_0px_black] transition-all" 
+                className="px-4 py-3 text-sm border-2 focus:outline-none transition-all" 
                 placeholder="Ash Ketchum"
-                style={{ color: 'var(--color-text)', backgroundColor: 'var(--color-surface-elevated)' }}
+                style={{ 
+                  color: 'var(--color-text)', 
+                  backgroundColor: 'var(--color-surface-elevated)',
+                  borderColor: 'var(--color-accent)'
+                }}
+                onFocus={(e) => {
+                  e.target.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism)';
+                }}
+                onBlur={(e) => {
+                  e.target.style.boxShadow = 'none';
+                }}
               />
             </div>
             <div className="grid gap-2">
               <label className="text-sm font-medium uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>Email</label>
               <input 
                 type="email" 
-                className="px-4 py-3 text-sm border-2 border-black focus:outline-none focus:shadow-[3px_3px_0px_black] transition-all" 
+                className="px-4 py-3 text-sm border-2 focus:outline-none transition-all" 
                 placeholder="you@example.com"
-                style={{ color: 'var(--color-text)', backgroundColor: 'var(--color-surface-elevated)' }}
+                style={{ 
+                  color: 'var(--color-text)', 
+                  backgroundColor: 'var(--color-surface-elevated)',
+                  borderColor: 'var(--color-accent)'
+                }}
+                onFocus={(e) => {
+                  e.target.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism)';
+                }}
+                onBlur={(e) => {
+                  e.target.style.boxShadow = 'none';
+                }}
               />
             </div>
             <div className="grid gap-2">
               <label className="text-sm font-medium uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>Message</label>
               <textarea 
                 rows={4} 
-                className="px-4 py-3 text-sm resize-none border-2 border-black focus:outline-none focus:shadow-[3px_3px_0px_black] transition-all" 
+                className="px-4 py-3 text-sm resize-none border-2 focus:outline-none transition-all" 
                 placeholder="Let's build something amazing..."
-                style={{ color: 'var(--color-text)', backgroundColor: 'var(--color-surface-elevated)' }}
+                style={{ 
+                  color: 'var(--color-text)', 
+                  backgroundColor: 'var(--color-surface-elevated)',
+                  borderColor: 'var(--color-accent)'
+                }}
+                onFocus={(e) => {
+                  e.target.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism)';
+                }}
+                onBlur={(e) => {
+                  e.target.style.boxShadow = 'none';
+                }}
               />
             </div>
             <button 
               type="submit" 
-              className="justify-self-start px-6 py-3 font-medium bg-orange-500 text-white w-fit transition-all shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] uppercase tracking-wide"
+              className="justify-self-start px-6 py-3 font-medium w-fit transition-all duration-300 uppercase tracking-wide border-4 neubrutalism-button"
+              style={{
+                backgroundColor: 'var(--color-accent)',
+                color: 'var(--color-button-text)',
+                borderColor: 'var(--color-text)',
+                boxShadow: '3px 3px 0px 0px var(--shadow-neubrutalism)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.transform = 'translate(3px, 3px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism)';
+                e.currentTarget.style.transform = 'translate(0px, 0px)';
+              }}
             >
               Send Message
             </button>

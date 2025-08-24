@@ -416,8 +416,49 @@ export default function Hero() {
                   {heroData.description}
                 </p>
                 <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
-                  <a href={heroData.cta.secondary.href} className="rounded-full glass px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-medium transition-opacity hover:opacity-80 backdrop-blur-xl text-center" style={{ color: 'var(--color-text)' }}>{heroData.cta.secondary.text}</a>
-                  <a href={heroData.cta.primary.href} className="rounded-full px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-semibold transition-opacity hover:opacity-80 text-center fire-glow" style={{ background: 'var(--color-accent-gradient)', color: 'var(--color-button-text)' }}>{heroData.cta.primary.text}</a>
+                  {/* Secondary CTA - Neubrutalism with website colors */}
+                  <a 
+                    href={heroData.cta.secondary.href} 
+                    className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-medium text-center border-4 transition-all duration-300"
+                    style={{ 
+                      backgroundColor: 'var(--color-surface-elevated)',
+                      borderColor: 'var(--color-accent)',
+                      color: 'var(--color-text)',
+                      boxShadow: '6px 6px 0px 0px var(--shadow-neubrutalism)'
+                    }}
+                    onTouchStart={(e) => {
+                      e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism-hover)';
+                      e.currentTarget.style.transform = 'translate(3px, 3px)';
+                    }}
+                    onTouchEnd={(e) => {
+                      e.currentTarget.style.boxShadow = '6px 6px 0px 0px var(--shadow-neubrutalism)';
+                      e.currentTarget.style.transform = 'translate(0px, 0px)';
+                    }}
+                  >
+                    {heroData.cta.secondary.text}
+                  </a>
+                  
+                  {/* Primary CTA - Neubrutalism with website colors */}
+                  <a 
+                    href={heroData.cta.primary.href} 
+                    className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-semibold text-center border-4 transition-all duration-300"
+                    style={{ 
+                      backgroundColor: 'var(--color-accent)',
+                      borderColor: 'var(--color-text)',
+                      color: 'var(--color-button-text)',
+                      boxShadow: '6px 6px 0px 0px var(--shadow-neubrutalism)'
+                    }}
+                    onTouchStart={(e) => {
+                      e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism-hover)';
+                      e.currentTarget.style.transform = 'translate(3px, 3px)';
+                    }}
+                    onTouchEnd={(e) => {
+                      e.currentTarget.style.boxShadow = '6px 6px 0px 0px var(--shadow-neubrutalism)';
+                      e.currentTarget.style.transform = 'translate(0px, 0px)';
+                    }}
+                  >
+                    {heroData.cta.primary.text}
+                  </a>
                 </div>
               </motion.div>
               
@@ -603,10 +644,52 @@ export default function Hero() {
               <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-6 sm:mb-8 font-light max-w-lg mx-auto lg:mx-0 text-center lg:text-left" style={{ color: 'var(--color-text-muted)' }}>
                 {heroData.description}
               </p>
-              <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start">
-                <a href={heroData.cta.secondary.href} className="rounded-full glass px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-medium transition-opacity hover:opacity-80 backdrop-blur-xl text-center" style={{ color: 'var(--color-text)' }}>{heroData.cta.secondary.text}</a>
-                <a href={heroData.cta.primary.href} className="rounded-full px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-semibold transition-opacity hover:opacity-80 text-center fire-glow" style={{ background: 'var(--color-accent-gradient)', color: 'var(--color-button-text)' }}>{heroData.cta.primary.text}</a>
-              </div>
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
+  {/* Secondary CTA - Using website's surface color for neubrutalism */}
+  <a
+    href={heroData.cta.secondary.href}
+    className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-medium text-center border-4 transition-all duration-300 neubrutalism-button"
+    style={{ 
+      backgroundColor: 'var(--color-surface-elevated)',
+      borderColor: 'var(--color-accent)',
+      color: 'var(--color-text)',
+      boxShadow: '6px 6px 0px 0px var(--shadow-neubrutalism)'
+    }}
+    onMouseEnter={(e) => {
+      e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism-hover)';
+      e.currentTarget.style.transform = 'translate(3px, 3px)';
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.boxShadow = '6px 6px 0px 0px var(--shadow-neubrutalism)';
+      e.currentTarget.style.transform = 'translate(0px, 0px)';
+    }}
+  >
+    {heroData.cta.secondary.text}
+  </a>
+
+  {/* Primary CTA - Using website's accent color for neubrutalism */}
+  <a
+    href={heroData.cta.primary.href}
+    className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-semibold text-center border-4 transition-all duration-300 neubrutalism-button"
+    style={{ 
+      backgroundColor: 'var(--color-accent)',
+      borderColor: 'var(--color-text)',
+      color: 'var(--color-button-text)',
+      boxShadow: '6px 6px 0px 0px var(--shadow-neubrutalism)'
+    }}
+    onMouseEnter={(e) => {
+      e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism-hover)';
+      e.currentTarget.style.transform = 'translate(3px, 3px)';
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.boxShadow = '6px 6px 0px 0px var(--shadow-neubrutalism)';
+      e.currentTarget.style.transform = 'translate(0px, 0px)';
+    }}
+  >
+    {heroData.cta.primary.text}
+  </a>
+</div>
+
             </motion.div>
             
             {/* RIGHT SIDE - Space for 3D Model (Canvas renders seamlessly behind) */}
