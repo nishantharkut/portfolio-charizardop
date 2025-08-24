@@ -4,18 +4,28 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { getProjects, type Project } from '../../data';
-import SplashCursorWrapper from '../components/ui/SplashCursorWrapper';
 
 // Lazy load components with proper error boundaries
 import { LazyFaultyTerminal } from '../../components/lazy/LazyBoundaries';
+
+// Dynamically import SplashCursor with error handling
+const SplashCursor = dynamic(
+  () => import('../components/ui/SplashCursor'),
+  { 
+    ssr: false,
+    loading: () => null,
+  }
+);
 
 export default function ProjectsPage() {
   const projects = getProjects();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set());
+  const [splashCursorError, setSplashCursorError] = useState(false);
 
   const handleCardHover = (projectId: number, isHovered: boolean) => {
     setFlippedCards(prev => {
@@ -39,7 +49,12 @@ export default function ProjectsPage() {
 
   return (
     <main className="relative w-full min-h-screen overflow-x-hidden">
-      <SplashCursorWrapper SPLAT_RADIUS={0.05} />
+      {!splashCursorError && (
+        <SplashCursor 
+          SPLAT_RADIUS={0.05}
+          onError={() => setSplashCursorError(true)}
+        />
+      )}
       <Navbar />
       
       {/* Hero Section with FaultyTerminal Background */}
@@ -120,13 +135,72 @@ export default function ProjectsPage() {
                   onMouseLeave={() => handleCardHover(project.id, false)}
                   onClick={() => handleCardClick(project)}
                 >
-                  {/* Neubrutalism Card - FIXED HEIGHT */}
+                  {/* Neubrutalism Card */}
                   <div 
-                    className="relative w-full h-[560px] neubrutalism-card flex flex-col"
+                    className="relative w-full h-[520px] border-4 border-black shadow-[8px_8px_0px_black] hover:shadow-[4px_4px_0px_black] hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-300 flex flex-col"
                     style={{
                       backgroundColor: 'var(--color-surface)',
                     }}
                   >
+                    {/* Project Image */}
+                    <div className="relative w-full h-[260px] border-b-4 border-black overflow-hidden flex-shrink-0">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                      
+                      {/* Featured Badge */}
+                      {project.featured && (
+                        <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 font-bold text-xs shadow-[3px_3px_0px_black]">
+                          FEATURED
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Card Content */}
+                    <div className="p-6 flex-1 flex flex-col">
+                      {/* Title */}
+                      <h3 className="text-xl font-bold mb-3 line-clamp-2" style={{ color: 'var(--color-text)' }}>
+                        {project.title}
+                      </h3>
+
+                      {/* Category */}
+                      <p className="text-orange-500 text-sm font-medium mb-3">
+                        {project.category}
+                      </p>
+
+                      {/* Description */}
+                      <p className="text-sm leading-relaxed mb-4 line-clamp-3 flex-1" style={{ color: 'var(--color-text-secondary)' }}>
+                        {project.shortDescription}
+                      </p>
+
+                      {/* Tech Stack */}
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.techStack.slice(0, 3).map((tech, i) => (
+                          <span key={i} className="px-2 py-1 bg-orange-500 text-white text-xs font-medium shadow-[2px_2px_0px_black] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200">
+                            {tech}
+                          </span>
+                        ))}
+                        {project.techStack.length > 3 && (
+                          <span className="px-2 py-1 bg-gray-600 text-white text-xs font-medium shadow-[2px_2px_0px_black]">
+                            +{project.techStack.length - 3}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Action Button */}
+                      <button className="w-full px-4 py-3 font-medium bg-indigo-500 text-white transition-all shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] text-sm">
+                        VIEW DETAILS
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
                     {/* Project Image - FIXED HEIGHT */}
                     <div className="relative w-full h-[280px] border-b-4 border-black overflow-hidden flex-shrink-0">
                       <Image
@@ -269,25 +343,18 @@ export default function ProjectsPage() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: 20 }}
               transition={{ duration: 0.3 }}
-              className="relative backdrop-blur-xl border rounded-2xl p-4 sm:p-8 max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col"
+              className="relative border-4 border-black shadow-[8px_8px_0px_black] p-8 max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col"
               style={{ 
-                backgroundColor: 'var(--color-surface-elevated)',
-                borderColor: 'var(--color-border)'
+                backgroundColor: 'var(--color-surface)',
               }}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
               <button
                 onClick={closeProjectDetail}
-                className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-full hover:bg-opacity-80 flex items-center justify-center transition-colors duration-300 z-10"
-                style={{ 
-                  backgroundColor: 'var(--color-surface-hover)',
-                  color: 'var(--color-text)'
-                }}
+                className="absolute top-4 right-4 w-10 h-10 font-bold bg-red-500 text-white shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-300 z-10"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                ✕
               </button>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 overflow-y-auto flex-1 pr-2">
@@ -314,17 +381,17 @@ export default function ProjectsPage() {
                     <p className="text-orange-500 text-base sm:text-lg truncate">{selectedProject.category}</p>
                   </div>
                   
-                  <div className="space-y-4 sm:space-y-6 overflow-y-auto max-h-[60vh]">
+                  <div className="space-y-6 overflow-y-auto max-h-[60vh]">
                     <div>
-                      <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3" style={{ color: 'var(--color-text)' }}>Description</h3>
-                      <p className="leading-relaxed text-sm sm:text-base line-clamp-6" style={{ color: 'var(--color-text-secondary)' }}>{selectedProject.fullDescription}</p>
+                      <h3 className="text-xl font-bold mb-3" style={{ color: 'var(--color-text)' }}>Description</h3>
+                      <p className="leading-relaxed text-base" style={{ color: 'var(--color-text-secondary)' }}>{selectedProject.fullDescription}</p>
                     </div>
 
                     <div>
-                      <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3" style={{ color: 'var(--color-text)' }}>Tech Stack</h3>
-                      <div className="flex flex-wrap gap-2 max-h-[100px] overflow-y-auto">
+                      <h3 className="text-xl font-bold mb-3" style={{ color: 'var(--color-text)' }}>Tech Stack</h3>
+                      <div className="flex flex-wrap gap-2">
                         {selectedProject.techStack.map((tech, i) => (
-                          <span key={i} className="px-2 sm:px-3 py-1 bg-orange-500/20 text-orange-500 text-xs sm:text-sm rounded-full whitespace-nowrap">
+                          <span key={i} className="px-3 py-1 bg-orange-500 text-white text-sm font-medium shadow-[2px_2px_0px_black] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200">
                             {tech}
                           </span>
                         ))}
@@ -332,35 +399,41 @@ export default function ProjectsPage() {
                     </div>
 
                     <div>
-                      <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3" style={{ color: 'var(--color-text)' }}>Key Implementation</h3>
-                      <ul className="space-y-2 max-h-[120px] overflow-y-auto">
+                      <h3 className="text-xl font-bold mb-3" style={{ color: 'var(--color-text)' }}>Key Features</h3>
+                      <ul className="space-y-2">
                         {selectedProject.implementation.map((item, i) => (
                           <li key={i} className="flex items-start gap-3" style={{ color: 'var(--color-text-secondary)' }}>
                             <span className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></span>
-                            <span className="text-xs sm:text-sm leading-relaxed">{item}</span>
+                            <span className="text-sm leading-relaxed">{item}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
-                    {/* Links */}
-                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4">
+                    {/* Action Buttons */}
+                    <div className="flex flex-col sm:flex-row gap-4 pt-4">
                       {selectedProject.liveLink && (
                         <a
                           href={selectedProject.liveLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors duration-300 text-sm sm:text-base"
+                          className="px-6 py-3 font-medium bg-indigo-500 text-white transition-all shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] text-center"
                         >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                          </svg>
-                          <span className="truncate">Live Demo</span>
+                          View Live Project
                         </a>
                       )}
                       {selectedProject.githubLink && (
                         <a
                           href={selectedProject.githubLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-6 py-3 font-medium bg-gray-800 text-white transition-all shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] text-center"
+                        >
+                          View Source Code
+                        </a>
+                      )}
+                    </div>
+                  </div>
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors duration-300 text-sm sm:text-base"

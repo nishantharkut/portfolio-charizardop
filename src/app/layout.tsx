@@ -19,21 +19,21 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Charizard Developer Portfolio',
+  title: 'Nishant Harkut Portfolio',
   description: 'Full stack developer & creative technologist portfolio with immersive 3D experience.',
   keywords: ['developer', 'portfolio', '3D', 'WebGL', 'React', 'Next.js', 'TypeScript'],
-  authors: [{ name: 'Your Name' }],
-  creator: 'Your Name',
+  authors: [{ name: 'Nishant Harkut' }],
+  creator: 'Nishant Harkut',
   openGraph: {
-    title: 'Charizard Developer Portfolio',
+    title: 'Nishant Harkut',
     description: 'Immersive 3D portfolio blending development, design, and creative technology.',
     type: 'website',
     locale: 'en_US',
-    siteName: 'Charizard Portfolio',
+    siteName: 'Nishant Harkut',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Charizard Developer Portfolio',
+    title: 'Nishant Harkut',
     description: 'Immersive 3D portfolio blending development, design, and creative technology.',
   },
   robots: {

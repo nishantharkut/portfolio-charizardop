@@ -5,6 +5,7 @@ import skillsData from './skills.json';
 import experienceData from './experience.json';
 import navigationData from './navigation.json';
 import aboutData from './about.json';
+import heroData from './hero.json';
 
 // Type definitions
 export interface Project {
@@ -131,6 +132,30 @@ export interface AboutSection {
   content: string[];
 }
 
+export interface HeroData {
+  badge: string;
+  name: string;
+  title: string;
+  description: string;
+  cta: {
+    primary: {
+      text: string;
+      href: string;
+    };
+    secondary: {
+      text: string;
+      href: string;
+    };
+  };
+  announcement: {
+    text: string;
+    link: {
+      text: string;
+      href: string;
+    };
+  };
+}
+
 export interface AboutData {
   hero: {
     badge: string;
@@ -222,6 +247,10 @@ export const getSocialLinks = (): SocialLink[] => {
 
 export const getAboutData = (): AboutData => {
   return aboutData;
+};
+
+export const getHeroData = (): HeroData => {
+  return heroData;
 };
 
 // Utility functions for filtering and searching

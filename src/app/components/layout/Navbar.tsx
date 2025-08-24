@@ -56,7 +56,7 @@ export default function Navbar() {
             style={{ color: 'var(--color-text)' }}
           >
             <Image
-              src="/nishantharkut-logo.png"
+              src={theme === 'light' ? "/nishantharkut-logo-lightbg.png" : "/nishantharkut-logo.png"}
               alt="Nishant Arkut Logo"
               width={40}
               height={40}
@@ -140,7 +140,7 @@ export default function Navbar() {
             style={{ color: 'var(--color-text)' }}
           >
             <Image
-              src="/nishantharkut-logo.png"
+              src={theme === 'light' ? "/nishantharkut-logo-lightbg.png" : "/nishantharkut-logo.png"}
               alt="Nishant Arkut Logo"
               width={40}
               height={40}

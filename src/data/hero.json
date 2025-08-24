@@ -1,0 +1,23 @@
+{
+  "badge": "Hi there, I'm",
+  "name": "Nishant Harkut",
+  "title": "Creative Technologist",
+  "description": "I create graphic designs and immersive web experiences for the love of it. Passionate about full stack engineering, creative media, security and AI experimentation.",
+  "cta": {
+    "primary": {
+      "text": "Connect With Me",
+      "href": "#contact"
+    },
+    "secondary": {
+      "text": "View Resume",
+      "href": "/resume.pdf"
+    }
+  },
+  "announcement": {
+    "text": "🔥 Currently seeking new opportunities and exciting projects",
+    "link": {
+      "text": "Let's collaborate",
+      "href": "#contact"
+    }
+  }
+}

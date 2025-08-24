@@ -5,72 +5,63 @@ import TiltedCard from '../ui/TiltedCard';
   
 export default function About() {
   return (
-    <section id="about" className="relative py-12 md:py-16 lg:py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="relative py-12 sm:py-16 md:py-20 lg:py-24">
+      <div className="max-w-7xl mx-auto px-6 md:px-10">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
+          viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
-          className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8 md:mb-12 text-center"
+          className="text-3xl md:text-4xl font-bold mb-12"
           style={{ color: 'var(--color-text)' }}
         >
           About Me
         </motion.h2>
         
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16">
-          {/* Mobile/Tablet: Content First, Desktop: TiltedCard Left */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Content */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
+            viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="lg:order-2 space-y-6"
+            className="space-y-6"
           >
             <div className="space-y-4">
               <h3 
-                className="text-xl sm:text-2xl font-semibold"
+                className="text-xl font-semibold"
                 style={{ color: 'var(--color-text)' }}
               >
-                Multi-Disciplinary Creator
+                Creative Technologist
               </h3>
               <p
-                className="text-base sm:text-lg leading-relaxed"
+                className="text-base leading-relaxed"
                 style={{ color: 'var(--color-text-muted)' }}
               >
-                I am a multi-disciplinary creator blending engineering and design to craft immersive, performant web experiences. From <span className="font-medium" style={{ color: 'var(--color-text)' }}>frontend</span> micro-interactions and visually rich <span className="font-medium" style={{ color: 'var(--color-text)' }}>3D interfaces</span> to scalable <span className="font-medium" style={{ color: 'var(--color-text)' }}>backend architecture</span>, I enjoy owning the full stack.
+                I'm a passionate full-stack developer with over 7 years of experience creating immersive web experiences. I specialize in combining creative design with cutting-edge technology to build digital solutions that are both functional and beautiful.
               </p>
-            </div>
-
-            <div className="space-y-4">
-              <h4 
-                className="text-lg sm:text-xl font-medium"
-                style={{ color: 'var(--color-text)' }}
-              >
-                Creative & Technical Expertise
-              </h4>
               <p
-                className="text-sm sm:text-base leading-relaxed"
+                className="text-base leading-relaxed"
                 style={{ color: 'var(--color-text-muted)' }}
               >
-                My creative background in <span className="font-medium" style={{ color: 'var(--color-text)' }}>UI/UX</span>, <span className="font-medium" style={{ color: 'var(--color-text)' }}>graphic design</span>, and <span className="font-medium" style={{ color: 'var(--color-text)' }}>video editing</span> helps me ship cohesive, branded experiences. I'm continuously exploring <span className="font-medium" style={{ color: 'var(--color-text)' }}>cybersecurity practices</span> and leveraging emerging <span className="font-medium" style={{ color: 'var(--color-text)' }}>AI/ML</span> tools to accelerate development and creativity.
+                From React and Next.js to Three.js and WebGL, I love exploring new technologies and pushing the boundaries of what's possible on the web.
               </p>
             </div>
 
-            {/* Skills/Interests Tags */}
+            {/* Skills Tags */}
             <div className="flex flex-wrap gap-2 pt-4">
-              {['Frontend', '3D Interfaces', 'Backend', 'UI/UX', 'Graphic Design', 'Video Editing', 'Cybersecurity', 'AI/ML'].map((skill, index) => (
+              {['Frontend', '3D Graphics', 'Backend', 'UI/UX', 'WebGL', 'React', 'Next.js', 'Node.js'].map((skill, index) => (
                 <motion.span
                   key={skill}
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: 0.6 + index * 0.05 }}
-                  className="px-3 py-1.5 text-xs sm:text-sm rounded-full border transition-all duration-200 hover:scale-105 hover:shadow-sm"
+                  className="px-3 py-1.5 text-xs rounded-full border transition-all duration-200 hover:scale-105"
                   style={{ 
                     color: 'var(--color-text)',
                     borderColor: 'var(--color-border)',
-                    backgroundColor: 'var(--color-background-muted)'
+                    backgroundColor: 'var(--color-surface)'
                   }}
                 >
                   {skill}
@@ -83,13 +74,13 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 1.0 }}
-              className="pt-6"
+              className="pt-4"
             >
               <a
-                href="/about#who-i-am"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#ff9a1c] to-[#ff6b35] text-white rounded-full font-medium transition-all duration-300 hover:shadow-lg hover:shadow-[#ff9a1c]/25 hover:scale-105"
+                href="/about"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#ff9a1c] to-[#ff6b35] text-white rounded-full font-medium transition-all duration-300 hover:shadow-lg hover:scale-105"
               >
-                Learn More About Me
+                Learn More
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
@@ -97,25 +88,25 @@ export default function About() {
             </motion.div>
           </motion.div>
 
-          {/* TiltedCard - Mobile: Second, Desktop: Left */}
+          {/* TiltedCard */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
+            viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="lg:order-1 flex justify-center lg:justify-start mt-8 lg:mt-0"
+            className="flex justify-center"
           >
-            <div className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-full lg:h-auto lg:max-w-sm lg:aspect-square">
+            <div className="w-80 h-80 max-w-full">
               <TiltedCard
                 imageSrc="https://i.scdn.co/image/ab67616d0000b273d9985092cd88bffd97653b58"
                 altText="Nishant Harkut"
                 captionText="Nishant Harkut"
-                containerHeight="100%"
-                containerWidth="100%"
-                imageHeight="100%"
-                imageWidth="100%"
-                rotateAmplitude={8}
-                scaleOnHover={1.03}
+                containerHeight="320px"
+                containerWidth="320px"
+                imageHeight="280px"
+                imageWidth="280px"
+                rotateAmplitude={6}
+                scaleOnHover={1.02}
                 showMobileWarning={false}
                 showTooltip={true}
                 displayOverlayContent={true}

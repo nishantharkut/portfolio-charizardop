@@ -26,46 +26,43 @@ export default function Contact() {
         >
           I&apos;m open to collaborations, freelance opportunities, or just a good conversation about emerging tech, design systems, or creative 3D on the web.
         </motion.p>
-        <form className="grid gap-6 max-w-xl">
-          <div className="grid gap-2">
-            <label className="text-sm font-medium" style={{ color: 'var(--color-text)' }}>Name</label>
-            <input 
-              type="text" 
-              className="glass-input px-4 py-3 text-sm" 
-              placeholder="Ash Ketchum"
-              style={{ color: 'var(--color-text)' }}
-            />
-          </div>
-          <div className="grid gap-2">
-            <label className="text-sm font-medium" style={{ color: 'var(--color-text)' }}>Email</label>
-            <input 
-              type="email" 
-              className="glass-input px-4 py-3 text-sm" 
-              placeholder="you@example.com"
-              style={{ color: 'var(--color-text)' }}
-            />
-          </div>
-          <div className="grid gap-2">
-            <label className="text-sm font-medium" style={{ color: 'var(--color-text)' }}>Message</label>
-            <textarea 
-              rows={4} 
-              className="glass-input px-4 py-3 text-sm resize-none" 
-              placeholder="Let's build something amazing..."
-              style={{ color: 'var(--color-text)' }}
-            />
-          </div>
-          <button 
-            type="submit" 
-            className="justify-self-start glass-button px-8 py-3 font-semibold text-sm transition-all duration-300 fire-glow"
-            style={{ 
-              background: 'var(--color-accent-gradient, var(--color-accent))',
-              color: 'var(--color-button-text)',
-              border: 'none'
-            }}
-          >
-            Send Message
-          </button>
-        </form>
+        <div className="min-h-[200px] flex flex-col justify-center border-4 border-black shadow-[8px_8px_0px_black] p-8 max-w-xl" style={{ backgroundColor: 'var(--color-surface)' }}>
+          <form className="grid gap-6">
+            <div className="grid gap-2">
+              <label className="text-sm font-medium uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>Name</label>
+              <input 
+                type="text" 
+                className="px-4 py-3 text-sm border-2 border-black focus:outline-none focus:shadow-[3px_3px_0px_black] transition-all" 
+                placeholder="Ash Ketchum"
+                style={{ color: 'var(--color-text)', backgroundColor: 'var(--color-surface-elevated)' }}
+              />
+            </div>
+            <div className="grid gap-2">
+              <label className="text-sm font-medium uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>Email</label>
+              <input 
+                type="email" 
+                className="px-4 py-3 text-sm border-2 border-black focus:outline-none focus:shadow-[3px_3px_0px_black] transition-all" 
+                placeholder="you@example.com"
+                style={{ color: 'var(--color-text)', backgroundColor: 'var(--color-surface-elevated)' }}
+              />
+            </div>
+            <div className="grid gap-2">
+              <label className="text-sm font-medium uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>Message</label>
+              <textarea 
+                rows={4} 
+                className="px-4 py-3 text-sm resize-none border-2 border-black focus:outline-none focus:shadow-[3px_3px_0px_black] transition-all" 
+                placeholder="Let's build something amazing..."
+                style={{ color: 'var(--color-text)', backgroundColor: 'var(--color-surface-elevated)' }}
+              />
+            </div>
+            <button 
+              type="submit" 
+              className="justify-self-start px-6 py-3 font-medium bg-orange-500 text-white w-fit transition-all shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] uppercase tracking-wide"
+            >
+              Send Message
+            </button>
+          </form>
+        </div>
       </div>
     </section>
   );

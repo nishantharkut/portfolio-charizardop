@@ -3,7 +3,7 @@
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Hero from './components/sections/Hero';
-import SplashCursor from './components/ui/SplashCursor';
+import SplashCursorWrapper from './components/ui/SplashCursorWrapper';
 import PerformanceIndicator from './components/ui/PerformanceIndicator';
 
 // Import sections directly - lazy loading was causing visibility issues
@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <main className="relative w-full min-h-screen overflow-x-hidden">
-      <SplashCursor SPLAT_RADIUS={0.05}/>
+      <SplashCursorWrapper SPLAT_RADIUS={0.05}/>
       <PerformanceIndicator />
       <Navbar />
       

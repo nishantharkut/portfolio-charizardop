@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import StarBorder from '../components/ui/StarBorder';
-import SplashCursor from '../components/ui/SplashCursor';
+import SplashCursorWrapper from '../components/ui/SplashCursorWrapper';
 import { useTheme } from '../../contexts/ThemeContext';
 import { 
   getAchievements, 
@@ -39,7 +39,7 @@ export default function AchievementsPage() {
 
   return (
     <main className="relative w-full min-h-screen overflow-x-hidden">
-      <SplashCursor SPLAT_RADIUS={0.05} />
+      <SplashCursorWrapper SPLAT_RADIUS={0.05} />
       <Navbar />
 
       {/* Hero Section */}

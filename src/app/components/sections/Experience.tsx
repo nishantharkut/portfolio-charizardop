@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { gsap, ScrollTrigger } from "@/utils/gsap";
+import { getExperienceData } from "../../../data";
 import "../styles/Experience.css";
 
 interface ExperienceItem {
@@ -11,28 +12,8 @@ interface ExperienceItem {
   description: string;
 }
 
-const experienceData: ExperienceItem[] = [
-  {
-    position: "Senior web developer",
-    company: "Blue Cube Digital",
-    year: "2017",
-    description: "Developed and managed web projects, including frontend/backend, CMS dashboards, and responsive, accessible web pages with PHP, MySQL, and JavaScript."
-  },
-  {
-    position: "Associate Solution Leader",
-    company: "Brane Enterprises",
-    year: "2020",
-    description: "Built web features, product prototypes, and reusable components/microservices, implemented UI improvements and 3D UI interface compatible with Typescript."
-  },
-  {
-    position: "Freelance & Upskilling",
-    company: "Freelance",
-    year: "NOW",
-    description: "During this period, I worked as a freelancer for various clients, providing 3D and web services, while actively upskilling also in multiple areas increasing my Techstack."
-  }
-];
-
 const Experience = () => {
+  const experienceData = getExperienceData().slice(0, 3); // Get first 3 items for summary view
   const sectionRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
   const sparkRef = useRef<HTMLDivElement>(null);
@@ -266,15 +247,17 @@ const Experience = () => {
 
         {/* View Full Experience Button */}
         <div className="text-center mt-16">
-          <a
-            href="/experience"
-            className="experience-button"
-          >
-            View Full Experience Journey
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </a>
+          <div className="inline-flex min-h-[60px] items-center justify-center">
+            <a
+              href="/experience"
+              className="experience-button"
+            >
+              View Full Experience Journey
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </section>

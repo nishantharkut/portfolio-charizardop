@@ -7,6 +7,7 @@ import { Environment, PerspectiveCamera, OrbitControls, ContactShadows, useGLTF,
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import TypewriterRoles from '../ui/RotatingRoles';
 import ErrorBoundary from '../../../components/ErrorBoundary';
+import { getHeroData } from '../../../data';
 import * as THREE from 'three';
 
 // Device and Browser Detection Hook
@@ -365,6 +366,7 @@ function CharizardFallback() {
 }
 
 export default function Hero() {
+  const heroData = getHeroData();
   const { capabilities, isClient } = useDeviceCapabilities();
   const [performanceSettings, setPerformanceSettings] = useState({
     shadows: false, // Default to false for SSR
@@ -405,17 +407,17 @@ export default function Hero() {
                 className="flex flex-col justify-center h-full lg:col-span-7 order-2 lg:order-1 max-w-2xl mx-auto lg:mx-0"
               >
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight tracking-tight mb-4 sm:mb-6 text-center lg:text-left">
-                  <span className="block">Hi, I'm <span className="text-gradient-fire">Nishant</span></span>
+                  <span className="block">{heroData.badge} <span className="text-gradient-fire">{heroData.name}</span></span>
                 </h1>
                 <div className="mb-4 sm:mb-6 h-7 sm:h-8 md:h-9 text-base sm:text-lg md:text-xl lg:text-2xl text-center lg:text-left" style={{ color: 'var(--color-text-secondary)' }}>
                   <TypewriterRoles />
                 </div>
                 <p className="text-sm sm:text-base lg:text-lg leading-relaxed mb-6 sm:mb-8 font-light max-w-xl mx-auto lg:mx-0 text-center lg:text-left" style={{ color: 'var(--color-text-secondary)' }}>
-                  I create graphic designs and immersive web experiences for the love of it. Passionate about full stack engineering, creative media, security and AI experimentation.
+                  {heroData.description}
                 </p>
                 <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
-                  <a href="/resume.pdf" className="rounded-full glass px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-medium transition-opacity hover:opacity-80 backdrop-blur-xl text-center" style={{ color: 'var(--color-text)' }}>View Resume</a>
-                  <a href="#contact" className="rounded-full px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-semibold transition-opacity hover:opacity-80 text-center fire-glow" style={{ background: 'var(--color-accent-gradient)', color: 'var(--color-button-text)' }}>Connect With Me</a>
+                  <a href={heroData.cta.secondary.href} className="rounded-full glass px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-medium transition-opacity hover:opacity-80 backdrop-blur-xl text-center" style={{ color: 'var(--color-text)' }}>{heroData.cta.secondary.text}</a>
+                  <a href={heroData.cta.primary.href} className="rounded-full px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-semibold transition-opacity hover:opacity-80 text-center fire-glow" style={{ background: 'var(--color-accent-gradient)', color: 'var(--color-button-text)' }}>{heroData.cta.primary.text}</a>
                 </div>
               </motion.div>
               
@@ -436,20 +438,20 @@ export default function Hero() {
         >
           {/* Desktop & Tablet - Static Text */}
           <div className="hidden md:flex text-center py-3 px-4 text-sm font-medium tracking-wide min-h-[48px] items-center justify-center">
-            I am Currently Looking for Internships - SWE || Full stack Development || Security Analyst || Frontend Dev || Backend Dev
+            {heroData.announcement.text}
           </div>
           
           {/* Mobile - Animated Scrolling Text */}
           <div className="md:hidden banner-scroll-container py-2.5 min-h-[40px] flex items-center">
             <div className="flex animate-scroll whitespace-nowrap">
               <div className="flex-shrink-0 px-3 sm:px-4">
-                <span className="text-xs font-medium tracking-wide">Looking for Internships - SWE || Full Stack || Security || Frontend || Backend</span>
+                <span className="text-xs font-medium tracking-wide">{heroData.announcement.text}</span>
               </div>
               <div className="flex-shrink-0 px-3 sm:px-4">
-                <span className="text-xs font-medium tracking-wide">Looking for Internships - SWE || Full Stack || Security || Frontend || Backend</span>
+                <span className="text-xs font-medium tracking-wide">{heroData.announcement.text}</span>
               </div>
               <div className="flex-shrink-0 px-3 sm:px-4">
-                <span className="text-xs font-medium tracking-wide">Looking for Internships - SWE || Full Stack || Security || Frontend || Backend</span>
+                <span className="text-xs font-medium tracking-wide">{heroData.announcement.text}</span>
               </div>
             </div>
           </div>
@@ -593,17 +595,17 @@ export default function Hero() {
               className="flex flex-col justify-center h-full max-w-xl order-2 lg:order-1"
             >
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-4 sm:mb-6 text-center lg:text-left" style={{ color: 'var(--color-text)' }}>
-                <span className="block">Hi, I'm <span className="text-gradient-fire">Nishant</span></span>
+                <span className="block">{heroData.badge} <span className="text-gradient-fire">{heroData.name}</span></span>
               </h1>
               <div className="mb-4 sm:mb-6 h-8 sm:h-9 text-lg sm:text-xl md:text-2xl text-center lg:text-left" style={{ color: 'var(--color-text-muted)' }}>
                 <TypewriterRoles />
               </div>
               <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-6 sm:mb-8 font-light max-w-lg mx-auto lg:mx-0 text-center lg:text-left" style={{ color: 'var(--color-text-muted)' }}>
-                I create graphic designs and immersive web experiences for the love of it. Passionate about full stack engineering, creative media, security and AI experimentation.
+                {heroData.description}
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start">
-                <a href="/resume.pdf" className="rounded-full glass px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-medium transition-opacity hover:opacity-80 backdrop-blur-xl text-center" style={{ color: 'var(--color-text)' }}>View Resume</a>
-                <a href="#contact" className="rounded-full px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-semibold transition-opacity hover:opacity-80 text-center fire-glow" style={{ background: 'var(--color-accent-gradient)', color: 'var(--color-button-text)' }}>Connect With Me</a>
+                <a href={heroData.cta.secondary.href} className="rounded-full glass px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-medium transition-opacity hover:opacity-80 backdrop-blur-xl text-center" style={{ color: 'var(--color-text)' }}>{heroData.cta.secondary.text}</a>
+                <a href={heroData.cta.primary.href} className="rounded-full px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-semibold transition-opacity hover:opacity-80 text-center fire-glow" style={{ background: 'var(--color-accent-gradient)', color: 'var(--color-button-text)' }}>{heroData.cta.primary.text}</a>
               </div>
             </motion.div>
             
@@ -652,20 +654,20 @@ export default function Hero() {
       >
         {/* Desktop & Tablet - Static Text */}
         <div className="hidden md:flex text-center py-3 px-4 text-sm font-medium tracking-wide min-h-[48px] items-center justify-center">
-          I am Currently Looking for Internships - SWE || Full stack Development || Security Analyst || Frontend Dev || Backend Dev
+          {heroData.announcement.text}
         </div>
         
         {/* Mobile - Animated Scrolling Text */}
         <div className="md:hidden banner-scroll-container py-2.5 min-h-[40px] flex items-center">
           <div className="flex animate-scroll whitespace-nowrap">
             <div className="flex-shrink-0 px-3 sm:px-4">
-              <span className="text-xs font-medium tracking-wide">Looking for Internships - SWE || Full Stack || Security || Frontend || Backend</span>
+              <span className="text-xs font-medium tracking-wide">{heroData.announcement.text}</span>
             </div>
             <div className="flex-shrink-0 px-3 sm:px-4">
-              <span className="text-xs font-medium tracking-wide">Looking for Internships - SWE || Full Stack || Security || Frontend || Backend</span>
+              <span className="text-xs font-medium tracking-wide">{heroData.announcement.text}</span>
             </div>
             <div className="flex-shrink-0 px-3 sm:px-4">
-              <span className="text-xs font-medium tracking-wide">Looking for Internships - SWE || Full Stack || Security || Frontend || Backend</span>
+              <span className="text-xs font-medium tracking-wide">{heroData.announcement.text}</span>
             </div>
           </div>
         </div>

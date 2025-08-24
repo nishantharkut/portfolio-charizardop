@@ -8,7 +8,7 @@ import { FaRocket, FaStar, FaUsers, FaBolt } from 'react-icons/fa';
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ScrollVelocity from "../components/ui/ScrollVelocity";
-import SplashCursor from "../components/ui/SplashCursor";
+import SplashCursorWrapper from "../components/ui/SplashCursorWrapper";
 import { 
   getExperienceData, 
   getCoreSkills, 
@@ -157,7 +157,8 @@ export default function ExperiencePage() {
 
   return (
     <main className="relative w-full min-h-screen overflow-x-hidden" style={{ color: 'var(--color-text)' }}>
-      <SplashCursor SPLAT_RADIUS={0.05} />
+      {/* <SplashCursor SPLAT_RADIUS={0.05} /> */}
+      <SplashCursorWrapper SPLAT_RADIUS={0.05} />
       <Navbar />
 
       {/* Hero Section */}

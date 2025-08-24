@@ -6,6 +6,7 @@ import projectsData from "../../../data/projects.json";
 import achievementsData from "../../../data/achievements.json";
 import experienceData from "../../../data/experience.json";
 import aboutData from "../../../data/about.json";
+import { useTheme } from "../../../contexts/ThemeContext";
 import {
   ArrowTopRightOnSquareIcon, 
   ArrowDownTrayIcon,
@@ -114,6 +115,7 @@ const ConceptIcon: React.FC<{ text: string; className?: string }> = ({ text, cla
 const AboutMeContent: React.FC = () => {
   const stats = aboutData.stats;
   const router = useRouter();
+  const { theme } = useTheme();
 
   const handleViewAbout = () => {
     router.push('/about');
@@ -125,7 +127,7 @@ const AboutMeContent: React.FC = () => {
       <div className="flex items-center gap-3 mb-3">
         <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 flex items-center justify-center shadow-lg overflow-hidden">
           <Image
-            src="/nishantharkut-logo.png"
+            src={theme === 'light' ? "/nishantharkut-logo-lightbg.png" : "/nishantharkut-logo.png"}
             alt="Nishant Arkut Logo"
             width={40}
             height={40}
@@ -1150,6 +1152,7 @@ const MagicBento: React.FC<BentoProps> = ({
 }) => {
   const gridRef = useRef<HTMLDivElement>(null);
   const isMobile = useMobileDetection();
+  const { theme } = useTheme();
   const shouldDisableAnimations = disableAnimations || isMobile;
 
   return (

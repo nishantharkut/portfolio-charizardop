@@ -16,7 +16,7 @@ import Footer from '../components/layout/Footer';
 import { useTheme } from '../../contexts/ThemeContext';
 import TiltedCard from '../components/ui/TiltedCard';
 import StarBorder from '../components/ui/StarBorder';
-import SplashCursor from '../components/ui/SplashCursor';
+import SplashCursorWrapper from '../components/ui/SplashCursorWrapper';
 import { usePageReload } from '../components/ui/LazyLoader';
 
 // Lazy load FaultyTerminal with proper loading state
@@ -72,7 +72,7 @@ export default function AboutPage() {
 
   return (
     <main className="relative w-full min-h-screen overflow-x-hidden" style={{ color: 'var(--color-text)' }}>
-      <SplashCursor SPLAT_RADIUS={0.05} />
+      <SplashCursorWrapper SPLAT_RADIUS={0.05} />
       <Navbar />
 
       {/* Hero Section */}
