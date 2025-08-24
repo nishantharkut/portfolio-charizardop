@@ -1,48 +1,79 @@
-"use client";
+'use client';
 
-import Image from 'next/image';
-import { useTheme } from '../contexts/ThemeContext';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function TestSimpleLogo() {
-  const { actualTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const [imageStatus, setImageStatus] = useState<string>('loading...');
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return <div>Loading...</div>;
-  }
-
-  const logoPath = actualTheme === 'light' ? "/logo-light.png" : "/logo-dark.png";
+  const testImageLoad = (src: string, name: string) => {
+    const img = new Image();
+    img.onload = () => {
+      setImageStatus(prev => prev + `\n✅ ${name}: Successfully loaded`);
+    };
+    img.onerror = () => {
+      setImageStatus(prev => prev + `\n❌ ${name}: Failed to load`);
+    };
+    img.src = src;
+  };
 
   return (
-    <div className="fixed top-20 left-4 p-4 bg-green-800/90 text-white rounded-lg z-50">
-      <h3 className="font-bold mb-2">Simple Logo Test</h3>
+    <div className="p-8 max-w-4xl mx-auto">
+      <h1 className="text-2xl font-bold mb-6">Logo Image Test</h1>
       
-      <div className="space-y-2 text-sm">
-        <div>Actual Theme: {actualTheme}</div>
-        <div>Logo Path: {logoPath}</div>
-      </div>
-
-      <div className="mt-4">
-        <div className="w-16 h-16 bg-orange-500 rounded flex items-center justify-center overflow-hidden">
-          <Image
-            src={logoPath}
-            alt="Simple Test Logo"
-            width={64}
-            height={64}
-            className="w-full h-full object-contain p-1"
-            unoptimized
-            onError={(e) => {
-              console.error('Simple logo failed to load:', e.currentTarget.src);
-            }}
-            onLoad={() => {
-              console.log('Simple logo loaded successfully:', logoPath);
-            }}
-          />
+      <div className="space-y-4">
+        <button 
+          onClick={() => {
+            setImageStatus('Testing...');
+            testImageLoad('/nishantharkut-logo.png', 'Original Logo');
+            testImageLoad('/logo-light.png', 'Logo Light');
+            testImageLoad('/logo-dark.png', 'Logo Dark');
+            testImageLoad('/icon-192.png', 'Icon 192');
+            testImageLoad('/icon-512.png', 'Icon 512');
+          }}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Test Image Loading
+        </button>
+        
+        <pre className="bg-gray-100 p-4 rounded whitespace-pre-wrap">
+          {imageStatus}
+        </pre>
+        
+        <div className="space-y-4">
+          <h2 className="text-xl font-semibold">Direct Image Tags Test:</h2>
+          
+          <div>
+            <p>Original Logo:</p>
+            <img 
+              src="/nishantharkut-logo.png" 
+              alt="Original Logo"
+              style={{ width: '72px', height: '72px' }}
+              onLoad={() => console.log('✅ Original logo loaded')}
+              onError={() => console.log('❌ Original logo failed')}
+            />
+          </div>
+          
+          <div>
+            <p>Logo Light:</p>
+            <img 
+              src="/logo-light.png" 
+              alt="Logo Light"
+              style={{ width: '72px', height: '72px' }}
+              onLoad={() => console.log('✅ Logo light loaded')}
+              onError={() => console.log('❌ Logo light failed')}
+            />
+          </div>
+          
+          <div>
+            <p>Icon 192:</p>
+            <img 
+              src="/icon-192.png" 
+              alt="Icon 192"
+              style={{ width: '72px', height: '72px' }}
+              onLoad={() => console.log('✅ Icon 192 loaded')}
+              onError={() => console.log('❌ Icon 192 failed')}
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -48,8 +48,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/nishantharkut-logo.png',
-    apple: '/nishantharkut-logo.png',
+    icon: '/icon-192.png',
+    apple: '/icon-192.png',
   },
   manifest: '/manifest.json',
 };
