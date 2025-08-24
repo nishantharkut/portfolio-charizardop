@@ -1,14 +1,27 @@
 "use client";
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { gsap } from "gsap";
+import projectsData from "../../../data/projects.json";
+import achievementsData from "../../../data/achievements.json";
+import experienceData from "../../../data/experience.json";
 import { 
   ArrowTopRightOnSquareIcon, 
   ArrowDownTrayIcon,
   CodeBracketIcon,
   BriefcaseIcon,
   TrophyIcon,
-  UserIcon
+  UserIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  EllipsisHorizontalIcon
 } from "@heroicons/react/24/outline";
+import { 
+  SiGithub, 
+  SiLinkedin, 
+  SiCodeforces, 
+  SiLeetcode,
+  SiCodechef 
+} from "react-icons/si";
 import LogoLoop from "./LogoLoop";
 // Import additional icons for more tech stacks
 import { 
@@ -30,7 +43,6 @@ import {
   SiSupabase,
   SiAmazonwebservices, 
   SiGit, 
-  SiGithub, 
   SiDocker, 
   SiVercel,
   SiNetlify,
@@ -93,6 +105,166 @@ const ConceptIcon: React.FC<{ text: string; className?: string }> = ({ text, cla
     {text}
   </div>
 );
+
+// Projects Component - Show only top 2 featured projects
+const ProjectsContent: React.FC = () => {
+  const featuredProjects = projectsData.projects.filter(project => project.featured).slice(0, 2);
+  
+  return (
+    <div className="flex flex-col h-full">
+      <div className="flex-1 space-y-3">
+        {featuredProjects.map((project, index) => (
+          <div key={project.id} className="p-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+            <h4 className="text-sm font-semibold text-white mb-1">{project.title}</h4>
+            <p className="text-xs text-white/70 mb-2">{project.shortDescription}</p>
+            <div className="flex flex-wrap gap-1">
+              {project.techStack.slice(0, 3).map((tech, i) => (
+                <span key={i} className="text-xs px-2 py-1 bg-orange-500/20 text-orange-300 rounded">
+                  {tech}
+                </span>
+              ))}
+              {project.techStack.length > 3 && (
+                <span className="text-xs px-2 py-1 bg-white/10 text-white/50 rounded">
+                  +{project.techStack.length - 3}
+                </span>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-auto pt-4">
+        <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-3" />
+        <button className="w-full py-2.5 px-4 rounded-lg bg-white/10 hover:bg-white/20 transition-colors text-sm font-medium backdrop-blur-sm border border-white/10">
+          Show All Projects
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// Achievements Carousel Component - Show recent achievements (max 4-5)
+const AchievementsContent: React.FC = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const recentAchievements = achievementsData.achievements.slice(0, 4);
+  
+  const nextAchievement = () => {
+    setCurrentIndex((prev) => (prev + 1) % recentAchievements.length);
+  };
+  
+  const prevAchievement = () => {
+    setCurrentIndex((prev) => (prev - 1 + recentAchievements.length) % recentAchievements.length);
+  };
+  
+  const currentAchievement = recentAchievements[currentIndex];
+  
+  return (
+    <div className="flex flex-col h-full">
+      <div className="flex-1">
+        <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-lg">{currentAchievement.badge}</span>
+            <h4 className="text-sm font-semibold text-white">{currentAchievement.title}</h4>
+          </div>
+          <p className="text-xs text-white/70 mb-2">{currentAchievement.description}</p>
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-orange-300">{currentAchievement.date}</span>
+            <span className="text-xs text-white/50">{currentAchievement.organization}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div className="flex items-center justify-between mt-4">
+        <button 
+          onClick={prevAchievement}
+          className="p-1 rounded hover:bg-white/10 transition-colors"
+        >
+          <ChevronLeftIcon className="w-4 h-4" />
+        </button>
+        <div className="flex gap-1">
+          {recentAchievements.map((_, index) => (
+            <div 
+              key={index}
+              className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                index === currentIndex ? 'bg-orange-500' : 'bg-white/30'
+              }`}
+            />
+          ))}
+        </div>
+        <button 
+          onClick={nextAchievement}
+          className="p-1 rounded hover:bg-white/10 transition-colors"
+        >
+          <ChevronRightIcon className="w-4 h-4" />
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// Experience Carousel Component - Show current and one past experience
+const ExperienceContent: React.FC = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const relevantExperience = experienceData.experienceData.slice(0, 2); // Current and one past
+  
+  const nextExperience = () => {
+    setCurrentIndex((prev) => (prev + 1) % relevantExperience.length);
+  };
+  
+  const prevExperience = () => {
+    setCurrentIndex((prev) => (prev - 1 + relevantExperience.length) % relevantExperience.length);
+  };
+  
+  const currentExperience = relevantExperience[currentIndex];
+  
+  return (
+    <div className="flex flex-col h-full">
+      <div className="flex-1">
+        <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+          <h4 className="text-sm font-semibold text-white mb-1">{currentExperience.position}</h4>
+          <p className="text-xs text-orange-300 mb-2">{currentExperience.company} • {currentExperience.duration}</p>
+          <p className="text-xs text-white/70 mb-3">{currentExperience.description}</p>
+          <div className="flex flex-wrap gap-1">
+            {currentExperience.technologies.slice(0, 4).map((tech, i) => (
+              <span key={i} className="text-xs px-2 py-1 bg-blue-500/20 text-blue-300 rounded">
+                {tech}
+              </span>
+            ))}
+            {currentExperience.technologies.length > 4 && (
+              <span className="text-xs px-2 py-1 bg-white/10 text-white/50 rounded">
+                +{currentExperience.technologies.length - 4}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+      
+      <div className="flex items-center justify-between mt-4">
+        <button 
+          onClick={prevExperience}
+          className="p-1 rounded hover:bg-white/10 transition-colors"
+        >
+          <ChevronLeftIcon className="w-4 h-4" />
+        </button>
+        <div className="flex gap-1">
+          {relevantExperience.map((_, index) => (
+            <div 
+              key={index}
+              className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                index === currentIndex ? 'bg-blue-500' : 'bg-white/30'
+              }`}
+            />
+          ))}
+        </div>
+        <button 
+          onClick={nextExperience}
+          className="p-1 rounded hover:bg-white/10 transition-colors"
+        >
+          <ChevronRightIcon className="w-4 h-4" />
+        </button>
+      </div>
+    </div>
+  );
+};
 
 // Tech skills organized by categories - expanded to fill entire card (42 icons)
 // Dark mode: Light grey -> Yellowish-orange on hover
@@ -296,12 +468,43 @@ const SkillsContent: React.FC = () => {
 
 // Social icons data - matching your image
 const socialIcons = [
-  { name: "GitHub", icon: "🐙", href: "https://github.com", color: "#333" },
-  { name: "LinkedIn", icon: "💼", href: "https://linkedin.com", color: "#0077B5" },
-  { name: "Analytics", icon: "📊", href: "#", color: "#FF6B35" },
-  { name: "Tools", icon: "🛠️", href: "#", color: "#4A90E2" },
-  { name: "Shell", icon: "🐚", href: "#", color: "#FF5722" },
-  { name: "Chat", icon: "💬", href: "#", color: "#25D366" },
+  { 
+    name: "GitHub", 
+    icon: <SiGithub className="w-5 h-5" />, 
+    href: "https://github.com/nishantharkut", 
+    color: "#333" 
+  },
+  { 
+    name: "LinkedIn", 
+    icon: <SiLinkedin className="w-5 h-5" />, 
+    href: "https://linkedin.com/in/nishantharkut", 
+    color: "#0077B5" 
+  },
+  { 
+    name: "Codeforces", 
+    icon: <SiCodeforces className="w-5 h-5" />, 
+    href: "https://codeforces.com/profile/nishantharkut", 
+    color: "#1F8ACB" 
+  },
+  { 
+    name: "LeetCode", 
+    icon: <SiLeetcode className="w-5 h-5" />, 
+    href: "https://leetcode.com/nishantharkut", 
+    color: "#FFA116" 
+  },
+  { 
+    name: "CodeChef", 
+    icon: <SiCodechef className="w-5 h-5" />, 
+    href: "https://codechef.com/users/nishantharkut", 
+    color: "#5B4638" 
+  },
+  { 
+    name: "More", 
+    icon: <EllipsisHorizontalIcon className="w-5 h-5" />, 
+    href: "#", 
+    color: "#666",
+    isMore: true
+  },
 ];
 
 // Updated card data to match your layout
@@ -327,14 +530,7 @@ const cardData: BentoCardProps[] = [
     description: "Showcase of my best creative work and developments",
     icon: <ArrowTopRightOnSquareIcon className="w-5 h-5" />,
     className: "bento-card--projects",
-    content: (
-      <div className="mt-auto flex flex-col gap-4">
-        <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-        <button className="w-full py-3 px-4 rounded-lg bg-white/10 hover:bg-white/20 transition-colors text-sm font-medium backdrop-blur-sm border border-white/10">
-          All Projects
-        </button>
-      </div>
-    ),
+    content: <ProjectsContent />,
   },
   {
     id: "experience",
@@ -342,6 +538,7 @@ const cardData: BentoCardProps[] = [
     description: "3+ years in full-stack development and creative design",
     icon: <BriefcaseIcon className="w-5 h-5" />,
     className: "bento-card--experience",
+    content: <ExperienceContent />,
   },
   {
     id: "achievements",
@@ -349,6 +546,7 @@ const cardData: BentoCardProps[] = [
     description: "Awards, certifications and recognitions",
     icon: <TrophyIcon className="w-5 h-5" />,
     className: "bento-card--achievements",
+    content: <AchievementsContent />,
   },
 ];
 
@@ -1081,33 +1279,58 @@ const MagicBento: React.FC<BentoProps> = ({
             border-color: rgba(255, 179, 71, 0.5);
           }
 
-          /* Mobile responsiveness */
+          /* Mobile responsiveness - Limited to 1-2 rows only */
           @media (max-width: 768px) {
             .bento-section {
               margin-bottom: 1rem;
             }
             
             .bento-grid {
-              grid-template-columns: 1fr !important;
-              grid-template-rows: auto !important;
+              grid-template-columns: 1fr 1fr !important;
+              grid-template-rows: auto auto !important;
               height: auto !important;
-              gap: 1rem;
+              gap: 0.75rem;
               margin-bottom: 1rem;
             }
             
-            .bento-card--about,
-            .bento-card--skills,
-            .bento-card--projects,
-            .bento-card--experience,
-            .bento-card--achievements,
-            .bento-card--social {
+            /* Priority layout for mobile - only show most important cards */
+            .bento-card--about {
+              grid-column: 1 / 3 !important;
+              grid-row: 1 !important;
+              min-height: 160px;
+            }
+            
+            .bento-card--skills {
               grid-column: 1 !important;
-              grid-row: auto !important;
-              min-height: 200px;
+              grid-row: 2 !important;
+              min-height: 180px;
+            }
+            
+            .bento-card--projects {
+              grid-column: 2 !important;
+              grid-row: 2 !important;
+              min-height: 180px;
+            }
+            
+            /* Hide some cards on mobile to maintain 1-2 rows */
+            .bento-card--experience,
+            .bento-card--achievements {
+              display: none;
+            }
+            
+            .bento-card--social {
+              display: none;
             }
             
             .bento-card {
-              padding: 1.25rem;
+              padding: 1rem;
+            }
+            
+            /* Adjust content for mobile */
+            .tech-grid {
+              grid-template-columns: repeat(4, 1fr) !important;
+              grid-template-rows: repeat(4, 1fr) !important;
+              gap: 0.25rem;
             }
           }
         `}
@@ -1180,17 +1403,40 @@ const MagicBento: React.FC<BentoProps> = ({
           <div className={`bento-card bento-card--social ${
             enableBorderGlow ? "bento-card--border-glow" : ""
           }`}>
-            <div className="flex flex-wrap gap-2 mt-auto">
-              {socialIcons.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  className="w-10 h-10 rounded-lg bg-white/10 hover:bg-white/20 transition-colors flex items-center justify-center text-lg backdrop-blur-sm border border-white/10"
-                  title={social.name}
-                >
-                  {social.icon}
-                </a>
-              ))}
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-sm font-semibold text-white">Connect</h3>
+            </div>
+            <div className="grid grid-cols-3 gap-2 flex-1">
+              {socialIcons.map((social, index) => {
+                const isMoreButton = social.isMore;
+                return (
+                  <a
+                    key={index}
+                    href={social.href}
+                    className={`
+                      aspect-square rounded-xl transition-all duration-200 flex items-center justify-center text-white/80 hover:text-white relative group
+                      ${isMoreButton 
+                        ? 'bg-white/5 hover:bg-white/10 border border-white/20 hover:border-white/30' 
+                        : 'bg-white/10 hover:bg-white/20 hover:scale-105'
+                      }
+                    `}
+                    title={social.name}
+                    onClick={isMoreButton ? (e) => {
+                      e.preventDefault();
+                      // Handle more button click - could open a modal or expand the section
+                    } : undefined}
+                  >
+                    {social.icon}
+                    {isMoreButton && (
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="w-1 h-1 bg-white rounded-full mx-0.5"></div>
+                        <div className="w-1 h-1 bg-white rounded-full mx-0.5"></div>
+                        <div className="w-1 h-1 bg-white rounded-full mx-0.5"></div>
+                      </div>
+                    )}
+                  </a>
+                );
+              })}
             </div>
           </div>
         </div>
