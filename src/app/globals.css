@@ -871,6 +871,7 @@ body::before {
   overflow: hidden;
   width: 100%;
   position: relative;
+  /* No explicit background color for mobile, will inherit from parent or desktop styles */
 }
 
 /* Ensure banner text is always visible */

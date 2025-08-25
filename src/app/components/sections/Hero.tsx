@@ -482,20 +482,30 @@ export default function Hero() {
             {heroData.announcement.text}
           </div>
           
-          {/* Mobile - Animated Scrolling Text */}
-          <div className="md:hidden banner-scroll-container py-2.5 min-h-[40px] flex items-center">
-            <div className="flex animate-scroll whitespace-nowrap">
-              <div className="flex-shrink-0 px-3 sm:px-4">
-                <span className="text-xs font-medium tracking-wide">{heroData.announcement.text}</span>
-              </div>
-              <div className="flex-shrink-0 px-3 sm:px-4">
-                <span className="text-xs font-medium tracking-wide">{heroData.announcement.text}</span>
-              </div>
-              <div className="flex-shrink-0 px-3 sm:px-4">
-                <span className="text-xs font-medium tracking-wide">{heroData.announcement.text}</span>
-              </div>
+          {/* Mobile - Animated Scrolling Text (Left to Right) */}
+          <div className="md:hidden banner-scroll-container py-2.5 min-h-[40px] flex items-center overflow-hidden">
+            <div
+              className="flex whitespace-nowrap"
+              style={{
+                animation: 'banner-marquee-ltr 14s linear infinite',
+                minWidth: 'max-content',
+              }}
+            >
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className="flex-shrink-0 px-3 sm:px-4">
+                  <span className="text-xs font-medium tracking-wide">{heroData.announcement.text}</span>
+                </div>
+              ))}
             </div>
           </div>
+          <style>
+            {`
+              @keyframes banner-marquee-ltr {
+                0% { transform: translateX(-60%); }
+                100% { transform: translateX(0); }
+              }
+            `}
+          </style>
         </motion.div>
       </section>
     );
@@ -740,20 +750,30 @@ export default function Hero() {
           {heroData.announcement.text}
         </div>
         
-        {/* Mobile - Animated Scrolling Text */}
-        <div className="md:hidden banner-scroll-container py-2.5 min-h-[40px] flex items-center">
-          <div className="flex animate-scroll whitespace-nowrap">
-            <div className="flex-shrink-0 px-3 sm:px-4">
-              <span className="text-xs font-medium tracking-wide">{heroData.announcement.text}</span>
-            </div>
-            <div className="flex-shrink-0 px-3 sm:px-4">
-              <span className="text-xs font-medium tracking-wide">{heroData.announcement.text}</span>
-            </div>
-            <div className="flex-shrink-0 px-3 sm:px-4">
-              <span className="text-xs font-medium tracking-wide">{heroData.announcement.text}</span>
-            </div>
+        {/* Mobile - Animated Scrolling Text (Left to Right) */}
+        <div className="md:hidden banner-scroll-container py-2.5 min-h-[40px] flex items-center overflow-hidden">
+          <div
+            className="flex whitespace-nowrap"
+            style={{
+              animation: 'banner-marquee-ltr 24s linear infinite',
+              minWidth: 'max-content',
+            }}
+          >
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="flex-shrink-0 px-3 sm:px-4">
+                <span className="text-xs font-medium tracking-wide">{heroData.announcement.text}</span>
+              </div>
+            ))}
           </div>
         </div>
+        <style>
+          {`
+            @keyframes banner-marquee-ltr {
+              0% { transform: translateX(-60%); }
+              100% { transform: translateX(0); }
+            }
+          `}
+        </style>
       </motion.div>
     </section>
   );
