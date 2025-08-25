@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram } from 'react-icons/fa';
 import { HiMail } from 'react-icons/hi';
 import { getFooterNavigationSections, getSocialLinks } from '../../../data';
@@ -22,29 +22,32 @@ export default function Footer() {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-  const [subStatus, setSubStatus] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [subscribeError, setSubscribeError] = useState('');
+
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubStatus("");
-    if (email.trim()) {
-      try {
-        const res = await fetch("/api/contact", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
-        });
-        const data = await res.json();
-        if (data.success) {
-          setSubStatus("✓ Thanks! Check your inbox for updates.");
-          setEmail("");
-        } else {
-          setSubStatus(data.error || "Failed to send email.");
-        }
-      } catch {
-        setSubStatus("Network error. Please try again.");
+    setSubscribeError('');
+    if (!email.trim()) return setSubscribeError('Please enter your email');
+    setIsLoading(true);
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setIsSubscribed(true);
+        setEmail('');
+        setTimeout(() => setIsSubscribed(false), 3000);
+      } else {
+        setSubscribeError(data?.error || 'Failed to subscribe');
       }
+    } catch (err) {
+      setSubscribeError('Network error');
     }
-  setTimeout(() => setSubStatus("");, 4000);
+    setIsLoading(false);
   };
 
   return (
@@ -96,22 +99,24 @@ export default function Footer() {
                   />
                   <button
                     type="submit"
+                    disabled={isLoading}
                     className="w-full sm:w-auto bg-orange-600 text-white px-4 py-2 font-bold text-sm 
                                border border-orange-600 hover:bg-orange-700 transition-colors"
                   >
-                    OK
+                    {isLoading ? '...' : 'OK'}
                   </button>
                 </form>
                 
-                {subStatus && (
+                {isSubscribed && (
                   <motion.p
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className={`text-sm font-bold ${subStatus.startsWith('✓') ? 'text-green-400' : 'text-red-400'}`}
+                    className="text-sm font-bold text-green-400"
                   >
-                    {subStatus}
+                    ✓ Thanks! I&apos;ll be in touch soon.
                   </motion.p>
                 )}
+                {subscribeError && <p className="text-sm font-bold text-red-400">{subscribeError}</p>}
                 
                 <p className="text-sm font-bold leading-tight">
                   GET PROJECT UPDATES & INSIGHTS!
