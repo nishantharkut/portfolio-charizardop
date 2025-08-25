@@ -22,13 +22,29 @@ export default function Footer() {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const [subStatus, setSubStatus] = useState("");
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubStatus("");
     if (email.trim()) {
-      setIsSubscribed(true);
-      setEmail('');
-      setTimeout(() => setIsSubscribed(false), 3000);
+      try {
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          setSubStatus("✓ Thanks! Check your inbox for updates.");
+          setEmail("");
+        } else {
+          setSubStatus(data.error || "Failed to send email.");
+        }
+      } catch {
+        setSubStatus("Network error. Please try again.");
+      }
     }
+  setTimeout(() => setSubStatus("");, 4000);
   };
 
   return (
@@ -87,13 +103,13 @@ export default function Footer() {
                   </button>
                 </form>
                 
-                {isSubscribed && (
+                {subStatus && (
                   <motion.p
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-sm font-bold text-green-400"
+                    className={`text-sm font-bold ${subStatus.startsWith('✓') ? 'text-green-400' : 'text-red-400'}`}
                   >
-                    ✓ Thanks! I&apos;ll be in touch soon.
+                    {subStatus}
                   </motion.p>
                 )}
                 
