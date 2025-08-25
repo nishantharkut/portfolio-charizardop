@@ -27,4 +27,3 @@ async function sendMail({ subject, message, from }) {
 }
 
 module.exports = { sendMail };
-  "kanikasin216@gmail.com",
