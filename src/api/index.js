@@ -1,15 +1,14 @@
-"use strict";
-const nodemailer = require("nodemailer");
+import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  service: 'gmail',
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
 });
 
-async function sendMail({ subject, message, from }) {
+export async function sendMail({ subject, message, from }) {
   try {
     const info = await transporter.sendMail({
       from: from || process.env.EMAIL_USER,
@@ -18,12 +17,10 @@ async function sendMail({ subject, message, from }) {
       text: message,
       html: `<p>${message}</p>`,
     });
-    console.log("✅ Message sent: ", info.messageId);
+    console.log('✅ Message sent: ', info.messageId);
     return { success: true };
   } catch (error) {
-    console.error("❌ Error:", error);
+    console.error('❌ Error:', error);
     return { success: false, error };
   }
 }
-
-module.exports = { sendMail };
