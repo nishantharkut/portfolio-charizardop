@@ -73,9 +73,9 @@ function ProjectCard({ project }: { project: Project }) {
         </div>
         {/* Action Links */}
         <div className="flex gap-2">
-          {project.liveUrl && (
+          {project.liveLink && (
             <a
-              href={project.liveUrl}
+              href={project.liveLink}
               target="_blank"
               rel="noopener noreferrer"
               className="neubrutalism-button flex-1 text-center bg-green-500 border-green-500 text-black font-black uppercase tracking-wide text-xs px-2 py-2 hover:bg-green-400 transition-all duration-300"
@@ -83,9 +83,9 @@ function ProjectCard({ project }: { project: Project }) {
               Live Demo
             </a>
           )}
-          {project.githubUrl && (
+          {project.githubLink && (
             <a
-              href={project.githubUrl}
+              href={project.githubLink}
               target="_blank"
               rel="noopener noreferrer"
               className="neubrutalism-button flex-1 text-center border-white bg-transparent text-white font-black uppercase tracking-wide text-xs px-2 py-2 hover:bg-white hover:text-black transition-all duration-300"
@@ -125,15 +125,10 @@ export default function ProjectsClient() {
 
   const cardVariants = {
     hidden: { opacity: 0, scale: 0.8 },
-    visible: (i: number) => ({
+    visible: {
       opacity: 1,
-      scale: 1,
-      transition: {
-        delay: i * 0.1,
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    }),
+      scale: 1
+    },
     exit: { opacity: 0, scale: 0.8 }
   };
 
@@ -293,11 +288,15 @@ export default function ProjectsClient() {
               {filteredProjects.map((project, index) => (
                 <motion.div
                   key={`${filter}-${project.id}`}
-                  custom={index}
                   variants={cardVariants}
                   initial="hidden"
                   animate="visible"
                   exit="exit"
+                  transition={{ 
+                    delay: index * 0.1,
+                    duration: 0.5,
+                    ease: "easeOut"
+                  }}
                   className="h-full"
                 >
                   <ProjectCard project={project} />
