@@ -352,14 +352,7 @@ function CharizardFallback() {
           />
         </motion.div>
         
-        {/* Optional ambient glow behind GIF */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.3 }}
-          transition={{ duration: 2, delay: 0.5 }}
-          className="absolute inset-0 -z-10 rounded-full blur-3xl"
-          style={{ background: 'var(--color-accent-gradient)' }}
-        />
+
       </div>
     </div>
   );

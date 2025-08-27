@@ -128,14 +128,17 @@ const AboutMeContent: React.FC = () => {
           <Logo width={40} height={40} className="w-full h-full object-contain p-1" />
         </div>
         <div className="flex-1">
-          <h3 className="text-sm md:text-base font-bold text-white group-hover:text-orange-400 transition-colors">Nishant Harkut</h3>
+          <h3 className="text-sm md:text-base font-bold group-hover:text-orange-400 transition-colors" style={{ color: 'var(--color-text)' }}>Nishant Harkut</h3>
           <p className="text-xs text-orange-400 font-medium">{aboutData.hero.badge}</p>
         </div>
       </div>
 
       {/* Enhanced description - reduced for mobile */}
       <div className="flex-1 mb-3">
-        <p className="text-xs md:text-sm text-white/70 leading-relaxed group-hover:text-white/90 transition-colors duration-300">
+        <p className="text-xs md:text-sm leading-relaxed transition-colors duration-300" 
+          style={{ color: 'var(--color-text-secondary)' }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-text)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-text-secondary)'; }}>
           <span className="hidden md:inline">Creative technologist with </span><span className="text-orange-400 font-medium">7+ years</span><span className="hidden md:inline"> of experience crafting innovative digital experiences at the intersection of art and engineering.</span>
           <span className="md:hidden"> experience in full-stack development and creative design.</span>
         </p>
@@ -146,10 +149,14 @@ const AboutMeContent: React.FC = () => {
         {stats.map((stat, index) => (
           <div 
             key={index} 
-            className="text-center p-1 md:p-2 rounded-lg bg-white/5 hover:bg-orange-500/10 transition-all duration-300 hover:scale-105 cursor-pointer group/stat"
+            className="text-center p-1 md:p-2 rounded-lg hover:bg-orange-500/10 transition-all duration-300 hover:scale-105 cursor-pointer group/stat border"
+            style={{ 
+              backgroundColor: 'var(--color-glass-bg)',
+              borderColor: 'var(--color-border)'
+            }}
           >
             <div className="text-sm md:text-lg font-bold text-orange-400 group-hover/stat:text-orange-300">{stat.number}</div>
-            <div className="text-xs text-white/60 group-hover/stat:text-white/80">{stat.label}</div>
+            <div className="text-xs group-hover/stat:opacity-90" style={{ color: 'var(--color-text-muted)' }}>{stat.label}</div>
           </div>
         ))}
       </div>
@@ -158,7 +165,22 @@ const AboutMeContent: React.FC = () => {
       <div className="pr-8 md:pr-12">
         <button 
           onClick={handleViewAbout}
-          className="w-full py-1.5 md:py-2 px-2 md:px-3 text-xs font-medium text-white/70 hover:text-white hover:bg-white/10 transition-all duration-300 rounded-lg border border-white/20 hover:border-orange-400/50"
+          className="w-full py-1.5 md:py-2 px-2 md:px-3 text-xs font-medium transition-all duration-300 rounded-lg border"
+          style={{ 
+            color: 'var(--color-text-secondary)', 
+            borderColor: 'var(--color-border)',
+            backgroundColor: 'transparent' 
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = 'var(--color-text)';
+            e.currentTarget.style.backgroundColor = 'var(--color-glass-bg)';
+            e.currentTarget.style.borderColor = 'var(--color-accent-transparent)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = 'var(--color-text-secondary)';
+            e.currentTarget.style.backgroundColor = 'transparent';
+            e.currentTarget.style.borderColor = 'var(--color-border)';
+          }}
         >
           <span className="hidden md:inline">View Full Story →</span>
           <span className="md:hidden">More →</span>
@@ -186,9 +208,19 @@ const ProjectsContent: React.FC = () => {
     <div className="flex flex-col h-full">
       <div className="flex-1 space-y-2 md:space-y-3">
         {featuredProjects.map((project, index) => (
-          <div key={project.id} className="flex-1 p-2 md:p-4 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors group">
-            <h4 className="text-xs md:text-sm font-semibold text-white mb-1 md:mb-2 truncate">{project.title}</h4>
-            <p className="text-xs md:text-sm text-white/70 mb-2 md:mb-3 line-clamp-1 md:line-clamp-2 leading-relaxed">
+          <div key={project.id} className="flex-1 p-2 md:p-4 rounded-lg border transition-colors group" 
+            style={{ 
+              backgroundColor: 'var(--color-glass-bg)', 
+              borderColor: 'var(--color-border)' 
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'var(--color-surface-hover)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'var(--color-glass-bg)';
+            }}>
+            <h4 className="text-xs md:text-sm font-semibold mb-1 md:mb-2 truncate" style={{ color: 'var(--color-text)' }}>{project.title}</h4>
+            <p className="text-xs md:text-sm mb-2 md:mb-3 line-clamp-1 md:line-clamp-2 leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
               <span className="hidden md:inline">{project.shortDescription}</span>
               <span className="md:hidden">{project.shortDescription.split(' ').slice(0, 8).join(' ')}...</span>
             </p>
@@ -197,19 +229,21 @@ const ProjectsContent: React.FC = () => {
             <div className="hidden md:block space-y-2 mb-3">
               {projectHighlights[project.id]?.map((highlight, i) => (
                 <div key={i} className="flex items-center gap-1">
-                  <span className="text-sm text-green-400 font-medium">{highlight}</span>
+                  <span className="text-sm font-medium" style={{ color: 'var(--color-accent)' }}>{highlight}</span>
                 </div>
               ))}
             </div>
             
             <div className="flex flex-wrap gap-1 md:gap-1.5">
               {project.techStack.slice(0, 2).map((tech, i) => (
-                <span key={i} className="text-xs md:text-sm px-1 md:px-2 py-0.5 md:py-1 bg-orange-500/20 text-orange-300 rounded-md">
+                <span key={i} className="text-xs md:text-sm px-1 md:px-2 py-0.5 md:py-1 rounded-md" 
+                  style={{ backgroundColor: 'var(--color-accent-transparent)', color: 'var(--color-accent)' }}>
                   {tech}
                 </span>
               ))}
               {project.techStack.length > 2 && (
-                <span className="text-xs md:text-sm px-1 md:px-2 py-0.5 md:py-1 bg-white/10 text-white/50 rounded-md">
+                <span className="text-xs md:text-sm px-1 md:px-2 py-0.5 md:py-1 rounded-md" 
+                  style={{ backgroundColor: 'var(--color-glass-bg)', color: 'var(--color-text-muted)' }}>
                   +{project.techStack.length - 2}
                 </span>
               )}
@@ -217,10 +251,19 @@ const ProjectsContent: React.FC = () => {
           </div>
         ))}
       </div>
-      <div className="border-t border-white/20 pt-2 md:pt-4 mt-2 md:mt-4">
+      <div className="border-t pt-2 md:pt-4 mt-2 md:mt-4" style={{ borderColor: 'var(--color-border)' }}>
         <button 
           onClick={handleAllProjectsClick}
-          className="w-full py-1.5 md:py-3 px-2 md:px-4 text-xs md:text-sm font-medium text-white/80 hover:text-white transition-colors underline hover:bg-white/5 rounded-lg"
+          className="w-full py-1.5 md:py-3 px-2 md:px-4 text-xs md:text-sm font-medium transition-colors underline rounded-lg"
+          style={{ color: 'var(--color-text-secondary)' }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = 'var(--color-text)';
+            e.currentTarget.style.backgroundColor = 'var(--color-glass-bg)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = 'var(--color-text-secondary)';
+            e.currentTarget.style.backgroundColor = 'transparent';
+          }}
         >
           <span className="hidden md:inline">All Projects</span>
           <span className="md:hidden">More</span>
@@ -248,15 +291,15 @@ const AchievementsContent: React.FC = () => {
   return (
     <div className="flex flex-col h-full">
       <div className="flex-1 mb-3">
-        <div className="p-2 rounded bg-white/5 border border-white/10 h-full">
+        <div className="p-2 rounded border h-full" style={{ backgroundColor: 'var(--color-glass-bg)', borderColor: 'var(--color-border)' }}>
           <div className="flex items-center gap-2 mb-2">
             <span className="text-sm">{currentAchievement.badge}</span>
-            <h4 className="text-xs font-semibold text-white truncate">{currentAchievement.title}</h4>
+            <h4 className="text-xs font-semibold truncate" style={{ color: 'var(--color-text)' }}>{currentAchievement.title}</h4>
           </div>
-          <p className="text-xs text-white/60 mb-2 line-clamp-2">{currentAchievement.description}</p>
+          <p className="text-xs mb-2 line-clamp-2" style={{ color: 'var(--color-text-secondary)' }}>{currentAchievement.description}</p>
           <div className="flex items-center justify-between">
             <span className="text-xs text-orange-300">{currentAchievement.date}</span>
-            <span className="text-xs text-white/50 truncate">{currentAchievement.organization}</span>
+            <span className="text-xs truncate" style={{ color: 'var(--color-text-muted)' }}>{currentAchievement.organization}</span>
           </div>
         </div>
       </div>
@@ -264,7 +307,16 @@ const AchievementsContent: React.FC = () => {
       <div className="flex items-center justify-between">
         <button 
           onClick={prevAchievement}
-          className="p-1 rounded hover:bg-white/10 transition-colors"
+          className="p-1 rounded transition-colors"
+          style={{ 
+            backgroundColor: 'transparent'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = 'var(--color-glass-bg)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'transparent';
+          }}
         >
           <ChevronLeftIcon className="w-3 h-3" />
         </button>
@@ -272,15 +324,26 @@ const AchievementsContent: React.FC = () => {
           {recentAchievements.map((_, index) => (
             <div 
               key={index}
-              className={`w-1 h-1 rounded-full transition-colors ${
-                index === currentIndex ? 'bg-orange-500' : 'bg-white/30'
-              }`}
+              className="w-1 h-1 rounded-full transition-colors"
+              style={{ 
+                backgroundColor: index === currentIndex ? 'var(--color-accent)' : 'var(--color-text-secondary)',
+                opacity: index === currentIndex ? 1 : 0.3
+              }}
             />
           ))}
         </div>
         <button 
           onClick={nextAchievement}
-          className="p-1 rounded hover:bg-white/10 transition-colors"
+          className="p-1 rounded transition-colors"
+          style={{ 
+            backgroundColor: 'transparent'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = 'var(--color-glass-bg)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'transparent';
+          }}
         >
           <ChevronRightIcon className="w-3 h-3" />
         </button>
@@ -307,18 +370,18 @@ const ExperienceContent: React.FC = () => {
   return (
     <div className="flex flex-col h-full">
       <div className="flex-1 mb-3">
-        <div className="p-2 rounded bg-white/5 border border-white/10 h-full">
-          <h4 className="text-xs font-semibold text-white mb-1 truncate">{currentExperience.position}</h4>
+        <div className="p-2 rounded border h-full" style={{ backgroundColor: 'var(--color-glass-bg)', borderColor: 'var(--color-border)' }}>
+          <h4 className="text-xs font-semibold mb-1 truncate" style={{ color: 'var(--color-text)' }}>{currentExperience.position}</h4>
           <p className="text-xs text-orange-300 mb-2 truncate">{currentExperience.company} • {currentExperience.duration}</p>
-          <p className="text-xs text-white/60 mb-2 line-clamp-2">{currentExperience.description}</p>
+          <p className="text-xs mb-2 line-clamp-2" style={{ color: 'var(--color-text-secondary)' }}>{currentExperience.description}</p>
           <div className="flex flex-wrap gap-1">
             {currentExperience.technologies.slice(0, 3).map((tech, i) => (
-              <span key={i} className="text-xs px-1.5 py-0.5 bg-blue-500/20 text-blue-300 rounded">
+              <span key={i} className="text-xs px-1.5 py-0.5 rounded" style={{ backgroundColor: 'var(--color-accent-transparent)', color: 'var(--color-accent)' }}>
                 {tech}
               </span>
             ))}
             {currentExperience.technologies.length > 3 && (
-              <span className="text-xs px-1.5 py-0.5 bg-white/10 text-white/50 rounded">
+              <span className="text-xs px-1.5 py-0.5 rounded" style={{ backgroundColor: 'var(--color-glass-bg)', color: 'var(--color-text-muted)' }}>
                 +{currentExperience.technologies.length - 3}
               </span>
             )}
@@ -329,7 +392,16 @@ const ExperienceContent: React.FC = () => {
       <div className="flex items-center justify-between">
         <button 
           onClick={prevExperience}
-          className="p-1 rounded hover:bg-white/10 transition-colors"
+          className="p-1 rounded transition-colors"
+          style={{ 
+            backgroundColor: 'transparent'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = 'var(--color-glass-bg)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'transparent';
+          }}
         >
           <ChevronLeftIcon className="w-3 h-3" />
         </button>
@@ -337,15 +409,26 @@ const ExperienceContent: React.FC = () => {
           {relevantExperience.map((_, index) => (
             <div 
               key={index}
-              className={`w-1 h-1 rounded-full transition-colors ${
-                index === currentIndex ? 'bg-blue-500' : 'bg-white/30'
-              }`}
+              className="w-1 h-1 rounded-full transition-colors"
+              style={{ 
+                backgroundColor: index === currentIndex ? 'var(--color-accent)' : 'var(--color-text-secondary)',
+                opacity: index === currentIndex ? 1 : 0.3
+              }}
             />
           ))}
         </div>
         <button 
           onClick={nextExperience}
-          className="p-1 rounded hover:bg-white/10 transition-colors"
+          className="p-1 rounded transition-colors"
+          style={{ 
+            backgroundColor: 'transparent'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = 'var(--color-glass-bg)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'transparent';
+          }}
         >
           <ChevronRightIcon className="w-3 h-3" />
         </button>
@@ -483,15 +566,19 @@ const TechIcon: React.FC<{
       {isVisible && (
         <div
           ref={tooltipRef}
-          className="fixed z-[9999] px-3 py-2 text-sm font-semibold text-white bg-gradient-to-r from-amber-600 to-orange-500 rounded-lg shadow-xl border border-amber-400/30 pointer-events-none backdrop-blur-sm transform -translate-x-1/2 -translate-y-full"
+          className="fixed z-[9999] px-3 py-2 text-sm font-semibold rounded-lg shadow-xl border pointer-events-none backdrop-blur-sm transform -translate-x-1/2 -translate-y-full"
           style={{
+            color: 'var(--color-button-text)',
+            background: 'linear-gradient(to right, var(--color-accent), var(--color-accent-hover))',
+            borderColor: 'var(--color-accent-transparent)',
             left: `${position.x}px`,
             top: `${position.y}px`,
-            boxShadow: '0 10px 25px rgba(245, 158, 11, 0.3), 0 4px 10px rgba(0, 0, 0, 0.2)',
+            boxShadow: '0 10px 25px var(--color-accent-glow), 0 4px 10px rgba(0, 0, 0, 0.2)',
           }}
         >
           {tooltip}
-          <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-amber-600"></div>
+          <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent" 
+            style={{ borderTopColor: 'var(--color-accent)' }}></div>
         </div>
       )}
     </>
@@ -1146,6 +1233,23 @@ const MagicBento: React.FC<BentoProps> = ({
   const gridRef = useRef<HTMLDivElement>(null);
   const isMobile = useMobileDetection();
   const shouldDisableAnimations = disableAnimations || isMobile;
+  const router = useRouter();
+
+  // Navigation handler for card external links
+  const handleCardNavigation = (cardId: string) => {
+    const navigationMap: { [key: string]: string } = {
+      about: '/about',
+      projects: '/projects', 
+      experience: '/experience',
+      achievements: '/achievements',
+      skills: '/about#skills' // Navigate to about page with skills section
+    };
+    
+    const route = navigationMap[cardId];
+    if (route) {
+      router.push(route);
+    }
+  };
 
   return (
     <>
@@ -1172,7 +1276,7 @@ const MagicBento: React.FC<BentoProps> = ({
           }
           
           .bento-card {
-            background: rgba(40, 40, 43, 0.6);
+            background: var(--color-surface-elevated);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             /* Neubrutalism styling */
@@ -1182,7 +1286,7 @@ const MagicBento: React.FC<BentoProps> = ({
             position: relative;
             overflow: hidden;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            color: white;
+            color: var(--color-text);
             display: flex;
             flex-direction: column;
             /* Neubrutalism shadow */
@@ -1191,11 +1295,23 @@ const MagicBento: React.FC<BentoProps> = ({
             min-height: 140px;
           }
           
+          /* Light mode card styling */
+          .light .bento-card {
+            background: var(--color-surface-elevated);
+            color: var(--color-text);
+          }
+          
+          /* Dark mode card styling */
+          .dark .bento-card {
+            background: var(--color-surface);
+            color: var(--color-text);
+          }
+          
           .bento-card:hover {
             /* Neubrutalism hover effect */
             box-shadow: 4px 4px 0px 0px var(--shadow-neubrutalism-hover);
             transform: translate(4px, 4px);
-            border-color: rgba(255, 179, 71, 0.4);
+            border-color: var(--color-accent-transparent);
           }
           
           .bento-card::before {
@@ -1207,9 +1323,9 @@ const MagicBento: React.FC<BentoProps> = ({
             bottom: 0;
             background: linear-gradient(
               135deg, 
-              rgba(255, 179, 71, 0.1) 0%, 
+              var(--color-accent-transparent) 0%, 
               transparent 50%, 
-              rgba(255, 179, 71, 0.05) 100%
+              var(--color-accent-glow) 100%
             );
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -1303,28 +1419,33 @@ const MagicBento: React.FC<BentoProps> = ({
           
           .tech-icon-wrapper {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            /* Dark mode: Light grey */
-            color: #e5e7eb;
+            color: var(--color-text);
           }
           
           .tech-icon-container:hover .tech-icon-wrapper {
-            /* Dark mode: Yellowish-orange on hover */
-            color: #f59e0b !important;
-            filter: brightness(1.1) saturate(1.2) drop-shadow(0 0 8px #f59e0b);
+            color: var(--color-accent) !important;
+            filter: brightness(1.1) saturate(1.2) drop-shadow(0 0 8px var(--color-accent));
+            transform: scale(1.1);
           }
           
-          /* Light mode styles */
-          @media (prefers-color-scheme: light) {
-            .tech-icon-wrapper {
-              /* Light mode: Dark colors */
-              color: #374151;
-            }
-            
-            .tech-icon-container:hover .tech-icon-wrapper {
-              /* Light mode: Yellowish-orange on hover */
-              color: #f59e0b !important;
-              filter: brightness(1.1) saturate(1.2) drop-shadow(0 0 8px #f59e0b);
-            }
+          /* Dark mode tech icons */
+          .dark .tech-icon-wrapper {
+            color: #e5e7eb;
+          }
+          
+          .dark .tech-icon-container:hover .tech-icon-wrapper {
+            color: var(--color-accent) !important;
+            filter: brightness(1.2) saturate(1.3) drop-shadow(0 0 10px var(--color-accent));
+          }
+          
+          /* Light mode tech icons */
+          .light .tech-icon-wrapper {
+            color: #374151;
+          }
+          
+          .light .tech-icon-container:hover .tech-icon-wrapper {
+            color: var(--color-accent) !important;
+            filter: brightness(1.1) saturate(1.2) drop-shadow(0 0 8px var(--color-accent));
           }
           
           .bento-card--projects {
@@ -1356,39 +1477,25 @@ const MagicBento: React.FC<BentoProps> = ({
             right: 1rem;
             width: 2.5rem;
             height: 2.5rem;
-            background: #ff8c42;
+            background: var(--color-accent);
             backdrop-filter: blur(8px);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--color-button-text);
             cursor: pointer;
             transition: all 0.2s ease;
-            border: 1px solid rgba(255, 140, 66, 0.3);
+            border: 1px solid var(--color-accent-transparent);
             z-index: 5;
-            box-shadow: 0 4px 12px rgba(255, 140, 66, 0.3);
+            box-shadow: 0 4px 12px var(--color-accent-glow);
           }
           
           .download-icon:hover {
-            background: #e67c32;
+            background: var(--color-accent-hover);
             transform: scale(1.1);
-            border-color: rgba(255, 140, 66, 0.8);
-            box-shadow: 0 6px 20px rgba(255, 140, 66, 0.5);
-          }
-
-          /* Light mode download icon styling */
-          .light .download-icon {
-            background: #ffb366;
-            color: #1a1a1a;
-            border: 1px solid rgba(255, 179, 102, 0.4);
-            box-shadow: 0 4px 12px rgba(255, 179, 102, 0.3);
-          }
-          
-          .light .download-icon:hover {
-            background: #ffa033;
-            border-color: rgba(255, 160, 51, 0.8);
-            box-shadow: 0 6px 20px rgba(255, 160, 51, 0.4);
+            border-color: var(--color-accent);
+            box-shadow: 0 6px 20px var(--color-accent-glow);
           }
 
           /* Mobile responsiveness - Match Experience/Achievements card dimensions */
@@ -1543,14 +1650,44 @@ const MagicBento: React.FC<BentoProps> = ({
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    {card.icon}
-                    <h3 className="text-lg font-semibold">{card.title}</h3>
+                    <div style={{ color: 'var(--color-text-secondary)' }}>
+                      {card.icon}
+                    </div>
+                    <h3 className="text-lg font-semibold" style={{ color: 'var(--color-text)' }}>{card.title}</h3>
                   </div>
-                  <ArrowTopRightOnSquareIcon className="w-5 h-5 opacity-60" />
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent card click event
+                      handleCardNavigation(card.id);
+                    }}
+                    className="p-1 rounded-lg transition-all duration-200 hover:scale-110 group"
+                    style={{ 
+                      backgroundColor: 'transparent',
+                      border: '1px solid transparent'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'var(--color-glass-bg)';
+                      e.currentTarget.style.borderColor = 'var(--color-accent-transparent)';
+                      const icon = e.currentTarget.querySelector('svg');
+                      if (icon) icon.style.color = 'var(--color-accent)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                      e.currentTarget.style.borderColor = 'transparent';
+                      const icon = e.currentTarget.querySelector('svg');
+                      if (icon) icon.style.color = 'var(--color-text-muted)';
+                    }}
+                    title={`Go to ${card.title} page`}
+                  >
+                    <ArrowTopRightOnSquareIcon 
+                      className="w-4 h-4 transition-colors duration-200" 
+                      style={{ color: 'var(--color-text-muted)' }}
+                    />
+                  </button>
                 </div>
                 
                 {card.description && (
-                  <p className="text-sm opacity-80 mb-4">{card.description}</p>
+                  <p className="text-sm mb-4" style={{ color: 'var(--color-text-secondary)' }}>{card.description}</p>
                 )}
                 
                 {card.content}
@@ -1574,13 +1711,22 @@ const MagicBento: React.FC<BentoProps> = ({
                 <a
                   key={index}
                   href={social.href}
-                  className={`
-                    aspect-square rounded-lg transition-all duration-200 flex items-center justify-center text-white/80 hover:text-white hover:scale-105
-                    ${social.isMore 
-                      ? 'bg-white/10 hover:bg-white/20' 
-                      : 'bg-white/10 hover:bg-white/20'
-                    }
-                  `}
+                  className="aspect-square rounded-lg transition-all duration-200 flex items-center justify-center hover:scale-105 border"
+                  style={{
+                    color: 'var(--color-text-secondary)',
+                    backgroundColor: 'var(--color-glass-bg)',
+                    borderColor: 'var(--color-border)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = 'var(--color-text)';
+                    e.currentTarget.style.backgroundColor = 'var(--color-surface-hover)';
+                    e.currentTarget.style.borderColor = 'var(--color-accent-transparent)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = 'var(--color-text-secondary)';
+                    e.currentTarget.style.backgroundColor = 'var(--color-glass-bg)';
+                    e.currentTarget.style.borderColor = 'var(--color-border)';
+                  }}
                   title={social.name}
                   onClick={social.isMore ? (e) => {
                     e.preventDefault();
