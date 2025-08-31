@@ -863,7 +863,8 @@ body::before {
   z-index: 20;
   background: var(--color-accent);
   color: var(--color-button-text);
-  will-change: transform; /* Performance optimization for animations */
+  /*will-change: transform;*/ 
+  /* Performance optimization for animations */
 }
 
 /* Prevent banner overflow on small devices */

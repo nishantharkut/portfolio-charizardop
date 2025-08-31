@@ -12,10 +12,10 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold mb-12"
+          className="text-3xl md:text-4xl font-bold mb-12 section-heading"
           style={{ color: 'var(--color-text)' }}
         >
-          About Me
+          About <span>Me</span>
         </motion.h2>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -32,25 +32,25 @@ export default function About() {
                 className="text-xl font-semibold"
                 style={{ color: 'var(--color-text)' }}
               >
-                Creative Technologist
+                Full stack Developer
               </h3>
               <p
                 className="text-base leading-relaxed"
                 style={{ color: 'var(--color-text-muted)' }}
               >
-                I'm a passionate full-stack developer with over 7 years of experience creating immersive web experiences. I specialize in combining creative design with cutting-edge technology to build digital solutions that are both functional and beautiful.
+                I'm a full-stack developer focused on building exceptional web experiences where creative design meets cutting-edge technology. My approach centers on delivering digital solutions that captivate users while maintaining peak performance.
               </p>
               <p
                 className="text-base leading-relaxed"
                 style={{ color: 'var(--color-text-muted)' }}
               >
-                From React and Next.js to Three.js and WebGL, I love exploring new technologies and pushing the boundaries of what's possible on the web.
+                Whether building dynamic React applications, designing secure APIs, or orchestrating cloud deployments, I'm passionate about leveraging cutting-edge technologies to create resilient, high-performance web solutions.
               </p>
             </div>
 
             {/* Skills Tags */}
             <div className="flex flex-wrap gap-2 pt-4">
-              {['Frontend', '3D Graphics', 'Backend', 'UI/UX', 'WebGL', 'React', 'Next.js', 'Node.js'].map((skill, index) => (
+              {['Full-Stack', 'Frontend','Backend', '3D Graphics', 'AWS', 'UI/UX', 'WebAppSec', 'Graphic Design' ].map((skill, index) => (
                 <motion.span
                   key={skill}
                   initial={{ opacity: 0, scale: 0.8 }}
@@ -119,17 +119,17 @@ export default function About() {
             transition={{ duration: 0.7, delay: 0.4 }}
             className="flex justify-center"
           >
-            <div className="w-80 h-80 max-w-full">
+            <div className="w-80 h-120 max-w-full">
               <TiltedCard
-                imageSrc="https://i.scdn.co/image/ab67616d0000b273d9985092cd88bffd97653b58"
+                imageSrc="/nishant-image.webp"
                 altText="Nishant Harkut"
                 captionText="Nishant Harkut"
                 containerHeight="320px"
                 containerWidth="320px"
-                imageHeight="280px"
+                imageHeight="400px"
                 imageWidth="280px"
-                rotateAmplitude={6}
-                scaleOnHover={1.02}
+                rotateAmplitude={9}
+                scaleOnHover={1.2}
                 showMobileWarning={false}
                 showTooltip={true}
                 displayOverlayContent={true}

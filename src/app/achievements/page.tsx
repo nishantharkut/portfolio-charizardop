@@ -78,8 +78,12 @@ export default function AchievementsPage() {
             </p>
             <Link 
               href="/"
-              className="inline-flex items-center gap-2 glass-button px-6 py-3 hover:text-orange-500 transition-colors duration-300"
-              style={{ color: 'var(--color-text)' }}
+              className="px-6 sm:px-8 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center gap-2"
+              style={{ 
+                backgroundColor: 'var(--color-surface)',
+                borderColor: 'var(--color-accent)',
+                color: 'var(--color-text)'
+              }}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -188,7 +192,7 @@ export default function AchievementsPage() {
                             href={achievement.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="bg-orange-400 text-black font-black px-4 py-2 border-2 border-black shadow-[var(--shadow-neubrutalism)] hover:shadow-[var(--shadow-neubrutalism-hover-small)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 text-sm uppercase tracking-wide flex items-center gap-2 self-start sm:self-auto"
+                            className="px-6 sm:px-8 py-3 neubrutalism-button bg-orange-500 hover:bg-orange-600 text-black font-black uppercase tracking-wide text-center border-2 border-black shadow-[var(--shadow-neubrutalism)] inline-flex items-center gap-2"
                           >
                             VIEW DETAILS 
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

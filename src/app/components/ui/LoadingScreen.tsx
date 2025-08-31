@@ -23,10 +23,17 @@ export default function RetroDragonLoader({
   onComplete,
   show,
   dragonImageSrc = null,
-  fallbackTimeoutMs = 8000,
+  fallbackTimeoutMs = 3000, // Reduced from 8000ms to 3000ms for faster loading
 }: RetroDragonLoaderProps) {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoEnded, setVideoEnded] = useState(false);
+  const [isReturningVisitor, setIsReturningVisitor] = useState(false);
+
+  // Check if user is returning visitor - avoid hydration mismatch
+  useEffect(() => {
+    const hasVisited = sessionStorage.getItem('hasVisited');
+    setIsReturningVisitor(!!hasVisited);
+  }, []);
 
   // progress 0..100
   const [progress, setProgress] = useState(0);
@@ -140,10 +147,10 @@ export default function RetroDragonLoader({
 
   if (!show) return null;
 
-  const videoSrc =
-    type === "starter"
-      ? "/videos/Lazy Loader - starter 1.mp4"
-      : "/videos/lazy loader - casual.mp4";
+  // Optimize video loading - use shorter video for returning visitors or skip entirely
+  const videoSrc = type === "starter" && !isReturningVisitor
+    ? "/videos/Lazy Loader - starter 1.mp4"
+    : null; // No video for returning visitors or casual type
 
   // block logic: 5 blocks
   const blocksTotal = 5;
@@ -217,38 +224,40 @@ export default function RetroDragonLoader({
         </defs>
       </svg>
 
-      {/* Fullscreen video */}
-      <video
-        ref={(el) => { videoElRef.current = el; }}
-        className="retro-bg-video"
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          // apply a subtle blur and the svg filter (note: some browsers treat svg filter differently;
-          // if you want to disable the filter on some browsers, remove the url(...))
-          filter: "blur(3px) url(#invertSharpen)",
-          transform: "translateZ(0)",
-        }}
-        autoPlay
-        muted
-        playsInline
-        preload="auto"
-        onLoadedData={() => setIsVideoLoaded(true)}
-        onCanPlayThrough={() => setIsVideoLoaded(true)}
-        onEnded={() => setVideoEnded(true)}
-        onError={(e) => {
-          console.error("Loader video error:", e, videoSrc);
-          // directly complete if video fails
-          setProgress(100);
-          callCompleteOnce();
-        }}
-      >
-        <source src={videoSrc} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      {/* Fullscreen video - only show if videoSrc exists */}
+      {videoSrc && (
+        <video
+          ref={(el) => { videoElRef.current = el; }}
+          className="retro-bg-video"
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            // apply a subtle blur and the svg filter (note: some browsers treat svg filter differently;
+            // if you want to disable the filter on some browsers, remove the url(...))
+            filter: "blur(3px) url(#invertSharpen)",
+            transform: "translateZ(0)",
+          }}
+          autoPlay
+          muted
+          playsInline
+          preload="auto"
+          onLoadedData={() => setIsVideoLoaded(true)}
+          onCanPlayThrough={() => setIsVideoLoaded(true)}
+          onEnded={() => setVideoEnded(true)}
+          onError={(e) => {
+            console.error("Loader video error:", e, videoSrc);
+            // directly complete if video fails
+            setProgress(100);
+            callCompleteOnce();
+          }}
+        >
+          <source src={videoSrc} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      )}
 
       {/* Black shade overlay */}
       <div

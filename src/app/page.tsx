@@ -1,18 +1,54 @@
 "use client";
 
+import dynamic from 'next/dynamic';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Hero from './components/sections/Hero';
 import SplashCursorWrapper from './components/ui/SplashCursorWrapper';
 import PerformanceIndicator from './components/ui/PerformanceIndicator';
 
-// Import sections directly - lazy loading was causing visibility issues
-import Bento from './components/sections/Bento';
-import About from './components/sections/About';
-import Experience from './components/sections/Experience';
-import Skills from './components/sections/Skills';
-import Projects from './components/sections/Projects';
-import Contact from './components/sections/Contact';
+// Lazy load non-critical sections with loading states that match existing heights
+const Bento = dynamic(() => import('./components/sections/Bento'), {
+  loading: () => <div className="min-h-[400px] flex items-center justify-center">
+    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
+  </div>,
+  ssr: true
+});
+
+const About = dynamic(() => import('./components/sections/About'), {
+  loading: () => <div className="min-h-[600px] flex items-center justify-center">
+    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
+  </div>,
+  ssr: true
+});
+
+const Experience = dynamic(() => import('./components/sections/Experience'), {
+  loading: () => <div className="min-h-[800px] flex items-center justify-center">
+    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
+  </div>,
+  ssr: true
+});
+
+const Skills = dynamic(() => import('./components/sections/Skills'), {
+  loading: () => <div className="min-h-[500px] flex items-center justify-center">
+    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
+  </div>,
+  ssr: true
+});
+
+const Projects = dynamic(() => import('./components/sections/Projects'), {
+  loading: () => <div className="min-h-[800px] flex items-center justify-center">
+    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
+  </div>,
+  ssr: true
+});
+
+const Contact = dynamic(() => import('./components/sections/Contact'), {
+  loading: () => <div className="min-h-[400px] flex items-center justify-center">
+    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
+  </div>,
+  ssr: true
+});
 
 export default function Home() {
 

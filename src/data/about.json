@@ -1,9 +1,9 @@
 {
   "hero": {
-    "badge": "Creative Technologist",
+    "badge": "Web Architect",
     "title": "About",
     "subtitle": "Passionate creator, innovative engineer, and design enthusiast crafting the future of web experiences",
-    "profileImage": "https://i.scdn.co/image/ab67616d0000b273d9985092cd88bffd97653b58",
+  "profileImage": "/nishant-image.webp",
     "profileAlt": "Nishant Harkut",
     "profileCaption": "Nishant Harkut"
   },
@@ -16,7 +16,7 @@
       ]
     },
     {
-      "title": "Technical Philosophy",
+      "title": "My Technical Process",
       "content": [
         "I believe in the power of full-stack thinking – understanding every layer of a project from the database to the user interface. This holistic approach allows me to create cohesive experiences where every technical decision serves the overall vision. Whether I'm optimizing database queries, crafting pixel-perfect animations, or architecting scalable systems, I always consider the bigger picture.",
         "My technical toolkit spans modern frontend frameworks like React and Next.js, powerful 3D libraries like Three.js, robust backend technologies, and creative tools like Blender and GSAP. But more than just knowing the tools, I understand how to use them to tell stories and create meaningful connections with users."
@@ -38,7 +38,7 @@
   ],
   "stats": [
     { "number": "7+", "label": "Years Experience" },
-    { "number": "20+", "label": "Projects Delivered" },
-    { "number": "3", "label": "Companies" }
+    { "number": "5+", "label": "Projects Made" },
+    { "number": "50+", "label": "Stars" }
   ]
 }

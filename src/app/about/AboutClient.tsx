@@ -313,7 +313,7 @@ export default function AboutClient() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link 
                   href="/projects"
-                  className="px-8 py-3 neubrutalism-button font-black uppercase tracking-wide"
+                  className="px-6 sm:px-8 py-3 neubrutalism-button font-black uppercase tracking-wide text-center"
                   style={{ 
                     backgroundColor: 'var(--color-surface)',
                     borderColor: 'var(--color-accent)',
@@ -324,7 +324,7 @@ export default function AboutClient() {
                 </Link>
                 <Link 
                   href="/experience"
-                  className="px-8 py-3 neubrutalism-button border-orange-500 bg-orange-500 text-black font-black uppercase tracking-wide"
+                  className="px-6 sm:px-8 py-3 neubrutalism-button border-orange-500 bg-orange-500 hover:bg-orange-600 text-black font-black uppercase tracking-wide text-center"
                 >
                   View Experience
                 </Link>
@@ -411,6 +411,7 @@ export default function AboutClient() {
       </section>
 
       {/* Journey Timeline */}
+      {/*
       <section id="journey" className="relative z-10 py-20 px-4">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -430,6 +431,7 @@ export default function AboutClient() {
 
           <div className="relative">
             {/* Timeline Line */}
+            {/*
             <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-[#ff9a1c] to-transparent" />
 
             {timeline.map((item, index) => (
@@ -446,9 +448,11 @@ export default function AboutClient() {
                 } pl-12 md:pl-0`}
               >
                 {/* Timeline Dot */}
+                {/*
                 <div className="absolute left-3 md:left-1/2 md:-translate-x-1/2 w-3 h-3 bg-orange-500 rounded-full border-4" style={{ borderColor: 'var(--color-bg-start)' }} />
 
                 {/* Neubrutalism Timeline Card */}
+                {/*
                 <div className="relative w-full min-h-[160px] neubrutalism-card"
                   style={{
                     backgroundColor: 'var(--color-surface)',
@@ -474,6 +478,7 @@ export default function AboutClient() {
           </div>
         </div>
       </section>
+      */}
 
       {/* Interests Section */}
       <section className="relative z-10 py-20 px-4">
@@ -549,7 +554,7 @@ export default function AboutClient() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
                 href="/projects"
-                className="px-8 py-3 neubrutalism-button font-black uppercase tracking-wide"
+                className="px-6 sm:px-8 py-3 neubrutalism-button font-black uppercase tracking-wide text-center"
                 style={{ 
                   backgroundColor: 'var(--color-surface)',
                   borderColor: 'var(--color-accent)',
@@ -560,7 +565,7 @@ export default function AboutClient() {
               </Link>
               <a 
                 href="#contact"
-                className="px-8 py-3 neubrutalism-button"
+                className="px-6 sm:px-8 py-3 neubrutalism-button border-orange-500 bg-orange-500 hover:bg-orange-600 text-black font-black uppercase tracking-wide text-center"
               >
                 Get In Touch
               </a>

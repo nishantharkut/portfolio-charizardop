@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    unoptimized: true,
+    unoptimized: false,
     remotePatterns: [],
     domains: [],
   },
@@ -64,6 +64,14 @@ const nextConfig: NextConfig = {
   // Experimental features for performance
   experimental: {
     optimizePackageImports: ['gsap', 'framer-motion', 'ogl'],
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
   
   // Headers for performance

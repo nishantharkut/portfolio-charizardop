@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import AboutClient from './AboutClient';
 
 export const metadata: Metadata = {
-  title: 'About Nishant Harkut - IIIT Gwalior BTech Student | MERN Stack Developer',
+  title: 'About Nishant Harkut',
   description: 'Learn about Nishant Harkut, a 3rd year BTech IT student at IIIT Gwalior. Passionate about full stack development, MERN stack, GenAI, and Agentic AI. Available for software engineering internships.',
   keywords: [
     'Nishant Harkut About',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     'Node.js Student Developer'
   ],
   openGraph: {
-    title: 'About Nishant Harkut - IIIT Gwalior BTech Student | MERN Stack Developer',
+    title: 'About Nishant Harkut',
     description: 'Learn about Nishant Harkut, a 3rd year BTech IT student at IIIT Gwalior specializing in MERN stack, GenAI, and Agentic AI. Available for internships.',
     url: 'https://www.nishantharkut.dev/about',
     images: [

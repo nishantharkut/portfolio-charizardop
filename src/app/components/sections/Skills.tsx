@@ -17,7 +17,9 @@ export default function Skills() {
           className="text-3xl md:text-4xl font-bold mb-12"
           style={{ color: 'var(--color-text)' }}
         >
-          Skills Stack
+          <h2 className="section-heading">
+          Tech <span> Stack</span>
+        </h2>
         </motion.h2>
         <div className="grid gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3">
           {skillGroups.map((group, i) => (

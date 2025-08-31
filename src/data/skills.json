@@ -1,43 +1,163 @@
 {
   "skills": [
     {
-      "category": "Frontend Development",
-      "technologies": ["React", "Next.js", "TypeScript", "Tailwind CSS", "GSAP", "Three.js"],
+      "category": "Languages",
+      "technologies": [
+        "C",
+        "C++",
+        "JavaScript",
+        "TypeScript",
+        "Python",
+        "Go",
+        "SQL",
+        "HTML",
+        "CSS"
+      ],
       "level": 95
     },
     {
-      "category": "Backend Development", 
-      "technologies": ["Node.js", "Express", "PHP", "Python", "PostgreSQL", "MongoDB"],
-      "level": 88
-    },
-    {
-      "category": "3D & Creative",
-      "technologies": ["Blender", "Three.js", "WebGL", "Substance Painter", "After Effects"],
+      "category": "Frontend Development",
+      "technologies": [
+        "React.js",
+        "Next.js",
+        "Tailwind CSS",
+        "Three.js",
+        "GSAP",
+        "WebGL",
+        "Framer Motion"
+      ],
       "level": 92
     },
     {
-      "category": "DevOps & Tools",
-      "technologies": ["Docker", "AWS", "Git", "CI/CD", "Linux", "Nginx"],
-      "level": 85
-    },
-    {
-      "category": "Design & UX",
-      "technologies": ["Figma", "Adobe Creative Suite", "UI/UX Design", "Prototyping"],
+      "category": "Backend Development",
+      "technologies": [
+        "Node.js",
+        "Express",
+        "Prisma",
+        "PostgreSQL",
+        "REST",
+        "GraphQL",
+        "FastAPI",
+        "gRPC",
+        "WebSockets"
+      ],
       "level": 90
     },
     {
-      "category": "Emerging Tech",
-      "technologies": ["AI/ML Integration", "Cybersecurity", "Progressive Web Apps", "WebAssembly"],
-      "level": 78
+      "category": "Databases",
+      "technologies": [
+        "MongoDB",
+        "MySQL",
+        "PostgreSQL",
+        "SQLite",
+        "Firebase Firestore",
+        "Redis"
+      ],
+      "level": 88
+    },
+    {
+      "category": "DevOps & Cloud",
+      "technologies": [
+        "AWS",
+        "Google Cloud Platform (GCP)",
+        "Vercel",
+        "Render",
+        "Railway",
+        "Docker",
+        "Nginx",
+        "GitHub Actions"
+      ],
+      "level": 85
+    },
+    {
+      "category": "Tools & Others",
+      "technologies": [
+        "Git",
+        "GitHub",
+        "Postman",
+        "JWT",
+        "OAuth",
+        "OWASP"
+      ],
+      "level": 83
     }
   ],
   "skillGroups": [
-    { "title": "Frontend", "items": ["React", "Next.js", "TypeScript", "TailwindCSS", "Three.js"] },
-    { "title": "Backend", "items": ["Node.js", "Express", "Prisma", "PostgreSQL", "REST", "GraphQL"] },
-    { "title": "UI / UX", "items": ["Wireframing", "Figma", "Prototyping", "Accessibility", "Design Systems"] },
-    { "title": "Creative", "items": ["After Effects", "Premiere Pro", "Illustrator", "Blender"] },
-    { "title": "Security", "items": ["OWASP", "Auth", "Encryption", "Threat Modeling"] },
-    { "title": "AI / ML", "items": ["Python", "Pandas", "TensorFlow", "LLMs Basics"] }
+    {
+      "title": "Languages",
+      "items": [
+        "C",
+        "C++",
+        "JavaScript",
+        "TypeScript",
+        "Python",
+        "Go",
+        "SQL",
+        "HTML",
+        "CSS"
+      ]
+    },
+    {
+      "title": "Frontend",
+      "items": [
+        "React.js",
+        "Next.js",
+        "Tailwind CSS",
+        "Three.js",
+        "GSAP",
+        "WebGL",
+        "Framer Motion"
+      ]
+    },
+    {
+      "title": "Backend",
+      "items": [
+        "Node.js",
+        "Express",
+        "Prisma",
+        "PostgreSQL",
+        "REST",
+        "GraphQL",
+        "FastAPI",
+        "gRPC",
+        "WebSockets"
+      ]
+    },
+    {
+      "title": "Databases",
+      "items": [
+        "MongoDB",
+        "MySQL",
+        "PostgreSQL",
+        "SQLite",
+        "Firebase Firestore",
+        "Redis"
+      ]
+    },
+    {
+      "title": "Devops / Cloud",
+      "items": [
+        "AWS",
+        "Google Cloud Platform (GCP)",
+        "Vercel",
+        "Render",
+        "Railway",
+        "Docker",
+        "Nginx",
+        "GitHub Actions"
+      ]
+    },
+    {
+      "title": "Tools & Others",
+      "items": [
+        "Git",
+        "GitHub",
+        "Postman",
+        "JWT",
+        "OAuth",
+        "OWASP"
+      ]
+    }
   ],
   "interests": [
     {
@@ -51,7 +171,7 @@
       "icon": "FaRocket"
     },
     {
-      "title": "Game Development", 
+      "title": "Game Development",
       "description": "Building interactive experiences and exploring game mechanics",
       "icon": "FaGamepad"
     },

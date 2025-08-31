@@ -2,7 +2,7 @@
   "badge": "Hey, I'm",
   "name": "Nishant Harkut",
   "title": "AKA CharizardOP",
-  "description": "I create graphic designs and immersive web experiences for the love of it. Passionate about full stack engineering, creative media, security and AI experimentation.",
+  "description": "Software Developer from Surat, India. Passionate about creating exceptional web experiences through intuitive UI/UX design. I excel in full stack development, security, generative AI, and cloud deployment.",
   "cta": {
     "primary": {
       "text": "Connect With Me",
@@ -10,7 +10,7 @@
     },
     "secondary": {
       "text": "View Resume",
-      "href": "/resume.pdf"
+      "href": "https://drive.google.com/drive/folders/1fSNKk9LIwZCeYhz7645_k0onNmW4o2p4?usp=sharing"
     }
   },
   "announcement": {

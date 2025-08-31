@@ -24,26 +24,26 @@ function useDeviceCapabilities() {
   useEffect(() => {
     // Only run on client side
     if (typeof window === 'undefined') return;
-    
+
     setIsClient(true);
-    
+
     // Detect mobile devices
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
+
     // Check WebGL support
     const canvas = document.createElement('canvas');
     const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
     const supportsWebGL2 = !!canvas.getContext('webgl2');
-    
+
     // Get device memory (if available)
     const deviceMemory = (navigator as any).deviceMemory || 4;
-    
+
     // Detect low-end devices
     const isLowEnd = isMobile && deviceMemory <= 2;
-    
+
     // Get max texture size
     const maxTextureSize = gl ? gl.getParameter(gl.MAX_TEXTURE_SIZE) : 1024;
-    
+
     setCapabilities({
       isLowEnd,
       isMobile,
@@ -53,7 +53,16 @@ function useDeviceCapabilities() {
     });
   }, []);
 
-  return { capabilities, isClient };
+  // Memoize capabilities to prevent unnecessary re-renders
+  const memoizedCapabilities = useMemo(() => capabilities, [
+    capabilities.isLowEnd,
+    capabilities.isMobile,
+    capabilities.supportsWebGL2,
+    capabilities.memoryLimit,
+    capabilities.maxTextureSize
+  ]);
+
+  return { capabilities: memoizedCapabilities, isClient };
 }
 
 // Performance Monitor Component
@@ -92,19 +101,19 @@ function PerformanceController({ onPerformanceChange }: { onPerformanceChange: (
 }
 
 // Optimized Charizard Model Component with LOD and Performance Features
-function CharizardModel({ capabilities, performanceSettings, onError, onModelLoaded }: { 
-  capabilities: any, 
+function CharizardModel({ capabilities, performanceSettings, onError, onModelLoaded }: {
+  capabilities: any,
   performanceSettings: any,
   onError?: () => void,
   onModelLoaded?: () => void
 }) {
   const group = useRef<THREE.Group>(null!);
   const [modelError, setModelError] = useState(false);
-  
+
   // Always call useGLTF - let ErrorBoundary handle loading errors
   const gltf = useGLTF('/models/charizard.glb');
   const { scene, animations } = gltf;
-  
+
   // Always call these hooks regardless of error state
   const { actions, names } = useAnimations(animations || [], group);
   const [fitted, setFitted] = useState(false);
@@ -150,7 +159,7 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
               material.metalness = 0.1;
             }
           }
-          
+
           // Enable shadows only if performance allows
           if (performanceSettings.shadows) {
             child.castShadow = true;
@@ -193,7 +202,7 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
 
   useFrame((state) => {
     if (!group.current || !shouldUpdateFrame()) return;
-    
+
     // Auto-fit on first frame
     if (!fitted) {
       const box = new THREE.Box3().setFromObject(group.current);
@@ -201,16 +210,16 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
       const center = new THREE.Vector3();
       box.getSize(size);
       box.getCenter(center);
-      
+
       // Center the model
       group.current.position.sub(center);
-      
+
       // Scale to reasonable size - restore original desktop sizing
       const targetHeight = isMobileViewport ? 3.5 : 5; // Keep original 4 for desktop
       const currentHeight = size.y;
       const s = targetHeight / currentHeight;
       group.current.scale.setScalar(s);
-      
+
 
       //-------CHANGE HERE------------
       // Position the model with responsive positioning - restore perfect desktop position
@@ -225,7 +234,7 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
         group.current.position.y = -3; // Original perfect positioning
         group.current.position.z = 0;
       }
-      
+
 
       //-------CHANGE HERE------------
       // Start entrance animation from far away with responsive values
@@ -238,7 +247,7 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
         group.current.position.y = -3; // Restore original entrance position
       }
       group.current.rotation.y = -0.2;
-      
+
       setFitted(true);
     }
 
@@ -251,20 +260,20 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
       const targetY = isMobileViewport ? -0.8 : -3; // Restore original perfect position
       const targetZ = 0;
       const targetRotY = 0;
-      
+
       // Smooth movement to target with increased speed
       group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, targetX, 0.06); // Doubled speed
       group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, targetY, 0.05); // Doubled speed
       group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, targetZ, 0.04); // Doubled speed
       group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, targetRotY, 0.06); // Doubled speed
-      
+
       // Check if arrived
       const distance = Math.sqrt(
         Math.pow(group.current.position.x - targetX, 2) +
         Math.pow(group.current.position.y - targetY, 2) +
         Math.pow(group.current.position.z - targetZ, 2)
       );
-      
+
       if (distance < 0.3) {
         setHasEntered(true);
       }
@@ -275,7 +284,7 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
       // Reduce mouse interaction sensitivity on low-end devices
       const mouseThreshold = capabilities.isLowEnd ? 0.05 : 0.02;
       const mouseInfluence = Math.abs(state.pointer.x) + Math.abs(state.pointer.y);
-      
+
       if (mouseInfluence > mouseThreshold) {
         setIdleTime(0);
         const rotationSpeed = capabilities.isLowEnd ? 0.06 : 0.10; // Increased rotation speed
@@ -288,23 +297,23 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
         setIdleTime(prev => prev + state.clock.getDelta());
         if (idleTime > 2) { // Reduced idle time before auto-rotation
           // Gentle oscillation instead of continuous rotation
-          const oscillationSpeed = capabilities.isLowEnd ? 0.5 : 0.8; 
+          const oscillationSpeed = capabilities.isLowEnd ? 0.5 : 0.8;
           const oscillationAmount = 0.3; // How far it oscillates from center
           const targetRotation = Math.sin(state.clock.elapsedTime * oscillationSpeed) * oscillationAmount;
           group.current.rotation.y = THREE.MathUtils.lerp(
-            group.current.rotation.y, 
-            targetRotation, 
+            group.current.rotation.y,
+            targetRotation,
             0.02
           );
         }
       }
-      
+
       // Gentle floating with increased speed for more lively animation
       const floatAmplitude = capabilities.isLowEnd ? 0.05 : 0.15; // Slightly increased amplitude
       const floatSpeed = capabilities.isLowEnd ? 1.0 : 1.5; // Increased speed significantly
       const baseY = isMobileViewport ? -0.8 : -3; // Restore original desktop base Y
       group.current.position.y = baseY + Math.sin(state.clock.elapsedTime * floatSpeed) * floatAmplitude;
-      
+
     }
   });
 
@@ -337,7 +346,7 @@ function CharizardFallback() {
             src="/videos/Charizard_Flying.gif"
             alt="Charizard Flying"
             className="w-full h-full object-contain transform scale-160"
-            style={{ 
+            style={{
               filter: 'brightness(1.1) contrast(1.1) saturate(1.2)'
             }}
             loading="eager"
@@ -351,7 +360,7 @@ function CharizardFallback() {
             }}
           />
         </motion.div>
-        
+
 
       </div>
     </div>
@@ -369,6 +378,18 @@ export default function Hero() {
   });
   const [hasCanvasError, setHasCanvasError] = useState(false);
   const [isModelLoading, setIsModelLoading] = useState(true);
+  const [shouldLoadModel, setShouldLoadModel] = useState(false);
+
+  // Defer 3D model loading until after initial render for better performance
+  useEffect(() => {
+    if (isClient) {
+      const timer = setTimeout(() => {
+        setShouldLoadModel(true);
+      }, 100); // Small delay to let initial paint complete
+      
+      return () => clearTimeout(timer);
+    }
+  }, [isClient]);
 
   // Update performance settings once client is ready
   useEffect(() => {
@@ -380,7 +401,7 @@ export default function Hero() {
         enableEffects: !capabilities.isLowEnd
       });
     }
-  }, [isClient, capabilities]);
+  }, [isClient, capabilities.isLowEnd]);
 
   // Show GIF fallback for mobile devices (width <= 768px) - only after client is ready
   if (isClient && (capabilities.isMobile || (typeof window !== 'undefined' && window.innerWidth <= 768))) {
@@ -410,10 +431,10 @@ export default function Hero() {
                 </p>
                 <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
                   {/* Secondary CTA - Neubrutalism with website colors */}
-                  <a 
-                    href={heroData.cta.secondary.href} 
+                  <a
+                    href={heroData.cta.secondary.href}
                     className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-medium text-center border-4 transition-all duration-300"
-                    style={{ 
+                    style={{
                       backgroundColor: 'var(--color-surface-elevated)',
                       borderColor: 'var(--color-accent)',
                       color: 'var(--color-text)',
@@ -430,12 +451,12 @@ export default function Hero() {
                   >
                     {heroData.cta.secondary.text}
                   </a>
-                  
+
                   {/* Primary CTA - Neubrutalism with website colors */}
-                  <a 
-                    href={heroData.cta.primary.href} 
+                  <a
+                    href={heroData.cta.primary.href}
                     className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-semibold text-center border-4 transition-all duration-300"
-                    style={{ 
+                    style={{
                       backgroundColor: 'var(--color-accent)',
                       borderColor: 'var(--color-text)',
                       color: 'var(--color-button-text)',
@@ -454,7 +475,7 @@ export default function Hero() {
                   </a>
                 </div>
               </motion.div>
-              
+
               {/* RIGHT SIDE - Fallback Visual */}
               <div className="relative h-64 sm:h-80 lg:h-full lg:col-span-5 flex items-center justify-center pointer-events-none order-1 lg:order-2">
                 {/* Fallback renders here */}
@@ -462,9 +483,9 @@ export default function Hero() {
             </div>
           </div>
         </div>
-        
+
         {/* Internship Announcement Strip - Static for Desktop, Animated for Mobile */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
@@ -474,7 +495,7 @@ export default function Hero() {
           <div className="hidden md:flex text-center py-3 px-4 text-sm font-medium tracking-wide min-h-[48px] items-center justify-center">
             {heroData.announcement.text}
           </div>
-          
+
           {/* Mobile - Animated Scrolling Text (Left to Right) */}
           <div className="md:hidden banner-scroll-container py-2.5 min-h-[40px] flex items-center overflow-hidden">
             <div
@@ -494,9 +515,12 @@ export default function Hero() {
           <style>
             {`
               @keyframes banner-marquee-ltr {
-                0% { transform: translateX(-60%); }
-                100% { transform: translateX(0); }
-              }
+                0% { 
+                      transform: translateX(100%); 
+                    }
+                100% { 
+                  transform: translateX(-100%); 
+                }
             `}
           </style>
         </motion.div>
@@ -509,7 +533,7 @@ export default function Hero() {
       {/* Optimized 3D Canvas with Performance Monitoring */}
       <div className="absolute inset-0 pointer-events-none">
         {!hasCanvasError ? (
-          <ErrorBoundary 
+          <ErrorBoundary
             onError={(error) => {
               console.error('Canvas ErrorBoundary caught error:', error);
               setHasCanvasError(true);
@@ -525,14 +549,14 @@ export default function Hero() {
               </div>
             }
           >
-            <Canvas 
+            <Canvas
               shadows={performanceSettings.shadows}
-              gl={{ 
-                antialias: performanceSettings.antialias, 
+              gl={{
+                antialias: performanceSettings.antialias,
                 alpha: true,
                 powerPreference: "high-performance",
                 failIfMajorPerformanceCaveat: false
-              }} 
+              }}
               dpr={[1, performanceSettings.pixelRatio]}
               className="!bg-transparent w-full h-full"
               style={{ pointerEvents: 'none', touchAction: 'none' }}
@@ -549,68 +573,70 @@ export default function Hero() {
                 });
               }}
             >
-          <AdaptiveDpr pixelated />
-          <PerformanceController onPerformanceChange={setPerformanceSettings} />
-          
-          <PerspectiveCamera makeDefault position={[0, 0, 10]} fov={50} />
-          
-          {/* Adaptive Lighting */}
-          <ambientLight intensity={capabilities.isLowEnd ? 0.8 : 0.6} />
-            {!capabilities.isLowEnd && (
-              <>
-                <directionalLight 
-                  position={[10, 10, 5]} 
-                  castShadow={performanceSettings.shadows}
-                  intensity={1} 
-                  shadow-mapSize-width={capabilities.isLowEnd ? 512 : 1024} 
-                  shadow-mapSize-height={capabilities.isLowEnd ? 512 : 1024}
+              <AdaptiveDpr pixelated />
+              <PerformanceController onPerformanceChange={setPerformanceSettings} />
+
+              <PerspectiveCamera makeDefault position={[0, 0, 10]} fov={50} />
+
+              {/* Adaptive Lighting */}
+              <ambientLight intensity={capabilities.isLowEnd ? 0.8 : 0.6} />
+              {!capabilities.isLowEnd && (
+                <>
+                  <directionalLight
+                    position={[10, 10, 5]}
+                    castShadow={performanceSettings.shadows}
+                    intensity={1}
+                    shadow-mapSize-width={capabilities.isLowEnd ? 512 : 1024}
+                    shadow-mapSize-height={capabilities.isLowEnd ? 512 : 1024}
+                  />
+                  <spotLight
+                    position={[5, 5, 5]}
+                    angle={0.3}
+                    penumbra={1}
+                    intensity={0.3}
+                    color="#ff6b35"
+                  />
+                </>
+              )}
+
+              {shouldLoadModel && (
+                <CharizardModel
+                  capabilities={capabilities}
+                  performanceSettings={performanceSettings}
+                  onError={() => setHasCanvasError(true)}
+                  onModelLoaded={() => setIsModelLoading(false)}
                 />
-                <spotLight 
-                  position={[5, 5, 5]} 
-                  angle={0.3} 
-                  penumbra={1} 
-                  intensity={0.3} 
-                  color="#ff6b35"
+              )}
+
+              {!capabilities.isLowEnd && (
+                <ContactShadows
+                  position={[3, -3, 0]}
+                  opacity={0.1}
+                  blur={2}
+                  scale={6}
+                  far={10}
                 />
-              </>
-            )}
-            
-            <CharizardModel 
-              capabilities={capabilities} 
-              performanceSettings={performanceSettings} 
-              onError={() => setHasCanvasError(true)}
-              onModelLoaded={() => setIsModelLoading(false)}
-            />
-            
-            {!capabilities.isLowEnd && (
-              <ContactShadows 
-                position={[3, -3, 0]} 
-                opacity={0.1} 
-                blur={2} 
-                scale={6} 
-                far={10} 
+              )}
+
+              <Environment preset={capabilities.isLowEnd ? "apartment" : "sunset"} />
+
+              {performanceSettings.enableEffects && (
+                <EffectComposer>
+                  <Bloom
+                    intensity={capabilities.isLowEnd ? 0.1 : 0.2}
+                    mipmapBlur
+                    luminanceThreshold={0.9}
+                    radius={0.3}
+                  />
+                </EffectComposer>
+              )}
+
+              <OrbitControls
+                enablePan={false}
+                enableZoom={false}
+                enableRotate={false}
+                enableDamping={false}
               />
-            )}
-            
-            <Environment preset={capabilities.isLowEnd ? "apartment" : "sunset"} />
-            
-            {performanceSettings.enableEffects && (
-              <EffectComposer>
-                <Bloom 
-                  intensity={capabilities.isLowEnd ? 0.1 : 0.2} 
-                  mipmapBlur 
-                  luminanceThreshold={0.9} 
-                  radius={0.3}
-                />
-              </EffectComposer>
-            )}
-            
-            <OrbitControls 
-              enablePan={false} 
-              enableZoom={false}
-              enableRotate={false}
-              enableDamping={false}
-            />
             </Canvas>
           </ErrorBoundary>
         ) : (
@@ -648,57 +674,57 @@ export default function Hero() {
                 {heroData.description}
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
-  {/* Secondary CTA - Using website's surface color for neubrutalism */}
-  <a
-    href={heroData.cta.secondary.href}
-    className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-medium text-center border-4 transition-all duration-300 neubrutalism-button"
-    style={{ 
-      backgroundColor: 'var(--color-surface-elevated)',
-      borderColor: 'var(--color-accent)',
-      color: 'var(--color-text)',
-      boxShadow: '6px 6px 0px 0px var(--shadow-neubrutalism)'
-    }}
-    onMouseEnter={(e) => {
-      e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism-hover)';
-      e.currentTarget.style.transform = 'translate(3px, 3px)';
-    }}
-    onMouseLeave={(e) => {
-      e.currentTarget.style.boxShadow = '6px 6px 0px 0px var(--shadow-neubrutalism)';
-      e.currentTarget.style.transform = 'translate(0px, 0px)';
-    }}
-  >
-    {heroData.cta.secondary.text}
-  </a>
+                {/* Secondary CTA - Using website's surface color for neubrutalism */}
+                <a
+                  href={heroData.cta.secondary.href}
+                  className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-medium text-center border-4 transition-all duration-300 neubrutalism-button"
+                  style={{
+                    backgroundColor: 'var(--color-surface-elevated)',
+                    borderColor: 'var(--color-accent)',
+                    color: 'var(--color-text)',
+                    boxShadow: '6px 6px 0px 0px var(--shadow-neubrutalism)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism-hover)';
+                    e.currentTarget.style.transform = 'translate(3px, 3px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = '6px 6px 0px 0px var(--shadow-neubrutalism)';
+                    e.currentTarget.style.transform = 'translate(0px, 0px)';
+                  }}
+                >
+                  {heroData.cta.secondary.text}
+                </a>
 
-  {/* Primary CTA - Using website's accent color for neubrutalism */}
-  <a
-    href={heroData.cta.primary.href}
-    className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-semibold text-center border-4 transition-all duration-300 neubrutalism-button"
-    style={{ 
-      backgroundColor: 'var(--color-accent)',
-      borderColor: 'var(--color-text)',
-      color: 'var(--color-button-text)',
-      boxShadow: '6px 6px 0px 0px var(--shadow-neubrutalism)'
-    }}
-    onMouseEnter={(e) => {
-      e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism-hover)';
-      e.currentTarget.style.transform = 'translate(3px, 3px)';
-    }}
-    onMouseLeave={(e) => {
-      e.currentTarget.style.boxShadow = '6px 6px 0px 0px var(--shadow-neubrutalism)';
-      e.currentTarget.style.transform = 'translate(0px, 0px)';
-    }}
-  >
-    {heroData.cta.primary.text}
-  </a>
-</div>
+                {/* Primary CTA - Using website's accent color for neubrutalism */}
+                <a
+                  href={heroData.cta.primary.href}
+                  className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-semibold text-center border-4 transition-all duration-300 neubrutalism-button"
+                  style={{
+                    backgroundColor: 'var(--color-accent)',
+                    borderColor: 'var(--color-text)',
+                    color: 'var(--color-button-text)',
+                    boxShadow: '6px 6px 0px 0px var(--shadow-neubrutalism)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism-hover)';
+                    e.currentTarget.style.transform = 'translate(3px, 3px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = '6px 6px 0px 0px var(--shadow-neubrutalism)';
+                    e.currentTarget.style.transform = 'translate(0px, 0px)';
+                  }}
+                >
+                  {heroData.cta.primary.text}
+                </a>
+              </div>
 
             </motion.div>
-            
+
             {/* RIGHT SIDE - Space for 3D Model (Canvas renders seamlessly behind) */}
             <div className="relative h-64 sm:h-80 lg:h-full flex items-center justify-center pointer-events-none order-1 lg:order-2">
               {/* Canvas renders absolutely positioned behind this space */}
-              
+
               {/* 3D Model Loading Indicator - Shows until model is loaded */}
               {isModelLoading && (
                 <motion.div
@@ -708,16 +734,16 @@ export default function Hero() {
                   className="absolute inset-0 flex items-center justify-center z-20"
                 >
                   <div className="text-center text-white/70">
-                    <motion.div 
+                    <motion.div
                       className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 bg-orange-500/20 rounded-full flex items-center justify-center"
-                      animate={{ 
+                      animate={{
                         scale: [1, 1.1, 1],
                         rotate: [0, 180, 360]
                       }}
-                      transition={{ 
-                        duration: 2, 
-                        repeat: Infinity, 
-                        ease: "easeInOut" 
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut"
                       }}
                     >
                       <div className="w-6 h-6 md:w-8 md:h-8 bg-orange-500 rounded animate-pulse"></div>
@@ -730,9 +756,9 @@ export default function Hero() {
           </div>
         </div>
       </div>
-      
+
       {/* Internship Announcement Strip - Static for Desktop, Animated for Mobile */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1.2 }}
@@ -742,7 +768,7 @@ export default function Hero() {
         <div className="hidden md:flex text-center py-3 px-4 text-sm font-medium tracking-wide min-h-[48px] items-center justify-center">
           {heroData.announcement.text}
         </div>
-        
+
         {/* Mobile - Animated Scrolling Text (Left to Right) */}
         <div className="md:hidden banner-scroll-container py-2.5 min-h-[40px] flex items-center overflow-hidden">
           <div
