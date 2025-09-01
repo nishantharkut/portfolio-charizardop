@@ -198,8 +198,12 @@ export default function ProjectsPage() {
             </p>
             <Link 
               href="/"
-              className="inline-flex items-center gap-2 glass-button px-6 py-3 hover:text-orange-500 transition-colors duration-300"
-              style={{ color: 'var(--color-text)' }}
+              className="px-6 sm:px-8 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center gap-2"
+              style={{ 
+                backgroundColor: 'var(--color-surface)',
+                borderColor: 'var(--color-accent)',
+                color: 'var(--color-text)'
+              }}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
