@@ -333,7 +333,7 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
 function CharizardFallback() {
   // No longer need setModelLoaded - page loads independently
   return (
-    <div className="absolute inset-0 flex items-center justify-center md:justify-end md:pr-16 -translate-y-24 md:translate-y-0">
+    <div className="absolute inset-0 flex items-center justify-center md:justify-end md:pr-16 -translate-y-40 md:translate-y-0">
       <div className="w-[350px] h-[350px] sm:w-[400px] sm:h-[400px] md:w-[450px] md:h-[450px] lg:w-[500px] lg:h-[500px]">
         {/* Charizard Flying GIF for mobile */}
         <motion.div
@@ -407,9 +407,9 @@ export default function Hero() {
   if (isClient && (capabilities.isMobile || (typeof window !== 'undefined' && window.innerWidth <= 768))) {
     console.log('Showing mobile fallback, window width:', typeof window !== 'undefined' ? window.innerWidth : 'SSR');
     return (
-      <section className="relative w-full h-screen overflow-hidden">
+      <section className="relative w-full h-screen">
         <CharizardFallback />
-        <div className="relative z-10 h-full flex items-center">
+        <div className="relative z-10 h-full flex items-center pb-20 sm:pb-16">
           {/* Container with exact same width as navbar: max-w-7xl */}
           <div className="max-w-7xl w-full mx-auto px-6 sm:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -501,35 +501,34 @@ export default function Hero() {
             <div
               className="flex whitespace-nowrap"
               style={{
-                animation: 'banner-marquee-ltr 14s linear infinite',
+                animation: 'banner-marquee-ltr 25s linear infinite',
                 minWidth: 'max-content',
               }}
             >
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="flex-shrink-0 px-3 sm:px-4">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="flex-shrink-0 px-8">
                   <span className="text-xs font-medium tracking-wide">{heroData.announcement.text}</span>
                 </div>
               ))}
             </div>
           </div>
-          <style>
-            {`
-              @keyframes banner-marquee-ltr {
-                0% { 
-                      transform: translateX(100%); 
-                    }
-                100% { 
-                  transform: translateX(-100%); 
-                }
-            `}
-          </style>
+          <style jsx>{`
+            @keyframes banner-marquee-ltr {
+              0% { 
+                transform: translateX(100%); 
+              }
+              100% { 
+                transform: translateX(-100%); 
+              }
+            }
+          `}</style>
         </motion.div>
       </section>
     );
   }
 
   return (
-    <section className="relative w-full h-screen overflow-hidden">
+    <section className="relative w-full h-screen">
       {/* Optimized 3D Canvas with Performance Monitoring */}
       <div className="absolute inset-0 pointer-events-none">
         {!hasCanvasError ? (
@@ -653,7 +652,7 @@ export default function Hero() {
         <div className="absolute top-1/2 right-1/2 translate-x-1/4 -translate-y-1/2 w-96 h-96 opacity-30 [mask-image:radial-gradient(circle,black,transparent_70%)] bg-[radial-gradient(circle,rgba(255,140,40,0.4),transparent_60%)]" />
       </div>
 
-      <div className="relative z-10 h-full flex items-center">
+      <div className="relative z-10 h-full flex items-center pb-20 sm:pb-16">
         {/* Container with exact same width as navbar: max-w-7xl */}
         <div className="max-w-7xl w-full mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -774,25 +773,27 @@ export default function Hero() {
           <div
             className="flex whitespace-nowrap"
             style={{
-              animation: 'banner-marquee-ltr 24s linear infinite',
+              animation: 'banner-marquee-ltr 25s linear infinite',
               minWidth: 'max-content',
             }}
           >
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="flex-shrink-0 px-3 sm:px-4">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="flex-shrink-0 px-8">
                 <span className="text-xs font-medium tracking-wide">{heroData.announcement.text}</span>
               </div>
             ))}
           </div>
         </div>
-        <style>
-          {`
-            @keyframes banner-marquee-ltr {
-              0% { transform: translateX(-60%); }
-              100% { transform: translateX(0); }
+        <style jsx>{`
+          @keyframes banner-marquee-ltr {
+            0% { 
+              transform: translateX(100%); 
             }
-          `}
-        </style>
+            100% { 
+              transform: translateX(-100%); 
+            }
+          }
+        `}</style>
       </motion.div>
     </section>
   );

@@ -200,19 +200,19 @@ export default function AboutClient() {
               className="flex flex-col gap-3 w-full max-w-[220px] mx-auto mt-2 mb-2 sm:max-w-[260px] lg:flex-row lg:max-w-none lg:mx-0 lg:mt-0 lg:mb-0 lg:gap-4 lg:w-auto justify-center lg:justify-start"
             >
               <Link 
-                href="/"
-                className="neubrutalism-button w-full text-center font-black uppercase tracking-wide flex items-center justify-center gap-2 px-3 py-1.5 text-xs"
-                style={{ 
-                  backgroundColor: 'var(--color-surface)',
-                  borderColor: 'var(--color-accent)',
-                  color: 'var(--color-text)'
-                }}
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Back to Home
-              </Link>
+              href="/"
+              className="px-6 sm:px-8 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center gap-2"
+              style={{ 
+                backgroundColor: 'var(--color-surface)',
+                borderColor: 'var(--color-accent)',
+                color: 'var(--color-text)'
+              }}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              Back to Home
+            </Link>
               <a 
                 href="#who-i-am"
                 className="neubrutalism-button w-full text-center border-orange-500 bg-orange-500 text-black font-black uppercase tracking-wide flex items-center justify-center gap-2 px-3 py-1.5 text-xs"
