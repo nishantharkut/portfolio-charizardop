@@ -18,14 +18,14 @@ export default function About() {
           About <span>Me</span>
         </motion.h2>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-8 items-center">
           {/* Content */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="space-y-6"
+            className="space-y-6 order-2 lg:order-1"
           >
             <div className="space-y-4">
               <h3 
@@ -117,7 +117,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="flex justify-center"
+            className="flex justify-center order-1 lg:order-2"
           >
             <div className="w-80 h-120 max-w-full">
               <TiltedCard
@@ -126,8 +126,8 @@ export default function About() {
                 captionText="Nishant Harkut"
                 containerHeight="320px"
                 containerWidth="320px"
-                imageHeight="400px"
-                imageWidth="280px"
+                imageHeight="450px"
+                imageWidth="350px"
                 rotateAmplitude={9}
                 scaleOnHover={1.2}
                 showMobileWarning={false}
