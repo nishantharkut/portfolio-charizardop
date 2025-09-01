@@ -87,7 +87,27 @@ export default function AboutClient() {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* FaultyTerminal Background - Hero Section Only */}
         <div className="absolute inset-0 z-0">
-          <LazyFaultyTerminal
+        <PixelBlast
+    variant="circle"
+    pixelSize={6}
+    color="#B19EEF"
+    patternScale={3}
+    patternDensity={1.2}
+    pixelSizeJitter={0.5}
+    enableRipples
+    rippleSpeed={0.4}
+    rippleThickness={0.12}
+    rippleIntensityScale={1.5}
+    liquid
+    liquidStrength={0.12}
+    liquidRadius={1.2}
+    liquidWobbleSpeed={5}
+    speed={0.6}
+    edgeFade={0.25}
+    transparent
+  />  
+
+{/*   <LazyFaultyTerminal
             scale={2}
             gridMul={[3, 2]}
             digitSize={1.2}
@@ -103,6 +123,7 @@ export default function AboutClient() {
             mouseStrength={0.3}
             brightness={actualTheme === 'light' ? 0.3 : 0.7}
           />
+*/}
         </div>
         {/* Floating Elements */}
         <div className="absolute inset-0 opacity-10 z-10">
