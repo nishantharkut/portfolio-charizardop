@@ -119,12 +119,12 @@ export default function Footer() {
                 {subscribeError && <p className="text-sm font-bold text-red-400">{subscribeError}</p>}
                 
                 <p className="text-sm font-bold leading-tight">
-                  GET PROJECT UPDATES & INSIGHTS!
+                  LET'S TALK!!
                 </p>
                 
                 <div className="flex items-center gap-2 text-sm font-bold mt-3">
                   <HiMail className="w-4 h-4" />
-                  <span>contact@nishant.dev</span>
+                  <span>nhnishantharkut@gmail.com</span>
                 </div>
               </motion.div>
             </div>
