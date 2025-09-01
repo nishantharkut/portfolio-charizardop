@@ -8,7 +8,7 @@ import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { getProjects, type Project } from '../../data';
 import SplashCursorWrapper from '../components/ui/SplashCursorWrapper';
-
+import PixelBlast from '../components/ui/PixelBlast';
 // Lazy load components with proper error boundaries
 import { LazyFaultyTerminal } from '../../components/lazy/LazyBoundaries';
 
@@ -141,7 +141,26 @@ export default function ProjectsClient() {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* FaultyTerminal Background */}
         <div className="absolute inset-0 z-0">
-          <LazyFaultyTerminal
+          <PixelBlast
+              variant="circle"
+              pixelSize={2}
+              color="#ff8c42"
+              patternScale={7}
+              patternDensity={1.2}
+              pixelSizeJitter={1.6}
+              enableRipples
+              rippleSpeed={0.4}
+              rippleThickness={0.12}
+              rippleIntensityScale={1.5}
+              // liquid
+              // liquidStrength={0.12}
+              // liquidRadius={1.2}
+              // liquidWobbleSpeed={5}
+              speed={0.6}
+              edgeFade={0.25}
+              transparent
+            />
+          {/* <LazyFaultyTerminal
             scale={1.5}
             gridMul={[4, 3]}
             digitSize={1.0}
@@ -156,7 +175,7 @@ export default function ProjectsClient() {
             mouseReact={true}
             mouseStrength={0.2}
             brightness={0.6}
-          />
+          /> */}
         </div>
         
         <div className="max-w-4xl mx-auto px-4 text-center relative z-20">

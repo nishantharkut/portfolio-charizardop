@@ -15,7 +15,7 @@ import {
   getAwards, 
   getFeaturedAchievements
 } from '../../data';
-
+import PixelBlast from '../components/ui/PixelBlast';
 // Lazy load FaultyTerminal with proper loading state
 import { LazyFaultyTerminal } from '../../components/lazy/LazyBoundaries';
 
@@ -46,7 +46,26 @@ export default function AchievementsPage() {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* FaultyTerminal Background - Hero Section Only */}
         <div className="absolute inset-0 z-0">
-          <LazyFaultyTerminal
+          <PixelBlast
+    variant="circle"
+    pixelSize={2}
+    color="#ff8c42"
+    patternScale={7}
+    patternDensity={1.2}
+    pixelSizeJitter={1.6}
+    enableRipples
+    rippleSpeed={0.4}
+    rippleThickness={0.12}
+    rippleIntensityScale={1.5}
+    // liquid
+    // liquidStrength={0.12}
+    // liquidRadius={1.2}
+    // liquidWobbleSpeed={5}
+    speed={0.6}
+    edgeFade={0.25}
+    transparent
+  />
+          {/* <LazyFaultyTerminal
             scale={2}
             gridMul={[3, 2]}
             digitSize={1.2}
@@ -61,7 +80,7 @@ export default function AchievementsPage() {
             mouseReact={true}
             mouseStrength={0.3}
             brightness={typeof window !== 'undefined' && document.documentElement.classList.contains('light') ? 0.3 : 0.7}
-          />
+          /> */}
         </div>
         
         <div className="relative z-10 text-center px-4">
