@@ -407,9 +407,9 @@ export default function Hero() {
   if (isClient && (capabilities.isMobile || (typeof window !== 'undefined' && window.innerWidth <= 768))) {
     console.log('Showing mobile fallback, window width:', typeof window !== 'undefined' ? window.innerWidth : 'SSR');
     return (
-      <section className="relative w-full h-screen">
+      <section className="relative w-full h-screen overflow-hidden">
         <CharizardFallback />
-        <div className="relative z-10 h-full flex items-center pb-20 sm:pb-16">
+        <div className="relative z-10 h-full flex items-center pb-16 sm:pb-14">
           {/* Container with exact same width as navbar: max-w-7xl */}
           <div className="max-w-7xl w-full mx-auto px-6 sm:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -426,7 +426,7 @@ export default function Hero() {
                 <div className="mb-4 sm:mb-6 h-7 sm:h-8 md:h-9 text-base sm:text-lg md:text-xl lg:text-2xl text-center lg:text-left" style={{ color: 'var(--color-text-secondary)' }}>
                   <TypewriterRoles />
                 </div>
-                <p className="text-sm sm:text-base lg:text-lg leading-relaxed mb-6 sm:mb-8 font-light max-w-xl mx-auto lg:mx-0 text-center lg:text-left" style={{ color: 'var(--color-text-secondary)' }}>
+                <p className="text-sm sm:text-base lg:text-lg leading-relaxed mb-4 sm:mb-6 font-light max-w-xl mx-auto lg:mx-0 text-justify" style={{ color: 'var(--color-text-secondary)' }}>
                   {heroData.description}
                 </p>
                 <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
@@ -498,28 +498,59 @@ export default function Hero() {
 
           {/* Mobile - Animated Scrolling Text (Left to Right) */}
           <div className="md:hidden banner-scroll-container py-2.5 min-h-[40px] flex items-center overflow-hidden">
-            <div
+            <motion.div
               className="flex whitespace-nowrap"
+              initial={{ transform: 'translateX(100%)' }}
+              animate={{ transform: 'translateX(-100%)' }}
+              transition={{
+                duration: 35,
+                ease: "linear",
+                repeat: Infinity,
+                delay: 1.5 // Start after page loads
+              }}
               style={{
-                animation: 'banner-marquee-ltr 25s linear infinite',
                 minWidth: 'max-content',
               }}
             >
-              {[...Array(3)].map((_, i) => (
-                <div key={i} className="flex-shrink-0 px-8">
-                  <span className="text-xs font-medium tracking-wide">{heroData.announcement.text}</span>
+              {[...Array(5)].map((_, i) => (
+                <div key={i} className="flex-shrink-0 px-8 py-1">
+                  <span className="text-xs font-medium tracking-wide whitespace-nowrap">
+                    {heroData.announcement.text}
+                  </span>
+                  {i < 4 && <span className="mx-6 text-xs opacity-60">•</span>}
                 </div>
               ))}
-            </div>
+            </motion.div>
           </div>
           <style jsx>{`
-            @keyframes banner-marquee-ltr {
-              0% { 
-                transform: translateX(100%); 
-              }
-              100% { 
-                transform: translateX(-100%); 
-              }
+            .banner-scroll-container {
+              position: relative;
+              background: var(--color-accent);
+              color: var(--color-button-text);
+            }
+            
+            .banner-scroll-container::before {
+              content: '';
+              position: absolute;
+              left: 0;
+              top: 0;
+              width: 20px;
+              height: 100%;
+              background: linear-gradient(90deg, var(--color-accent), transparent);
+              z-index: 1;
+              pointer-events: none;
+            }
+            
+            .banner-scroll-container::after {
+              content: '';
+              position: absolute;
+              right: 0;
+              top: 0;
+              width: 20px;
+              height: 100%;
+              background: linear-gradient(-90deg, var(--color-accent), transparent);
+              z-index: 1;
+              pointer-events: none;
             }
           `}</style>
         </motion.div>
@@ -528,7 +559,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative w-full h-screen">
+    <section className="relative w-full h-screen overflow-hidden">
       {/* Optimized 3D Canvas with Performance Monitoring */}
       <div className="absolute inset-0 pointer-events-none">
         {!hasCanvasError ? (
@@ -652,7 +683,7 @@ export default function Hero() {
         <div className="absolute top-1/2 right-1/2 translate-x-1/4 -translate-y-1/2 w-96 h-96 opacity-30 [mask-image:radial-gradient(circle,black,transparent_70%)] bg-[radial-gradient(circle,rgba(255,140,40,0.4),transparent_60%)]" />
       </div>
 
-      <div className="relative z-10 h-full flex items-center pb-20 sm:pb-16">
+      <div className="relative z-10 h-full flex items-center pb-12 sm:pb-10">
         {/* Container with exact same width as navbar: max-w-7xl */}
         <div className="max-w-7xl w-full mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -669,7 +700,7 @@ export default function Hero() {
               <div className="mb-4 sm:mb-6 h-8 sm:h-9 text-lg sm:text-xl md:text-2xl text-center lg:text-left" style={{ color: 'var(--color-text-muted)' }}>
                 <TypewriterRoles />
               </div>
-              <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-6 sm:mb-8 font-light max-w-lg mx-auto lg:mx-0 text-center lg:text-left" style={{ color: 'var(--color-text-muted)' }}>
+              <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-4 sm:mb-6 font-light max-w-lg mx-auto lg:mx-0 text-justify" style={{ color: 'var(--color-text-muted)' }}>
                 {heroData.description}
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
@@ -770,28 +801,59 @@ export default function Hero() {
 
         {/* Mobile - Animated Scrolling Text (Left to Right) */}
         <div className="md:hidden banner-scroll-container py-2.5 min-h-[40px] flex items-center overflow-hidden">
-          <div
+          <motion.div
             className="flex whitespace-nowrap"
+            initial={{ transform: 'translateX(100%)' }}
+            animate={{ transform: 'translateX(-100%)' }}
+            transition={{
+              duration: 35,
+              ease: "linear",
+              repeat: Infinity,
+              delay: 1.5 // Start after page loads
+            }}
             style={{
-              animation: 'banner-marquee-ltr 25s linear infinite',
               minWidth: 'max-content',
             }}
           >
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="flex-shrink-0 px-8">
-                <span className="text-xs font-medium tracking-wide">{heroData.announcement.text}</span>
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="flex-shrink-0 px-8 py-1">
+                <span className="text-xs font-medium tracking-wide whitespace-nowrap">
+                  {heroData.announcement.text}
+                </span>
+                {i < 4 && <span className="mx-6 text-xs opacity-60">•</span>}
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
         <style jsx>{`
-          @keyframes banner-marquee-ltr {
-            0% { 
-              transform: translateX(100%); 
-            }
-            100% { 
-              transform: translateX(-100%); 
-            }
+          .banner-scroll-container {
+            position: relative;
+            background: var(--color-accent);
+            color: var(--color-button-text);
+          }
+          
+          .banner-scroll-container::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent), transparent);
+            z-index: 1;
+            pointer-events: none;
+          }
+          
+          .banner-scroll-container::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 20px;
+            height: 100%;
+            background: linear-gradient(-90deg, var(--color-accent), transparent);
+            z-index: 1;
+            pointer-events: none;
           }
         `}</style>
       </motion.div>

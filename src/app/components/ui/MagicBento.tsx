@@ -630,7 +630,7 @@ const SkillsContent: React.FC = () => {
   return (
     <div className="skills-content-wrapper w-full h-full flex flex-col justify-between overflow-hidden">
       {/* Desktop: Static Grid Layout - No scrolling, fills entire card with exactly 42 icons (6x7) */}
-      <div className="tech-grid w-full h-full grid grid-cols-6 gap-2 p-2 place-items-center content-center hidden md:grid">
+      <div className="tech-grid w-full h-full hidden md:grid md:grid-cols-6 gap-2 p-2 place-items-center content-center">
         {allLogos.slice(0, 42).map((logo, index) => (
           <div key={index} className="tech-item flex items-center justify-center">
             {logo.node}
@@ -662,7 +662,7 @@ const socialIcons = [
   { 
     name: "LinkedIn", 
     icon: <SiLinkedin className="w-5 h-5" />, 
-    href: "https://linkedin.com/in/nishantharkut", 
+    href: "https://in.linkedin.com/in/nishant-harkut", 
     color: "#0077B5" 
   },
   { 
