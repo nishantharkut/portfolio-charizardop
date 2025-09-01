@@ -524,6 +524,143 @@ export default function ProjectsPage() {
   )}
 </AnimatePresence>
 
+{/* Project Detail Modal */}
+<AnimatePresence>
+  {selectedProject && (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4"
+      style={{ backgroundColor: 'var(--color-glass-bg)' }}
+      onClick={closeProjectDetail}
+    >
+      <motion.div
+        initial={{ opacity: 0, scale: 0.98, y: 10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.98, y: 10 }}
+        transition={{ duration: 0.25 }}
+        className="relative neubrutalism-card border-2 sm:border-4 max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] flex flex-col shadow-[var(--shadow-neubrutalism)] bg-[var(--color-surface-elevated)]"
+        style={{ borderColor: 'var(--color-accent)', borderRadius: '0.5rem' }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close Button */}
+        <button
+          onClick={closeProjectDetail}
+          className="absolute top-2 right-2 sm:top-4 sm:right-4 w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-black bg-[var(--color-surface-hover)] hover:bg-orange-500 hover:text-black flex items-center justify-center transition-colors duration-300 z-10 shadow-[var(--shadow-neubrutalism-medium)]"
+          style={{ color: 'var(--color-text)' }}
+        >
+          <svg className="w-4 h-4 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-0 flex-1 overflow-hidden">
+          {/* Top on mobile / Left on desktop: Project Image */}
+          <div className="flex items-center justify-center lg:border-r-4 border-b-4 lg:border-b-0 border-black shadow-[var(--shadow-neubrutalism-medium)] min-h-[200px] sm:min-h-[250px] lg:h-full">
+            <div className="relative w-full aspect-[16/9] max-h-[200px] sm:max-h-[300px] lg:max-h-[350px] rounded-xl overflow-hidden flex items-center justify-center mx-4 my-4">
+              <Image
+                src={selectedProject.image}
+                alt={selectedProject.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 50vw"
+              />
+              {selectedProject.featured && (
+                <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-yellow-400 border-2 border-black px-2 py-1 sm:px-4 sm:py-2 rounded font-black text-black text-xs shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide flex items-center justify-center">
+                  <span className="w-full text-center">FEATURED</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Bottom on mobile / Right on desktop: Project Details (scrollable) */}
+          <div className="flex flex-col overflow-y-auto flex-1 p-4 sm:p-6 max-h-[calc(95vh-220px)] sm:max-h-[calc(90vh-270px)] lg:max-h-[90vh]">
+            {/* Title & Category */}
+            <div className="mb-3">
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-black uppercase tracking-tight mb-2 drop-shadow-lg leading-tight" style={{ color: 'var(--color-text)' }}>
+                {selectedProject.title}
+              </h2>
+              <span className="bg-orange-400 border-2 border-black px-2 py-1 font-black text-black text-xs shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide inline-block mb-2">
+                {selectedProject.category}
+              </span>
+            </div>
+
+            {/* Description */}
+            <div className="mb-4">
+              <h3 className="text-sm sm:text-base lg:text-lg font-black uppercase mb-2" style={{ color: 'var(--color-text)' }}>Description</h3>
+              <p className="leading-relaxed text-xs sm:text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>
+                {selectedProject.fullDescription}
+              </p>
+            </div>
+
+            {/* Tech Stack */}
+            <div className="mb-4">
+              <h3 className="text-sm sm:text-base lg:text-lg font-black uppercase mb-2" style={{ color: 'var(--color-text)' }}>Tech Stack</h3>
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                {selectedProject.techStack.map((tech, i) => (
+                  <span key={i} className="px-2 py-1 border-2 border-orange-500 bg-orange-500/20 text-orange-500 text-xs font-black rounded shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide whitespace-nowrap hover:bg-orange-500 hover:text-black transition-all duration-300">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Key Implementation */}
+            <div className="mb-4">
+              <h3 className="text-sm sm:text-base lg:text-lg font-black uppercase mb-2" style={{ color: 'var(--color-text)' }}>Key Implementation</h3>
+              <ul className="space-y-2">
+                {selectedProject.implementation.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3" style={{ color: 'var(--color-text-secondary)' }}>
+                    <span className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></span>
+                    <span className="text-xs sm:text-sm leading-relaxed">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Links */}
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-2 mt-auto">
+              {selectedProject.liveLink && (
+                <a
+                  href={selectedProject.liveLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 neubrutalism-button bg-orange-500 hover:bg-orange-600 text-black font-black uppercase tracking-wide text-center border-2 border-black shadow-[var(--shadow-neubrutalism)] text-xs sm:text-sm"
+                >
+                  <svg className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                  Live Demo
+                </a>
+              )}
+              {selectedProject.githubLink && (
+                <a
+                  href={selectedProject.githubLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 neubrutalism-button font-black uppercase tracking-wide text-center border-2 border-black shadow-[var(--shadow-neubrutalism)] text-xs sm:text-sm"
+                  style={{
+                    backgroundColor: 'var(--color-surface-hover)',
+                    color: 'var(--color-text)'
+                  }}
+                >
+                  <svg className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  GitHub
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
 
 
       <Footer />
