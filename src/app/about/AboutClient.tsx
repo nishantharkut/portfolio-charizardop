@@ -87,7 +87,6 @@ export default function AboutClient() {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* FaultyTerminal Background - Hero Section Only */}
         <div className="absolute inset-0 z-0">
-          <div style={{ width: '100%', height: '600px', position: 'relative' }}>
   <PixelBlast
     variant="circle"
     pixelSize={6}
@@ -107,7 +106,6 @@ export default function AboutClient() {
     edgeFade={0.25}
     transparent
   />
-</div>
           {/* <LazyFaultyTerminal
             scale={2}
             gridMul={[3, 2]}
