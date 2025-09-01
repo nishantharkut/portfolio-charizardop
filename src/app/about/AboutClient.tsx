@@ -18,7 +18,7 @@ import TiltedCard from '../components/ui/TiltedCard';
 import StarBorder from '../components/ui/StarBorder';
 import SplashCursorWrapper from '../components/ui/SplashCursorWrapper';
 import { usePageReload } from '../components/ui/LazyLoader';
-
+import PixelBlast from '../components/ui/PixelBlast';
 // Lazy load FaultyTerminal with proper loading state
 import { LazyFaultyTerminal } from '../../components/lazy/LazyBoundaries';
 import { 
@@ -87,10 +87,11 @@ export default function AboutClient() {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* FaultyTerminal Background - Hero Section Only */}
         <div className="absolute inset-0 z-0">
-        <PixelBlast
+          <div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <PixelBlast
     variant="circle"
     pixelSize={6}
-    color="#B19EEF"
+    color="#ff8c42"
     patternScale={3}
     patternDensity={1.2}
     pixelSizeJitter={0.5}
@@ -105,9 +106,9 @@ export default function AboutClient() {
     speed={0.6}
     edgeFade={0.25}
     transparent
-  />  
-
-{/*   <LazyFaultyTerminal
+  />
+</div>
+          {/* <LazyFaultyTerminal
             scale={2}
             gridMul={[3, 2]}
             digitSize={1.2}
@@ -122,8 +123,7 @@ export default function AboutClient() {
             mouseReact={true}
             mouseStrength={0.3}
             brightness={actualTheme === 'light' ? 0.3 : 0.7}
-          />
-*/}
+          /> */}
         </div>
         {/* Floating Elements */}
         <div className="absolute inset-0 opacity-10 z-10">

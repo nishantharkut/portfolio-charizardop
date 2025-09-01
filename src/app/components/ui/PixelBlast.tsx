@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { EffectComposer, EffectPass, RenderPass, Effect } from 'postprocessing';
@@ -596,4 +595,69 @@ const PixelBlast: React.FC<PixelBlastProps> = ({
       t.uniforms.uShapeType.value = SHAPE_MAP[variant] ?? 0;
       t.uniforms.uPixelSize.value = pixelSize * t.renderer.getPixelRatio();
       t.uniforms.uColor.value.set(color);
-      t.uniforms.uScale.value = patternScale
+      t.uniforms.uScale.value = patternScale;
+      t.uniforms.uDensity.value = patternDensity;
+      t.uniforms.uPixelJitter.value = pixelSizeJitter;
+      t.uniforms.uEnableRipples.value = enableRipples ? 1 : 0;
+      t.uniforms.uRippleIntensity.value = rippleIntensityScale;
+      t.uniforms.uRippleThickness.value = rippleThickness;
+      t.uniforms.uRippleSpeed.value = rippleSpeed;
+      t.uniforms.uEdgeFade.value = edgeFade;
+      if (transparent) t.renderer.setClearAlpha(0);
+      else t.renderer.setClearColor(0x000000, 1);
+      if (t.liquidEffect) {
+        const uStrength = (t.liquidEffect as any).uniforms.get('uStrength');
+        if (uStrength) uStrength.value = liquidStrength;
+        const uFreq = (t.liquidEffect as any).uniforms.get('uFreq');
+        if (uFreq) uFreq.value = liquidWobbleSpeed;
+      }
+      if (t.touch) t.touch.radiusScale = liquidRadius;
+    }
+    prevConfigRef.current = cfg;
+    return () => {
+      if (threeRef.current && mustReinit) return;
+      if (!threeRef.current) return;
+      const t = threeRef.current;
+      t.resizeObserver?.disconnect();
+      cancelAnimationFrame(t.raf!);
+      t.quad?.geometry.dispose();
+      t.material.dispose();
+      t.composer?.dispose();
+      t.renderer.dispose();
+      if (t.renderer.domElement.parentElement === container) container.removeChild(t.renderer.domElement);
+      threeRef.current = null;
+    };
+  }, [
+    antialias,
+    liquid,
+    noiseAmount,
+    pixelSize,
+    patternScale,
+    patternDensity,
+    enableRipples,
+    rippleIntensityScale,
+    rippleThickness,
+    rippleSpeed,
+    pixelSizeJitter,
+    edgeFade,
+    transparent,
+    liquidStrength,
+    liquidRadius,
+    liquidWobbleSpeed,
+    autoPauseOffscreen,
+    variant,
+    color,
+    speed
+  ]);
+
+  return (
+    <div
+      ref={containerRef}
+      className={`w-full h-full relative overflow-hidden ${className ?? ''}`}
+      style={style}
+      aria-label="PixelBlast interactive background"
+    />
+  );
+};
+
+export default PixelBlast;
