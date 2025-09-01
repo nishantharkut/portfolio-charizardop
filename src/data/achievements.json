@@ -2,12 +2,12 @@
   "achievements": [
     {
       "id": 1,
-      "title": "Portfolio Website Featured on Awwwards",
-      "category": "Web Design Recognition",
-      "description": "My portfolio website was featured on Awwwards for innovative 3D web design and exceptional user experience.",
-      "details": "Recognition for pushing the boundaries of web design by seamlessly integrating 3D elements with performant web technologies. The site showcased advanced GSAP animations, Three.js integration, and responsive design principles.",
-      "date": "2024",
-      "organization": "Awwwards",
+      "title": "Odoo India Hackathon 2025 - Top 10 ",
+      "category": "Hackathon",
+      "description": "Me and My team positioned under top 10 amongst 15K Participants across India.",
+      "details": "We were given the problem statement on making a Travel Itinerary application that simplifies trip planning. We leveraged React and Node.js to build a user-friendly interface and a robust backend Along with MongoDB for data storage. Also, We implemented AI-driven features for personalized recommendations.",
+      "date": "Aug, 2025",
+      "organization": "ODOO",
       "link": "https://awwwards.com/featured-portfolio",
       "image": "/achievements/awwwards.jpg",
       "badge": "🏆",
