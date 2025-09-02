@@ -58,8 +58,8 @@
     {
       "category": "DevOps & Cloud",
       "technologies": [
-        "AWS",
         "Google Cloud Platform (GCP)",
+"AWS",
         "Vercel",
         "Render",
         "Railway",
@@ -137,8 +137,8 @@
     {
       "title": "Devops / Cloud",
       "items": [
-        "AWS",
         "Google Cloud Platform (GCP)",
+"AWS",
         "Vercel",
         "Render",
         "Railway",
