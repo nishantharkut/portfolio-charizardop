@@ -16,7 +16,7 @@
       ],
       "liveLink": "https://w3nity.vercel.app",
       "githubLink": "https://github.com/nishantharkut/W3nity",
-      "image": "/images/project1.jpg",
+      "image": "/images/W3nity.jpg",
       "featured": true
     },
     {
@@ -76,7 +76,7 @@
       ],
       "liveLink": "https://globe-trotter-code-fusion-ruddy.vercel.app",
       "githubLink": "https://github.com/nishantharkut/GlobeTrotter-CodeFusion",
-      "image": "/images/project5.jpg",
+      "image": "/images/GlobeTrotter.jpg",
       "featured": true
     },
     {
@@ -95,7 +95,7 @@
       ],
       "liveLink": "https://noobster-dsa.vercel.app",
       "githubLink": "https://github.com/nishantharkut/Noobster-DSA",
-      "image": "/images/project6.jpg"
+      "image": "/images/NoobsterDSA.jpg"
     }
   ]
 }
