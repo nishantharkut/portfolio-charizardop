@@ -752,7 +752,7 @@ export default function ExperiencePage() {
       </section>
 
       {/* Technologies Evolution Section */}
-      <section className="relative z-10 py-20 px-4">
+      {/* <section className="relative z-10 py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -779,7 +779,6 @@ export default function ExperiencePage() {
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 className="h-full"
               >
-                {/* Neubrutalism Technology Evolution Card */}
                 <div className="relative w-full min-h-[280px] neubrutalism-card"
                   style={{
                     backgroundColor: 'var(--color-surface)',
@@ -823,7 +822,7 @@ export default function ExperiencePage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Call to Action */}
       <section className="relative z-10 py-16 sm:py-20 px-4">

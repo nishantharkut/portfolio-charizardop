@@ -176,7 +176,7 @@
       "position": "Top 10",
       "year": "2025",
       "description": "Recognized among top 10 teams from 10,000+ participants for technical innovation",
-      "image": "/awards/odoo-award.jpg"
+      "image": "/awards/cds-tech.jpg"
     },
     {
       "id": 2,
@@ -185,7 +185,7 @@
       "position": "Winner",
       "year": "2025",
       "description": "First place winner with $200 prize for innovative AI-powered OS development",
-      "image": "/awards/hacknovate-award.jpg"
+      "image": "/awards/csd-design.jpg"
     },
     {
       "id": 3,
@@ -194,7 +194,7 @@
       "position": "Winner",
       "year": "2024",
       "description": "First place in UI/UX category for exceptional design innovation",
-      "image": "/awards/winter-project-award.jpg"
+      "image": "/awards/dfv-tech.jpg"
     },
     {
       "id": 4,
@@ -203,7 +203,7 @@
       "position": "Winner",
       "year": "2024",
       "description": "First place winner in graphic design category for creative excellence",
-      "image": "/awards/aakriti-award.jpg"
+      "image": "/awards/css-vfd.jpg"
     }
   ]
 }

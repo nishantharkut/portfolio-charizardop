@@ -6,6 +6,7 @@ import projectsData from "../../../data/projects.json";
 import achievementsData from "../../../data/achievements.json";
 import experienceData from "../../../data/experience.json";
 import aboutData from "../../../data/about.json";
+import { downloadResume } from "../../../utils/resume";
 import { useTheme } from "../../../contexts/ThemeContext";
 import {
   ArrowTopRightOnSquareIcon, 
@@ -203,16 +204,23 @@ const ProjectsContent: React.FC = () => {
   const handleAllProjectsClick = () => {
     router.push('/projects');
   };
+
+  const handleProjectClick = (projectId: number) => {
+    router.push(`/projects?project=${projectId}`);
+  };
   
   return (
     <div className="flex flex-col h-full">
       <div className="flex-1 space-y-2 md:space-y-3">
         {featuredProjects.map((project, index) => (
-          <div key={project.id} className="flex-1 p-2 md:p-4 rounded-lg border transition-colors group" 
+          <div 
+            key={project.id} 
+            className="flex-1 p-2 md:p-4 rounded-lg border transition-colors group cursor-pointer" 
             style={{ 
               backgroundColor: 'var(--color-glass-bg)', 
               borderColor: 'var(--color-border)' 
             }}
+            onClick={() => handleProjectClick(project.id)}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = 'var(--color-surface-hover)';
             }}
@@ -509,6 +517,7 @@ const TechIcon: React.FC<{
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const tooltipRef = useRef<HTMLDivElement>(null);
   const iconRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const handleMouseEnter = (e: React.MouseEvent) => {
     setIsVisible(true);
@@ -541,12 +550,18 @@ const TechIcon: React.FC<{
     }
   };
 
+  const handleClick = () => {
+    // Navigate to about page to show more skills details
+    router.push('/about#skills');
+  };
+
   return (
     <>
       <div
         ref={iconRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onClick={handleClick}
         className="tech-icon-container relative cursor-pointer transition-all duration-300 group"
         style={{
           "--original-color": originalColor,
@@ -1251,6 +1266,12 @@ const MagicBento: React.FC<BentoProps> = ({
     }
   };
 
+  // Download resume handler
+  const handleDownloadResume = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    downloadResume();
+  };
+
   return (
     <>
       <style>
@@ -1694,7 +1715,13 @@ const MagicBento: React.FC<BentoProps> = ({
                 
                 {/* Add download icon to About Me card */}
                 {card.id === "about" && (
-                  <div className="download-icon">
+                  <div 
+                    className="download-icon"
+                    onClick={(e) => {
+                      handleDownloadResume(e);
+                    }}
+                    title={`Download ${aboutData.resume?.fileName || 'Resume'} (${aboutData.resume?.fileSize || 'PDF'})`}
+                  >
                     <ArrowDownTrayIcon className="w-4 h-4" />
                   </div>
                 )}
@@ -1711,6 +1738,8 @@ const MagicBento: React.FC<BentoProps> = ({
                 <a
                   key={index}
                   href={social.href}
+                  target={social.isMore ? "_self" : "_blank"}
+                  rel={social.isMore ? "" : "noopener noreferrer"}
                   className="aspect-square rounded-lg transition-all duration-200 flex items-center justify-center hover:scale-105 border"
                   style={{
                     color: 'var(--color-text-secondary)',

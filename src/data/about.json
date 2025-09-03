@@ -40,5 +40,11 @@
     { "number": "1+", "label": "Years Experience" },
     { "number": "5+", "label": "Projects Made" },
     { "number": "50+", "label": "Stars" }
-  ]
+  ],
+  "resume": {
+    "fileName": "Nishant_Harkut_Resume.pdf",
+    "filePath": "/resume.pdf",
+    "lastUpdated": "2025-03-01",
+    "fileSize": "256 KB"
+  }
 }

@@ -182,7 +182,7 @@ export default function AchievementsPage() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 {/* Mobile-Optimized Featured Achievement Card */}
-                <div className="relative neubrutalism-card overflow-hidden"
+                <div className="relative neubrutalism-card overflow-hidden h-[500px] sm:h-[520px] lg:h-[540px]"
                   style={{
                     backgroundColor: 'var(--color-surface)',
                   }}
@@ -295,7 +295,7 @@ export default function AchievementsPage() {
                 >
                   {/* Mobile-Optimized Achievement Card */}
                   <div
-                    className="relative w-full h-auto min-h-[420px] sm:h-[460px] lg:h-[500px] neubrutalism-card flex flex-col p-4 sm:p-5 lg:p-6"
+                    className="relative w-full h-[440px] sm:h-[460px] lg:h-[480px] neubrutalism-card flex flex-col p-4 sm:p-5 lg:p-6"
                     style={{
                       backgroundColor: 'var(--color-surface)',
                     }}
@@ -321,8 +321,8 @@ export default function AchievementsPage() {
                       </div>
                       
                       {/* Description */}
-                      <div className="flex-1">
-                        <p className="text-sm sm:text-base leading-relaxed font-medium line-clamp-3" style={{ color: 'var(--color-text-secondary)' }}>
+                      <div className="flex-1 min-h-0">
+                        <p className="text-sm sm:text-base leading-relaxed font-medium line-clamp-3 overflow-hidden" style={{ color: 'var(--color-text-secondary)' }}>
                           {achievement.description}
                         </p>
                       </div>
@@ -359,7 +359,7 @@ export default function AchievementsPage() {
         </div>
       </section>
 
-      {/* Certifications Section */}
+      {/* Certifications Section - Fixed with proper globals.css colors */}
       <section className="relative z-10 py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -372,90 +372,146 @@ export default function AchievementsPage() {
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4" style={{ color: 'var(--color-text)' }}>
               Professional <span style={{ color: 'var(--color-accent)' }}>Certifications</span>
             </h2>
-            <p className="text-sm sm:text-base lg:text-lg px-2" style={{ color: 'var(--color-text-secondary)' }}>
-              Continuous learning and validation of technical expertise
+            <p className="text-sm sm:text-base lg:text-lg px-2 max-w-3xl mx-auto" style={{ color: 'var(--color-text-secondary)' }}>
+              Continuous learning and validation of technical expertise across industry-leading platforms
             </p>
           </motion.div>
 
+          {/* Grid Layout - Using proper responsive grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {certifications.map((cert, index) => (
               <motion.div
                 key={cert.id}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="h-full"
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                whileHover={{ y: -4, transition: { duration: 0.3 } }}
+                className="h-full group"
               >
-                {/* Mobile-Optimized Certification Card */}
-                <div className="relative w-full h-auto min-h-[380px] sm:h-[400px] lg:h-[420px] neubrutalism-card flex flex-col p-4 sm:p-5 lg:p-6"
+                {/* Certification Card with proper neubrutalism styling */}
+                <div className="relative w-full h-[420px] sm:h-[440px] lg:h-[460px] neubrutalism-card flex flex-col overflow-hidden"
                   style={{
                     backgroundColor: 'var(--color-surface)',
+                    borderColor: 'var(--color-accent)'
                   }}
                 >
-                  {/* Logo Section - Better mobile sizing */}
-                  <div className="pb-3 sm:pb-4 border-b-4 border-black min-h-[70px] sm:min-h-[80px] flex items-center justify-center flex-shrink-0">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 relative">
-                      <Image
-                        src={cert.image}
-                        alt={cert.name}
-                        fill
-                        className="object-contain"
-                        sizes="(max-width: 640px) 48px, (max-width: 1024px) 56px, 64px"
-                      />
-                    </div>
-                  </div>
-                  
-                  {/* Content Section - Better spacing */}
-                  <div className="flex-1 flex flex-col text-center pt-3 sm:pt-4 space-y-3 sm:space-y-4">
-                    {/* Title & Issuer */}
-                    <div>
-                      <h3 className="text-sm sm:text-base lg:text-lg font-black uppercase tracking-tight leading-tight mb-2" style={{ color: 'var(--color-text)' }}>
-                        {cert.name}
-                      </h3>
-                      <p className="text-orange-500 text-xs sm:text-sm lg:text-base font-black uppercase tracking-wide">
-                        {cert.issuer}
-                      </p>
-                    </div>
-
-                    {/* Date Badge */}
-                    <div className="flex justify-center">
-                      <div className="bg-orange-400 border-2 border-black px-3 py-1 sm:px-4 sm:py-2 font-black text-black text-xs sm:text-sm shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide">
+                  {/* Header Section with proper colors */}
+                  <div className="relative p-3 sm:p-4 lg:p-5 border-b-4 border-black"
+                    style={{ backgroundColor: 'var(--color-surface-elevated)' }}>
+                    
+                    {/* Year Badge - using proper globals colors */}
+                    <div className="absolute top-2 right-2">
+                      <div className="px-2 py-1 sm:px-3 sm:py-1 font-black text-black text-xs sm:text-sm shadow-[var(--shadow-neubrutalism-small)] uppercase tracking-wide border-2 border-black transform rotate-2 group-hover:rotate-3 transition-transform duration-300"
+                        style={{ backgroundColor: 'var(--color-accent)' }}>
                         {cert.date}
                       </div>
                     </div>
-                    
-                    {/* Skills Section - Improved for mobile */}
-                    <div className="mt-auto border-t-4 border-black pt-3 sm:pt-4">
-                      <h4 className="text-xs sm:text-sm mb-2 sm:mb-3 uppercase tracking-wide font-black" style={{ color: 'var(--color-text)' }}>
-                        SKILLS VALIDATED
-                      </h4>
-                      <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center">
-                        {cert.skills.slice(0, 4).map((skill, i) => (
-                          <span key={i} className="bg-orange-400 border-2 border-black text-black text-xs sm:text-sm font-bold px-2 py-1 shadow-[var(--shadow-neubrutalism-small)] uppercase tracking-wide text-center">
-                            {skill}
-                          </span>
-                        ))}
-                        {cert.skills.length > 4 && (
-                          <span className="border-2 border-black text-xs sm:text-sm font-bold px-2 py-1 shadow-[var(--shadow-neubrutalism-small)] uppercase tracking-wide"
-                            style={{ 
-                              backgroundColor: 'var(--color-surface-hover)', 
-                              color: 'var(--color-text)' 
-                            }}
-                          >
-                            +{cert.skills.length - 4}
-                          </span>
-                        )}
+
+                    {/* Verification Badge */}
+                    <div className="absolute top-2 left-2">
+                      <div className="w-5 h-5 sm:w-6 sm:h-6 bg-green-400 border-2 border-black rounded-full flex items-center justify-center shadow-[var(--shadow-neubrutalism-small)]">
+                        <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-black" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                    </div>
+
+                    {/* Company Logo */}
+                    <div className="flex justify-center pt-2 sm:pt-3">
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 relative group-hover:scale-105 transition-transform duration-300">
+                        <Image
+                          src={cert.image}
+                          alt={cert.name}
+                          fill
+                          className="object-contain"
+                          sizes="(max-width: 640px) 48px, (max-width: 1024px) 64px, 80px"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Content Section */}
+                  <div className="flex-1 flex flex-col p-3 sm:p-4 lg:p-5 space-y-3 sm:space-y-4">
+                    {/* Title & Issuer */}
+                    <div className="text-center">
+                      <h3 className="text-sm sm:text-base lg:text-lg font-black uppercase tracking-tight leading-tight mb-2" style={{ color: 'var(--color-text)' }}>
+                        {cert.name}
+                      </h3>
+                      <div className="inline-flex items-center gap-2 px-2 py-1 sm:px-3 sm:py-1 border-2 border-black shadow-[var(--shadow-neubrutalism-small)]"
+                        style={{ 
+                          backgroundColor: 'var(--color-accent)',
+                          color: 'var(--color-button-text)'
+                        }}>
+                        <span className="text-xs sm:text-sm font-black uppercase tracking-wide">
+                          {cert.issuer}
+                        </span>
                       </div>
                     </div>
                     
-                    {/* Credential ID - Better mobile layout */}
+                    {/* Skills Section */}
+                    <div className="flex-1">
+                      <div className="mb-3">
+                        <h4 className="text-xs sm:text-sm font-black uppercase tracking-wide mb-2 text-center" style={{ color: 'var(--color-text)' }}>
+                          SKILLS VALIDATED
+                        </h4>
+                      </div>
+                      
+                      <div className="space-y-1.5 sm:space-y-2">
+                        {cert.skills.slice(0, 4).map((skill, i) => (
+                          <motion.div
+                            key={i}
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.4, delay: index * 0.1 + i * 0.1 }}
+                            className="flex items-center gap-2 p-1.5 sm:p-2 border-2 border-black shadow-[var(--shadow-neubrutalism-small)] transition-colors duration-300"
+                            style={{ 
+                              backgroundColor: 'var(--color-surface-elevated)',
+                              borderColor: 'black'
+                            }}
+                          >
+                            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full flex-shrink-0" style={{ backgroundColor: 'var(--color-accent)' }}></div>
+                            <span className="text-xs sm:text-sm font-semibold" style={{ color: 'var(--color-text)' }}>
+                              {skill}
+                            </span>
+                          </motion.div>
+                        ))}
+                        
+                        {/* Always render the extra skills placeholder to maintain consistent height */}
+                        <div className="flex items-center justify-center p-1.5 sm:p-2 border-2 border-black shadow-[var(--shadow-neubrutalism-small)]"
+                          style={{ 
+                            backgroundColor: cert.skills.length > 4 ? 'var(--color-surface-hover)' : 'transparent',
+                            borderColor: cert.skills.length > 4 ? 'black' : 'transparent',
+                            color: cert.skills.length > 4 ? 'var(--color-text)' : 'transparent'
+                          }}>
+                          <span className="text-xs sm:text-sm font-bold">
+                            {cert.skills.length > 4 ? `+${cert.skills.length - 4} more skills` : 'placeholder'}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Credential ID Section */}
                     {cert.credentialId && (
-                      <div className="mt-3 pt-2 sm:pt-3 border-t-2 border-black">
-                        <p className="text-xs sm:text-sm text-center font-medium" style={{ color: 'var(--color-text-secondary)' }}>
-                          <span className="font-black uppercase tracking-wide block mb-1">CREDENTIAL ID</span>
-                          <span className="font-mono text-orange-400 text-xs break-all">{cert.credentialId}</span>
-                        </p>
+                      <div className="mt-auto pt-2 sm:pt-3 border-t-4 border-black">
+                        <div className="text-center">
+                          <p className="text-xs uppercase tracking-wider font-black mb-1.5" style={{ color: 'var(--color-text-secondary)' }}>
+                            Credential ID
+                          </p>
+                          <div className="inline-flex items-center gap-1.5 px-2 py-1 sm:px-3 sm:py-1.5 border-2 border-black shadow-[var(--shadow-neubrutalism-small)]"
+                            style={{ 
+                              backgroundColor: 'var(--color-surface-elevated)',
+                              color: 'var(--color-text)'
+                            }}>
+                            <svg className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: 'var(--color-text-secondary)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <code className="text-xs sm:text-sm font-mono font-semibold">
+                              {cert.credentialId}
+                            </code>
+                          </div>
+                        </div>
                       </div>
                     )}
                   </div>
@@ -463,10 +519,40 @@ export default function AchievementsPage() {
               </motion.div>
             ))}
           </div>
+
+          {/* Call to Action with proper styling */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="text-center mt-12 sm:mt-16"
+          >
+            <div className="inline-flex items-center gap-3 px-6 py-4 border-2 border-black shadow-[var(--shadow-neubrutalism-medium)]"
+              style={{ 
+                backgroundColor: 'var(--color-surface-elevated)',
+                color: 'var(--color-text)'
+              }}>
+              <div className="w-8 h-8 rounded-full flex items-center justify-center border-2 border-black"
+                style={{ backgroundColor: 'var(--color-accent)' }}>
+                <svg className="w-4 h-4 text-black" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+              </div>
+              <div className="text-left">
+                <p className="text-sm font-black" style={{ color: 'var(--color-text)' }}>
+                  Industry-Validated Skills
+                </p>
+                <p className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>
+                  Certified expertise from leading technology companies
+                </p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Awards Section */}
+     {/* Awards & Recognition Section - Clean & Minimal */}
       <section className="relative z-10 py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -491,56 +577,45 @@ export default function AchievementsPage() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="h-full"
               >
-                {/* Mobile-Optimized Award Card */}
-                <div className="relative w-full h-auto min-h-[240px] sm:h-[260px] lg:h-[280px] neubrutalism-card flex flex-col sm:flex-row"
+                {/* Clean Award Card */}
+                <div className="relative w-full h-[320px] sm:h-[340px] lg:h-[360px] neubrutalism-card flex flex-col"
                   style={{
                     backgroundColor: 'var(--color-surface)',
                   }}
                 >
-                  {/* Image Section - Responsive layout */}
-                  <div className="relative w-full h-32 sm:w-[100px] sm:h-auto lg:w-[120px] border-b-4 sm:border-b-0 sm:border-r-4 border-black overflow-hidden flex-shrink-0">
-                    <Image
-                      src={award.image}
-                      alt={award.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100px, 120px"
-                    />
-                  </div>
-                  
-                  {/* Content Section - Better mobile padding */}
-                  <div className="p-4 sm:p-5 lg:p-6 flex-1 flex flex-col justify-center">
-                    {/* Badge & Position - Better mobile sizing */}
-                    <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                      <span className="text-xl sm:text-2xl">🏆</span>
-                      <div className="bg-yellow-400 border-2 border-black px-2 py-1 sm:px-3 sm:py-1 font-black text-black text-xs sm:text-sm shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide">
-                        {award.position}
+                  {/* Header with Trophy and Position */}
+                  <div className="p-4 sm:p-5 lg:p-6 border-b-4 border-black">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <span className="text-2xl sm:text-3xl">🏆</span>
+                        <div className="bg-yellow-400 border-2 border-black px-3 py-1 font-black text-black text-sm shadow-[var(--shadow-neubrutalism-small)] uppercase tracking-wide">
+                          {award.position}
+                        </div>
+                      </div>
+                      <div className="text-sm sm:text-base font-bold" style={{ color: 'var(--color-text-secondary)' }}>
+                        {award.year}
                       </div>
                     </div>
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="p-4 sm:p-5 lg:p-6 flex-1 flex flex-col">
+                    {/* Title */}
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-black uppercase tracking-tight leading-tight mb-3" style={{ color: 'var(--color-text)' }}>
+                      {award.title}
+                    </h3>
                     
-                    {/* Title - Better mobile typography */}
-                    <div className="mb-3">
-                      <h3 className="text-lg sm:text-xl lg:text-2xl font-black uppercase tracking-tight leading-tight" style={{ color: 'var(--color-text)' }}>
-                        {award.title}
-                      </h3>
-                    </div>
+                    {/* Event */}
+                    <p className="text-sm sm:text-base font-black uppercase tracking-wide mb-4" style={{ color: 'var(--color-accent)' }}>
+                      {award.event}
+                    </p>
                     
-                    {/* Event & Year - Better mobile layout */}
-                    <div className="mb-3 sm:mb-4">
-                      <p className="text-sm sm:text-base font-black text-orange-400 uppercase tracking-wide">
-                        {award.event}
-                      </p>
-                      <p className="text-sm sm:text-base font-bold" style={{ color: 'var(--color-text-secondary)' }}>
-                        {award.year}
-                      </p>
-                    </div>
-                    
-                    {/* Description - Responsive text */}
-                    <div className="flex-1">
-                      <p className="text-sm sm:text-base leading-relaxed font-medium line-clamp-2 sm:line-clamp-3" style={{ color: 'var(--color-text-secondary)' }}>
+                    {/* Description */}
+                    <div className="flex-1 min-h-0">
+                      <p className="text-sm sm:text-base leading-relaxed font-medium line-clamp-2 overflow-hidden" style={{ color: 'var(--color-text-secondary)' }}>
                         {award.description}
                       </p>
                     </div>
@@ -586,7 +661,7 @@ export default function AchievementsPage() {
                 className="h-full"
               >
                 {/* Mobile-Optimized Stats Card */}
-                <div className="relative w-full h-auto min-h-[140px] sm:h-[160px] lg:h-[180px] neubrutalism-card flex flex-col"
+                <div className="relative w-full h-[160px] sm:h-[180px] lg:h-[200px] neubrutalism-card flex flex-col"
                   style={{
                     backgroundColor: 'var(--color-surface)',
                   }}
@@ -608,8 +683,8 @@ export default function AchievementsPage() {
                     </div>
                     
                     {/* Description - Mobile responsive */}
-                    <div className="flex-1 flex items-center">
-                      <p className="text-xs sm:text-sm leading-tight font-medium line-clamp-2 lg:line-clamp-3" style={{ color: 'var(--color-text-secondary)' }}>
+                    <div className="flex-1 flex items-center min-h-0">
+                      <p className="text-xs sm:text-sm leading-tight font-medium line-clamp-2 overflow-hidden" style={{ color: 'var(--color-text-secondary)' }}>
                         {stat.description}
                       </p>
                     </div>

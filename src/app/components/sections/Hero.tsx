@@ -617,7 +617,7 @@ export default function Hero() {
           className="banner-container"
         >
           {/* Desktop & Tablet - Static Text */}
-          <div className="hidden md:flex text-center py-3 px-4 text-sm font-medium tracking-wide min-h-[48px] items-center justify-center">
+          <div className="hidden md:flex text-center py-2 px-4 text-sm font-medium tracking-wide min-h-[36px] items-center justify-center">
             {heroData.announcement.text}
           </div>
 
@@ -934,7 +934,7 @@ export default function Hero() {
         className="banner-container"
       >
         {/* Desktop & Tablet - Static Text */}
-        <div className="hidden md:flex text-center py-3 px-4 text-sm font-medium tracking-wide min-h-[48px] items-center justify-center">
+        <div className="hidden md:flex text-center py-2 px-4 text-sm font-medium tracking-wide min-h-[36px] items-center justify-center">
           {heroData.announcement.text}
         </div>
 
