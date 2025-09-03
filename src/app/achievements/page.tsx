@@ -172,7 +172,7 @@ export default function AchievementsPage() {
           </motion.div>
 
           {/* Featured Achievement Cards */}
-          <div className="space-y-6 sm:space-y-8 lg:space-y-12 mb-12 sm:mb-16 lg:mb-20">
+          <div className="space-y-8 sm:space-y-10 lg:space-y-12 mb-12 sm:mb-16 lg:mb-20">
             {featuredAchievements.map((achievement, index) => (
               <motion.div
                 key={achievement.id}
@@ -180,64 +180,84 @@ export default function AchievementsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="w-full"
               >
                 {/* Mobile-Optimized Featured Achievement Card */}
-                <div className="relative neubrutalism-card overflow-hidden h-[500px] sm:h-[520px] lg:h-[540px]"
+                <div className="relative neubrutalism-card overflow-hidden min-h-[600px] sm:min-h-[620px] lg:h-[540px]"
                   style={{
                     backgroundColor: 'var(--color-surface)',
                   }}
                 >
                   {/* Mobile: Stack vertically, Desktop: Side by side */}
                   <div className="flex flex-col lg:flex-row h-full">
-                    {/* Image Section - Left side, full height */}
-                    <div className="relative h-48 sm:h-56 lg:h-full lg:w-2/5 border-b-4 lg:border-b-0 lg:border-r-4 border-black overflow-hidden">
+                    {/* Image Section - Better mobile sizing */}
+                    <div className="relative h-64 sm:h-72 md:h-80 lg:h-full lg:w-2/5 border-b-4 lg:border-b-0 lg:border-r-4 border-black overflow-hidden bg-gray-100">
                       <Image
                         src={achievement.image}
                         alt={achievement.title}
                         fill
-                        className="object-cover w-full h-full"
-                        sizes="(max-width: 1024px) 100vw, 40vw"
+                        className="object-cover w-full h-full hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 40vw"
                         priority={index === 0}
                         onError={(e) => {
-                          e.currentTarget.style.display = 'none';
+                          // Fallback to a placeholder or hide the image container
+                          const target = e.currentTarget as HTMLImageElement;
+                          target.style.display = 'none';
+                          // Show a fallback background
+                          const parent = target.parentElement;
+                          if (parent) {
+                            parent.style.background = 'linear-gradient(135deg, var(--color-accent), var(--color-surface-elevated))';
+                            parent.innerHTML = `
+                              <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="text-center">
+                                  <div class="text-4xl mb-2">${achievement.badge}</div>
+                                  <div class="text-sm font-bold text-black">${achievement.category}</div>
+                                </div>
+                              </div>
+                            `;
+                          }
                         }}
                       />
+                      {/* Gradient overlay for better text readability */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent lg:hidden"></div>
                       <div className="absolute top-3 right-3 bg-yellow-400 border-2 border-black px-2 py-1 sm:px-3 sm:py-2 font-black text-black text-xs sm:text-sm shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide z-10">
                         FEATURED
                       </div>
                     </div>
 
-                    {/* Content Section - Right side */}
-                    <div className="p-4 sm:p-6 lg:p-8 lg:w-3/5 flex flex-col justify-center">
-                      <div className="mb-3 sm:mb-4">
-                        <p className="text-orange-500 text-xs sm:text-sm uppercase tracking-wider font-black mb-2">
-                          {achievement.category}
+                    {/* Content Section - Better mobile spacing and layout */}
+                    <div className="p-4 sm:p-6 lg:p-8 lg:w-3/5 flex flex-col justify-between min-h-0">
+                      <div className="space-y-3 sm:space-y-4">
+                        <div className="mb-3 sm:mb-4">
+                          <p className="text-orange-500 text-xs sm:text-sm uppercase tracking-wider font-black mb-2">
+                            {achievement.category}
+                          </p>
+                          <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-black uppercase tracking-tight mb-3 sm:mb-4 leading-tight" style={{ color: 'var(--color-text)' }}>
+                            {achievement.title}
+                          </h3>
+                        </div>
+                        
+                        <p className="text-sm sm:text-base lg:text-lg mb-4 sm:mb-6 leading-relaxed font-medium" style={{ color: 'var(--color-text-secondary)' }}>
+                          {achievement.description}
                         </p>
-                        <h3 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-black uppercase tracking-tight mb-3 sm:mb-4 leading-tight" style={{ color: 'var(--color-text)' }}>
-                          {achievement.title}
-                        </h3>
+                        
+                        <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+                          <h4 className="font-black text-xs sm:text-sm uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
+                            KEY IMPACT
+                          </h4>
+                          <ul className="space-y-2 sm:space-y-3">
+                            {achievement.impact.slice(0, 3).map((impact, i) => (
+                              <li key={i} className="flex items-start gap-2 sm:gap-3 text-sm sm:text-base font-medium" style={{ color: 'var(--color-text-secondary)' }}>
+                                <span className="w-2 h-2 bg-orange-400 border border-black mt-2 flex-shrink-0"></span>
+                                <span className="leading-relaxed">{impact}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       </div>
                       
-                      <p className="text-sm sm:text-base lg:text-lg mb-4 sm:mb-6 leading-relaxed font-medium" style={{ color: 'var(--color-text-secondary)' }}>
-                        {achievement.description}
-                      </p>
-                      
-                      <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
-                        <h4 className="font-black text-xs sm:text-sm uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
-                          KEY IMPACT
-                        </h4>
-                        <ul className="space-y-2 sm:space-y-3">
-                          {achievement.impact.slice(0, 3).map((impact, i) => (
-                            <li key={i} className="flex items-start gap-2 sm:gap-3 text-sm sm:text-base font-medium" style={{ color: 'var(--color-text-secondary)' }}>
-                              <span className="w-2 h-2 bg-orange-400 border border-black mt-2 flex-shrink-0"></span>
-                              <span className="leading-relaxed">{impact}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      
-                      <div className="flex flex-col gap-3 sm:gap-4 pt-3 sm:pt-4 border-t-4 border-black">
-                        <div className="flex flex-col gap-2">
+                      <div className="flex flex-col gap-3 sm:gap-4 pt-3 sm:pt-4 border-t-4 border-black mt-auto">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                           <span className="text-sm sm:text-base font-black uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
                             {achievement.organization}
                           </span>
@@ -250,7 +270,7 @@ export default function AchievementsPage() {
                             href={achievement.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="w-full sm:w-auto px-4 py-3 sm:px-6 lg:px-8 neubrutalism-button bg-orange-500 hover:bg-orange-600 text-black font-black uppercase tracking-wide text-center border-2 border-black shadow-[var(--shadow-neubrutalism)] inline-flex items-center justify-center gap-2 text-sm sm:text-base"
+                            className="w-full sm:w-auto px-4 py-3 sm:px-6 lg:px-8 neubrutalism-button bg-orange-500 hover:bg-orange-600 text-black font-black uppercase tracking-wide text-center border-2 border-black shadow-[var(--shadow-neubrutalism)] inline-flex items-center justify-center gap-2 text-sm sm:text-base transition-all duration-300 hover:scale-105"
                           >
                             VIEW DETAILS 
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

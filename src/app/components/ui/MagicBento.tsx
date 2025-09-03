@@ -140,8 +140,9 @@ const AboutMeContent: React.FC = () => {
           style={{ color: 'var(--color-text-secondary)' }}
           onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-text)'; }}
           onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-text-secondary)'; }}>
-          <span className="hidden md:inline">Creative technologist with </span><span className="text-orange-400 font-medium">7+ years</span><span className="hidden md:inline"> of experience crafting innovative digital experiences at the intersection of art and engineering.</span>
-          <span className="md:hidden"> experience in full-stack development and creative design.</span>
+          <span className="hidden md:inline">Full-stack developer with </span><span className="text-orange-400 font-medium">1+ years</span><span className="hidden md:inline"> of experience blending UI/UX, security, and AI integration into seamless web solutions.</span>
+<span className="md:hidden"> experience in full-stack development and AI-driven design.</span>
+
         </p>
       </div>
 
@@ -197,9 +198,15 @@ const ProjectsContent: React.FC = () => {
   
   // Add compelling project highlights that make visitors curious
   const projectHighlights: { [key: number]: string[] } = {
-    1: ["🎯 Real-time 3D rendering at 60fps", "🚀 50% faster load times than competitors"],
-    2: ["⚡ Handles 10k+ concurrent bookings", "🔄 99.9% uptime with auto-scaling"]
-  };
+  1: [
+    "Developed a Scalable Web3 platform to 500+ users",
+    "Delivered Approx. 95% uptime with live chat"
+  ],
+  2: [
+    "Built OS with 20+ custom features based on Hogwarts",
+    "Integrated AI Automations for 10x workflow and easier task handling"
+  ]
+};
 
   const handleAllProjectsClick = () => {
     router.push('/projects');
