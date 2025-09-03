@@ -9,7 +9,8 @@ import {
   FaGamepad, 
   FaRobot, 
   FaCamera, 
-  FaMusic 
+  FaMusic,
+  FaBasketballBall 
 } from 'react-icons/fa';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -35,7 +36,8 @@ const iconMap = {
   FaGamepad,
   FaRobot,
   FaCamera,
-  FaMusic
+  FaMusic,
+  FaBasketballBall
 };
 
 export default function AboutClient() {
@@ -162,7 +164,7 @@ export default function AboutClient() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
-                style={{ color: '#ffffff' }}
+                style={{ color: 'var(--color-text)' }}
               >
                 {aboutData.hero.title}
               </motion.span>{" "}
@@ -178,7 +180,8 @@ export default function AboutClient() {
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 1.2 }}
-                  className="absolute bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#ff9a1c] to-[#ff6b35] origin-left"
+                  className="absolute bottom-1 sm:bottom-2 left-0 w-full h-1 origin-left"
+                  style={{ background: 'var(--color-accent-gradient)' }}
                 />
               </span>
             </h1>
@@ -188,7 +191,7 @@ export default function AboutClient() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.0 }}
               className="text-lg md:text-xl mb-8 leading-relaxed drop-shadow-lg"
-              style={{ color: '#ffffff' }}
+              style={{ color: 'var(--color-text-secondary)' }}
             >
               {aboutData.hero.subtitle}
             </motion.p>
@@ -197,28 +200,33 @@ export default function AboutClient() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.4 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start items-center"
             >
               <Link 
                 href="/"
-                className="px-6 sm:px-8 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center gap-2"
+                className="px-4 py-2.5 sm:px-6 sm:py-3 md:px-8 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center justify-center gap-2 text-sm sm:text-base w-fit"
                 style={{ 
                   backgroundColor: 'var(--color-surface)',
                   borderColor: 'var(--color-accent)',
                   color: 'var(--color-text)'
                 }}
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
                 Back to Home
               </Link>
               <a 
                 href="#who-i-am"
-                className="px-6 sm:px-8 py-3 neubrutalism-button border-orange-500 bg-orange-500 hover:bg-orange-600 text-black font-black uppercase tracking-wide text-center inline-flex items-center gap-2"
+                className="px-4 py-2.5 sm:px-6 sm:py-3 md:px-8 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center justify-center gap-2 text-sm sm:text-base w-fit"
+                style={{ 
+                  borderColor: 'var(--color-accent)',
+                  backgroundColor: 'var(--color-accent)',
+                  color: 'var(--color-button-text)'
+                }}
               >
                 Learn More
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </a>
@@ -233,7 +241,10 @@ export default function AboutClient() {
             className="flex justify-center relative"
           >
             {/* Glow Effect */}
-            <div className="absolute inset-0 bg-orange-500/20 rounded-full blur-3xl scale-150 opacity-50"></div>
+            <div 
+              className="absolute inset-0 rounded-full blur-3xl scale-150 opacity-50"
+              style={{ backgroundColor: 'var(--color-accent-glow)' }}
+            ></div>
             
             <div className="w-56 h-56 sm:w-64 sm:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 relative z-10">
               {isMobile ? (
@@ -329,10 +340,10 @@ export default function AboutClient() {
               transition={{ duration: 0.6, delay: 0.5 }}
               className="text-center pt-8"
             >
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
                 <Link 
                   href="/projects"
-                  className="px-6 sm:px-8 py-3 neubrutalism-button font-black uppercase tracking-wide text-center"
+                  className="px-6 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center gap-2 text-sm w-fit"
                   style={{ 
                     backgroundColor: 'var(--color-surface)',
                     borderColor: 'var(--color-accent)',
@@ -343,7 +354,12 @@ export default function AboutClient() {
                 </Link>
                 <Link 
                   href="/experience"
-                  className="px-6 sm:px-8 py-3 neubrutalism-button border-orange-500 bg-orange-500 hover:bg-orange-600 text-black font-black uppercase tracking-wide text-center"
+                  className="px-6 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center gap-2 text-sm w-fit"
+                  style={{ 
+                    borderColor: 'var(--color-accent)',
+                    backgroundColor: 'var(--color-accent)',
+                    color: 'var(--color-button-text)'
+                  }}
                 >
                   View Experience
                 </Link>
@@ -570,10 +586,10 @@ export default function AboutClient() {
             <p className="text-lg mb-8 max-w-2xl mx-auto" style={{ color: 'var(--color-text-secondary)' }}>
               I'm always excited to collaborate on innovative projects that push creative and technical boundaries.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
               <Link 
                 href="/projects"
-                className="px-6 sm:px-8 py-3 neubrutalism-button font-black uppercase tracking-wide text-center"
+                className="px-6 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center gap-2 text-sm w-fit"
                 style={{ 
                   backgroundColor: 'var(--color-surface)',
                   borderColor: 'var(--color-accent)',
@@ -584,7 +600,12 @@ export default function AboutClient() {
               </Link>
               <a 
                 href="#contact"
-                className="px-6 sm:px-8 py-3 neubrutalism-button border-orange-500 bg-orange-500 hover:bg-orange-600 text-black font-black uppercase tracking-wide text-center"
+                className="px-6 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center gap-2 text-sm w-fit"
+                style={{ 
+                  borderColor: 'var(--color-accent)',
+                  backgroundColor: 'var(--color-accent)',
+                  color: 'var(--color-button-text)'
+                }}
               >
                 Get In Touch
               </a>

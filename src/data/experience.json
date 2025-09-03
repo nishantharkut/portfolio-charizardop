@@ -2,10 +2,10 @@
   "experienceData": [
     {
       "id": 1,
-      "position": "Senior Web Developer",
-      "company": "Blue Cube Digital",
-      "year": "2017",
-      "duration": "2017 - 2020",
+      "position": "Full Stack Developer Intern",
+      "company": "QuickIntell",
+      "year": "2025",
+      "duration": "Aug. 2025 - Present",
       "description": "Led web development initiatives, creating responsive and accessible web applications with modern technologies. Managed full-stack projects from conception to deployment.",
       "responsibilities": [
         "Developed and maintained complex web applications using PHP, MySQL, and JavaScript",
@@ -24,49 +24,26 @@
     },
     {
       "id": 2,
-      "position": "Associate Solution Leader",
-      "company": "Brane Enterprises",
-      "year": "2020",
-      "duration": "2020 - 2023",
+      "position": "UI & Graphic Design Intern",
+      "company": "CookNKlean",
+      "year": "2024",
+      "duration": "Apr. 2024 - Jul.   2024",
       "description": "Spearheaded innovative web solutions and product prototypes, focusing on cutting-edge technologies and 3D interfaces. Led cross-functional teams in delivering scalable solutions.",
-      "responsibilities": [
-        "Architected and developed reusable components and microservices",
-        "Built interactive 3D UI interfaces compatible with TypeScript",
-        "Led product prototype development from concept to production",
-        "Implemented performance optimizations and modern development practices",
-        "Mentored junior developers and conducted code reviews"
-      ],
-      "technologies": ["TypeScript", "React", "Three.js", "Node.js", "WebGL", "Docker", "AWS"],
+        "responsibilities": [
+          "Designed 10+ marketing assets (social posts, banners, email headers) in Figma for brand campaigns",
+          "Built high-fidelity UI mockups for the booking portal, improving feedback cycles and development hand-off",
+          "Conducted usability feedback sessions and translated insights into actionable UI revisions",
+          "Optimized asset-export workflows using Figma plugins for faster delivery",
+          "Collaborated with product, marketing, and engineering teams to ensure design alignment"
+        ],
+        "technologies": ["Figma", "Adobe Photoshop", "Adobe Illustrator", "Figma Plugins", "Jira", "Slack"],
       "achievements": [
-        "Developed 3D interface system adopted across 5+ products",
-        "Led team of 6 developers in successful product launch",
-        "Reduced development time by 50% through reusable component library",
-        "Implemented CI/CD pipeline improving deployment efficiency by 60%"
+    "Created 10+ marketing assets (social posts, banners, email headers) in Figma, contributing to a 10% lift in engagement on Instagram and Facebook.",
+    "Built 3 high-fidelity UI mockups for the company’s booking portal, which streamlined feedback cycles by 25% and informed the development hand-off.",
+    "Ran 5 usability feedback sessions with internal stakeholders, translating insights into two rounds of UI revisions that increased stakeholder approval from 60% to 85%.",
+    "Optimized asset-export processes using Figma plugins, cutting prep time by 15% and enabling on-schedule delivery of design deliverables."
       ],
       "logo": "/logos/brane.svg"
-    },
-    {
-      "id": 3,
-      "position": "Freelance Developer & Creative Technologist",
-      "company": "Independent",
-      "year": "NOW",
-      "duration": "2023 - Present",
-      "description": "Providing specialized 3D and web development services while continuously expanding expertise across emerging technologies and creative applications.",
-      "responsibilities": [
-        "Delivered custom 3D web experiences for various clients",
-        "Developed full-stack applications with modern frameworks",
-        "Created interactive portfolios and marketing websites",
-        "Provided technical consulting for creative projects",
-        "Researched and implemented cutting-edge web technologies"
-      ],
-      "technologies": ["Next.js", "React", "Three.js", "Blender", "GSAP", "Framer Motion", "TypeScript", "Tailwind CSS"],
-      "achievements": [
-        "Completed 20+ successful freelance projects",
-        "Expanded skill set to include AI/ML integration and cybersecurity practices",
-        "Built award-winning 3D portfolio website",
-        "Achieved 98% client satisfaction rate"
-      ],
-      "logo": "/logos/freelance.svg"
     }
   ],
   "coreSkills": [

@@ -2,157 +2,208 @@
   "achievements": [
     {
       "id": 1,
-      "title": "Odoo India Hackathon 2025 - Top 10 ",
+      "title": "ODOO India Hackathon 2025 - Top 10",
       "category": "Hackathon",
-      "description": "Me and My team positioned under top 10 amongst 15K Participants across India.",
-      "details": "We were given the problem statement on making a Travel Itinerary application that simplifies trip planning. We leveraged React and Node.js to build a user-friendly interface and a robust backend Along with MongoDB for data storage. Also, We implemented AI-driven features for personalized recommendations.",
-      "date": "Aug, 2025",
+      "description": "Selected among the top 10 teams from 10,000+ participants for technical innovation and product viability in ODOO India Hackathon 2025.",
+      "details": "Competed against thousands of participants nationwide and secured a position in the top 10 for developing an innovative travel itinerary application. Demonstrated exceptional technical skills, product viability, and innovative thinking that impressed the judges.",
+      "date": "2025",
       "organization": "ODOO",
-      "link": "https://awwwards.com/featured-portfolio",
-      "image": "/achievements/awwwards.jpg",
+      "link": "",
+      "image": "/achievements/odoo-hackathon.jpg",
       "badge": "🏆",
       "impact": [
-        "Featured on homepage for innovative design approach",
-        "Increased portfolio traffic by 300%",
-        "Generated 15+ new client inquiries",
-        "Recognized for technical innovation in 3D web experiences"
+        "Selected from 10,000+ participants nationwide",
+        "Recognized for technical innovation and product viability", 
+        "Demonstrated advanced problem-solving capabilities",
+        "Showcased expertise in full-stack development"
       ],
       "featured": true
     },
     {
       "id": 2,
-      "title": "Leading Team to Successful Product Launch",
-      "category": "Leadership Achievement",
-      "description": "Successfully led a cross-functional team of 6 developers to deliver a complex 3D web application ahead of schedule.",
-      "details": "Managed the complete development lifecycle of a cutting-edge product featuring real-time 3D visualization, WebGL optimization, and collaborative features. Implemented agile methodologies and established CI/CD pipelines.",
-      "date": "2023",
-      "organization": "Brane Enterprises",
-      "image": "/achievements/leadership.jpg",
-      "badge": "👥",
+      "title": "Winner - Hacknovate 6.0 Hackathon'25",
+      "category": "Hackathon",
+      "description": "Won first place in Agent.AI Track at Hacknovate 6.0 organized by ABES-IT, Ghaziabad, securing $200 prize for building Hogwarts OS.",
+      "details": "Developed an innovative AI-powered operating system interface inspired by the magical world of Harry Potter. The project showcased advanced AI integration, intuitive user experience design, and technical excellence.",
+      "date": "2025",
+      "organization": "ABES-IT, Ghaziabad",
+      "image": "/achievements/hacknovate.jpg",
+      "badge": "🥇",
       "impact": [
-        "Delivered project 2 weeks ahead of deadline",
-        "Achieved 99.9% uptime in first 6 months",
-        "Reduced development costs by 25%",
-        "Implemented scalable architecture serving 10k+ users"
+        "Won $200 cash prize for technical excellence",
+        "Built innovative AI-powered OS interface",
+        "Demonstrated expertise in AI/ML integration",
+        "Created unique user experience design"
       ]
     },
     {
       "id": 3,
-      "title": "Open Source Contribution Recognition",
-      "category": "Community Impact",
-      "description": "Significant contributions to popular open-source 3D web libraries, improving performance and accessibility.",
-      "details": "Contributed critical performance optimizations and accessibility features to Three.js ecosystem. Created comprehensive documentation and tutorials that helped thousands of developers.",
-      "date": "2023",
-      "organization": "Three.js Community",
-      "link": "https://github.com/threejs/three.js/pulls",
-      "image": "/achievements/opensource.jpg",
-      "badge": "🌟",
+      "title": "Winner - Winter Project 2024",
+      "category": "UI/UX Design",
+      "description": "Secured first place in UI/UX Category at Winter Project 2024 organized by AASF, IIIT Gwalior for exceptional design innovation.",
+      "details": "Created outstanding user interface and user experience designs that demonstrated deep understanding of design principles, user psychology, and modern design trends.",
+      "date": "2024",
+      "organization": "AASF, IIIT Gwalior",
+      "image": "/achievements/winter-project.jpg",
+      "badge": "🎨",
       "impact": [
-        "50+ merged pull requests improving core functionality",
-        "Documentation viewed by 50k+ developers monthly",
-        "Performance improvements benefiting entire ecosystem",
-        "Mentored 20+ new contributors to open source"
+        "Recognized for exceptional UI/UX design skills",
+        "Demonstrated mastery of design principles",
+        "Created user-centered design solutions",
+        "Showcased innovative design thinking"
       ]
     },
     {
       "id": 4,
-      "title": "Client Satisfaction Excellence",
-      "category": "Professional Achievement",
-      "description": "Maintained 98% client satisfaction rate across 20+ freelance projects with zero delivery delays.",
-      "details": "Consistently delivered high-quality web solutions exceeding client expectations. Specialized in complex 3D web experiences, e-commerce platforms, and custom CMS solutions.",
-      "date": "2023-2024",
-      "organization": "Freelance Practice",
-      "image": "/achievements/client-satisfaction.jpg",
-      "badge": "⭐",
+      "title": "Winner - Aakriti Competition 2024",
+      "category": "Graphic Design",
+      "description": "Won first place in Graphic Design Category at Aakriti Competition 2024 organized by AASF, IIIT Gwalior for creative excellence.",
+      "details": "Demonstrated exceptional graphic design skills through creative visual communication, innovative design concepts, and technical proficiency in design tools.",
+      "date": "2024",
+      "organization": "AASF, IIIT Gwalior",
+      "image": "/achievements/aakriti.jpg",
+      "badge": "�",
       "impact": [
-        "98% client satisfaction rate",
-        "100% on-time delivery record",
-        "80% client retention rate",
-        "Average project value increase of 40%"
+        "Recognized for creative visual communication",
+        "Demonstrated advanced graphic design skills",
+        "Showcased innovative design concepts",
+        "Excellence in design tool proficiency"
       ]
     },
     {
       "id": 5,
-      "title": "Technical Innovation Award",
-      "category": "Innovation Recognition",
-      "description": "Recognized for developing innovative solutions that bridge the gap between creative design and technical implementation.",
-      "details": "Created groundbreaking workflows for integrating Blender 3D assets with web technologies, enabling designers to create interactive 3D experiences without coding knowledge.",
-      "date": "2022",
-      "organization": "Tech Innovation Summit",
-      "image": "/achievements/innovation.jpg",
-      "badge": "💡",
+      "title": "Executive Member - SAC Sports'23",
+      "category": "Leadership",
+      "description": "Selected as the only first-year executive member at SAC Sports'23, IIIT Gwalior, organizing major sports events and team selections.",
+      "details": "Organized Sports Day, marathons, and other sporting events while handling team selections for Inter-IIIT Meet'24. Demonstrated exceptional leadership skills despite being a first-year student.",
+      "date": "2023",
+      "organization": "IIIT Gwalior",
+      "image": "/achievements/sac-sports.jpg",
+      "badge": "⚽",
       "impact": [
-        "Workflow adopted by 500+ designers globally",
-        "Reduced 3D web development time by 60%",
-        "Featured in 3 industry publications",
-        "Presented at international web design conference"
+        "Only first-year selected for executive position",
+        "Organized major sports events and marathons",
+        "Handled team selections for Inter-IIIT Meet'24",
+        "Demonstrated exceptional leadership skills"
       ]
     },
     {
       "id": 6,
-      "title": "Performance Optimization Champion",
-      "category": "Technical Excellence",
-      "description": "Achieved exceptional performance optimization results across multiple high-traffic web applications.",
-      "details": "Implemented advanced optimization techniques including code splitting, lazy loading, WebGL optimization, and CDN strategies resulting in significant performance improvements.",
-      "date": "2021-2023",
-      "organization": "Various Projects",
-      "image": "/achievements/performance.jpg",
-      "badge": "⚡",
+      "title": "Executive Member - SAC Welfare'24",
+      "category": "Community Service",
+      "description": "Served as executive member at SAC Welfare'24, organizing institute-level events and managing 100+ participants while designing promotional materials.",
+      "details": "Organized significant events including Hindi Divas, Environment Day, and Yoga Day for the institute. Managed large groups of 100+ people and created engaging poster designs for event promotion.",
+      "date": "2024",
+      "organization": "IIIT Gwalior",
+      "image": "/achievements/sac-welfare.jpg",
+      "badge": "🤝",
       "impact": [
-        "Average page load time reduction of 65%",
-        "Core Web Vitals scores above 95",
-        "Reduced server costs by 40% through optimization",
-        "Improved user engagement by 85%"
+        "Organized major institute-level cultural events",
+        "Managed 100+ participants across events",
+        "Designed promotional posters and materials",
+        "Contributed to community welfare initiatives"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Executive & Tech Lead - E-Cell IIIT Gwalior",
+      "category": "Technology Leadership",
+      "description": "Served as executive member and Tech Lead at E-Cell Club, creating engaging social media content and boosting online engagement.",
+      "details": "Led technology initiatives while creating compelling content for social media platforms including Instagram and LinkedIn. Successfully increased club engagement and online presence.",
+      "date": "2024",
+      "organization": "IIIT Gwalior",
+      "image": "/achievements/ecell.jpg",
+      "badge": "💡",
+      "impact": [
+        "Led technology initiatives for entrepreneurship club",
+        "Created engaging social media content",
+        "Boosted online engagement across platforms",
+        "Enhanced club's digital presence"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Operations Team Member - Rotary Club",
+      "category": "Community Leadership",
+      "description": "Served as executive operations team member at Rotary Club IIIT Gwalior, managing events and designing digital platforms.",
+      "details": "Handled and managed club events while designing various digital platforms for the organization. Contributed to community service initiatives and organizational growth.",
+      "date": "2024",
+      "organization": "Rotary Club, IIIT Gwalior",
+      "image": "/achievements/rotary.jpg",
+      "badge": "🌟",
+      "impact": [
+        "Managed and organized club events",
+        "Designed digital platforms for the organization",
+        "Contributed to community service initiatives",
+        "Enhanced operational efficiency"
       ]
     }
   ],
   "certifications": [
     {
       "id": 1,
-      "name": "AWS Certified Solutions Architect",
-      "issuer": "Amazon Web Services",
-      "date": "2023",
-      "credentialId": "AWS-SAA-2023-001",
-      "image": "/certifications/aws.png",
-      "skills": ["Cloud Architecture", "Scalable Systems", "Security", "Cost Optimization"]
+      "name": "Postman API Fundamentals Student Expert",
+      "issuer": "Postman",
+      "date": "2024",
+      "credentialId": "PSE-2024-001",
+      "image": "/certifications/postman.png",
+      "skills": ["API Testing", "REST APIs", "API Documentation", "HTTP Methods"]
     },
     {
       "id": 2,
-      "name": "Google Cloud Professional Developer",
-      "issuer": "Google Cloud",
-      "date": "2023",
-      "credentialId": "GCP-PD-2023-002",
-      "image": "/certifications/gcp.png",
-      "skills": ["Serverless Computing", "Kubernetes", "CI/CD", "Monitoring"]
+      "name": "McKinsey.org Forward Program",
+      "issuer": "McKinsey & Company",
+      "date": "2024",
+      "credentialId": "MCK-FWD-2024",
+      "image": "/certifications/mckinsey.png",
+      "skills": ["Leadership", "Strategic Thinking", "Problem Solving", "Professional Development"]
     },
     {
       "id": 3,
-      "name": "Certified Ethical Hacker (CEH)",
-      "issuer": "EC-Council",
+      "name": "Complete 2024 Web Development Bootcamp",
+      "issuer": "Dr. Angela Yu - Udemy",
       "date": "2024",
-      "credentialId": "CEH-2024-003",
-      "image": "/certifications/ceh.png",
-      "skills": ["Penetration Testing", "Vulnerability Assessment", "Security Protocols"]
+      "credentialId": "WEB-2024-COMPLETE",
+      "image": "/certifications/webdev-bootcamp.png",
+      "skills": ["Full Stack Development", "React", "Node.js", "MongoDB", "JavaScript", "HTML/CSS"]
     }
   ],
   "awards": [
     {
       "id": 1,
-      "title": "Best Creative Use of Technology",
-      "event": "Web Design Awards 2023",
-      "position": "Winner",
-      "year": "2023",
-      "description": "Recognized for innovative integration of 3D elements in web design",
-      "image": "/awards/creative-tech.jpg"
+      "title": "Top 10 Finalist - ODOO India Hackathon",
+      "event": "ODOO India Hackathon 2025",
+      "position": "Top 10",
+      "year": "2025",
+      "description": "Recognized among top 10 teams from 10,000+ participants for technical innovation",
+      "image": "/awards/odoo-award.jpg"
     },
     {
       "id": 2,
-      "title": "Outstanding Portfolio Design",
-      "event": "CSS Design Awards",
-      "position": "Site of the Day",
+      "title": "Agent.AI Track Winner",
+      "event": "Hacknovate 6.0",
+      "position": "Winner",
+      "year": "2025",
+      "description": "First place winner with $200 prize for innovative AI-powered OS development",
+      "image": "/awards/hacknovate-award.jpg"
+    },
+    {
+      "id": 3,
+      "title": "UI/UX Category Winner",
+      "event": "Winter Project 2024",
+      "position": "Winner",
       "year": "2024",
-      "description": "Featured as Site of the Day for exceptional design and user experience",
-      "image": "/awards/css-design.jpg"
+      "description": "First place in UI/UX category for exceptional design innovation",
+      "image": "/awards/winter-project-award.jpg"
+    },
+    {
+      "id": 4,
+      "title": "Graphic Design Champion",
+      "event": "Aakriti Competition 2024",
+      "position": "Winner",
+      "year": "2024",
+      "description": "First place winner in graphic design category for creative excellence",
+      "image": "/awards/aakriti-award.jpg"
     }
   ]
 }

@@ -161,18 +161,18 @@
   ],
   "interests": [
     {
-      "title": "3D Art & Animation",
-      "description": "Creating immersive 3D experiences and animations that blend art with technology",
+      "title": "Graphic Design",
+      "description": "Creating visually compelling designs and brand identities with modern design principles",
       "icon": "FaPalette"
     },
     {
-      "title": "Creative Technology",
-      "description": "Exploring the intersection of creativity and cutting-edge technology",
-      "icon": "FaRocket"
+      "title": "Basketball",
+      "description": "Playing basketball for fitness, teamwork, and strategic thinking development",
+      "icon": "FaBasketballBall"
     },
     {
-      "title": "Game Development",
-      "description": "Building interactive experiences and exploring game mechanics",
+      "title": "Gaming & Strategy",
+      "description": "Playing games such as BGMI, exploring tactical gameplay and strategies",
       "icon": "FaGamepad"
     },
     {

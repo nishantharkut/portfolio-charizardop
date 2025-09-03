@@ -242,6 +242,7 @@ export default function RetroDragonLoader({
           }}
           autoPlay
           muted
+          loop
           playsInline
           preload="auto"
           onLoadedData={() => setIsVideoLoaded(true)}

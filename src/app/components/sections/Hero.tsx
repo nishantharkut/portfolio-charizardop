@@ -6,6 +6,7 @@ import { useRef, useEffect, useState, useMemo, useCallback } from 'react';
 import { Environment, PerspectiveCamera, OrbitControls, ContactShadows, useGLTF, useAnimations, AdaptiveDpr, PerformanceMonitor } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import TypewriterRoles from '../ui/RotatingRoles';
+import ScrollVelocity from '../ui/ScrollVelocity';
 import ErrorBoundary from '../../../components/ErrorBoundary';
 import { getHeroData } from '../../../data';
 import * as THREE from 'three';
@@ -121,19 +122,46 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
   const [hasEntered, setHasEntered] = useState(false);
   const [modelReady, setModelReady] = useState(false);
   const [isModelLoaded, setIsModelLoaded] = useState(false);
-  const { gl, size } = useThree();
-  // No longer need setModelLoaded - page loads independently
+  const { gl, size, viewport } = useThree();
 
-  // Detect mobile viewport
-  const isMobileViewport = typeof window !== 'undefined' && window.innerWidth <= 768;
+  // Use viewport from Three.js for more reliable mobile detection
+  const isMobileViewport = viewport.width < 8; // Three.js viewport units (roughly 768px)
+
+  // Reset states when scene changes (for navigation/reload scenarios)
+  useEffect(() => {
+    if (scene) {
+      setFitted(false);
+      setHasEntered(false);
+      setIdleTime(0);
+      
+      // Add a small delay to ensure scene is fully ready before allowing fitting
+      const timer = setTimeout(() => {
+        console.log('Scene ready for fitting');
+      }, 100);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [scene]);
 
   // Notify when model is loaded and ready (non-blocking)
   useEffect(() => {
     if (scene && !modelReady) {
-      setModelReady(true);
-      setIsModelLoaded(true); // Set local loading state
-      onModelLoaded?.(); // Notify parent component
-      // Don't call setModelLoaded - let page load independently
+      // Double-check that the scene actually has renderable geometry
+      let hasGeometry = false;
+      scene.traverse((child) => {
+        if (child instanceof THREE.Mesh && child.geometry) {
+          hasGeometry = true;
+        }
+      });
+      
+      if (hasGeometry) {
+        console.log('Model loaded with geometry');
+        setModelReady(true);
+        setIsModelLoaded(true);
+        onModelLoaded?.();
+      } else {
+        console.warn('Scene loaded but no geometry found');
+      }
     }
   }, [scene, modelReady, onModelLoaded]);
 
@@ -201,81 +229,121 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
   }, []);
 
   useFrame((state) => {
-    if (!group.current || !shouldUpdateFrame()) return;
+    if (!group.current || !shouldUpdateFrame() || !scene || !modelReady) return;
 
-    // Auto-fit on first frame
-    if (!fitted) {
-      const box = new THREE.Box3().setFromObject(group.current);
-      const size = new THREE.Vector3();
+    // Auto-fit on first frame - ensure model is properly loaded first
+    if (!fitted && scene && group.current.children.length > 0) {
+      console.log('Attempting to fit Charizard model...');
+      
+      // Wait a few frames to ensure the model is fully rendered
+      const frameDelay = 10; // Increased delay for better stability
+      frameSkip.current++;
+      if (frameSkip.current < frameDelay) {
+        return;
+      }
+      
+      // Calculate bounding box multiple times to ensure stability
+      let validBox = false;
+      let attempts = 0;
+      let box: THREE.Box3;
+      let size = new THREE.Vector3();
+      
+      while (!validBox && attempts < 5) { // Increased attempts
+        box = new THREE.Box3().setFromObject(group.current);
+        box.getSize(size);
+        
+        // Check if we have reasonable dimensions (not too small, not too large)
+        const length = size.length();
+        if (length > 0.5 && length < 50) { // Adjusted bounds
+          validBox = true;
+          console.log('Valid bounding box found:', { width: size.x, height: size.y, depth: size.z });
+        } else {
+          console.warn(`Invalid bounding box attempt ${attempts + 1}:`, { length, size: size.toArray() });
+          attempts++;
+          // Small delay between attempts
+          if (attempts < 5) {
+            return; // Try again next frame
+          }
+        }
+      }
+      
+      if (!validBox) {
+        console.error('Failed to get valid bounding box after 5 attempts, will retry next frame');
+        frameSkip.current = 0; // Reset frame skip to try again
+        return;
+      }
+
       const center = new THREE.Vector3();
-      box.getSize(size);
-      box.getCenter(center);
+      box!.getCenter(center);
 
       // Center the model
       group.current.position.sub(center);
 
-      // Scale to reasonable size - restore original desktop sizing
-      const targetHeight = isMobileViewport ? 3.5 : 5; // Keep original 4 for desktop
+      // Scale to reasonable size with more reliable scaling
+      const targetHeight = isMobileViewport ? 3.5 : 5.0;
       const currentHeight = size.y;
-      const s = targetHeight / currentHeight;
-      group.current.scale.setScalar(s);
-
-
-      //-------CHANGE HERE------------
-      // Position the model with responsive positioning - restore perfect desktop position
-      if (isMobileViewport) {
-        // Mobile positioning - keep improved mobile position
-        group.current.position.x = 0; // Center horizontally
-        group.current.position.y = -0.8; // Higher position for mobile
-        group.current.position.z = 0;
+      
+      if (currentHeight > 0.1) { // Ensure minimum height
+        const scale = targetHeight / currentHeight;
+        // Clamp scale to reasonable bounds to prevent extreme scaling
+        const clampedScale = Math.max(0.5, Math.min(5, scale)); // Tighter bounds
+        group.current.scale.setScalar(clampedScale);
+        console.log(`Model scaled by factor: ${clampedScale} (original: ${scale}), target height: ${targetHeight}, current: ${currentHeight}`);
       } else {
-        // Desktop positioning - restore original perfect position
-        group.current.position.x = 3.25; // Original perfect positioning
-        group.current.position.y = -3; // Original perfect positioning
-        group.current.position.z = 0;
+        console.error('Model has insufficient height, cannot scale');
+        frameSkip.current = 0; // Reset to try again
+        return;
       }
 
-
-      //-------CHANGE HERE------------
-      // Start entrance animation from far away with responsive values
-      group.current.position.z = -100;
+      // Position the model with responsive positioning
       if (isMobileViewport) {
-        group.current.position.x = 0; // Start from center for mobile
-        group.current.position.y = 1.5; // Start higher for mobile
+        // Mobile positioning
+        group.current.position.set(0, -0.8, 0);
       } else {
-        group.current.position.x = 5.5; // Restore original entrance position
-        group.current.position.y = -3; // Restore original entrance position
+        // Desktop positioning
+        group.current.position.set(3.25, -3, 0);
       }
+
+      // Start entrance animation from far away
+      const startZ = -100;
+      const startX = isMobileViewport ? 0 : 5.5;
+      const startY = isMobileViewport ? 1.5 : -3;
+      
+      group.current.position.z = startZ;
+      group.current.position.x = startX;
+      group.current.position.y = startY;
       group.current.rotation.y = -0.2;
 
       setFitted(true);
+      frameSkip.current = 0; // Reset frame skip counter
+      console.log('Model fitted successfully');
     }
 
 
-    //-------CHANGE HERE------------
     // Entrance animation with responsive targets
     if (fitted && !hasEntered) {
-      // Responsive target position - restore perfect desktop values
-      const targetX = isMobileViewport ? 0 : 3.25; // Restore original perfect position
-      const targetY = isMobileViewport ? -0.8 : -3; // Restore original perfect position
+      // Responsive target position
+      const targetX = isMobileViewport ? 0 : 3.25;
+      const targetY = isMobileViewport ? -0.8 : -3;
       const targetZ = 0;
       const targetRotY = 0;
 
       // Smooth movement to target with increased speed
-      group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, targetX, 0.06); // Doubled speed
-      group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, targetY, 0.05); // Doubled speed
-      group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, targetZ, 0.04); // Doubled speed
-      group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, targetRotY, 0.06); // Doubled speed
+      group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, targetX, 0.06);
+      group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, targetY, 0.05);
+      group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, targetZ, 0.04);
+      group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, targetRotY, 0.06);
 
-      // Check if arrived
+      // Check if arrived with more lenient threshold
       const distance = Math.sqrt(
         Math.pow(group.current.position.x - targetX, 2) +
         Math.pow(group.current.position.y - targetY, 2) +
         Math.pow(group.current.position.z - targetZ, 2)
       );
 
-      if (distance < 0.3) {
+      if (distance < 0.5) { // Increased threshold for more reliable detection
         setHasEntered(true);
+        console.log('Model entrance animation complete');
       }
     }
 
@@ -309,13 +377,41 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
       }
 
       // Gentle floating with increased speed for more lively animation
-      const floatAmplitude = capabilities.isLowEnd ? 0.05 : 0.15; // Slightly increased amplitude
-      const floatSpeed = capabilities.isLowEnd ? 1.0 : 1.5; // Increased speed significantly
-      const baseY = isMobileViewport ? -0.8 : -3; // Restore original desktop base Y
+      const floatAmplitude = capabilities.isLowEnd ? 0.05 : 0.15;
+      const floatSpeed = capabilities.isLowEnd ? 1.0 : 1.5;
+      const baseY = isMobileViewport ? -0.8 : -3;
       group.current.position.y = baseY + Math.sin(state.clock.elapsedTime * floatSpeed) * floatAmplitude;
-
     }
   });
+
+  // Force re-fit if model becomes invalid (add safety check)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (group.current && scene && fitted && hasEntered) {
+        const box = new THREE.Box3().setFromObject(group.current);
+        const size = new THREE.Vector3();
+        box.getSize(size);
+        
+        // If model becomes too small or has invalid scale, reset fitting
+        const currentScale = group.current.scale.x;
+        const sizeLength = size.length();
+        
+        if (sizeLength < 1 || currentScale < 0.01 || currentScale > 50) {
+          console.warn('Model became invalid, resetting...', { 
+            sizeLength, 
+            currentScale, 
+            position: group.current.position.toArray(),
+            scale: group.current.scale.toArray()
+          });
+          setFitted(false);
+          setHasEntered(false);
+          frameSkip.current = 0;
+        }
+      }
+    }, 3000); // Check every 3 seconds
+
+    return () => clearInterval(interval);
+  }, [scene, fitted, hasEntered]);
 
   // Don't render anything if there's no scene
   if (!scene) {
@@ -380,6 +476,21 @@ export default function Hero() {
   const [isModelLoading, setIsModelLoading] = useState(true);
   const [shouldLoadModel, setShouldLoadModel] = useState(false);
 
+  // Preload the model to avoid sizing issues
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Preload the GLTF model
+      import('@react-three/drei').then(({ useGLTF }) => {
+        try {
+          useGLTF.preload('/models/charizard.glb');
+          console.log('Charizard model preloaded');
+        } catch (error) {
+          console.warn('Failed to preload model:', error);
+        }
+      });
+    }
+  }, []);
+
   // Defer 3D model loading until after initial render for better performance
   useEffect(() => {
     if (isClient) {
@@ -408,6 +519,19 @@ export default function Hero() {
     console.log('Showing mobile fallback, window width:', typeof window !== 'undefined' ? window.innerWidth : 'SSR');
     return (
       <section className="relative w-full h-screen overflow-hidden">
+        {/* Subtle Text Background */}
+        <div className="absolute inset-0 z-0 pointer-events-none" style={{ opacity: 0.15 }}>
+          <ScrollVelocity
+            texts={["EXPERIENCE", "INNOVATION", "LEADERSHIP", "DEVELOPMENT"]}
+            velocity={30}
+            className="font-bold text-4xl md:text-6xl"
+            scrollerStyle={{ color: 'var(--color-text)', opacity: 0.2 }}
+            parallaxClassName="py-16"
+            scrollerClassName="tracking-wider"
+            numCopies={4}
+          />
+        </div>
+
         <CharizardFallback />
         <div className="relative z-10 h-full flex items-center pb-16 sm:pb-14">
           {/* Container with exact same width as navbar: max-w-7xl */}
@@ -421,7 +545,8 @@ export default function Hero() {
                 className="flex flex-col justify-center h-full lg:col-span-7 order-2 lg:order-1 max-w-2xl mx-auto lg:mx-0"
               >
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight tracking-tight mb-4 sm:mb-6 text-center lg:text-left">
-                  <span className="block">{heroData.badge} <span className="text-gradient-fire">{heroData.name}</span></span>
+                  <span className="block">{heroData.badge}</span>
+                  <span className="block text-gradient-fire">{heroData.name}</span>
                 </h1>
                 <div className="mb-4 sm:mb-6 h-7 sm:h-8 md:h-9 text-base sm:text-lg md:text-xl lg:text-2xl text-center lg:text-left" style={{ color: 'var(--color-text-secondary)' }}>
                   <TypewriterRoles />
@@ -560,6 +685,19 @@ export default function Hero() {
 
   return (
     <section className="relative w-full h-screen overflow-hidden">
+      {/* Subtle Text Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none" style={{ opacity: 0.15 }}>
+        <ScrollVelocity
+          texts={["EXPERIENCE", "INNOVATION", "LEADERSHIP", "DEVELOPMENT"]}
+          velocity={30}
+          className="font-bold text-4xl md:text-6xl"
+          scrollerStyle={{ color: 'var(--color-text)', opacity: 0.2 }}
+          parallaxClassName="py-16"
+          scrollerClassName="tracking-wider"
+          numCopies={4}
+        />
+      </div>
+
       {/* Optimized 3D Canvas with Performance Monitoring */}
       <div className="absolute inset-0 pointer-events-none">
         {!hasCanvasError ? (
@@ -695,7 +833,8 @@ export default function Hero() {
               className="flex flex-col justify-center h-full max-w-xl order-2 lg:order-1"
             >
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-4 sm:mb-6 text-center lg:text-left" style={{ color: 'var(--color-text)' }}>
-                <span className="block">{heroData.badge} <span className="text-gradient-fire">{heroData.name}</span></span>
+                <span className="block">{heroData.badge}</span>
+                <span className="block text-gradient-fire">{heroData.name}</span>
               </h1>
               <div className="mb-4 sm:mb-6 h-8 sm:h-9 text-lg sm:text-xl md:text-2xl text-center lg:text-left" style={{ color: 'var(--color-text-muted)' }}>
                 <TypewriterRoles />

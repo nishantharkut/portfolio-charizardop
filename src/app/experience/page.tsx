@@ -155,6 +155,18 @@ export default function ExperiencePage() {
     return () => ctx.revert();
   }, []);
 
+  // Smooth scroll to experience timeline section
+  const scrollToExperience = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const experienceSection = document.getElementById('experience-timeline');
+    if (experienceSection) {
+      experienceSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <main className="relative w-full min-h-screen overflow-x-hidden" style={{ color: 'var(--color-text)' }}>
       {/* <SplashCursor SPLAT_RADIUS={0.05} /> */}
@@ -202,112 +214,90 @@ export default function ExperiencePage() {
           /> */}
         </div>
 
-        {/* Subtle Text Background */}
-        <div className="absolute inset-0 opacity-5 z-10">
-          <ScrollVelocity
-            texts={["EXPERIENCE", "INNOVATION", "LEADERSHIP", "DEVELOPMENT"]}
-            velocity={30}
-            className="font-bold text-4xl md:text-6xl"
-            scrollerStyle={{ color: 'var(--color-text)', opacity: 0.03 }}
-            parallaxClassName="py-16"
-            scrollerClassName="tracking-wider"
-          />
-        </div>
-        
-        {/* Main Content */}
-        <div className="relative z-20 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <motion.div
+        <div className="relative z-10 text-center px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            {/* Clean Title */}
+            <motion.h1 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 drop-shadow-2xl leading-tight"
+              style={{ color: 'var(--color-text)' }}
+            >
+              Professional
+              <br />
+              <span className="relative">
+                <span className="text-orange-500">Journey</span>
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 1.2 }}
+                  className="absolute bottom-1 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-orange-600 origin-left"
+                />
+              </span>
+            </motion.h1>
+            
+            {/* Simple Description */}
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="text-lg md:text-xl max-w-2xl mx-auto mb-8 drop-shadow-lg"
+              style={{ color: 'var(--color-text)' }}
             >
-              {/* Badge with Neubrutalism Style */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="inline-flex items-center gap-2 px-4 py-2 mb-8 neubrutalism-button"
-                style={{
+              From junior developer to <span className="text-orange-400 font-semibold">technical leader</span>, 
+              explore the milestones and achievements that shaped my career in 
+              <span className="text-orange-400 font-semibold"> creative web development</span>
+            </motion.p>
+            
+            {/* Button container with consistent sizing */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
+              <Link 
+                href="/"
+                className="px-6 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center gap-2 text-sm w-fit"
+                style={{ 
                   backgroundColor: 'var(--color-surface)',
                   borderColor: 'var(--color-accent)',
+                  color: 'var(--color-text)'
                 }}
               >
-                <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
-                <span className="text-sm font-black uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
-                  7+ Years of Innovation
-                </span>
-              </motion.div>
-
-              {/* Clean Title */}
-              <motion.h1 
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
-                style={{ color: '#ffffff' }}
-              >
-                Professional
-                <br />
-                <span className="relative">
-                  <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
-                    Journey
-                  </span>
-                  <motion.div
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ duration: 1, delay: 1.2 }}
-                    className="absolute bottom-1 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-orange-600 origin-left"
-                  />
-                </span>
-              </motion.h1>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Back to Home
+              </Link>
               
-              {/* Simple Description */}
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
-                className="text-lg sm:text-xl md:text-2xl max-w-4xl mx-auto mb-10 leading-relaxed"
-                style={{ color: '#ffffff' }}
+              <motion.a 
+                href="#experience-timeline"
+                onClick={scrollToExperience}
+                className="px-6 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center gap-2 text-sm w-fit"
+                style={{
+                  borderColor: 'var(--color-accent)',
+                  backgroundColor: 'var(--color-accent)',
+                  color: 'var(--color-button-text)'
+                }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2 }}
               >
-                From junior developer to <span className="text-orange-400 font-semibold">technical leader</span>, 
-                explore the milestones and achievements that shaped my career in 
-                <span className="text-orange-400 font-semibold"> creative web development</span>
-              </motion.p>
-              
-              {/* Neubrutalism Action Buttons */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.0 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-              >
-                <Link 
-                  href="/"
-                  className="inline-flex items-center gap-2 px-6 py-3 neubrutalism-button font-black uppercase tracking-wide"
-                  style={{ 
-                    backgroundColor: 'var(--color-surface)',
-                    borderColor: 'var(--color-accent)',
-                    color: 'var(--color-text)'
-                  }}
+                View Experience
+                <motion.svg 
+                  className="w-4 h-4" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                  animate={{ y: [0, 2, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                  </svg>
-                  Back to Home
-                </Link>
-                <a 
-                  href="#experience-timeline"
-                  className="inline-flex items-center gap-2 px-6 py-3 neubrutalism-button border-orange-500 bg-orange-500 text-black font-black uppercase tracking-wide"
-                >
-                  View Experience
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </a>
-              </motion.div>
-            </motion.div>
-          </div>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </motion.svg>
+              </motion.a>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -347,13 +337,13 @@ export default function ExperiencePage() {
                   className="w-full scroll-mt-20"
                 >
                   {/* Neubrutalism Experience Card - Mobile */}
-                  <div className="relative w-full neubrutalism-card group"
+                  <div className="relative w-full neubrutalism-card group min-h-[420px] sm:min-h-[460px] lg:min-h-[500px] flex flex-col"
                     style={{
                       backgroundColor: 'var(--color-surface)',
                       borderColor: 'var(--color-accent)',
                     }}
                   >
-                    <div className="p-5 relative overflow-hidden">
+                    <div className="p-5 relative overflow-hidden flex-1 flex flex-col">
                       {/* Hover Gradient Effect */}
                       <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                       
@@ -493,13 +483,13 @@ export default function ExperiencePage() {
                        style={{ borderColor: 'var(--color-bg-start)' }} />
                   
                   {/* Neubrutalism Desktop Experience Card */}
-                  <div className="relative w-full neubrutalism-card group"
+                  <div className="relative w-full neubrutalism-card group min-h-[420px] sm:min-h-[460px] lg:min-h-[500px] flex flex-col"
                     style={{
                       backgroundColor: 'var(--color-surface)',
                       borderColor: 'var(--color-accent)',
                     }}
                   >
-                    <div className="p-5 relative overflow-hidden">
+                    <div className="p-5 relative overflow-hidden flex-1 flex flex-col">
                       {/* Hover Gradient Effect */}
                       <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                       
@@ -850,10 +840,10 @@ export default function ExperiencePage() {
             <p className="text-base sm:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto px-4" style={{ color: 'var(--color-text-secondary)' }}>
               Let's bring your next project to life with innovative technology and creative design
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
               <Link 
                 href="/projects"
-                className="px-6 sm:px-8 py-3 neubrutalism-button font-black uppercase tracking-wide text-center"
+                className="px-6 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center gap-2 text-sm w-fit"
                 style={{ 
                   backgroundColor: 'var(--color-surface)',
                   borderColor: 'var(--color-accent)',
@@ -864,7 +854,12 @@ export default function ExperiencePage() {
               </Link>
               <Link 
                 href="/about"
-                className="px-6 sm:px-8 py-3 neubrutalism-button border-orange-500 bg-orange-500 hover:bg-orange-600 text-black font-black uppercase tracking-wide text-center"
+                className="px-6 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center gap-2 text-sm w-fit"
+                style={{
+                  borderColor: 'var(--color-accent)',
+                  backgroundColor: 'var(--color-accent)',
+                  color: 'var(--color-button-text)'
+                }}
               >
                 Get In Touch
               </Link>
