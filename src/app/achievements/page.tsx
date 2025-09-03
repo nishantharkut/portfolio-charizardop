@@ -188,27 +188,27 @@ export default function AchievementsPage() {
                   }}
                 >
                   {/* Mobile: Stack vertically, Desktop: Side by side */}
-                  <div className="flex flex-col lg:grid lg:grid-cols-5 lg:gap-0 h-full">
-                    {/* Image Section - Responsive height */}
-                    <div className="relative h-48 sm:h-56 lg:h-80 lg:col-span-2 border-b-4 lg:border-b-0 lg:border-r-4 border-black">
+                  <div className="flex flex-col lg:flex-row h-full">
+                    {/* Image Section - Left side, full height */}
+                    <div className="relative h-48 sm:h-56 lg:h-full lg:w-2/5 border-b-4 lg:border-b-0 lg:border-r-4 border-black overflow-hidden">
                       <Image
                         src={achievement.image}
                         alt={achievement.title}
                         fill
-                        className="object-cover"
+                        className="object-cover w-full h-full"
                         sizes="(max-width: 1024px) 100vw, 40vw"
                         priority={index === 0}
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                        }}
                       />
-                      <div className="absolute top-3 left-3 text-2xl sm:text-3xl lg:text-4xl z-10 drop-shadow-lg">
-                        {achievement.badge}
-                      </div>
                       <div className="absolute top-3 right-3 bg-yellow-400 border-2 border-black px-2 py-1 sm:px-3 sm:py-2 font-black text-black text-xs sm:text-sm shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide z-10">
                         FEATURED
                       </div>
                     </div>
 
-                    {/* Content Section - Better mobile padding */}
-                    <div className="p-4 sm:p-6 lg:p-8 lg:col-span-3 flex flex-col justify-center">
+                    {/* Content Section - Right side */}
+                    <div className="p-4 sm:p-6 lg:p-8 lg:w-3/5 flex flex-col justify-center">
                       <div className="mb-3 sm:mb-4">
                         <p className="text-orange-500 text-xs sm:text-sm uppercase tracking-wider font-black mb-2">
                           {achievement.category}
@@ -359,7 +359,7 @@ export default function AchievementsPage() {
         </div>
       </section>
 
-      {/* Certifications Section - Fixed with proper globals.css colors */}
+      {/* Certifications Section - Fixed with better content visibility */}
       <section className="relative z-10 py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -377,7 +377,7 @@ export default function AchievementsPage() {
             </p>
           </motion.div>
 
-          {/* Grid Layout - Using proper responsive grid */}
+          {/* Grid Layout - Increased heights for better content visibility */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {certifications.map((cert, index) => (
               <motion.div
@@ -389,18 +389,18 @@ export default function AchievementsPage() {
                 whileHover={{ y: -4, transition: { duration: 0.3 } }}
                 className="h-full group"
               >
-                {/* Certification Card with proper neubrutalism styling */}
-                <div className="relative w-full h-[420px] sm:h-[440px] lg:h-[460px] neubrutalism-card flex flex-col overflow-hidden"
+                {/* Certification Card with increased height for content visibility */}
+                <div className="relative w-full min-h-[500px] sm:min-h-[520px] lg:min-h-[540px] neubrutalism-card flex flex-col overflow-hidden"
                   style={{
                     backgroundColor: 'var(--color-surface)',
                     borderColor: 'var(--color-accent)'
                   }}
                 >
-                  {/* Header Section with proper colors */}
-                  <div className="relative p-3 sm:p-4 lg:p-5 border-b-4 border-black"
+                  {/* Header Section with better proportions */}
+                  <div className="relative p-3 sm:p-4 lg:p-5 border-b-4 border-black flex-shrink-0"
                     style={{ backgroundColor: 'var(--color-surface-elevated)' }}>
                     
-                    {/* Year Badge - using proper globals colors */}
+                    {/* Year Badge */}
                     <div className="absolute top-2 right-2">
                       <div className="px-2 py-1 sm:px-3 sm:py-1 font-black text-black text-xs sm:text-sm shadow-[var(--shadow-neubrutalism-small)] uppercase tracking-wide border-2 border-black transform rotate-2 group-hover:rotate-3 transition-transform duration-300"
                         style={{ backgroundColor: 'var(--color-accent)' }}>
@@ -419,23 +419,30 @@ export default function AchievementsPage() {
 
                     {/* Company Logo */}
                     <div className="flex justify-center pt-2 sm:pt-3">
-                      <div className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 relative group-hover:scale-105 transition-transform duration-300">
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 relative group-hover:scale-105 transition-transform duration-300 bg-gray-100 rounded border-2 border-black flex items-center justify-center">
                         <Image
                           src={cert.image}
                           alt={cert.name}
                           fill
                           className="object-contain"
                           sizes="(max-width: 640px) 48px, (max-width: 1024px) 64px, 80px"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                          }}
                         />
+                        {/* Fallback text when image fails */}
+                        <span className="text-xs font-bold text-gray-600 absolute inset-0 flex items-center justify-center">
+                          {cert.issuer.split(' ')[0]}
+                        </span>
                       </div>
                     </div>
                   </div>
                   
-                  {/* Content Section */}
-                  <div className="flex-1 flex flex-col p-3 sm:p-4 lg:p-5 space-y-3 sm:space-y-4">
+                  {/* Content Section with proper flex distribution */}
+                  <div className="flex-1 flex flex-col p-3 sm:p-4 lg:p-5">
                     {/* Title & Issuer */}
-                    <div className="text-center">
-                      <h3 className="text-sm sm:text-base lg:text-lg font-black uppercase tracking-tight leading-tight mb-2" style={{ color: 'var(--color-text)' }}>
+                    <div className="text-center mb-4 flex-shrink-0">
+                      <h3 className="text-sm sm:text-base lg:text-lg font-black uppercase tracking-tight leading-tight mb-3" style={{ color: 'var(--color-text)' }}>
                         {cert.name}
                       </h3>
                       <div className="inline-flex items-center gap-2 px-2 py-1 sm:px-3 sm:py-1 border-2 border-black shadow-[var(--shadow-neubrutalism-small)]"
@@ -449,15 +456,16 @@ export default function AchievementsPage() {
                       </div>
                     </div>
                     
-                    {/* Skills Section */}
-                    <div className="flex-1">
-                      <div className="mb-3">
-                        <h4 className="text-xs sm:text-sm font-black uppercase tracking-wide mb-2 text-center" style={{ color: 'var(--color-text)' }}>
+                    {/* Skills Section with flexible height */}
+                    <div className="flex-1 flex flex-col">
+                      <div className="mb-3 flex-shrink-0">
+                        <h4 className="text-xs sm:text-sm font-black uppercase tracking-wide mb-3 text-center" style={{ color: 'var(--color-text)' }}>
                           SKILLS VALIDATED
                         </h4>
                       </div>
                       
-                      <div className="space-y-1.5 sm:space-y-2">
+                      {/* Skills list with better spacing */}
+                      <div className="flex-1 space-y-2">
                         {cert.skills.slice(0, 4).map((skill, i) => (
                           <motion.div
                             key={i}
@@ -465,46 +473,48 @@ export default function AchievementsPage() {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.4, delay: index * 0.1 + i * 0.1 }}
-                            className="flex items-center gap-2 p-1.5 sm:p-2 border-2 border-black shadow-[var(--shadow-neubrutalism-small)] transition-colors duration-300"
+                            className="flex items-center gap-2 p-2 sm:p-2.5 border-2 border-black shadow-[var(--shadow-neubrutalism-small)] transition-colors duration-300"
                             style={{ 
                               backgroundColor: 'var(--color-surface-elevated)',
                               borderColor: 'black'
                             }}
                           >
-                            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full flex-shrink-0" style={{ backgroundColor: 'var(--color-accent)' }}></div>
+                            <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: 'var(--color-accent)' }}></div>
                             <span className="text-xs sm:text-sm font-semibold" style={{ color: 'var(--color-text)' }}>
                               {skill}
                             </span>
                           </motion.div>
                         ))}
                         
-                        {/* Always render the extra skills placeholder to maintain consistent height */}
-                        <div className="flex items-center justify-center p-1.5 sm:p-2 border-2 border-black shadow-[var(--shadow-neubrutalism-small)]"
-                          style={{ 
-                            backgroundColor: cert.skills.length > 4 ? 'var(--color-surface-hover)' : 'transparent',
-                            borderColor: cert.skills.length > 4 ? 'black' : 'transparent',
-                            color: cert.skills.length > 4 ? 'var(--color-text)' : 'transparent'
-                          }}>
-                          <span className="text-xs sm:text-sm font-bold">
-                            {cert.skills.length > 4 ? `+${cert.skills.length - 4} more skills` : 'placeholder'}
-                          </span>
-                        </div>
+                        {/* Extra skills indicator if needed */}
+                        {cert.skills.length > 4 && (
+                          <div className="flex items-center justify-center p-2 sm:p-2.5 border-2 border-black shadow-[var(--shadow-neubrutalism-small)]"
+                            style={{ 
+                              backgroundColor: 'var(--color-surface-hover)',
+                              borderColor: 'black',
+                              color: 'var(--color-text)'
+                            }}>
+                            <span className="text-xs sm:text-sm font-bold">
+                              +{cert.skills.length - 4} more skills
+                            </span>
+                          </div>
+                        )}
                       </div>
                     </div>
                     
                     {/* Credential ID Section */}
                     {cert.credentialId && (
-                      <div className="mt-auto pt-2 sm:pt-3 border-t-4 border-black">
+                      <div className="mt-4 pt-3 border-t-4 border-black flex-shrink-0">
                         <div className="text-center">
-                          <p className="text-xs uppercase tracking-wider font-black mb-1.5" style={{ color: 'var(--color-text-secondary)' }}>
+                          <p className="text-xs uppercase tracking-wider font-black mb-2" style={{ color: 'var(--color-text-secondary)' }}>
                             Credential ID
                           </p>
-                          <div className="inline-flex items-center gap-1.5 px-2 py-1 sm:px-3 sm:py-1.5 border-2 border-black shadow-[var(--shadow-neubrutalism-small)]"
+                          <div className="inline-flex items-center gap-2 px-3 py-2 border-2 border-black shadow-[var(--shadow-neubrutalism-small)]"
                             style={{ 
                               backgroundColor: 'var(--color-surface-elevated)',
                               color: 'var(--color-text)'
                             }}>
-                            <svg className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: 'var(--color-text-secondary)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-4 h-4" style={{ color: 'var(--color-text-secondary)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
                             <code className="text-xs sm:text-sm font-mono font-semibold">
@@ -520,7 +530,7 @@ export default function AchievementsPage() {
             ))}
           </div>
 
-          {/* Call to Action with proper styling */}
+          {/* Call to Action */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

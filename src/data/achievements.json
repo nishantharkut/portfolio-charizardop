@@ -9,7 +9,7 @@
       "date": "2025",
       "organization": "ODOO",
       "link": "",
-      "image": "/achievements/odoo-hackathon.jpg",
+      "image": "/awards/Odoo.webp",
       "badge": "🏆",
       "impact": [
         "Selected from 10,000+ participants nationwide",
@@ -27,7 +27,7 @@
       "details": "Developed an innovative AI-powered operating system interface inspired by the magical world of Harry Potter. The project showcased advanced AI integration, intuitive user experience design, and technical excellence.",
       "date": "2025",
       "organization": "ABES-IT, Ghaziabad",
-      "image": "/achievements/hacknovate.jpg",
+      "image": "/awards/hackonovate.webp",
       "badge": "🥇",
       "impact": [
         "Won $200 cash prize for technical excellence",
@@ -44,7 +44,7 @@
       "details": "Created outstanding user interface and user experience designs that demonstrated deep understanding of design principles, user psychology, and modern design trends.",
       "date": "2024",
       "organization": "AASF, IIIT Gwalior",
-      "image": "/achievements/winter-project.jpg",
+      "image": "/awards/WinterProject.webp",
       "badge": "🎨",
       "impact": [
         "Recognized for exceptional UI/UX design skills",
@@ -61,7 +61,7 @@
       "details": "Demonstrated exceptional graphic design skills through creative visual communication, innovative design concepts, and technical proficiency in design tools.",
       "date": "2024",
       "organization": "AASF, IIIT Gwalior",
-      "image": "/achievements/aakriti.jpg",
+      "image": "/awards/Aakrtiti.webp",
       "badge": "�",
       "impact": [
         "Recognized for creative visual communication",
@@ -78,7 +78,7 @@
       "details": "Organized Sports Day, marathons, and other sporting events while handling team selections for Inter-IIIT Meet'24. Demonstrated exceptional leadership skills despite being a first-year student.",
       "date": "2023",
       "organization": "IIIT Gwalior",
-      "image": "/achievements/sac-sports.jpg",
+            "image": "/achievements/opensource.jpg",
       "badge": "⚽",
       "impact": [
         "Only first-year selected for executive position",
@@ -95,7 +95,7 @@
       "details": "Organized significant events including Hindi Divas, Environment Day, and Yoga Day for the institute. Managed large groups of 100+ people and created engaging poster designs for event promotion.",
       "date": "2024",
       "organization": "IIIT Gwalior",
-      "image": "/achievements/sac-welfare.jpg",
+      "image": "/achievements/client-satisfaction.jpg",
       "badge": "🤝",
       "impact": [
         "Organized major institute-level cultural events",
@@ -112,7 +112,7 @@
       "details": "Led technology initiatives while creating compelling content for social media platforms including Instagram and LinkedIn. Successfully increased club engagement and online presence.",
       "date": "2024",
       "organization": "IIIT Gwalior",
-      "image": "/achievements/ecell.jpg",
+      "image": "/achievements/innovation.jpg",
       "badge": "💡",
       "impact": [
         "Led technology initiatives for entrepreneurship club",
@@ -129,7 +129,7 @@
       "details": "Handled and managed club events while designing various digital platforms for the organization. Contributed to community service initiatives and organizational growth.",
       "date": "2024",
       "organization": "Rotary Club, IIIT Gwalior",
-      "image": "/achievements/rotary.jpg",
+      "image": "/achievements/leadership.jpg",
       "badge": "🌟",
       "impact": [
         "Managed and organized club events",
@@ -146,7 +146,7 @@
       "issuer": "Postman",
       "date": "2024",
       "credentialId": "PSE-2024-001",
-      "image": "/certifications/postman.png",
+      "image": "/certifications/aws.png",
       "skills": ["API Testing", "REST APIs", "API Documentation", "HTTP Methods"]
     },
     {
@@ -155,7 +155,7 @@
       "issuer": "McKinsey & Company",
       "date": "2024",
       "credentialId": "MCK-FWD-2024",
-      "image": "/certifications/mckinsey.png",
+      "image": "/certifications/gcp.png",
       "skills": ["Leadership", "Strategic Thinking", "Problem Solving", "Professional Development"]
     },
     {
@@ -164,7 +164,7 @@
       "issuer": "Dr. Angela Yu - Udemy",
       "date": "2024",
       "credentialId": "WEB-2024-COMPLETE",
-      "image": "/certifications/webdev-bootcamp.png",
+      "image": "/certifications/ceh.png",
       "skills": ["Full Stack Development", "React", "Node.js", "MongoDB", "JavaScript", "HTML/CSS"]
     }
   ],
@@ -176,7 +176,7 @@
       "position": "Top 10",
       "year": "2025",
       "description": "Recognized among top 10 teams from 10,000+ participants for technical innovation",
-      "image": "/awards/cds-tech.jpg"
+      "image": "/awards/creative-tech.jpg"
     },
     {
       "id": 2,
@@ -185,7 +185,7 @@
       "position": "Winner",
       "year": "2025",
       "description": "First place winner with $200 prize for innovative AI-powered OS development",
-      "image": "/awards/csd-design.jpg"
+      "image": "/awards/hackonovate.webp"
     },
     {
       "id": 3,
@@ -194,7 +194,7 @@
       "position": "Winner",
       "year": "2024",
       "description": "First place in UI/UX category for exceptional design innovation",
-      "image": "/awards/dfv-tech.jpg"
+      "image": "/awards/WinterProject.webp"
     },
     {
       "id": 4,
@@ -203,7 +203,7 @@
       "position": "Winner",
       "year": "2024",
       "description": "First place winner in graphic design category for creative excellence",
-      "image": "/awards/css-vfd.jpg"
+      "image": "/awards/Aakrtiti.webp"
     }
   ]
 }
