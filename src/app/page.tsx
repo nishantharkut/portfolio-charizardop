@@ -7,58 +7,46 @@ import Hero from './components/sections/Hero';
 import SplashCursorWrapper from './components/ui/SplashCursorWrapper';
 import PerformanceIndicator from './components/ui/PerformanceIndicator';
 
-// Optimized lazy loading with better loading states and performance
+// Lazy load non-critical sections with loading states that match existing heights
 const Bento = dynamic(() => import('./components/sections/Bento'), {
-  loading: () => (
-    <div className="min-h-[400px] flex items-center justify-center">
-      <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
-    </div>
-  ),
+  loading: () => <div className="min-h-[400px] flex items-center justify-center">
+    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
+  </div>,
   ssr: true
 });
 
 const About = dynamic(() => import('./components/sections/About'), {
-  loading: () => (
-    <div className="min-h-[600px] flex items-center justify-center">
-      <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
-    </div>
-  ),
+  loading: () => <div className="min-h-[600px] flex items-center justify-center">
+    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
+  </div>,
   ssr: true
 });
 
 const Experience = dynamic(() => import('./components/sections/Experience'), {
-  loading: () => (
-    <div className="min-h-[800px] flex items-center justify-center">
-      <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
-    </div>
-  ),
+  loading: () => <div className="min-h-[800px] flex items-center justify-center">
+    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
+  </div>,
   ssr: true
 });
 
 const Skills = dynamic(() => import('./components/sections/Skills'), {
-  loading: () => (
-    <div className="min-h-[500px] flex items-center justify-center">
-      <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
-    </div>
-  ),
+  loading: () => <div className="min-h-[500px] flex items-center justify-center">
+    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
+  </div>,
   ssr: true
 });
 
 const Projects = dynamic(() => import('./components/sections/Projects'), {
-  loading: () => (
-    <div className="min-h-[800px] flex items-center justify-center">
-      <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
-    </div>
-  ),
+  loading: () => <div className="min-h-[800px] flex items-center justify-center">
+    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
+  </div>,
   ssr: true
 });
 
 const Contact = dynamic(() => import('./components/sections/Contact'), {
-  loading: () => (
-    <div className="min-h-[400px] flex items-center justify-center">
-      <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
-    </div>
-  ),
+  loading: () => <div className="min-h-[400px] flex items-center justify-center">
+    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
+  </div>,
   ssr: true
 });
 

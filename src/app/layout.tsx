@@ -7,7 +7,6 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { LoadingProvider } from "./contexts/LoadingContext";
 import LoadingWrapper from "./components/ui/LoadingWrapper";
-// Performance monitoring will be handled inline
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -140,60 +139,6 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <meta name="format-detection" content="telephone=no" />
-        
-        {/* Preload critical images */}
-        <link rel="preload" href="/images/W3nity.jpg" as="image" />
-        <link rel="preload" href="/images/hogwartsos.jpg" as="image" />
-        <link rel="preload" href="/images/GlobeTrotter.jpg" as="image" />
-        
-        {/* Performance monitoring and Service Worker registration */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              // Performance monitoring
-              if (typeof window !== 'undefined') {
-                window.addEventListener('load', () => {
-                  const navigation = performance.getEntriesByType('navigation')[0];
-                  const paint = performance.getEntriesByType('paint');
-                  
-                  console.log('📊 Performance Metrics:', {
-                    domContentLoaded: navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart,
-                    loadComplete: navigation.loadEventEnd - navigation.loadEventStart,
-                    firstPaint: paint.find(p => p.name === 'first-paint')?.startTime,
-                    firstContentfulPaint: paint.find(p => p.name === 'first-contentful-paint')?.startTime,
-                  });
-                });
-                
-                // Service Worker registration
-                if ('serviceWorker' in navigator) {
-                  window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('/sw.js')
-                      .then((registration) => {
-                        console.log('✅ Service Worker registered successfully:', registration.scope);
-                      })
-                      .catch((error) => {
-                        console.error('❌ Service Worker registration failed:', error);
-                      });
-                  });
-                }
-                
-                // Initialize Web Vitals monitoring
-                if (typeof window !== 'undefined') {
-                  // Web Vitals
-                  import('web-vitals').then(({ onCLS, onINP, onFCP, onLCP, onTTFB }) => {
-                    onCLS((metric) => console.log('📊 CLS:', metric.value));
-                    onINP((metric) => console.log('📊 INP:', metric.value));
-                    onFCP((metric) => console.log('📊 FCP:', metric.value));
-                    onLCP((metric) => console.log('📊 LCP:', metric.value));
-                    onTTFB((metric) => console.log('📊 TTFB:', metric.value));
-                  }).catch((error) => {
-                    console.warn('Web Vitals not available:', error);
-                  });
-                }
-              }
-            `
-          }}
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
