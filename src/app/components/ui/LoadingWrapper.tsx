@@ -16,7 +16,7 @@ export default function LoadingWrapper({ children }: { children: React.ReactNode
   const [isReturningVisitor, setIsReturningVisitor] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && typeof sessionStorage !== 'undefined') {
       try {
         const hasVisited = sessionStorage.getItem('hasVisited');
         setIsReturningVisitor(!!hasVisited);

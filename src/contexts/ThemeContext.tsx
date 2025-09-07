@@ -20,8 +20,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('theme', newTheme);
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      try {
+        localStorage.setItem('theme', newTheme);
+      } catch (error) {
+        console.warn('Failed to save theme to localStorage:', error);
+      }
     }
   };
 
@@ -34,10 +38,14 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     setMounted(true);
     
     // Get saved theme from localStorage only on client
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('theme') as Theme;
-      if (savedTheme) {
-        setThemeState(savedTheme);
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      try {
+        const savedTheme = localStorage.getItem('theme') as Theme;
+        if (savedTheme) {
+          setThemeState(savedTheme);
+        }
+      } catch (error) {
+        console.warn('Failed to read theme from localStorage:', error);
       }
     }
   }, []);

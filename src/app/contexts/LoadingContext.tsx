@@ -23,7 +23,7 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
 
   // Check if user has visited before - if yes, show retro loader instead of full video
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && typeof sessionStorage !== 'undefined') {
       try {
         const hasVisited = sessionStorage.getItem('hasVisited');
         const hasCompletedLoad = sessionStorage.getItem('hasCompletedInitialLoad');
@@ -44,14 +44,26 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
             setIsVideoComplete(true);
             setIsInitialLoading(false);
             setHasCompletedInitialLoad(true);
-            sessionStorage.setItem('hasCompletedInitialLoad', 'true');
+            try {
+              sessionStorage.setItem('hasCompletedInitialLoad', 'true');
+            } catch (error) {
+              console.warn('Failed to save to sessionStorage:', error);
+            }
           }, 1500); // Fast 1.5 second retro loader
           
           return () => clearTimeout(timer);
+        } else {
+          // First time visitor - show full loading sequence
+          setIsInitialLoading(true);
         }
       } catch (error) {
         console.warn('SessionStorage not available:', error);
+        // Fallback for when sessionStorage is not available
+        setIsInitialLoading(true);
       }
+    } else {
+      // Fallback for SSR
+      setIsInitialLoading(true);
     }
   }, []);
 
@@ -62,7 +74,7 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
       const timer = setTimeout(() => {
         setIsInitialLoading(false);
         setHasCompletedInitialLoad(true);
-        if (typeof window !== 'undefined') {
+        if (typeof window !== 'undefined' && typeof sessionStorage !== 'undefined') {
           try {
             sessionStorage.setItem('hasVisited', 'true');
             sessionStorage.setItem('hasCompletedInitialLoad', 'true');
@@ -75,6 +87,21 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
     }
   }, [isVideoComplete, isInitialLoading, hasCompletedInitialLoad]);
 
+  // Fallback timeout to prevent infinite loading
+  useEffect(() => {
+    const fallbackTimer = setTimeout(() => {
+      if (isInitialLoading) {
+        console.warn('Loading timeout reached, forcing completion');
+        setIsInitialLoading(false);
+        setIsModelLoaded(true);
+        setIsVideoComplete(true);
+        setHasCompletedInitialLoad(true);
+      }
+    }, 10000); // 10 second fallback
+
+    return () => clearTimeout(fallbackTimer);
+  }, [isInitialLoading]);
+
   const startInitialLoading = () => {
     setIsInitialLoading(true);
     setIsModelLoaded(false);
@@ -84,7 +111,7 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
   const finishInitialLoading = () => {
     setIsInitialLoading(false);
     setHasCompletedInitialLoad(true);
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && typeof sessionStorage !== 'undefined') {
       try {
         sessionStorage.setItem('hasVisited', 'true');
         sessionStorage.setItem('hasCompletedInitialLoad', 'true');
