@@ -586,7 +586,7 @@ export default function ProjectsPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}
-                className="relative neubrutalism-card border-4 max-w-4xl w-full max-h-[90vh] flex shadow-[var(--shadow-neubrutalism)] bg-[var(--color-surface-elevated)] rounded-lg overflow-hidden"
+                                 className="relative neubrutalism-card border-4 max-w-4xl w-full h-[80vh] flex shadow-[var(--shadow-neubrutalism)] bg-[var(--color-surface-elevated)] rounded-lg overflow-hidden"
                 style={{ borderColor: 'var(--color-accent)' }}
                 onClick={(e) => e.stopPropagation()}
               >
@@ -604,13 +604,13 @@ export default function ProjectsPage() {
                 {/* Desktop Layout */}
                 <div className="grid grid-cols-2 h-full">
                   {/* Desktop Image */}
-                  <div className="relative border-r-4 border-black">
+                  <div className="relative border-r-4 border-black bg-[var(--color-surface)] flex items-center justify-center">
                     <Image
                       src={selectedProject.image}
                       alt={selectedProject.title}
                       fill
-                      className="object-cover"
-                      sizes="50vw"
+                      className="object-contain p-4"
+                      sizes="40vw"
                     />
                     {selectedProject.featured && (
                       <div className="absolute top-4 right-4 bg-yellow-400 border-2 border-black px-4 py-2 rounded font-black text-black text-xs shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide">
@@ -619,9 +619,11 @@ export default function ProjectsPage() {
                     )}
                   </div>
 
-                  {/* Desktop Content */}
-                  <div className="flex flex-col p-6 overflow-y-auto">
-                    <div className="space-y-4 flex-1">
+                                     {/* Desktop Content - Scrollable */}
+                   <div className="flex flex-col h-full overflow-hidden">
+                     {/* Scrollable Content Area */}
+                     <div className="flex-1 overflow-y-auto">
+                       <div className="p-6 space-y-4">
                       {/* Desktop Header */}
                       <div>
                         <h2 className="text-2xl font-black uppercase tracking-tight mb-2 pr-12" style={{ color: 'var(--color-text)' }}>
@@ -655,22 +657,26 @@ export default function ProjectsPage() {
                         </div>
                       </div>
 
-                      {/* Desktop Features */}
-                      <div>
-                        <h3 className="text-base font-black uppercase mb-2" style={{ color: 'var(--color-text)' }}>Key Features</h3>
-                        <ul className="space-y-2">
-                          {selectedProject.implementation.map((item, i) => (
-                            <li key={i} className="flex items-start gap-2" style={{ color: 'var(--color-text-secondary)' }}>
-                              <span className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></span>
-                              <span className="text-sm leading-relaxed">{item}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
+                                             {/* Desktop Features */}
+                       <div>
+                         <h3 className="text-base font-black uppercase mb-2" style={{ color: 'var(--color-text)' }}>Key Features</h3>
+                         <ul className="space-y-2">
+                           {selectedProject.implementation.map((item, i) => (
+                             <li key={i} className="flex items-start gap-2" style={{ color: 'var(--color-text-secondary)' }}>
+                               <span className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></span>
+                               <span className="text-sm leading-relaxed">{item}</span>
+                             </li>
+                           ))}
+                         </ul>
+                       </div>
+                       
+                       {/* Add bottom padding to ensure content is scrollable to the end */}
+                       <div className="pb-6"></div>
+                     </div>
+                   </div>
 
-                    {/* Desktop Actions */}
-                    <div className="flex gap-3 pt-4 border-t-2 border-black mt-4">
+                   {/* Desktop Actions - Fixed at Bottom */}
+                   <div className="flex gap-3 p-6 pt-4 border-t-2 border-black bg-[var(--color-surface-elevated)] flex-shrink-0">
                       {selectedProject.liveLink && (
                         <a
                           href={selectedProject.liveLink}
