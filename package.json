@@ -11,7 +11,15 @@
     "analyze": "ANALYZE=true next build",
     "analyze:server": "BUNDLE_ANALYZE=server next build",
     "analyze:browser": "BUNDLE_ANALYZE=browser next build",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "build:analyze": "npm run analyze && npm run analyze:server && npm run analyze:browser",
+    "perf:audit": "npm run build && npm run lighthouse",
+    "optimize:images": "node scripts/optimize-images.js",
+    "perf:monitor": "node scripts/performance-monitor.js",
+    "analyze:bundle": "node scripts/analyze-bundle.js",
+    "perf:full": "npm run build && npm run analyze:bundle && npm run perf:monitor",
+    "test:performance": "node scripts/test-performance.js",
+    "perf:complete": "npm run build && npm run test:performance && npm run analyze:bundle"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -60,7 +68,9 @@
     "eslint-config-next": "15.4.6",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.5",
+    "sharp": "^0.34.3",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "web-vitals": "^5.1.0"
   }
 }
