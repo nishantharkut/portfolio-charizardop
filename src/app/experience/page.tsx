@@ -839,10 +839,10 @@ export default function ExperiencePage() {
             <p className="text-base sm:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto px-4" style={{ color: 'var(--color-text-secondary)' }}>
               Let's bring your next project to life with innovative technology and creative design
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
               <Link 
                 href="/projects"
-                className="px-6 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center justify-center gap-2 text-sm w-fit"
+                className="px-6 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center gap-2 text-sm w-fit"
                 style={{ 
                   backgroundColor: 'var(--color-surface)',
                   borderColor: 'var(--color-accent)',
@@ -853,7 +853,7 @@ export default function ExperiencePage() {
               </Link>
               <Link 
                 href="/about"
-                className="px-6 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center justify-center gap-2 text-sm w-fit"
+                className="px-6 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center gap-2 text-sm w-fit"
                 style={{
                   borderColor: 'var(--color-accent)',
                   backgroundColor: 'var(--color-accent)',

@@ -5,38 +5,36 @@ import { motion } from 'framer-motion';
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative py-20 px-4">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
+    <section id="contact" className="relative py-28">
+      <div className="max-w-4xl mx-auto px-6 md:px-10">
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-3xl md:text-4xl font-bold mb-8"
+          style={{ color: 'var(--color-text)' }}
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6" style={{ color: 'var(--color-text)' }}>
-            Get In <span className="text-orange-500">Touch</span>
-          </h2>
-          <p className="text-lg md:text-xl max-w-3xl mx-auto mb-8" style={{ color: 'var(--color-text-secondary)' }}>
-            I&apos;m open to collaborations, freelance opportunities, or just a good conversation about emerging tech, design systems, or creative 3D on the web.
-          </p>
-        </motion.div>
-        
-        <motion.div
+          Get In Touch
+        </motion.h2>
+        <motion.p
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex justify-center"
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.65 }}
+          className="text-lg mb-8 max-w-2xl"
+          style={{ color: 'var(--color-text-muted)' }}
         >
-          <div className="w-full max-w-2xl neubrutalism-card p-8" 
-            style={{ 
-              backgroundColor: 'var(--color-surface)', 
-              borderColor: 'var(--color-accent)'
-            }}>
-            <ContactForm />
-          </div>
-        </motion.div>
+          I&apos;m open to collaborations, freelance opportunities, or just a good conversation about emerging tech, design systems, or creative 3D on the web.
+        </motion.p>
+        <div className="min-h-[200px] flex flex-col justify-center border-4 p-8 max-w-xl neubrutalism-card" 
+          style={{ 
+            backgroundColor: 'var(--color-surface)', 
+            borderColor: 'var(--color-accent)',
+            boxShadow: '8px 8px 0px 0px var(--shadow-neubrutalism)'
+          }}>
+          <ContactForm />
+        </div>
       </div>
     </section>
   );
@@ -132,15 +130,16 @@ function ContactForm() {
         />
       </div>
 
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <div className="flex items-center gap-4">
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="px-6 py-3 font-black uppercase tracking-wide text-center inline-flex items-center justify-center gap-2 text-sm w-fit neubrutalism-button"
+          className="justify-self-start px-6 py-3 font-medium w-fit transition-all duration-300 uppercase tracking-wide border-4 neubrutalism-button"
           style={{
             backgroundColor: 'var(--color-accent)',
             color: 'var(--color-button-text)',
-            borderColor: 'var(--color-text)'
+            borderColor: 'var(--color-text)',
+            boxShadow: '3px 3px 0px 0px var(--shadow-neubrutalism)'
           }}
         >
           {status === 'loading' ? 'Sending...' : 'Send Message'}

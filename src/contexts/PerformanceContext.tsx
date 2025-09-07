@@ -138,8 +138,6 @@ export function PerformanceProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
     updatePerformanceSettings();
 
     // Listen for viewport changes

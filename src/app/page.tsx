@@ -63,6 +63,7 @@ const Contact = dynamic(() => import('./components/sections/Contact'), {
 });
 
 export default function Home() {
+
   return (
     <main className="relative w-full min-h-screen overflow-x-hidden">
       <SplashCursorWrapper SPLAT_RADIUS={0.05}/>

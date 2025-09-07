@@ -233,21 +233,17 @@ export function usePageReload() {
     console.log('reloadWithTransition called');
     
     // Set navigation state in sessionStorage for persistence
-    if (typeof window !== 'undefined' && typeof sessionStorage !== 'undefined') {
-      try {
-        sessionStorage.setItem('isNavigating', 'true');
-      } catch (error) {
-        console.warn('Cannot set sessionStorage:', error);
-      }
+    try {
+      sessionStorage.setItem('isNavigating', 'true');
+    } catch (error) {
+      console.warn('Cannot set sessionStorage:', error);
     }
     
     console.log('About to reload page with navigation state set');
     
     // Small delay then reload
     setTimeout(() => {
-      if (typeof window !== 'undefined') {
-        window.location.reload();
-      }
+      window.location.reload();
     }, 100);
   };
 

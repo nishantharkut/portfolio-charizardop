@@ -29,18 +29,12 @@ const Projects = () => {
 
   // Prevent background scroll when modal is open
   useEffect(() => {
-    if (typeof document === 'undefined') return;
-    
     if (selectedProject) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
-    return () => { 
-      if (typeof document !== 'undefined') {
-        document.body.style.overflow = '';
-      }
-    };
+    return () => { document.body.style.overflow = ''; };
   }, [selectedProject]);
 
   // Memoize performance settings to prevent re-renders
@@ -267,11 +261,8 @@ const Projects = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60]"
-            style={{ 
-              backgroundColor: 'var(--color-glass-bg)',
-              top: '4.5rem' // Start below navbar
-            }}
+            className="fixed inset-0 z-50"
+            style={{ backgroundColor: 'var(--color-glass-bg)' }}
             onClick={closeProjectDetail}
           >
             {/* Mobile View - Full Screen */}
