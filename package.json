@@ -11,7 +11,19 @@
     "analyze": "ANALYZE=true next build",
     "analyze:server": "BUNDLE_ANALYZE=server next build",
     "analyze:browser": "BUNDLE_ANALYZE=browser next build",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "build:analyze": "npm run analyze && npm run analyze:browser",
+    "build:production": "NODE_ENV=production next build",
+    "lighthouse": "lighthouse http://localhost:3000 --output=html --output-path=./lighthouse-report.html --chrome-flags=\"--headless\"",
+    "lighthouse:mobile": "lighthouse http://localhost:3000 --output=html --output-path=./lighthouse-mobile-report.html --chrome-flags=\"--headless\" --form-factor=mobile",
+    "performance:test": "npm run build:production && npm run start & sleep 5 && npm run lighthouse && pkill -f 'next start'",
+    "bundle:size": "npm run build && npx bundlesize",
+    "performance:audit": "npm run build:production && npm run lighthouse && npm run lighthouse:mobile",
+    "performance:analyze": "node scripts/performance-analysis.js",
+    "performance:full": "npm run build:production && npm run performance:analyze && npm run performance:audit",
+    "deploy:optimize": "node scripts/deploy-optimization.js",
+    "deploy:prepare": "npm run deploy:optimize && npm run build:production",
+    "deploy:vercel": "npm run deploy:prepare && vercel --prod"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

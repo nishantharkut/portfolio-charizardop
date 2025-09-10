@@ -9,6 +9,7 @@ import TypewriterRoles from '../ui/RotatingRoles';
 import ScrollVelocity from '../ui/ScrollVelocity';
 import ErrorBoundary from '../../../components/ErrorBoundary';
 import { getHeroData } from '../../../data';
+import { useIntersectionModelLoading, useModelPreloading, usePerformanceAwareModelLoading } from '../../../hooks/useIntersectionModelLoading';
 import * as THREE from 'three';
 
 // Device and Browser Detection Hook
@@ -462,6 +463,17 @@ function CharizardFallback() {
 export default function Hero() {
   const heroData = getHeroData();
   const { capabilities, isClient } = useDeviceCapabilities();
+  const loadingStrategy = usePerformanceAwareModelLoading();
+  const { shouldLoadModel, isModelVisible, heroRef, isIntersecting } = useIntersectionModelLoading({
+    threshold: 0.1,
+    rootMargin: '50px 0px',
+    delay: loadingStrategy === 'immediate' ? 500 : 1000,
+    enabled: loadingStrategy !== 'disabled'
+  });
+  
+  // Preload model assets
+  useModelPreloading();
+  
   const [performanceSettings, setPerformanceSettings] = useState({
     shadows: false, // Default to false for SSR
     antialias: false,
@@ -470,38 +482,13 @@ export default function Hero() {
   });
   const [hasCanvasError, setHasCanvasError] = useState(false);
   const [isModelLoading, setIsModelLoading] = useState(true);
-  const [shouldLoadModel, setShouldLoadModel] = useState(false);
 
-  // Enhanced model preloading with priority
+  // Load 3D model based on intersection observer and performance strategy
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      // Preload with higher priority using link element
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.href = '/models/charizard.glb';
-      link.as = 'fetch';
-      link.crossOrigin = 'anonymous';
-      link.setAttribute('fetchpriority', 'high');
-      document.head.appendChild(link);
-
-      // Also preload via useGLTF for Three.js cache
-      import('@react-three/drei').then(({ useGLTF }) => {
-        try {
-          useGLTF.preload('/models/charizard.glb');
-          console.log('Charizard model preloaded with high priority');
-        } catch (error) {
-          console.warn('Failed to preload model:', error);
-        }
-      });
+    if (isClient && loadingStrategy === 'disabled') {
+      setIsModelLoading(false); // Skip loading on low-end devices
     }
-  }, []);
-
-  // Load 3D model as soon as client is ready
-  useEffect(() => {
-    if (isClient) {
-      setShouldLoadModel(true);
-    }
-  }, [isClient]);
+  }, [isClient, loadingStrategy]);
 
   // Update performance settings once client is ready
   useEffect(() => {
@@ -653,7 +640,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative w-full h-screen overflow-hidden">
+    <section ref={heroRef} className="relative w-full h-screen overflow-hidden">
       {/* Subtle Text Background */}
       <div className="absolute inset-0 z-0 pointer-events-none" style={{ opacity: 0.15 }}>
         <ScrollVelocity
@@ -736,14 +723,14 @@ export default function Hero() {
                 </>
               )}
 
-              {shouldLoadModel && (
-                <CharizardModel
-                  capabilities={capabilities}
-                  performanceSettings={performanceSettings}
-                  onError={() => setHasCanvasError(true)}
-                  onModelLoaded={() => setIsModelLoading(false)}
-                />
-              )}
+               {shouldLoadModel && isModelVisible && (
+                 <CharizardModel
+                   capabilities={capabilities}
+                   performanceSettings={performanceSettings}
+                   onError={() => setHasCanvasError(true)}
+                   onModelLoaded={() => setIsModelLoading(false)}
+                 />
+               )}
 
               {!capabilities.isLowEnd && (
                 <ContactShadows
@@ -863,8 +850,8 @@ export default function Hero() {
             <div className="relative h-64 sm:h-80 lg:h-full flex items-center justify-center pointer-events-none order-1 lg:order-2">
               {/* Canvas renders absolutely positioned behind this space */}
 
-              {/* 3D Model Loading Indicator - Shows until model is loaded */}
-              {isModelLoading && (
+               {/* 3D Model Loading Indicator - Shows until model is loaded or disabled */}
+               {isModelLoading && loadingStrategy !== 'disabled' && (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}

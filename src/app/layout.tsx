@@ -14,13 +14,17 @@ const geistSans = Geist({
   subsets: ["latin"],
   display: 'swap',
   preload: true,
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+  adjustFontFallback: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
   display: 'swap',
-  preload: false,
+  preload: false, // Don't preload monospace font
+  fallback: ['ui-monospace', 'SFMono-Regular', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
+  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = {
@@ -139,15 +143,21 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Critical resource hints - highest priority */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         
-        {/* Preload critical assets */}
-        <link rel="preload" href="/models/charizard.glb" as="fetch" crossOrigin="anonymous" />
-        <link rel="preload" href="/nishant-image.webp" as="image" />
-        <link rel="preload" href="/logo-light.png" as="image" />
+        {/* Preload only critical above-the-fold assets */}
+        <link rel="preload" href="/nishant-image.webp" as="image" fetchPriority="high" />
+        <link rel="preload" href="/logo-light.png" as="image" fetchPriority="high" />
+        
+        {/* Defer 3D model loading - load after critical content */}
+        <link rel="preload" href="/models/charizard.glb" as="fetch" crossOrigin="anonymous" fetchPriority="low" />
+        
+        {/* Performance monitoring script */}
+        <script src="/performance-monitor.js" defer></script>
         
         <meta name="format-detection" content="telephone=no" />
         <script
