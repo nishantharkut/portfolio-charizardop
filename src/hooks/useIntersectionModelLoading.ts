@@ -161,8 +161,10 @@ export function usePerformanceAwareModelLoading() {
     const isSlowConnection = connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g');
 
     // Determine loading strategy based on device capabilities
-    if (isSlowConnection || (isMobile && deviceMemory <= 2)) {
+    if (isSlowConnection) {
       setLoadingStrategy('disabled');
+    } else if (isMobile && deviceMemory <= 2) {
+      setLoadingStrategy('delayed'); // Changed from 'disabled' to 'delayed'
     } else if (isMobile || deviceMemory <= 4) {
       setLoadingStrategy('delayed');
     } else {
