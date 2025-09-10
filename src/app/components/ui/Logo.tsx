@@ -3,8 +3,6 @@
 import Image from 'next/image';
 import { useTheme } from '../../../contexts/ThemeContext';
 import { useState, useEffect } from 'react';
-import lightLogo from '../../../../public/nishantharkut-logo.png';
-import darkLogo from '../../../../public/nishantharkut-logo-lightbg.png';
 interface LogoProps {
   width?: number;
   height?: number;
@@ -37,8 +35,8 @@ export default function Logo({
   }
 
   const logoSrc = actualTheme === 'light' 
-    ? darkLogo
-    : lightLogo;
+    ? '/nishantharkut-logo-lightbg.png'
+    : '/nishantharkut-logo.png';
 
   if (imageError) {
     // Fallback to text if image fails
