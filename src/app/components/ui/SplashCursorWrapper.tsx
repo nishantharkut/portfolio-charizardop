@@ -65,9 +65,11 @@ function deviceEligibleForFX() {
 }
 
 export default function SplashCursorWrapper(props: SplashCursorWrapperProps) {
-  const [enabled, setEnabled] = useState<boolean | null>(null);
+  const [enabled, setEnabled] = useState(false); // Start with false to prevent hydration mismatch
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
+    setIsHydrated(true);
     // determine once on mount
     try {
       setEnabled(deviceEligibleForFX());
@@ -77,6 +79,7 @@ export default function SplashCursorWrapper(props: SplashCursorWrapperProps) {
     // no need to re-run on resize by default — keeps stability and avoids re-init bugs
   }, []);
 
-  if (enabled === null) return null; // avoid flicker
+  // Don't render until hydrated to prevent mismatch
+  if (!isHydrated) return null;
   return enabled ? <SplashCursorNoSSR {...props} /> : null;
 }

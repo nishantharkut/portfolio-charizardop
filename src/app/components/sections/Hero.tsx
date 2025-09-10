@@ -56,11 +56,7 @@ function useDeviceCapabilities() {
 
   // Memoize capabilities to prevent unnecessary re-renders
   const memoizedCapabilities = useMemo(() => capabilities, [
-    capabilities.isLowEnd,
-    capabilities.isMobile,
-    capabilities.supportsWebGL2,
-    capabilities.memoryLimit,
-    capabilities.maxTextureSize
+    capabilities,
   ]);
 
   return { capabilities: memoizedCapabilities, isClient };
@@ -75,7 +71,7 @@ function PerformanceController({ onPerformanceChange }: { onPerformanceChange: (
         onPerformanceChange({
           shadows: true,
           antialias: true,
-          pixelRatio: Math.min(window.devicePixelRatio, 2),
+          pixelRatio: typeof window !== 'undefined' ? Math.min(window.devicePixelRatio, 2) : 1,
           enableEffects: true
         });
       }}
@@ -279,7 +275,7 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
       // Center the model
       group.current.position.sub(center);
 
-      // Scale to reasonable size with more reliable scaling
+      // Scale to reasonable size with more reliable scaling (ORIGINAL LOGIC)
       const targetHeight = isMobileViewport ? 3.5 : 5.0;
       const currentHeight = size.y;
       
@@ -295,7 +291,7 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
         return;
       }
 
-      // Position the model with responsive positioning
+      // Position the model with responsive positioning (ORIGINAL LOGIC)
       if (isMobileViewport) {
         // Mobile positioning
         group.current.position.set(0, -0.8, 0);
@@ -304,7 +300,7 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
         group.current.position.set(3.25, -3, 0);
       }
 
-      // Start entrance animation from far away
+      // Start entrance animation from far away (ORIGINAL LOGIC)
       const startZ = -100;
       const startX = isMobileViewport ? 0 : 5.5;
       const startY = isMobileViewport ? 1.5 : -3;
@@ -320,7 +316,7 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
     }
 
 
-    // Entrance animation with responsive targets
+    // Entrance animation with responsive targets (ORIGINAL LOGIC)
     if (fitted && !hasEntered) {
       // Responsive target position
       const targetX = isMobileViewport ? 0 : 3.25;
@@ -476,14 +472,23 @@ export default function Hero() {
   const [isModelLoading, setIsModelLoading] = useState(true);
   const [shouldLoadModel, setShouldLoadModel] = useState(false);
 
-  // Preload the model to avoid sizing issues
+  // Enhanced model preloading with priority
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      // Preload the GLTF model
+      // Preload with higher priority using link element
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.href = '/models/charizard.glb';
+      link.as = 'fetch';
+      link.crossOrigin = 'anonymous';
+      link.setAttribute('fetchpriority', 'high');
+      document.head.appendChild(link);
+
+      // Also preload via useGLTF for Three.js cache
       import('@react-three/drei').then(({ useGLTF }) => {
         try {
           useGLTF.preload('/models/charizard.glb');
-          console.log('Charizard model preloaded');
+          console.log('Charizard model preloaded with high priority');
         } catch (error) {
           console.warn('Failed to preload model:', error);
         }
@@ -491,14 +496,10 @@ export default function Hero() {
     }
   }, []);
 
-  // Defer 3D model loading until after initial render for better performance
+  // Load 3D model as soon as client is ready
   useEffect(() => {
     if (isClient) {
-      const timer = setTimeout(() => {
-        setShouldLoadModel(true);
-      }, 100); // Small delay to let initial paint complete
-      
-      return () => clearTimeout(timer);
+      setShouldLoadModel(true);
     }
   }, [isClient]);
 
@@ -516,7 +517,6 @@ export default function Hero() {
 
   // Show GIF fallback for mobile devices (width <= 768px) - only after client is ready
   if (isClient && (capabilities.isMobile || (typeof window !== 'undefined' && window.innerWidth <= 768))) {
-    console.log('Showing mobile fallback, window width:', typeof window !== 'undefined' ? window.innerWidth : 'SSR');
     return (
       <section className="relative w-full h-screen overflow-hidden">
         {/* Subtle Text Background */}
@@ -647,37 +647,6 @@ export default function Hero() {
               ))}
             </motion.div>
           </div>
-          <style jsx>{`
-            .banner-scroll-container {
-              position: relative;
-              background: var(--color-accent);
-              color: var(--color-button-text);
-            }
-            
-            .banner-scroll-container::before {
-              content: '';
-              position: absolute;
-              left: 0;
-              top: 0;
-              width: 20px;
-              height: 100%;
-              background: linear-gradient(90deg, var(--color-accent), transparent);
-              z-index: 1;
-              pointer-events: none;
-            }
-            
-            .banner-scroll-container::after {
-              content: '';
-              position: absolute;
-              right: 0;
-              top: 0;
-              width: 20px;
-              height: 100%;
-              background: linear-gradient(-90deg, var(--color-accent), transparent);
-              z-index: 1;
-              pointer-events: none;
-            }
-          `}</style>
         </motion.div>
       </section>
     );
@@ -964,37 +933,7 @@ export default function Hero() {
             ))}
           </motion.div>
         </div>
-        <style jsx>{`
-          .banner-scroll-container {
-            position: relative;
-            background: var(--color-accent);
-            color: var(--color-button-text);
-          }
-          
-          .banner-scroll-container::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 20px;
-            height: 100%;
-            background: linear-gradient(90deg, var(--color-accent), transparent);
-            z-index: 1;
-            pointer-events: none;
-          }
-          
-          .banner-scroll-container::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 20px;
-            height: 100%;
-            background: linear-gradient(-90deg, var(--color-accent), transparent);
-            z-index: 1;
-            pointer-events: none;
-          }
-        `}</style>
+        
       </motion.div>
     </section>
   );

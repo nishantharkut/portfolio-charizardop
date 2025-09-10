@@ -23,7 +23,7 @@ const nextConfig: NextConfig = {
     domains: [],
   },
   
-  // Webpack optimizations
+  // Enhanced webpack optimizations
   webpack: (config, { dev, isServer }) => {
     // Production optimizations
     if (!dev && !isServer) {
@@ -31,21 +31,45 @@ const nextConfig: NextConfig = {
         ...config.optimization,
         splitChunks: {
           chunks: 'all',
+          maxInitialRequests: 30,
+          maxAsyncRequests: 30,
           cacheGroups: {
-            vendor: {
-              test: /[\\/]node_modules[\\/]/,
-              name: 'vendors',
+            react: {
+              test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+              name: 'react',
               chunks: 'all',
+              priority: 30,
+            },
+            next: {
+              test: /[\\/]node_modules[\\/]next[\\/]/,
+              name: 'next',
+              chunks: 'all',
+              priority: 25,
             },
             animations: {
               test: /[\\/](gsap|framer-motion)[\\/]/,
               name: 'animations',
               chunks: 'all',
+              priority: 20,
             },
             webgl: {
-              test: /[\\/](ogl|three)[\\/]/,
+              test: /[\\/](ogl|three|@react-three)[\\/]/,
               name: 'webgl',
               chunks: 'all',
+              priority: 20,
+            },
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendors',
+              chunks: 'all',
+              priority: 10,
+            },
+            common: {
+              name: 'common',
+              minChunks: 2,
+              chunks: 'all',
+              priority: 5,
+              reuseExistingChunk: true,
             },
           },
         },
@@ -61,15 +85,18 @@ const nextConfig: NextConfig = {
     return config;
   },
   
-  // Experimental features for performance
+  // Enhanced experimental features for performance
   experimental: {
-    optimizePackageImports: ['gsap', 'framer-motion', 'ogl'],
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
+    optimizePackageImports: ['gsap', 'framer-motion', 'ogl', '@react-three/fiber', '@react-three/drei'],
+    scrollRestoration: true,
+  },
+  
+  // Turbopack configuration (moved from experimental)
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
       },
     },
   },

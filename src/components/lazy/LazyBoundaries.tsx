@@ -261,8 +261,13 @@ export function ConditionalWebGL({
   fallback?: React.ReactNode; 
 }) {
   const [canUseWebGL, setCanUseWebGL] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
+    setIsHydrated(true);
+    
+    if (typeof window === 'undefined') return;
+    
     // Check WebGL support
     const canvas = document.createElement('canvas');
     const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
@@ -276,6 +281,11 @@ export function ConditionalWebGL({
       setCanUseWebGL(!isLowEnd);
     }
   }, []);
+
+  // Show fallback during SSR and before hydration to prevent mismatch
+  if (!isHydrated) {
+    return <>{fallback}</>;
+  }
 
   return canUseWebGL ? <>{children}</> : <>{fallback}</>;
 }

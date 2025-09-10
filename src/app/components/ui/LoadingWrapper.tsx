@@ -13,9 +13,11 @@ export default function LoadingWrapper({ children }: { children: React.ReactNode
     finishInitialLoading
   } = useLoading();
 
-  const [isReturningVisitor, setIsReturningVisitor] = useState<boolean | null>(null);
+  const [isReturningVisitor, setIsReturningVisitor] = useState(false); // Start with false to prevent hydration mismatch
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
+    setIsHydrated(true);
     if (typeof window !== 'undefined') {
       try {
         const hasVisited = sessionStorage.getItem('hasVisited');
@@ -27,9 +29,8 @@ export default function LoadingWrapper({ children }: { children: React.ReactNode
     }
   }, []);
 
-  // Don't render loading screens until we know if it's a returning visitor
-  // This prevents hydration mismatches
-  const shouldShowInitialLoading = isInitialLoading && isReturningVisitor !== null;
+  // Only show loading screens after hydration to prevent mismatches
+  const shouldShowInitialLoading = isInitialLoading && isHydrated;
 
   const handleVideoComplete = () => {
     setVideoComplete(true);

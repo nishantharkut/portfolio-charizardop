@@ -5,15 +5,18 @@ import { performanceManager } from '@/utils/performance';
 
 export default function PerformanceIndicator() {
   const [settings, setSettings] = useState<any>(null);
+  const [isHydrated, setIsHydrated] = useState(false);
   
   useEffect(() => {
+    setIsHydrated(true);
     // Only run on client side to prevent hydration mismatch
     if (typeof window !== 'undefined') {
       setSettings(performanceManager.getOptimalSettings());
     }
   }, []);
   
-  if (process.env.NODE_ENV !== 'development' || !settings) {
+  // Don't render until hydrated to prevent mismatch
+  if (!isHydrated || process.env.NODE_ENV !== 'development' || !settings) {
     return null;
   }
 

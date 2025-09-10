@@ -7,20 +7,25 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { LoadingProvider } from "./contexts/LoadingContext";
 import LoadingWrapper from "./components/ui/LoadingWrapper";
+import ServiceWorkerRegistration from "./components/ServiceWorkerRegistration";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: 'swap',
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: 'swap',
+  preload: false,
 });
 
 export const metadata: Metadata = {
   title: {
-    default: 'Nishant Harkut - IIIT Gwalior Student | Full Stack Developer Portfolio',
+    default: 'Nishant Harkut',
     template: '%s | Nishant Harkut'
   },
   description: 'Nishant Harkut is a 3rd year BTech IT student at IIIT Gwalior specializing in full stack development, MERN stack, GenAI, and Agentic AI. Looking for internships in software engineering and web development.',
@@ -138,6 +143,12 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        
+        {/* Preload critical assets */}
+        <link rel="preload" href="/models/charizard.glb" as="fetch" crossOrigin="anonymous" />
+        <link rel="preload" href="/nishant-image.webp" as="image" />
+        <link rel="preload" href="/logo-light.png" as="image" />
+        
         <meta name="format-detection" content="telephone=no" />
         <script
           type="application/ld+json"
@@ -201,6 +212,7 @@ export default function RootLayout({
             <ThemeProvider>
               <LoadingProvider>
                 <LoadingWrapper>
+                  <ServiceWorkerRegistration />
                   {children}
                 </LoadingWrapper>
               </LoadingProvider>
