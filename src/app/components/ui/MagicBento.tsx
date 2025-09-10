@@ -743,7 +743,7 @@ const cardData: BentoCardProps[] = [
   {
     id: "experience",
     title: "Experience",
-    description: "3+ years in full-stack development and creative design",
+    description: "1+ years in full-stack development and creative design",
     icon: <BriefcaseIcon className="w-5 h-5" />,
     className: "bento-card--experience",
     content: <ExperienceContent />,

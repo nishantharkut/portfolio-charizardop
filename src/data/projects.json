@@ -24,7 +24,7 @@
       "title": "Hogwarts OS",
       "category": "Themed OS / Linux Distribution",
       "shortDescription": "A Harry-Potter–themed Linux Mint based OS and modular toolset — immersive UI, gamification, and AI-powered assistant.",
-      "fullDescription": "Hogwarts OS reimagines the desktop experience with house-based personalization, spell-based terminal commands, an Electron-based Marauder’s Map file explorer, AI-powered portrait assistant, and gamification layers (XP, house points). It ships both as a full ISO distribution and modular installable components for Linux Mint.",
+      "fullDescription": "Hogwarts OS reimagines the desktop experience with house-based personalization, spell-based terminal commands, an Electron-based Marauder's Map file explorer, AI-powered portrait assistant, and gamification layers (XP, house points). It ships both as a full ISO distribution and modular installable components for Linux Mint.",
       "techStack": ["Linux Mint (Cinnamon)", "Electron", "Node.js", "Python", "Shell scripting", "GTK/GDM customizations"],
       "implementation": [
         "Full ISO build based on Linux Mint Cinnamon with branded boot and desktop customizations",
@@ -40,25 +40,6 @@
     },
     {
       "id": 3,
-      "title": "BookSwap",
-      "category": "Mobile App (Android)",
-      "shortDescription": "Campus-focused Android app for peer-to-peer book exchanges with listings, auctions, and real-time chat.",
-      "fullDescription": "BookSwap is an Android application built to facilitate textbook and novel exchange within college campuses. It supports user authentication, book listings (including auctions and timers), image uploads via Cloudinary, and one-to-one real-time messaging between buyers and sellers using Firebase services.",
-      "techStack": ["Java", "Android (XML layouts)", "MVVM", "Firebase Authentication", "Cloud Firestore", "Realtime Database", "Cloudinary", "LiveData", "Picasso"],
-      "implementation": [
-        "MVVM-structured Android app with Activities & Fragments for core screens",
-        "Authentication and user management with Firebase Authentication",
-        "Book listings stored in Firestore with images hosted on Cloudinary",
-        "Real-time one-to-one chat implemented using Firebase Realtime Database",
-        "Auction-style listings with timer UI and profile management"
-      ],
-      "liveLink": "",
-      "githubLink": "https://github.com/nishantharkut/BookSwap",
-      "image": "/images/bookswap.jpg",
-      "featured": false
-    },
-    {
-      "id": 4,
       "title": "GlobeTrotter",
       "category": "AI Powered Travel Planning Platform",
       "shortDescription": "Intelligent, collaborative travel planner with AI itinerary generation, budgeting tools, and visual trip sharing.",
@@ -80,7 +61,7 @@
       "featured": true
     },
     {
-      "id": 5,
+      "id": 4,
       "title": "NoobsterDSA",
       "category": "Web App / Productivity",
       "shortDescription": "A productivity web app to log, track, and analyze DSA and competitive programming practice.",
@@ -96,6 +77,25 @@
       "liveLink": "https://noobster-dsa.vercel.app",
       "githubLink": "https://github.com/nishantharkut/Noobster-DSA",
       "image": "/images/NoobsterDSA.jpg"
+    },
+    {
+      "id": 5,
+      "title": "BookSwap",
+      "category": "Mobile App (Android)",
+      "shortDescription": "Campus-focused Android app for peer-to-peer book exchanges with listings, auctions, and real-time chat.",
+      "fullDescription": "BookSwap is an Android application built to facilitate textbook and novel exchange within college campuses. It supports user authentication, book listings (including auctions and timers), image uploads via Cloudinary, and one-to-one real-time messaging between buyers and sellers using Firebase services.",
+      "techStack": ["Java", "Android (XML layouts)", "MVVM", "Firebase Authentication", "Cloud Firestore", "Realtime Database", "Cloudinary", "LiveData", "Picasso"],
+      "implementation": [
+        "MVVM-structured Android app with Activities & Fragments for core screens",
+        "Authentication and user management with Firebase Authentication",
+        "Book listings stored in Firestore with images hosted on Cloudinary",
+        "Real-time one-to-one chat implemented using Firebase Realtime Database",
+        "Auction-style listings with timer UI and profile management"
+      ],
+      "liveLink": "",
+      "githubLink": "https://github.com/nishantharkut/BookSwap",
+      "image": "/images/bookswap.jpg",
+      "featured": false
     }
   ]
 }

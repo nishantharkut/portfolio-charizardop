@@ -90,7 +90,15 @@ export default function AchievementsPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold mb-6 drop-shadow-2xl" style={{ color: 'var(--color-text)' }}>
-              My <span className="text-orange-500">Achievements</span>
+              My <span className="relative">
+                <span className="text-orange-500">Achievements</span>
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 1.2 }}
+                  className="absolute bottom-1 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-orange-600 origin-left"
+                />
+              </span>
             </h1>
             <p className="text-lg md:text-xl max-w-2xl mx-auto mb-8 drop-shadow-lg" style={{ color: 'var(--color-text-secondary)' }}>
               A showcase of milestones, awards, and recognition that mark my journey as a creative technologist

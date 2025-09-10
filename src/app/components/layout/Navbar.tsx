@@ -3,9 +3,11 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useTheme } from '../../../contexts/ThemeContext';
 import { getNavigationLinks } from '../../../data';
+import { downloadResume } from '../../../utils/resume';
+import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 import Logo from '../ui/Logo';
 
 export default function Navbar() {
@@ -13,6 +15,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { actualTheme, toggleTheme } = useTheme();
   const pathname = usePathname();
+  const router = useRouter();
 
   // Function to check if link is active
   const isActiveLink = (href: string) => {
@@ -28,9 +31,20 @@ export default function Navbar() {
       const contactSection = document.getElementById('contact');
       contactSection?.scrollIntoView({ behavior: 'smooth' });
     } else {
-      // If on other pages, navigate to home page contact section
-      window.location.href = '/#contact';
+      // If on other pages, navigate to home page and then scroll to contact
+      router.push('/');
+      // Wait for navigation to complete, then scroll to contact
+      setTimeout(() => {
+        const contactSection = document.getElementById('contact');
+        contactSection?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
     }
+  };
+
+  // Function to handle download resume
+  const handleDownloadResume = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    downloadResume();
   };
 
   return (
@@ -113,6 +127,28 @@ export default function Navbar() {
                   <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
                 </svg>
               )}
+            </button>
+
+            {/* Download Resume Button */}
+            <button
+              onClick={handleDownloadResume}
+              className="flex items-center justify-center w-8 xl:w-10 h-8 xl:h-10 transition-all duration-300 border-2"
+              aria-label="Download Resume"
+              style={{
+                backgroundColor: 'var(--color-accent)',
+                borderColor: 'var(--color-text)',
+                boxShadow: '3px 3px 0px 0px var(--shadow-neubrutalism)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.transform = 'translate(3px, 3px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism)';
+                e.currentTarget.style.transform = 'translate(0px, 0px)';
+              }}
+            >
+              <ArrowDownTrayIcon className="w-4 h-4" style={{ color: 'var(--color-button-text)' }} />
             </button>
             
             <button 
@@ -202,6 +238,28 @@ export default function Navbar() {
                   <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
                 </svg>
               )}
+            </button>
+
+            {/* Download Resume Button Mobile */}
+            <button
+              onClick={handleDownloadResume}
+              className="flex items-center justify-center w-8 h-8 transition-all duration-300 border-2"
+              aria-label="Download Resume"
+              style={{
+                backgroundColor: 'var(--color-accent)',
+                borderColor: 'var(--color-text)',
+                boxShadow: '2px 2px 0px 0px var(--shadow-neubrutalism)'
+              }}
+              onTouchStart={(e) => {
+                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.transform = 'translate(2px, 2px)';
+              }}
+              onTouchEnd={(e) => {
+                e.currentTarget.style.boxShadow = '2px 2px 0px 0px var(--shadow-neubrutalism)';
+                e.currentTarget.style.transform = 'translate(0px, 0px)';
+              }}
+            >
+              <ArrowDownTrayIcon className="w-4 h-4" style={{ color: 'var(--color-button-text)' }} />
             </button>
             
             {/* Mobile Menu Toggle */}

@@ -649,7 +649,7 @@ export default function ExperiencePage() {
       </section>
 
       {/* Career Highlights Section */}
-      <section className="relative z-10 py-20 px-4">
+      {/* <section className="relative z-10 py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -664,10 +664,10 @@ export default function ExperiencePage() {
             <p className="text-base sm:text-lg max-w-2xl mx-auto px-4" style={{ color: 'var(--color-text-secondary)' }}>
               Key metrics and achievements throughout my professional journey
             </p>
-          </motion.div>
+          </motion.div> */}
 
           {/* Mobile View - Simple Grid */}
-          <div className="block md:hidden">
+          {/* <div className="block md:hidden">
             <div className="grid grid-cols-1 gap-6">
               {highlights.map((stat, index) => {
                 const IconComponent = iconMap[stat.icon as keyof typeof iconMap];
@@ -680,9 +680,9 @@ export default function ExperiencePage() {
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     whileHover={{ scale: 1.02 }}
                     className="h-full"
-                  >
+                  > */}
                     {/* Neubrutalism Career Highlights Card - Mobile */}
-                    <div className="relative w-full h-[260px] neubrutalism-card"
+                    {/* <div className="relative w-full h-[260px] neubrutalism-card"
                       style={{
                         backgroundColor: 'var(--color-surface)',
                         borderColor: 'var(--color-accent)',
@@ -707,10 +707,10 @@ export default function ExperiencePage() {
                 );
               })}
             </div>
-          </div>
+          </div> */}
 
           {/* Desktop/Tablet View */}
-          <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {highlights.map((stat, index) => {
               const IconComponent = iconMap[stat.icon as keyof typeof iconMap];
               return (
@@ -721,9 +721,9 @@ export default function ExperiencePage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="h-full"
-                >
+                > */}
                   {/* Neubrutalism Career Highlights Card - Desktop */}
-                  <div className="relative w-full h-[280px] neubrutalism-card"
+                  {/* <div className="relative w-full h-[280px] neubrutalism-card"
                     style={{
                       backgroundColor: 'var(--color-surface)',
                       borderColor: 'var(--color-accent)',
@@ -749,7 +749,7 @@ export default function ExperiencePage() {
             })}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Technologies Evolution Section */}
       {/* <section className="relative z-10 py-20 px-4">
@@ -839,7 +839,7 @@ export default function ExperiencePage() {
             <p className="text-base sm:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto px-4" style={{ color: 'var(--color-text-secondary)' }}>
               Let's bring your next project to life with innovative technology and creative design
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4">
               <Link 
                 href="/projects"
                 className="px-6 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center gap-2 text-sm w-fit"
