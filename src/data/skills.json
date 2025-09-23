@@ -118,7 +118,6 @@
         "REST",
         "GraphQL",
         "FastAPI",
-        "gRPC",
         "WebSockets"
       ]
     },

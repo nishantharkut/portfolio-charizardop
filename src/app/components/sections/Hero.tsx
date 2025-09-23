@@ -19,7 +19,8 @@ function useDeviceCapabilities() {
     isMobile: false,
     supportsWebGL2: false,
     memoryLimit: 4000, // Default to 4GB for SSR
-    maxTextureSize: 1024
+    maxTextureSize: 1024,
+    devicePixelRatio: 1 // Default for SSR
   });
   const [isClient, setIsClient] = useState(false);
 
@@ -51,7 +52,8 @@ function useDeviceCapabilities() {
       isMobile,
       supportsWebGL2,
       memoryLimit: deviceMemory * 1000,
-      maxTextureSize: Math.min(maxTextureSize, isLowEnd ? 512 : 2048)
+      maxTextureSize: Math.min(maxTextureSize, isLowEnd ? 512 : 2048),
+      devicePixelRatio: window.devicePixelRatio || 1
     });
   }, []);
 
@@ -72,7 +74,7 @@ function PerformanceController({ onPerformanceChange }: { onPerformanceChange: (
         onPerformanceChange({
           shadows: true,
           antialias: true,
-          pixelRatio: typeof window !== 'undefined' ? Math.min(window.devicePixelRatio, 2) : 1,
+          pixelRatio: Math.min(typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1, 2),
           enableEffects: true
         });
       }}
@@ -121,8 +123,8 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
   const [isModelLoaded, setIsModelLoaded] = useState(false);
   const { gl, size, viewport } = useThree();
 
-  // Use viewport from Three.js for more reliable mobile detection
-  const isMobileViewport = viewport.width < 8; // Three.js viewport units (roughly 768px)
+  // Note: This component only runs on desktop since mobile uses GIF fallback
+  // No mobile detection needed here - this is desktop-only code
 
   // Reset states when scene changes (for navigation/reload scenarios)
   useEffect(() => {
@@ -130,13 +132,11 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
       setFitted(false);
       setHasEntered(false);
       setIdleTime(0);
+      frameSkip.current = 0;
       
-      // Add a small delay to ensure scene is fully ready before allowing fitting
-      const timer = setTimeout(() => {
-        console.log('Scene ready for fitting');
-      }, 100);
-      
-      return () => clearTimeout(timer);
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Scene loaded - preparing for deterministic setup');
+      }
     }
   }, [scene]);
 
@@ -152,12 +152,16 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
       });
       
       if (hasGeometry) {
-        console.log('Model loaded with geometry');
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Model loaded with geometry');
+        }
         setModelReady(true);
         setIsModelLoaded(true);
         onModelLoaded?.();
       } else {
-        console.warn('Scene loaded but no geometry found');
+        if (process.env.NODE_ENV === 'development') {
+          console.warn('Scene loaded but no geometry found');
+        }
       }
     }
   }, [scene, modelReady, onModelLoaded]);
@@ -225,122 +229,56 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
     return true;
   }, []);
 
+  // Immediate setup when model is ready - no frame delays
+  useEffect(() => {
+    if (scene && modelReady && group.current && !fitted) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Immediate Charizard setup for desktop...');
+      }
+      
+      // ABSOLUTELY FIXED VALUES - NO CALCULATIONS
+      const SCALE = 2.8; // Increased for better zoom level
+      const START_POSITION = { x: 4.75, y: -1.5, z: -60 };
+      
+      // Apply immediately - no delays, no conditions
+      group.current.scale.setScalar(SCALE);
+      group.current.position.set(START_POSITION.x, START_POSITION.y, START_POSITION.z);
+      group.current.rotation.set(0, -0.2, 0);
+      
+      setFitted(true);
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`Immediate setup complete - Scale: ${SCALE}, Start: [${START_POSITION.x}, ${START_POSITION.y}, ${START_POSITION.z}]`);
+      }
+    }
+  }, [scene, modelReady, fitted]);
+
   useFrame((state) => {
     if (!group.current || !shouldUpdateFrame() || !scene || !modelReady) return;
 
-    // Auto-fit on first frame - ensure model is properly loaded first
-    if (!fitted && scene && group.current.children.length > 0) {
-      console.log('Attempting to fit Charizard model...');
-      
-      // Wait a few frames to ensure the model is fully rendered
-      const frameDelay = 10; // Increased delay for better stability
-      frameSkip.current++;
-      if (frameSkip.current < frameDelay) {
-        return;
-      }
-      
-      // Calculate bounding box multiple times to ensure stability
-      let validBox = false;
-      let attempts = 0;
-      let box: THREE.Box3;
-      let size = new THREE.Vector3();
-      
-      while (!validBox && attempts < 5) { // Increased attempts
-        box = new THREE.Box3().setFromObject(group.current);
-        box.getSize(size);
-        
-        // Check if we have reasonable dimensions (not too small, not too large)
-        const length = size.length();
-        if (length > 0.5 && length < 50) { // Adjusted bounds
-          validBox = true;
-          console.log('Valid bounding box found:', { width: size.x, height: size.y, depth: size.z });
-        } else {
-          console.warn(`Invalid bounding box attempt ${attempts + 1}:`, { length, size: size.toArray() });
-          attempts++;
-          // Small delay between attempts
-          if (attempts < 5) {
-            return; // Try again next frame
-          }
-        }
-      }
-      
-      if (!validBox) {
-        console.error('Failed to get valid bounding box after 5 attempts, will retry next frame');
-        frameSkip.current = 0; // Reset frame skip to try again
-        return;
-      }
 
-      const center = new THREE.Vector3();
-      box!.getCenter(center);
-
-      // Center the model
-      group.current.position.sub(center);
-
-      // Scale to reasonable size with more reliable scaling (ORIGINAL LOGIC)
-      const targetHeight = isMobileViewport ? 3.5 : 5.0;
-      const currentHeight = size.y;
-      
-      if (currentHeight > 0.1) { // Ensure minimum height
-        const scale = targetHeight / currentHeight;
-        // Clamp scale to reasonable bounds to prevent extreme scaling
-        const clampedScale = Math.max(0.5, Math.min(5, scale)); // Tighter bounds
-        group.current.scale.setScalar(clampedScale);
-        console.log(`Model scaled by factor: ${clampedScale} (original: ${scale}), target height: ${targetHeight}, current: ${currentHeight}`);
-      } else {
-        console.error('Model has insufficient height, cannot scale');
-        frameSkip.current = 0; // Reset to try again
-        return;
-      }
-
-      // Position the model with responsive positioning (ORIGINAL LOGIC)
-      if (isMobileViewport) {
-        // Mobile positioning
-        group.current.position.set(0, -0.8, 0);
-      } else {
-        // Desktop positioning
-        group.current.position.set(3.25, -3, 0);
-      }
-
-      // Start entrance animation from far away (ORIGINAL LOGIC)
-      const startZ = -100;
-      const startX = isMobileViewport ? 0 : 5.5;
-      const startY = isMobileViewport ? 1.5 : -3;
-      
-      group.current.position.z = startZ;
-      group.current.position.x = startX;
-      group.current.position.y = startY;
-      group.current.rotation.y = -0.2;
-
-      setFitted(true);
-      frameSkip.current = 0; // Reset frame skip counter
-      console.log('Model fitted successfully');
-    }
-
-
-    // Entrance animation with responsive targets (ORIGINAL LOGIC)
+    // Entrance animation with fixed constants
     if (fitted && !hasEntered) {
-      // Responsive target position
-      const targetX = isMobileViewport ? 0 : 3.25;
-      const targetY = isMobileViewport ? -0.8 : -3;
-      const targetZ = 0;
-      const targetRotY = 0;
+      // Use exact same constants as setup
+      const TARGET = { x: 3.25, y: -2.5, z: 0 };
+      const TARGET_ROT = 0;
+      
+      // Fast, consistent lerp
+      const lerp = 0.06;
+      group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, TARGET.x, lerp);
+      group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, TARGET.y, lerp);
+      group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, TARGET.z, lerp);
+      group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, TARGET_ROT, lerp);
 
-      // Smooth movement to target with increased speed
-      group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, targetX, 0.06);
-      group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, targetY, 0.05);
-      group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, targetZ, 0.04);
-      group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, targetRotY, 0.06);
-
-      // Check if arrived with more lenient threshold
-      const distance = Math.sqrt(
-        Math.pow(group.current.position.x - targetX, 2) +
-        Math.pow(group.current.position.y - targetY, 2) +
-        Math.pow(group.current.position.z - targetZ, 2)
-      );
-
-      if (distance < 0.5) { // Increased threshold for more reliable detection
+      // Simple distance check
+      const dist = group.current.position.distanceTo(new THREE.Vector3(TARGET.x, TARGET.y, TARGET.z));
+      if (dist < 0.1) {
+        // Snap to exact position
+        group.current.position.set(TARGET.x, TARGET.y, TARGET.z);
+        group.current.rotation.y = TARGET_ROT;
         setHasEntered(true);
-        console.log('Model entrance animation complete');
+        if (process.env.NODE_ENV === 'development') {
+          console.log(`Entrance complete - Fixed at: [${TARGET.x}, ${TARGET.y}, ${TARGET.z}]`);
+        }
       }
     }
 
@@ -373,42 +311,19 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
         }
       }
 
-      // Gentle floating with increased speed for more lively animation
-      const floatAmplitude = capabilities.isLowEnd ? 0.05 : 0.15;
-      const floatSpeed = capabilities.isLowEnd ? 1.0 : 1.5;
-      const baseY = isMobileViewport ? -0.8 : -3;
-      group.current.position.y = baseY + Math.sin(state.clock.elapsedTime * floatSpeed) * floatAmplitude;
+      // Gentle floating with exact base position
+      const floatAmplitude = capabilities.isLowEnd ? 0.04 : 0.08; // Reduced amplitude
+      const floatSpeed = 1.2; // Fixed speed
+      
+      // Use exact same Y as target position
+      const BASE_Y = -2.5;
+      
+      group.current.position.y = BASE_Y + Math.sin(state.clock.elapsedTime * floatSpeed) * floatAmplitude;
     }
   });
 
-  // Force re-fit if model becomes invalid (add safety check)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (group.current && scene && fitted && hasEntered) {
-        const box = new THREE.Box3().setFromObject(group.current);
-        const size = new THREE.Vector3();
-        box.getSize(size);
-        
-        // If model becomes too small or has invalid scale, reset fitting
-        const currentScale = group.current.scale.x;
-        const sizeLength = size.length();
-        
-        if (sizeLength < 1 || currentScale < 0.01 || currentScale > 50) {
-          console.warn('Model became invalid, resetting...', { 
-            sizeLength, 
-            currentScale, 
-            position: group.current.position.toArray(),
-            scale: group.current.scale.toArray()
-          });
-          setFitted(false);
-          setHasEntered(false);
-          frameSkip.current = 0;
-        }
-      }
-    }, 3000); // Check every 3 seconds
-
-    return () => clearInterval(interval);
-  }, [scene, fitted, hasEntered]);
+  // Remove the safety check interval to prevent re-fitting and zoom inconsistency
+  // The model should maintain its scale once properly fitted
 
   // Don't render anything if there's no scene
   if (!scene) {
@@ -444,11 +359,15 @@ function CharizardFallback() {
             }}
             loading="eager"
             onLoad={() => {
-              console.log('Charizard GIF loaded successfully');
+              if (process.env.NODE_ENV === 'development') {
+                console.log('Charizard GIF loaded successfully');
+              }
               // Don't call setModelLoaded - let page load independently
             }}
             onError={() => {
-              console.error('Failed to load Charizard GIF');
+              if (process.env.NODE_ENV === 'development') {
+                console.error('Failed to load Charizard GIF');
+              }
               // Don't call setModelLoaded - let page load independently
             }}
           />
@@ -481,14 +400,9 @@ export default function Hero() {
     enableEffects: false
   });
   const [hasCanvasError, setHasCanvasError] = useState(false);
-  const [isModelLoading, setIsModelLoading] = useState(true);
+  const [modelLoaded, setModelLoaded] = useState(false);
 
-  // Load 3D model based on intersection observer and performance strategy
-  useEffect(() => {
-    if (isClient && loadingStrategy === 'disabled') {
-      setIsModelLoading(false); // Skip loading on low-end devices
-    }
-  }, [isClient, loadingStrategy]);
+
 
   // Update performance settings once client is ready
   useEffect(() => {
@@ -496,20 +410,20 @@ export default function Hero() {
       setPerformanceSettings({
         shadows: !capabilities.isLowEnd,
         antialias: !capabilities.isLowEnd,
-        pixelRatio: capabilities.isLowEnd ? 1 : (typeof window !== 'undefined' ? Math.min(window.devicePixelRatio, 2) : 1),
+        pixelRatio: capabilities.isLowEnd ? 1 : Math.min(capabilities.devicePixelRatio || 1, 2),
         enableEffects: !capabilities.isLowEnd
       });
     }
   }, [isClient, capabilities.isLowEnd]);
 
-  // Show GIF fallback for mobile devices (width <= 768px) - only after client is ready
-  if (isClient && (capabilities.isMobile || (typeof window !== 'undefined' && window.innerWidth <= 768))) {
+  // Show GIF fallback for mobile devices - only after client is ready and capabilities are determined
+  if (isClient && capabilities.isMobile) {
     return (
       <section className="relative w-full h-screen overflow-hidden">
         {/* Subtle Text Background */}
         <div className="absolute inset-0 z-0 pointer-events-none" style={{ opacity: 0.15 }}>
           <ScrollVelocity
-            texts={["EXPERIENCE", "INNOVATION", "LEADERSHIP", "DEVELOPMENT"]}
+            texts={["EXPERIENCE", "COFFEE", "CREATIVITY", "DEVELOPMENT"]}
             velocity={30}
             className="font-bold text-4xl md:text-6xl"
             scrollerStyle={{ color: 'var(--color-text)', opacity: 0.2 }}
@@ -531,7 +445,7 @@ export default function Hero() {
                 transition={{ duration: 0.9, ease: 'easeOut' }}
                 className="flex flex-col justify-center h-full lg:col-span-7 order-2 lg:order-1 max-w-2xl mx-auto lg:mx-0"
               >
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight tracking-tight mb-4 sm:mb-6 text-center lg:text-left">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight tracking-tight mb-4 sm:mb-6 text-center lg:text-left">
                   <span className="block">{heroData.badge}</span>
                   <span className="block text-gradient-fire">{heroData.name}</span>
                 </h1>
@@ -659,7 +573,9 @@ export default function Hero() {
         {!hasCanvasError ? (
           <ErrorBoundary
             onError={(error) => {
-              console.error('Canvas ErrorBoundary caught error:', error);
+              if (process.env.NODE_ENV === 'development') {
+                console.error('Canvas ErrorBoundary caught error:', error);
+              }
               setHasCanvasError(true);
             }}
             fallback={
@@ -691,7 +607,9 @@ export default function Hero() {
                 // Handle WebGL context loss
                 const canvas = gl.domElement;
                 canvas.addEventListener('webglcontextlost', (e) => {
-                  console.warn('WebGL context lost, switching to fallback');
+                  if (process.env.NODE_ENV === 'development') {
+                    console.warn('WebGL context lost, switching to fallback');
+                  }
                   e.preventDefault();
                   setHasCanvasError(true);
                 });
@@ -700,7 +618,13 @@ export default function Hero() {
               <AdaptiveDpr pixelated />
               <PerformanceController onPerformanceChange={setPerformanceSettings} />
 
-              <PerspectiveCamera makeDefault position={[0, 0, 10]} fov={50} />
+              <PerspectiveCamera 
+                makeDefault 
+                position={[0, 0, 12]} 
+                fov={45} 
+                near={0.1} 
+                far={1000}
+              />
 
               {/* Adaptive Lighting */}
               <ambientLight intensity={capabilities.isLowEnd ? 0.8 : 0.6} />
@@ -728,7 +652,9 @@ export default function Hero() {
                    capabilities={capabilities}
                    performanceSettings={performanceSettings}
                    onError={() => setHasCanvasError(true)}
-                   onModelLoaded={() => setIsModelLoading(false)}
+                   onModelLoaded={() => {
+                     setModelLoaded(true);
+                   }}
                  />
                )}
 
@@ -764,13 +690,13 @@ export default function Hero() {
             </Canvas>
           </ErrorBoundary>
         ) : (
-          /* Fallback when Canvas has errors - positioned on the right side where 3D model should be */
+          /* Canvas error fallback - no loader needed here */
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-1/2 right-8 md:right-16 lg:right-24 -translate-y-1/2 text-center text-white/70">
-              <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 bg-orange-500/20 rounded-full flex items-center justify-center">
-                <div className="w-6 h-6 md:w-8 md:h-8 bg-orange-500 rounded animate-pulse"></div>
+            <div className="absolute top-1/2 right-8 md:right-16 lg:right-24 -translate-y-1/2 text-center text-white/50">
+              <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 bg-red-500/20 rounded-full flex items-center justify-center">
+                <div className="w-6 h-6 md:w-8 md:h-8 bg-red-500 rounded opacity-50"></div>
               </div>
-              <p className="text-xs md:text-sm font-medium">3D Model Loading...</p>
+              <p className="text-xs md:text-sm font-medium opacity-70">3D Error</p>
             </div>
           </div>
         )}        {/* Ambient glow behind model - restore original positioning */}
@@ -788,7 +714,7 @@ export default function Hero() {
               transition={{ duration: 0.9, ease: 'easeOut' }}
               className="flex flex-col justify-center h-full max-w-xl order-2 lg:order-1"
             >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-4 sm:mb-6 text-center lg:text-left" style={{ color: 'var(--color-text)' }}>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight tracking-tight mb-4 sm:mb-6 text-center lg:text-left" style={{ color: 'var(--color-text)' }}>
                 <span className="block">{heroData.badge}</span>
                 <span className="block text-gradient-fire">{heroData.name}</span>
               </h1>
@@ -850,34 +776,187 @@ export default function Hero() {
             <div className="relative h-64 sm:h-80 lg:h-full flex items-center justify-center pointer-events-none order-1 lg:order-2">
               {/* Canvas renders absolutely positioned behind this space */}
 
-               {/* 3D Model Loading Indicator - Shows until model is loaded or disabled */}
-               {isModelLoading && loadingStrategy !== 'disabled' && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="absolute inset-0 flex items-center justify-center z-20"
-                >
-                  <div className="text-center text-white/70">
+               {/* Pixel Charizard 3D Model Loading Indicator - Desktop Only */}
+               <motion.div
+                 initial={{ opacity: 0, scale: 0.8 }}
+                 animate={{ 
+                   opacity: isClient && loadingStrategy !== 'disabled' && shouldLoadModel && !modelLoaded ? 1 : 0,
+                   scale: isClient && loadingStrategy !== 'disabled' && shouldLoadModel && !modelLoaded ? 1 : 0.8
+                 }}
+                 transition={{ duration: 0.5, ease: "easeOut" }}
+                 className="absolute inset-0 flex items-center justify-center z-20"
+                 style={{ 
+                   pointerEvents: isClient && loadingStrategy !== 'disabled' && shouldLoadModel && !modelLoaded ? 'auto' : 'none'
+                 }}
+               >
+                  <div className="flex flex-col items-center">
+                    {/* Pixel Charizard SVG Animation - Desktop Only */}
+                    <div className="mb-4">
+                      <svg
+                        viewBox="0 0 24 24"
+                        width={64}
+                        height={64}
+                        style={{ imageRendering: "pixelated", shapeRendering: "crispEdges" }}
+                        xmlns="http://www.w3.org/2000/svg"
+                        role="img"
+                        aria-label="loading charizard"
+                      >
+                        <style>{`
+                          .frame { opacity: 0; animation: cycle 0.8s steps(1) infinite; }
+                          .f0 { animation-delay: 0s; }
+                          .f1 { animation-delay: -0.2s; }
+                          .f2 { animation-delay: -0.4s; }
+                          .f3 { animation-delay: -0.6s; }
+                          @keyframes cycle {
+                            0% { opacity: 1; }
+                            24.99% { opacity: 1; }
+                            25% { opacity: 0; }
+                            100% { opacity: 0; }
+                          }
+                          .tail { transform-origin: 100% 100%; animation: tail 0.4s ease-in-out infinite; }
+                          @keyframes tail {
+                            0% { transform: rotate(0deg); }
+                            50% { transform: rotate(-10deg) translateX(1px); }
+                            100% { transform: rotate(0deg); }
+                          }
+                          .glow { animation: glow 2s ease-in-out infinite alternate; }
+                          @keyframes glow {
+                            0% { filter: drop-shadow(0 0 4px rgba(255, 154, 60, 0.6)); }
+                            100% { filter: drop-shadow(0 0 12px rgba(255, 154, 60, 0.9)); }
+                          }
+                        `}</style>
+
+                        <g className="glow">
+                          {/* Frame 0 */}
+                          <g className="frame f0" transform="scale(6)">
+                            <rect x="0" y="1" width="3" height="3" fill="#ff9a3c" stroke="#000" strokeWidth="0.06" />
+                            <rect x="1" y="2" width="1" height="2" fill="#f9e36b" stroke="#000" strokeWidth="0.03" />
+                            <rect x="2.2" y="1.25" width="0.4" height="0.4" fill="#fff" stroke="#000" strokeWidth="0.03" />
+                            <rect x="2.32" y="1.45" width="0.16" height="0.16" fill="#000" />
+                            <rect x="0.2" y="3.6" width="0.8" height="0.46" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
+                            <rect x="2.05" y="3.6" width="0.8" height="0.46" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
+                            <g className="tail">
+                              <rect x="3.0" y="1.9" width="1" height="0.5" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
+                              <rect x="4.05" y="1.6" width="0.4" height="0.4" fill="#d32b00" stroke="#000" strokeWidth="0.02" />
+                              <rect x="4.18" y="1.35" width="0.25" height="0.25" fill="#ffcf6e" stroke="#000" strokeWidth="0.01" />
+                            </g>
+                          </g>
+
+                          {/* Frame 1 */}
+                          <g className="frame f1" transform="scale(6)">
+                            <rect x="0" y="1" width="3" height="3" fill="#ff9a3c" stroke="#000" strokeWidth="0.06" />
+                            <rect x="1" y="2" width="1" height="2" fill="#f9e36b" stroke="#000" strokeWidth="0.03" />
+                            <rect x="2.15" y="1.2" width="0.42" height="0.42" fill="#fff" stroke="#000" strokeWidth="0.03" />
+                            <rect x="2.28" y="1.38" width="0.16" height="0.16" fill="#000" />
+                            <rect x="0.05" y="3.5" width="0.8" height="0.46" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
+                            <rect x="2.15" y="3.15" width="0.8" height="0.55" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
+                            <g className="tail">
+                              <rect x="3.0" y="1.85" width="1" height="0.5" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
+                              <rect x="4.06" y="1.55" width="0.36" height="0.36" fill="#c12a00" stroke="#000" strokeWidth="0.02" />
+                              <rect x="4.22" y="1.28" width="0.22" height="0.22" fill="#ffd27f" stroke="#000" strokeWidth="0.01" />
+                            </g>
+                          </g>
+
+                          {/* Frame 2 */}
+                          <g className="frame f2" transform="scale(6)">
+                            <rect x="0" y="1" width="3" height="3" fill="#ff9a3c" stroke="#000" strokeWidth="0.06" />
+                            <rect x="1" y="2" width="1" height="2" fill="#f9e36b" stroke="#000" strokeWidth="0.03" />
+                            <rect x="2.3" y="1.22" width="0.38" height="0.38" fill="#fff" stroke="#000" strokeWidth="0.03" />
+                            <rect x="2.4" y="1.4" width="0.16" height="0.16" fill="#000" />
+                            <rect x="0.3" y="3.25" width="0.8" height="0.52" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
+                            <rect x="1.95" y="3.6" width="0.8" height="0.44" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
+                            <g className="tail">
+                              <rect x="3.0" y="1.82" width="1" height="0.5" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
+                              <rect x="4.02" y="1.55" width="0.4" height="0.36" fill="#d73300" stroke="#000" strokeWidth="0.02" />
+                              <rect x="4.18" y="1.28" width="0.2" height="0.2" fill="#ffd88a" stroke="#000" strokeWidth="0.01" />
+                            </g>
+                          </g>
+
+                          {/* Frame 3 */}
+                          <g className="frame f3" transform="scale(6)">
+                            <rect x="0" y="1" width="3" height="3" fill="#ff9a3c" stroke="#000" strokeWidth="0.06" />
+                            <rect x="1" y="2" width="1" height="2" fill="#f9e36b" stroke="#000" strokeWidth="0.03" />
+                            <rect x="2.2" y="1.12" width="0.44" height="0.44" fill="#fff" stroke="#000" strokeWidth="0.03" />
+                            <rect x="2.34" y="1.32" width="0.16" height="0.16" fill="#000" />
+                            <rect x="0.05" y="3.1" width="0.8" height="0.5" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
+                            <rect x="2.2" y="3.4" width="0.8" height="0.5" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
+                            <g className="tail">
+                              <rect x="3.0" y="1.78" width="1" height="0.5" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
+                              <rect x="4.07" y="1.58" width="0.4" height="0.36" fill="#d73300" stroke="#000" strokeWidth="0.02" />
+                              <rect x="4.18" y="1.28" width="0.24" height="0.24" fill="#ffd88a" stroke="#000" strokeWidth="0.01" />
+                            </g>
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+
+                    {/* Innovative Loading Text - Properly aligned with SVG */}
                     <motion.div
-                      className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 bg-orange-500/20 rounded-full flex items-center justify-center"
-                      animate={{
-                        scale: [1, 1.1, 1],
-                        rotate: [0, 180, 360]
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                      className="space-y-2"
                     >
-                      <div className="w-6 h-6 md:w-8 md:h-8 bg-orange-500 rounded animate-pulse"></div>
+                      <motion.p 
+                        className="text-sm font-bold tracking-wider text-center"
+                        style={{ 
+                          color: 'var(--color-accent)',
+                          fontFamily: 'monospace',
+                          textShadow: '0 0 8px rgba(255, 154, 60, 0.5)'
+                        }}
+                        animate={{
+                          opacity: [0.7, 1, 0.7]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        MATERIALIZING CHARIZARD
+                      </motion.p>
+                      
+                      <motion.div 
+                        className="flex justify-center space-x-1"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.8, delay: 0.4 }}
+                      >
+                        {[...Array(3)].map((_, i) => (
+                          <motion.div
+                            key={i}
+                            className="w-1.5 h-1.5 rounded-full"
+                            style={{ backgroundColor: 'var(--color-accent)' }}
+                            animate={{
+                              scale: [1, 1.5, 1],
+                              opacity: [0.4, 1, 0.4]
+                            }}
+                            transition={{
+                              duration: 1.5,
+                              repeat: Infinity,
+                              delay: i * 0.2,
+                              ease: "easeInOut"
+                            }}
+                          />
+                        ))}
+                      </motion.div>
+
+                      <motion.p 
+                        className="text-xs opacity-70 tracking-wide text-center"
+                        style={{ 
+                          color: 'var(--color-text-muted)',
+                          fontFamily: 'monospace'
+                        }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 0.7 }}
+                        transition={{ duration: 1, delay: 0.6 }}
+                      >
+                        Rendering 3D Experience...
+                      </motion.p>
                     </motion.div>
-                    <p className="text-xs md:text-sm font-medium">Loading 3D Model...</p>
                   </div>
                 </motion.div>
-              )}
-            </div>
+              </div>
           </div>
         </div>
       </div>

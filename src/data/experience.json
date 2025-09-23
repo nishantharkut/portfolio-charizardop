@@ -6,19 +6,24 @@
       "company": "QuickIntell",
       "year": "2025",
       "duration": "Aug. 2025 - Present",
-      "description": "Led web development initiatives, creating responsive and accessible web applications with modern technologies. Managed full-stack projects from conception to deployment.",
+      "description": "Working on document extraction and parsing solutions for client data, focusing on EOB (Explanation of Benefits) and ERA (Electronic Remittance Advice) processing.",
       "responsibilities": [
-        "Developed and maintained complex web applications using PHP, MySQL, and JavaScript",
-        "Created responsive, accessible web pages following modern web standards",
-        "Built and managed CMS dashboards for content management",
-        "Collaborated with design teams to implement pixel-perfect UI/UX",
-        "Optimized application performance and database queries"
+        "Developed and optimized OCR pipelines for extracting structured data from unstructured documents",
+        "Implemented parsing logic for EOB and ERA documents to improve automation accuracy",
+        "Built and maintained backend services using Python and FastAPI",
+        "Collaborated with cross-functional teams to integrate parsing solutions into client workflows",
+        "Enhanced data validation and error-handling mechanisms for reliable document processing"
       ],
-      "technologies": ["PHP", "MySQL", "JavaScript", "HTML5", "CSS3", "jQuery", "Bootstrap"],
+      "technologies": [
+        "Python",
+        "FastAPI",
+        "OCR",
+        "Regex"
+      ],
       "achievements": [
-        "Improved page load times by 40% through optimization techniques",
-        "Successfully delivered 15+ client projects on time and within budget",
-        "Implemented responsive design system reducing development time by 30%"
+        "Automated extraction workflows that reduced manual processing time by 50%",
+        "Improved document parsing accuracy by 30% through advanced validation rules",
+        "Successfully deployed production-ready pipelines for multiple healthcare clients"
       ],
       "logo": "/logos/blue-cube.svg"
     },
@@ -29,19 +34,26 @@
       "year": "2024",
       "duration": "Apr. 2024 - Jul.   2024",
       "description": "Spearheaded innovative web solutions and product prototypes, focusing on cutting-edge technologies and 3D interfaces. Led cross-functional teams in delivering scalable solutions.",
-        "responsibilities": [
-          "Designed 10+ marketing assets (social posts, banners, email headers) in Figma for brand campaigns",
-          "Built high-fidelity UI mockups for the booking portal, improving feedback cycles and development hand-off",
-          "Conducted usability feedback sessions and translated insights into actionable UI revisions",
-          "Optimized asset-export workflows using Figma plugins for faster delivery",
-          "Collaborated with product, marketing, and engineering teams to ensure design alignment"
-        ],
-        "technologies": ["Figma", "Adobe Photoshop", "Adobe Illustrator", "Figma Plugins", "Jira", "Slack"],
+      "responsibilities": [
+        "Designed 10+ marketing assets (social posts, banners, email headers) in Figma for brand campaigns",
+        "Built high-fidelity UI mockups for the booking portal, improving feedback cycles and development hand-off",
+        "Conducted usability feedback sessions and translated insights into actionable UI revisions",
+        "Optimized asset-export workflows using Figma plugins for faster delivery",
+        "Collaborated with product, marketing, and engineering teams to ensure design alignment"
+      ],
+      "technologies": [
+        "Figma",
+        "Adobe Photoshop",
+        "Adobe Illustrator",
+        "Figma Plugins",
+        "Jira",
+        "Slack"
+      ],
       "achievements": [
-    "Created 10+ marketing assets (social posts, banners, email headers) in Figma, contributing to a 10% lift in engagement on Instagram and Facebook.",
-    "Built 3 high-fidelity UI mockups for the company’s booking portal, which streamlined feedback cycles by 25% and informed the development hand-off.",
-    "Ran 5 usability feedback sessions with internal stakeholders, translating insights into two rounds of UI revisions that increased stakeholder approval from 60% to 85%.",
-    "Optimized asset-export processes using Figma plugins, cutting prep time by 15% and enabling on-schedule delivery of design deliverables."
+        "Created 10+ marketing assets (social posts, banners, email headers) in Figma, contributing to a 10% lift in engagement on Instagram and Facebook.",
+        "Built 3 high-fidelity UI mockups for the company’s booking portal, which streamlined feedback cycles by 25% and informed the development hand-off.",
+        "Ran 5 usability feedback sessions with internal stakeholders, translating insights into two rounds of UI revisions that increased stakeholder approval from 60% to 85%.",
+        "Optimized asset-export processes using Figma plugins, cutting prep time by 15% and enabling on-schedule delivery of design deliverables."
       ],
       "logo": "/logos/brane.svg"
     }
@@ -57,26 +69,26 @@
     "Client Relations"
   ],
   "highlights": [
-    { 
-      "number": "50+", 
+    {
+      "number": "50+",
       "label": "Projects Completed",
       "description": "Successful delivery across web apps, 3D experiences, and enterprise solutions",
       "icon": "FaRocket"
     },
-    { 
-      "number": "98%", 
+    {
+      "number": "98%",
       "label": "Client Satisfaction",
       "description": "Consistent high-quality delivery and exceptional client relationships",
       "icon": "FaStar"
     },
-    { 
-      "number": "6", 
+    {
+      "number": "6",
       "label": "Team Members Led",
       "description": "Successfully managed and mentored development teams",
       "icon": "FaUsers"
     },
-    { 
-      "number": "40%", 
+    {
+      "number": "40%",
       "label": "Performance Gains",
       "description": "Average improvement in application performance and load times",
       "icon": "FaBolt"
@@ -87,21 +99,44 @@
       "period": "2017-2019",
       "title": "Foundation Years",
       "description": "Building core web development skills and learning industry best practices",
-      "technologies": ["PHP", "MySQL", "JavaScript", "jQuery", "HTML5", "CSS3", "Bootstrap"],
+      "technologies": [
+        "PHP",
+        "MySQL",
+        "JavaScript",
+        "jQuery",
+        "HTML5",
+        "CSS3",
+        "Bootstrap"
+      ],
       "color": "from-blue-500 to-purple-500"
     },
     {
       "period": "2020-2022",
       "title": "Modern Stack Adoption",
       "description": "Embracing modern frameworks and expanding into 3D web experiences",
-      "technologies": ["React", "TypeScript", "Node.js", "Three.js", "WebGL", "GSAP", "Docker"],
+      "technologies": [
+        "React",
+        "TypeScript",
+        "Node.js",
+        "Three.js",
+        "WebGL",
+        "GSAP",
+        "Docker"
+      ],
       "color": "from-purple-500 to-pink-500"
     },
     {
       "period": "2023-Present",
       "title": "Innovation & Leadership",
       "description": "Leading edge technologies and mentoring next-generation developers",
-      "technologies": ["Next.js", "Blender", "AI/ML Integration", "Cybersecurity", "AWS", "Framer Motion"],
+      "technologies": [
+        "Next.js",
+        "Blender",
+        "AI/ML Integration",
+        "Cybersecurity",
+        "AWS",
+        "Framer Motion"
+      ],
       "color": "from-pink-500 to-orange-500"
     }
   ]
