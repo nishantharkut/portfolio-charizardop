@@ -666,7 +666,7 @@ export default function AchievementsPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="relative z-10 py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
+      {/* <section className="relative z-10 py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -697,31 +697,31 @@ export default function AchievementsPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="h-full"
-              >
+              > */}
                 {/* Mobile-Optimized Stats Card */}
-                <div className="relative w-full h-[160px] sm:h-[180px] lg:h-[200px] neubrutalism-card flex flex-col"
+                {/* <div className="relative w-full h-[160px] sm:h-[180px] lg:h-[200px] neubrutalism-card flex flex-col"
                   style={{
                     backgroundColor: 'var(--color-surface)',
                   }}
-                >
+                > */}
                   {/* Number Section - Better mobile sizing */}
-                  <div className="p-2 sm:p-3 border-b-4 border-black min-h-[50px] sm:min-h-[60px] lg:min-h-[70px] flex items-center justify-center flex-shrink-0">
+                  {/* <div className="p-2 sm:p-3 border-b-4 border-black min-h-[50px] sm:min-h-[60px] lg:min-h-[70px] flex items-center justify-center flex-shrink-0">
                     <div className="text-xl sm:text-2xl lg:text-3xl font-black text-orange-400 transition-transform duration-300 group-hover:scale-110 uppercase tracking-wider">
                       {stat.number}
                     </div>
-                  </div>
+                  </div> */}
                   
                   {/* Content Section - Better mobile spacing */}
-                  <div className="p-2 sm:p-3 flex-1 flex flex-col justify-center text-center overflow-hidden">
+                  {/* <div className="p-2 sm:p-3 flex-1 flex flex-col justify-center text-center overflow-hidden"> */}
                     {/* Label - Better mobile typography */}
-                    <div className="mb-1 sm:mb-2">
+                    {/* <div className="mb-1 sm:mb-2">
                       <p className="text-xs sm:text-sm lg:text-base font-black uppercase tracking-wide leading-tight" style={{ color: 'var(--color-text)' }}>
                         {stat.label}
                       </p>
-                    </div>
+                    </div> */}
                     
                     {/* Description - Mobile responsive */}
-                    <div className="flex-1 flex items-center min-h-0">
+                    {/* <div className="flex-1 flex items-center min-h-0">
                       <p className="text-xs sm:text-sm leading-tight font-medium line-clamp-2 overflow-hidden" style={{ color: 'var(--color-text-secondary)' }}>
                         {stat.description}
                       </p>
@@ -733,7 +733,7 @@ export default function AchievementsPage() {
           </div>
         </div>
       </section>
-      
+       */}
       <Footer />
     </main>
   );
