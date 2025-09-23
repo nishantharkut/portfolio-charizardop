@@ -237,7 +237,7 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
       }
       
       // ABSOLUTELY FIXED VALUES - NO CALCULATIONS
-      const SCALE = 2.8; // Increased for better zoom level
+      const SCALE = 2.2; // Increased for better zoom level
       const START_POSITION = { x: 4.75, y: -1.5, z: -60 };
       
       // Apply immediately - no delays, no conditions
