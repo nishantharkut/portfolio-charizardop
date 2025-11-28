@@ -424,12 +424,14 @@ export default function Hero() {
         <div className="absolute inset-0 z-0 pointer-events-none" style={{ opacity: 0.15 }}>
           <ScrollVelocity
             texts={["EXPERIENCE", "COFFEE", "CREATIVITY", "DEVELOPMENT"]}
-            velocity={30}
+            velocity={40}
             className="font-bold text-4xl md:text-6xl"
             scrollerStyle={{ color: 'var(--color-text)', opacity: 0.2 }}
-            parallaxClassName="py-16"
+            parallaxClassName=""
             scrollerClassName="tracking-wider"
-            numCopies={4}
+            numCopies={10}
+            damping={40}
+            stiffness={500}
           />
         </div>
 
@@ -452,7 +454,7 @@ export default function Hero() {
                 <div className="mb-4 sm:mb-6 h-7 sm:h-8 md:h-9 text-base sm:text-lg md:text-xl lg:text-2xl text-center lg:text-left" style={{ color: 'var(--color-text-secondary)' }}>
                   <TypewriterRoles />
                 </div>
-                <p className="text-sm sm:text-base lg:text-lg leading-relaxed mb-4 sm:mb-6 font-light max-w-xl mx-auto lg:mx-0 text-justify" style={{ color: 'var(--color-text-secondary)' }}>
+                <p className="text-sm sm:text-base lg:text-lg leading-relaxed mb-4 sm:mb-6 font-light max-w-xl mx-auto lg:mx-0 text-center lg:text-left" style={{ color: 'var(--color-text-secondary)' }}>
                   {heroData.description}
                 </p>
                 <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
@@ -556,17 +558,19 @@ export default function Hero() {
   return (
     <section ref={heroRef} className="relative w-full h-screen overflow-hidden">
       {/* Subtle Text Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none" style={{ opacity: 0.15 }}>
-        <ScrollVelocity
-          texts={["EXPERIENCE", "INNOVATION", "LEADERSHIP", "DEVELOPMENT"]}
-          velocity={30}
-          className="font-bold text-4xl md:text-6xl"
-          scrollerStyle={{ color: 'var(--color-text)', opacity: 0.2 }}
-          parallaxClassName="py-16"
-          scrollerClassName="tracking-wider"
-          numCopies={4}
-        />
-      </div>
+        <div className="absolute inset-0 z-0 pointer-events-none" style={{ opacity: 0.15 }}>
+          <ScrollVelocity
+            texts={["EXPERIENCE", "COFFEE", "CREATIVITY", "DEVELOPMENT"]}
+            velocity={40}
+            className="font-bold text-4xl md:text-6xl"
+            scrollerStyle={{ color: 'var(--color-text)', opacity: 0.2 }}
+            parallaxClassName=""
+            scrollerClassName="tracking-wider"
+            numCopies={10}
+            damping={40}
+            stiffness={500}
+          />
+        </div>
 
       {/* Optimized 3D Canvas with Performance Monitoring */}
       <div className="absolute inset-0 pointer-events-none">
@@ -721,7 +725,7 @@ export default function Hero() {
               <div className="mb-4 sm:mb-6 h-8 sm:h-9 text-lg sm:text-xl md:text-2xl text-center lg:text-left" style={{ color: 'var(--color-text-muted)' }}>
                 <TypewriterRoles />
               </div>
-              <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-4 sm:mb-6 font-light max-w-lg mx-auto lg:mx-0 text-justify" style={{ color: 'var(--color-text-muted)' }}>
+              <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-4 sm:mb-6 font-light max-w-lg mx-auto lg:mx-0 text-center lg:text-left" style={{ color: 'var(--color-text-muted)' }}>
                 {heroData.description}
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
@@ -974,27 +978,28 @@ export default function Hero() {
         </div>
 
         {/* Mobile - Animated Scrolling Text (Left to Right) */}
-        <div className="md:hidden banner-scroll-container py-2.5 min-h-[40px] flex items-center overflow-hidden">
+        <div className="md:hidden banner-scroll-container py-2.5 min-h-[40px] flex items-center overflow-hidden relative">
           <motion.div
-            className="flex whitespace-nowrap"
-            initial={{ transform: 'translateX(100%)' }}
-            animate={{ transform: 'translateX(-100%)' }}
+            className="flex whitespace-nowrap absolute"
+            initial={{ x: '0%' }}
+            animate={{ x: '-50%' }}
             transition={{
-              duration: 35,
+              duration: 25,
               ease: "linear",
               repeat: Infinity,
-              delay: 1.5 // Start after page loads
+              repeatDelay: 0
             }}
             style={{
               minWidth: 'max-content',
+              willChange: 'transform'
             }}
           >
-            {[...Array(5)].map((_, i) => (
-              <div key={i} className="flex-shrink-0 px-8 py-1">
-                <span className="text-xs font-medium tracking-wide whitespace-nowrap">
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className="flex-shrink-0 inline-flex items-center">
+                <span className="text-xs font-medium tracking-wide whitespace-nowrap px-6">
                   {heroData.announcement.text}
                 </span>
-                {i < 4 && <span className="mx-6 text-xs opacity-60">•</span>}
+                <span className="mx-4 text-xs opacity-60">•</span>
               </div>
             ))}
           </motion.div>

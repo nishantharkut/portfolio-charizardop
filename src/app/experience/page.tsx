@@ -18,6 +18,7 @@ import {
 import PixelBlast from "../components/ui/PixelBlast";
 // Lazy load FaultyTerminal with proper loading state
 import { LazyFaultyTerminal } from '../../components/lazy/LazyBoundaries';
+import CodingStats from "../components/sections/CodingStats";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -823,6 +824,9 @@ export default function ExperiencePage() {
           </div>
         </div>
       </section> */}
+
+      {/* Coding Stats Section */}
+      <CodingStats showTitle={true} />
 
       {/* Call to Action */}
       <section className="relative z-10 py-16 sm:py-20 px-4">

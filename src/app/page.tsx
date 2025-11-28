@@ -50,6 +50,13 @@ const Contact = dynamic(() => import('./components/sections/Contact'), {
   ssr: true
 });
 
+const CodingStats = dynamic(() => import('./components/sections/CodingStats'), {
+  loading: () => <div className="min-h-[600px] flex items-center justify-center">
+    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
+  </div>,
+  ssr: false
+});
+
 export default function Home() {
 
   return (
@@ -71,6 +78,10 @@ export default function Home() {
       <About />
       
       <Experience />
+      
+      <div className="section-divider my-8 sm:my-12 md:my-16" />
+      
+      <CodingStats />
       
       <div className="section-divider my-8 sm:my-12 md:my-16" />
       
