@@ -24,7 +24,7 @@ const CodingStats: React.FC<CodingStatsProps> = ({ showTitle = true }) => {
             transition={{ duration: 0.6 }}
             className="text-center mb-8 md:mb-12"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>
               Coding <span className="text-orange-500">Statistics</span>
             </h2>
             <p className="text-sm sm:text-base max-w-2xl mx-auto px-4" style={{ color: 'var(--color-text-secondary)' }}>

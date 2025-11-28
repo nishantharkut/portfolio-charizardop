@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { FaGithub, FaCodeBranch, FaCode, FaStar, FaGitAlt } from "react-icons/fa";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useState } from "react";
 
 interface GitHubStatsProps {
   username?: string;
@@ -17,6 +18,19 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({
 }) => {
   const { actualTheme } = useTheme();
   const isDark = actualTheme === 'dark';
+  
+  // Track loading errors for each stat
+  const [imageErrors, setImageErrors] = useState({
+    contributions: false,
+    stats: false,
+    languages: false,
+    streak: false,
+    trophies: false
+  });
+
+  const handleImageError = (type: keyof typeof imageErrors) => {
+    setImageErrors(prev => ({ ...prev, [type]: true }));
+  };
 
   // Theme-aware colors
   const accentColor = 'ff8c42';
@@ -112,20 +126,33 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({
               </div>
               
               <div className="w-full overflow-x-auto scrollbar-thin">
-                <div className="min-w-[600px] md:min-w-[700px]">
-                  <img 
-                    src={`https://ghchart.rshah.org/${chartColor}/${username}`}
-                    alt="GitHub Contribution Chart"
-                    className="w-full h-auto"
-                    style={{ 
-                      filter: isDark ? 'brightness(1.1) contrast(1.05)' : 'brightness(0.95) contrast(1.1)',
-                      imageRendering: 'pixelated',
-                      maxHeight: 'none',
-                      aspectRatio: 'auto'
-                    }}
-                    loading="lazy"
-                  />
-                </div>
+                {!imageErrors.contributions ? (
+                  <div className="min-w-[600px] md:min-w-[700px]">
+                    <img 
+                      src={`https://ghchart.rshah.org/${chartColor}/${username}`}
+                      alt="GitHub Contribution Chart"
+                      className="w-full h-auto"
+                      style={{ 
+                        filter: isDark ? 'brightness(1.1) contrast(1.05)' : 'brightness(0.95) contrast(1.1)',
+                        imageRendering: 'pixelated',
+                        maxHeight: 'none',
+                        aspectRatio: 'auto'
+                      }}
+                      loading="lazy"
+                      onError={() => handleImageError('contributions')}
+                    />
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center py-8 text-center">
+                    <FaGithub className="text-4xl mb-3 opacity-30" style={{ color: 'var(--color-text-secondary)' }} />
+                    <p className="text-sm font-medium mb-1" style={{ color: 'var(--color-text-secondary)' }}>
+                      Unable to load contribution chart
+                    </p>
+                    <p className="text-xs opacity-70" style={{ color: 'var(--color-text-secondary)' }}>
+                      Visit my GitHub profile to view contribution activity
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           </motion.div>
@@ -151,13 +178,26 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({
                 </h3>
               </div>
               <div className="w-full flex-1 flex items-center justify-center">
-                <img 
-                  src={`https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=${isDark ? 'radical' : 'default'}&hide_border=true&bg_color=00000000&title_color=${accentColor}&icon_color=${accentColor}&text_color=${textColor}&ring_color=${accentColor}&hide_title=false&card_width=400`}
-                  alt="GitHub Stats"
-                  className="w-full h-auto"
-                  style={{ maxHeight: '180px', objectFit: 'contain' }}
-                  loading="lazy"
-                />
+                {!imageErrors.stats ? (
+                  <img 
+                    src={`https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=${isDark ? 'radical' : 'default'}&hide_border=true&bg_color=00000000&title_color=${accentColor}&icon_color=${accentColor}&text_color=${textColor}&ring_color=${accentColor}&hide_title=false&card_width=400`}
+                    alt="GitHub Stats"
+                    className="w-full h-auto"
+                    style={{ maxHeight: '180px', objectFit: 'contain' }}
+                    loading="lazy"
+                    onError={() => handleImageError('stats')}
+                  />
+                ) : (
+                  <div className="flex flex-col items-center justify-center py-8 text-center">
+                    <FaGithub className="text-4xl mb-3 opacity-30" style={{ color: 'var(--color-text-secondary)' }} />
+                    <p className="text-sm font-medium mb-1" style={{ color: 'var(--color-text-secondary)' }}>
+                      Stats unavailable
+                    </p>
+                    <p className="text-xs opacity-70" style={{ color: 'var(--color-text-secondary)' }}>
+                      Please check back later
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           </motion.div>
@@ -183,13 +223,26 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({
                 </h3>
               </div>
               <div className="w-full flex-1 flex items-center justify-center">
-                <img 
-                  src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&layout=compact&theme=${isDark ? 'radical' : 'default'}&hide_border=true&bg_color=00000000&title_color=${accentColor}&text_color=${textColor}&card_width=400`}
-                  alt="Top Languages"
-                  className="w-full h-auto"
-                  style={{ maxHeight: '180px', objectFit: 'contain' }}
-                  loading="lazy"
-                />
+                {!imageErrors.languages ? (
+                  <img 
+                    src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&layout=compact&theme=${isDark ? 'radical' : 'default'}&hide_border=true&bg_color=00000000&title_color=${accentColor}&text_color=${textColor}&card_width=400`}
+                    alt="Top Languages"
+                    className="w-full h-auto"
+                    style={{ maxHeight: '180px', objectFit: 'contain' }}
+                    loading="lazy"
+                    onError={() => handleImageError('languages')}
+                  />
+                ) : (
+                  <div className="flex flex-col items-center justify-center py-8 text-center">
+                    <FaCode className="text-4xl mb-3 opacity-30" style={{ color: 'var(--color-text-secondary)' }} />
+                    <p className="text-sm font-medium mb-1" style={{ color: 'var(--color-text-secondary)' }}>
+                      Language stats unavailable
+                    </p>
+                    <p className="text-xs opacity-70" style={{ color: 'var(--color-text-secondary)' }}>
+                      JavaScript, TypeScript, Python & more
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           </motion.div>
@@ -218,13 +271,26 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({
                 </h3>
               </div>
               <div className="w-full flex-1 flex items-center justify-center">
-                <img 
-                  src={`https://github-readme-streak-stats.herokuapp.com/?user=${username}&theme=${isDark ? 'radical' : 'default'}&hide_border=true&background=00000000&ring=${accentColor}&fire=${accentColor}&currStreakLabel=${accentColor}&sideLabels=${textColor}&currStreakNum=${textColor}&dates=${textColor}&sideNums=${textColor}&card_width=400`}
-                  alt="GitHub Streak Stats"
-                  className="w-full h-auto"
-                  style={{ maxHeight: '180px', objectFit: 'contain' }}
-                  loading="lazy"
-                />
+                {!imageErrors.streak ? (
+                  <img 
+                    src={`https://github-readme-streak-stats.herokuapp.com/?user=${username}&theme=${isDark ? 'radical' : 'default'}&hide_border=true&background=00000000&ring=${accentColor}&fire=${accentColor}&currStreakLabel=${accentColor}&sideLabels=${textColor}&currStreakNum=${textColor}&dates=${textColor}&sideNums=${textColor}&card_width=400`}
+                    alt="GitHub Streak Stats"
+                    className="w-full h-auto"
+                    style={{ maxHeight: '180px', objectFit: 'contain' }}
+                    loading="lazy"
+                    onError={() => handleImageError('streak')}
+                  />
+                ) : (
+                  <div className="flex flex-col items-center justify-center py-8 text-center">
+                    <FaGitAlt className="text-4xl mb-3 opacity-30" style={{ color: 'var(--color-text-secondary)' }} />
+                    <p className="text-sm font-medium mb-1" style={{ color: 'var(--color-text-secondary)' }}>
+                      Streak stats unavailable
+                    </p>
+                    <p className="text-xs opacity-70" style={{ color: 'var(--color-text-secondary)' }}>
+                      Consistent contributions throughout the year
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           </motion.div>
@@ -250,13 +316,26 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({
                 </h3>
               </div>
               <div className="w-full flex-1 flex items-center justify-center overflow-x-auto">
-                <img 
-                  src={`https://github-profile-trophy.vercel.app/?username=${username}&theme=${isDark ? 'radical' : 'flat'}&no-frame=true&no-bg=true&margin-w=4&column=2&row=2&title=MultiLanguage,Commits,PullRequest,Reviews`}
-                  alt="GitHub Trophies"
-                  className="w-full h-auto"
-                  style={{ maxHeight: '180px', objectFit: 'contain' }}
-                  loading="lazy"
-                />
+                {!imageErrors.trophies ? (
+                  <img 
+                    src={`https://github-profile-trophy.vercel.app/?username=${username}&theme=${isDark ? 'radical' : 'flat'}&no-frame=true&no-bg=true&margin-w=4&column=2&row=2&title=MultiLanguage,Commits,PullRequest,Reviews`}
+                    alt="GitHub Trophies"
+                    className="w-full h-auto"
+                    style={{ maxHeight: '180px', objectFit: 'contain' }}
+                    loading="lazy"
+                    onError={() => handleImageError('trophies')}
+                  />
+                ) : (
+                  <div className="flex flex-col items-center justify-center py-8 text-center">
+                    <FaStar className="text-4xl mb-3 opacity-30" style={{ color: 'var(--color-text-secondary)' }} />
+                    <p className="text-sm font-medium mb-1" style={{ color: 'var(--color-text-secondary)' }}>
+                      Achievements unavailable
+                    </p>
+                    <p className="text-xs opacity-70" style={{ color: 'var(--color-text-secondary)' }}>
+                      Multiple language proficiency & contributions
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           </motion.div>

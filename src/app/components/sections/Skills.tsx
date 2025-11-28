@@ -14,7 +14,7 @@ export default function Skills() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
-          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-12 section-heading"
+          className="text-4xl md:text-5xl lg:text-6xl font-bold mb-12 section-heading"
           style={{ color: 'var(--color-text)' }}
         >
           Tech <span> Stack</span>
