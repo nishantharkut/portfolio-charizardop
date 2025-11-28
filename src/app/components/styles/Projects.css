@@ -5,7 +5,7 @@
   color: var(--color-text);
   overflow: hidden;
   position: relative;
-  padding: 80px 0 120px 0; /* Added extra bottom padding for smooth transition */
+  padding: 80px 0 80px 0; /* Reduced bottom padding for smoother transition */
   display: flex;
   align-items: center;
   /* Performance optimizations */

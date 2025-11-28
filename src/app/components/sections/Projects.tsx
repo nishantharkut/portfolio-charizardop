@@ -125,23 +125,16 @@ const Projects = () => {
             pin: true,
             scrub: 1,
             start: "top top",
-            end: `+=${scrollDistance * 2}`, // Adjust scroll distance
+            end: `+=${scrollDistance * 1.5}`, // Reduced multiplier for shorter pin duration
             anticipatePin: 1,
             invalidateOnRefresh: true,
-            pinSpacing: true, // Ensure proper spacing after unpin
+            pinSpacing: true,
             onUpdate: (self: any) => {
               // Transform the project flex container horizontally
               gsap.set(projectFlex, {
                 x: -scrollDistance * self.progress,
                 force3D: true
               });
-            },
-            onRefresh: () => {
-              console.log('Projects: ScrollTrigger refreshed');
-            },
-            onLeave: () => {
-              // Ensure smooth transition when leaving the section
-              console.log('Projects: Section left');
             }
           }
         });

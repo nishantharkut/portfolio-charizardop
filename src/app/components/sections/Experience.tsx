@@ -242,10 +242,10 @@ const Experience = () => {
 
         {/* View Full Experience Button */}
         <div className="text-center mt-16">
-  <div className="inline-flex min-h-[60px] items-center justify-center">
+  <div className="inline-flex min-h-[48px] items-center justify-center">
     <a
       href="/experience"
-      className="experience-button inline-flex items-center gap-2 px-4 xl:px-6 py-2 xl:py-2.5 border-2 transition-all duration-300"
+      className="experience-button inline-flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 text-xs md:text-sm font-black uppercase tracking-wide border-2 transition-all duration-300"
       style={{
         backgroundColor: 'var(--color-accent)',
         color: 'var(--color-button-text)',
@@ -272,7 +272,7 @@ const Experience = () => {
       aria-label="View Full Experience Journey"
     >
       <span>View Full Experience Journey</span>
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+      <svg className="w-3 h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
       </svg>
     </a>

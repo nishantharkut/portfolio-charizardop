@@ -278,7 +278,18 @@
     font-size: 1rem;
     line-height: 1.7;
     max-width: 90%;
+  }
+  
+  /* Right-aligned items should have right-aligned text on desktop */
+  .experience-item.right-aligned .experience-description.desktop {
+    text-align: right;
+    margin-left: auto;
+  }
+  
+  /* Left-aligned items keep left alignment */
+  .experience-item.left-aligned .experience-description.desktop {
     text-align: left;
+    margin-right: auto;
   }
 }
 

@@ -117,17 +117,17 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="flex justify-center order-1 lg:order-2"
+            className="flex justify-center items-center order-1 lg:order-2"
           >
-            <div className="w-full max-w-[240px] sm:max-w-[280px] md:max-w-[320px] h-auto">
+            <div className="w-80 h-120 max-w-full">
               <TiltedCard
                 imageSrc="/nishant-image.webp"
                 altText="Nishant Harkut"
                 captionText="Nishant Harkut"
-                containerHeight="240px"
-                containerWidth="240px"
-                imageHeight="350px"
-                imageWidth="280px"
+                containerHeight="320px"
+                containerWidth="320px"
+                imageHeight="450px"
+                imageWidth="350px"
                 rotateAmplitude={9}
                 scaleOnHover={1.2}
                 showMobileWarning={false}

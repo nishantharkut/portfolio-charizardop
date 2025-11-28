@@ -1,11 +1,13 @@
 "use client";
 
 import dynamic from 'next/dynamic';
+import { useEffect } from 'react';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Hero from './components/sections/Hero';
 import SplashCursorWrapper from './components/ui/SplashCursorWrapper';
 import PerformanceIndicator from './components/ui/PerformanceIndicator';
+import { ScrollTrigger } from '@/utils/gsap';
 
 // Lazy load non-critical sections with loading states that match existing heights
 const Bento = dynamic(() => import('./components/sections/Bento'), {
@@ -58,6 +60,14 @@ const CodingStats = dynamic(() => import('./components/sections/CodingStats'), {
 });
 
 export default function Home() {
+  // Simple ScrollTrigger refresh after page load
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <main className="relative w-full min-h-screen overflow-x-hidden">
@@ -89,11 +99,11 @@ export default function Home() {
       
       <Skills />
       
-      <div className="section-divider my-8 sm:my-12 md:my-16" />
+      <div className="section-divider my-6 sm:my-8 md:my-12" />
       
       <Projects />
       
-      <div className="section-divider my-8 sm:my-12 md:my-16" />
+      <div className="section-divider my-6 sm:my-8 md:my-12" />
       
       <Contact />
       
