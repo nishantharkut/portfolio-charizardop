@@ -30,7 +30,7 @@
 }
 
 .section-heading {
-  font-size: clamp(2rem, 5vw, 4rem); /* Responsive font size */
+  font-size: clamp(2.5rem, 5vw, 4rem); /* Responsive font size - increased mobile min from 2rem to 2.5rem */
   font-weight: 700;
   margin-bottom: 3rem;
   text-align: center;

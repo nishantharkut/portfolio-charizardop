@@ -12,7 +12,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold mb-12 section-heading"
+          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-12 section-heading"
           style={{ color: 'var(--color-text)' }}
         >
           About <span>Me</span>
@@ -29,19 +29,19 @@ export default function About() {
           >
             <div className="space-y-4">
               <h3 
-                className="text-xl font-semibold"
+                className="text-xl sm:text-2xl font-semibold"
                 style={{ color: 'var(--color-text)' }}
               >
                 Full stack Developer
               </h3>
               <p
-                className="text-base leading-relaxed"
+                className="text-sm sm:text-base leading-relaxed"
                 style={{ color: 'var(--color-text-muted)' }}
               >
                 I'm a full-stack developer focused on building exceptional web experiences where creative design meets cutting-edge technology. My approach centers on delivering digital solutions that captivate users while maintaining peak performance.
               </p>
               <p
-                className="text-base leading-relaxed"
+                className="text-sm sm:text-base leading-relaxed"
                 style={{ color: 'var(--color-text-muted)' }}
               >
                 Whether building dynamic React applications, designing secure APIs, or orchestrating cloud deployments, I'm passionate about leveraging cutting-edge technologies to create resilient, high-performance web solutions.
@@ -119,15 +119,15 @@ export default function About() {
             transition={{ duration: 0.7, delay: 0.4 }}
             className="flex justify-center order-1 lg:order-2"
           >
-            <div className="w-80 h-120 max-w-full">
+            <div className="w-64 sm:w-72 md:w-80 h-auto max-w-full">
               <TiltedCard
                 imageSrc="/nishant-image.webp"
                 altText="Nishant Harkut"
                 captionText="Nishant Harkut"
-                containerHeight="320px"
-                containerWidth="320px"
-                imageHeight="450px"
-                imageWidth="350px"
+                containerHeight="280px"
+                containerWidth="280px"
+                imageHeight="400px"
+                imageWidth="300px"
                 rotateAmplitude={9}
                 scaleOnHover={1.2}
                 showMobileWarning={false}
