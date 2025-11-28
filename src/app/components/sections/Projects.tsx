@@ -170,9 +170,9 @@ const Projects = () => {
     };
   }, [isHydrated]); // Depend on hydration state
 
-  // Get first 3 projects for the section showcase
+  // Get featured projects for the section showcase
   const allProjects = getProjects();
-  const featuredProjects = allProjects.slice(0, 3); // Show only first 3 projects
+  const featuredProjects = allProjects.filter(project => project.featured).slice(0, 3); // Show only first 3 featured projects
   
   // Transform data for compatibility with existing component structure
   const projects = featuredProjects.map((project, index) => ({

@@ -202,9 +202,13 @@ const ProjectsContent: React.FC = () => {
     "Developed a Scalable Web3 platform to 500+ users",
     "Delivered Approx. 95% uptime with live chat"
   ],
-  2: [
-    "Built OS with 20+ custom features based on Hogwarts",
-    "Integrated AI Automations for 10x workflow and easier task handling"
+  3: [
+    "AI-powered itinerary generation with 95%+ accuracy",
+    "Collaborative trip planning with real-time updates"
+  ],
+  6: [
+    "AI-powered career coaching across 50+ industries",
+    "95% success rate with personalized guidance & Web3 payments"
   ]
 };
 
