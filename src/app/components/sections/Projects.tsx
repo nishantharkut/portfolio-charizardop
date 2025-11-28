@@ -128,6 +128,7 @@ const Projects = () => {
             end: `+=${scrollDistance * 2}`, // Adjust scroll distance
             anticipatePin: 1,
             invalidateOnRefresh: true,
+            pinSpacing: true, // Ensure proper spacing after unpin
             onUpdate: (self: any) => {
               // Transform the project flex container horizontally
               gsap.set(projectFlex, {
@@ -137,6 +138,10 @@ const Projects = () => {
             },
             onRefresh: () => {
               console.log('Projects: ScrollTrigger refreshed');
+            },
+            onLeave: () => {
+              // Ensure smooth transition when leaving the section
+              console.log('Projects: Section left');
             }
           }
         });

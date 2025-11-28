@@ -86,24 +86,46 @@
 
 @media (min-width: 768px) {
   .experience-item {
-    margin-bottom: 5rem;
+    margin-bottom: 6rem;
     padding-left: 0;
   }
   
   .experience-item.left-aligned {
     text-align: right;
-    padding-right: calc(50% + 40px);
+    padding-right: calc(50% + 50px);
   }
   
   .experience-item.right-aligned {
     text-align: left;
-    padding-left: calc(50% + 40px);
+    padding-left: calc(50% + 50px);
   }
 }
 
 @media (min-width: 1024px) {
   .experience-item {
-    margin-bottom: 7rem;
+    margin-bottom: 8rem;
+  }
+  
+  .experience-item.left-aligned {
+    padding-right: calc(50% + 60px);
+  }
+  
+  .experience-item.right-aligned {
+    padding-left: calc(50% + 60px);
+  }
+}
+
+@media (min-width: 1280px) {
+  .experience-item {
+    margin-bottom: 10rem;
+  }
+  
+  .experience-item.left-aligned {
+    padding-right: calc(50% + 70px);
+  }
+  
+  .experience-item.right-aligned {
+    padding-left: calc(50% + 70px);
   }
 }
 
@@ -115,29 +137,63 @@
 @media (min-width: 768px) {
   .experience-desktop {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 1.5rem;
+    gap: 2.5rem;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+  }
+  
+  .experience-item.left-aligned .experience-desktop {
+    justify-content: flex-end;
+    flex-direction: row;
+  }
+  
+  .experience-item.right-aligned .experience-desktop {
+    justify-content: flex-start;
+    flex-direction: row-reverse;
   }
 }
 
 .experience-year {
-  font-size: 3rem;
+  font-size: 3.5rem;
   color: var(--color-accent);
   font-weight: 300;
+  line-height: 1;
+  flex-shrink: 0;
+  min-width: 140px;
+}
+
+@media (min-width: 1024px) {
+  .experience-year {
+    font-size: 4rem;
+    min-width: 160px;
+  }
 }
 
 .experience-position {
-  font-size: 1.875rem;
+  font-size: 2rem;
   color: var(--color-text);
-  font-weight: 300;
-  margin-bottom: 0.5rem;
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+@media (min-width: 1024px) {
+  .experience-position {
+    font-size: 2.25rem;
+  }
 }
 
 .experience-company {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   color: var(--color-accent);
   font-weight: 300;
+  line-height: 1.3;
+}
+
+@media (min-width: 1024px) {
+  .experience-company {
+    font-size: 1.75rem;
+  }
 }
 
 /* Mobile Layout */
@@ -207,12 +263,27 @@
 .experience-description {
   color: var(--color-text-secondary);
   font-size: 0.875rem;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 @media (min-width: 640px) {
   .experience-description {
     font-size: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .experience-description {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    max-width: 90%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .experience-description {
+    font-size: 1.25rem;
+    line-height: 1.8;
   }
 }
 

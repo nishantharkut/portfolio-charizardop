@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { FaGithub, FaCodeBranch, FaCode, FaStar, FaGitAlt } from "react-icons/fa";
-import { useEffect, useState } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
 
 interface GitHubStatsProps {
@@ -16,21 +15,8 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({
   showTitle = true,
   compact = false
 }) => {
-  const [mounted, setMounted] = useState(false);
   const { actualTheme } = useTheme();
   const isDark = actualTheme === 'dark';
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return (
-      <div className="min-h-[400px] flex items-center justify-center">
-        <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
-      </div>
-    );
-  }
 
   // Theme-aware colors
   const accentColor = 'ff8c42';

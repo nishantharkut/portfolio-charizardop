@@ -105,8 +105,8 @@ function VelocityText({
   const copyWidth = useElementWidth(copyRef);
 
   const x = useTransform(baseX, (v) => {
-    if (copyWidth === 0) return "0px";
-    return `${wrap(-copyWidth, 0, v)}px`;
+    // Always return consistent format, even when copyWidth is 0
+    return `${copyWidth === 0 ? 0 : wrap(-copyWidth, 0, v)}px`;
   });
 
   const directionFactor = useRef<number>(1);

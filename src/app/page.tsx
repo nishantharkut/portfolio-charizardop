@@ -77,6 +77,8 @@ export default function Home() {
       
       <About />
       
+      <div className="section-divider my-8 sm:my-12 md:my-16" />
+      
       <Experience />
       
       <div className="section-divider my-8 sm:my-12 md:my-16" />
@@ -86,6 +88,8 @@ export default function Home() {
       <div className="section-divider my-8 sm:my-12 md:my-16" />
       
       <Skills />
+      
+      <div className="section-divider my-8 sm:my-12 md:my-16" />
       
       <Projects />
       

@@ -79,6 +79,12 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Nishant Harkut - IIIT Gwalior Student Portfolio',
+      },
+      {
+        url: '/nishantharkut-logo.png',
+        width: 72,
+        height: 72,
+        alt: 'Nishant Harkut Logo',
       }
     ],
     locale: 'en_IN',
@@ -105,15 +111,19 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
-    other: {
-      rel: 'apple-touch-icon-precomposed',
-      url: '/apple-touch-icon-precomposed.png',
-    },
+    icon: [
+      { url: '/nishantharkut-logo.png', sizes: '72x72', type: 'image/png' },
+      { url: '/nishantharkut-logo.png', sizes: '96x96', type: 'image/png' },
+      { url: '/nishantharkut-logo.png', sizes: '128x128', type: 'image/png' },
+      { url: '/nishantharkut-logo.png', sizes: '192x192', type: 'image/png' },
+    ],
+    shortcut: '/nishantharkut-logo.png',
+    apple: [
+      { url: '/nishantharkut-logo.png', sizes: '180x180', type: 'image/png' },
+      { url: '/nishantharkut-logo.png', sizes: '192x192', type: 'image/png' },
+    ],
   },
-  manifest: '/site.webmanifest',
+  manifest: '/manifest.json',
   verification: {
     google: 'your-google-verification-code', // You'll need to add this
     yandex: 'your-yandex-verification-code', // Optional
