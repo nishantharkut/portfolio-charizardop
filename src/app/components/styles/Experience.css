@@ -223,12 +223,15 @@
 .experience-mobile-content {
   flex: 1;
   min-width: 0;
-  padding-right: 4rem; /* Space for year at top right */
+  padding-right: 5rem; /* Increased spacing for year at top right */
+  max-width: calc(100% - 5rem); /* Ensure content doesn't overflow into year area */
 }
 
 .experience-mobile .experience-position {
   font-size: 1.125rem;
   line-height: 1.25;
+  word-wrap: break-word; /* Handle long position titles */
+  overflow-wrap: break-word; /* Better word breaking */
 }
 
 @media (min-width: 640px) {
@@ -258,6 +261,7 @@
   color: var(--color-accent);
   font-weight: 300;
   line-height: 1;
+  white-space: nowrap; /* Prevent year from wrapping */
 }
 
 @media (min-width: 640px) {
