@@ -694,13 +694,13 @@ const socialIcons = [
   { 
     name: "Codeforces", 
     icon: <SiCodeforces className="w-5 h-5" />, 
-    href: "https://codeforces.com/profile/nishantharkut", 
+    href: "https://codeforces.com/profile/fiery_charizard",  // Changed from nishantharkut
     color: "#1F8ACB" 
   },
   { 
     name: "LeetCode", 
     icon: <SiLeetcode className="w-5 h-5" />, 
-    href: "https://leetcode.com/nishantharkut", 
+    href: "https://leetcode.com/u/nishant_harkut/",  // Changed from /nishantharkut
     color: "#FFA116" 
   },
   { 
@@ -712,7 +712,7 @@ const socialIcons = [
   { 
     name: "More", 
     icon: <EllipsisHorizontalIcon className="w-5 h-5" />, 
-    href: "#", 
+    href: "https://linktr.ee/Nishant.Harkut",  // Changed from "#"
     color: "#666",
     isMore: true
   },
