@@ -125,16 +125,35 @@ const Projects = () => {
             pin: true,
             scrub: 1,
             start: "top top",
-            end: `+=${scrollDistance * 1.5}`, // Reduced multiplier for shorter pin duration
+            end: `+=${scrollDistance * 2}`, // Adjust scroll distance
             anticipatePin: 1,
             invalidateOnRefresh: true,
-            pinSpacing: true,
+            pinSpacing: true, // Ensure proper spacing is added
             onUpdate: (self: any) => {
               // Transform the project flex container horizontally
               gsap.set(projectFlex, {
                 x: -scrollDistance * self.progress,
                 force3D: true
               });
+            },
+            onRefresh: () => {
+              console.log('Projects: ScrollTrigger refreshed');
+            },
+            onLeave: () => {
+              // When leaving the pinned section, ensure smooth transition
+              console.log('Projects: ScrollTrigger onLeave - pin released');
+              // Force a refresh to ensure scroll continues smoothly
+              requestAnimationFrame(() => {
+                ScrollTrigger.refresh();
+              });
+            },
+            onEnterBack: () => {
+              // When scrolling back into the section
+              console.log('Projects: ScrollTrigger onEnterBack');
+            },
+            onLeaveBack: () => {
+              // When scrolling back past the section
+              console.log('Projects: ScrollTrigger onLeaveBack');
             }
           }
         });
@@ -147,8 +166,9 @@ const Projects = () => {
       }
     };
 
-    // Initialize after a short delay to ensure DOM is ready
-    const timer = setTimeout(initializeScrollTrigger, 100);
+    // Initialize after a delay to ensure DOM is ready and all sections are loaded
+    // Increased delay to account for dynamically loaded sections (like CodingStats)
+    const timer = setTimeout(initializeScrollTrigger, 300);
 
     // Handle resize events
     const handleResize = () => {
@@ -167,6 +187,7 @@ const Projects = () => {
       scrollTriggerRef.current?.kill();
     };
   }, [isHydrated]); // Depend on hydration state
+
 
   // Get featured projects for the section showcase
   const allProjects = getProjects();

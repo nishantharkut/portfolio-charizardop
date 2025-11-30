@@ -60,13 +60,29 @@ const CodingStats = dynamic(() => import('./components/sections/CodingStats'), {
 });
 
 export default function Home() {
-  // Simple ScrollTrigger refresh after page load
+  // ScrollTrigger refresh after page load and sections load
+  // Multiple refreshes to account for dynamic sections (CodingStats with ssr: false)
   useEffect(() => {
-    const timer = setTimeout(() => {
+    // Initial refresh
+    const timer1 = setTimeout(() => {
       ScrollTrigger.refresh();
     }, 500);
 
-    return () => clearTimeout(timer);
+    // Refresh after CodingStats likely loads (client-side only)
+    const timer2 = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 1500);
+
+    // Final refresh to ensure everything is calculated correctly
+    const timer3 = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 2500);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+    };
   }, []);
 
   return (
@@ -103,7 +119,7 @@ export default function Home() {
       
       <Projects />
       
-      <div className="section-divider my-6 sm:my-8 md:my-12" />
+      <div className="section-divider my-8 sm:my-12 md:my-16" />
       
       <Contact />
       

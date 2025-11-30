@@ -221,7 +221,7 @@ const Experience = () => {
 
                   {/* Position & Year - Mobile (improved layout) */}
                   <div className="experience-mobile">
-                    {/* Year positioned at top right */}
+                    {/* Year positioned at absolute top right */}
                     <div className="experience-year experience-year-mobile">{item.year}</div>
                     <div className="experience-mobile-header">
                       <div className="experience-mobile-content">
