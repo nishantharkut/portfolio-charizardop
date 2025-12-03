@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative py-28">
+    <section id="contact" className="relative py-12 sm:py-16 md:py-20 lg:py-24">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         {/* Section Title */}
         <motion.div

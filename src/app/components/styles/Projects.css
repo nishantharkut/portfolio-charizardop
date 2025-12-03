@@ -5,7 +5,7 @@
   color: var(--color-text);
   overflow: hidden;
   position: relative;
-  padding: 80px 0 120px 0; /* Increased bottom padding for smoother transition to Contact */
+  padding: 60px 0 60px 0; /* Balanced padding for smooth transitions */
   margin-bottom: 0; /* Let ScrollTrigger pinSpacing handle spacing */
   display: flex;
   align-items: center;

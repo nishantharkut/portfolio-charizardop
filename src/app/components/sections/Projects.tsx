@@ -123,12 +123,14 @@ const Projects = () => {
             id: "projects-horizontal",
             trigger: container,
             pin: true,
-            scrub: 1,
-            start: "top top",
+            scrub: 0.5, // Reduced scrub value for smoother motion
+            start: "center center", // Changed from "top top" for better entry
             end: `+=${scrollDistance * 2}`, // Adjust scroll distance
             anticipatePin: 1,
             invalidateOnRefresh: true,
             pinSpacing: true, // Ensure proper spacing is added
+            fastScrollEnd: true, // Better handling of fast scrolls
+            preventOverlaps: true, // Prevent overlapping with other ScrollTriggers
             onUpdate: (self: any) => {
               // Transform the project flex container horizontally
               gsap.set(projectFlex, {
@@ -138,22 +140,6 @@ const Projects = () => {
             },
             onRefresh: () => {
               console.log('Projects: ScrollTrigger refreshed');
-            },
-            onLeave: () => {
-              // When leaving the pinned section, ensure smooth transition
-              console.log('Projects: ScrollTrigger onLeave - pin released');
-              // Force a refresh to ensure scroll continues smoothly
-              requestAnimationFrame(() => {
-                ScrollTrigger.refresh();
-              });
-            },
-            onEnterBack: () => {
-              // When scrolling back into the section
-              console.log('Projects: ScrollTrigger onEnterBack');
-            },
-            onLeaveBack: () => {
-              // When scrolling back past the section
-              console.log('Projects: ScrollTrigger onLeaveBack');
             }
           }
         });

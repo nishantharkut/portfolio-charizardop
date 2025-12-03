@@ -115,11 +115,11 @@ export default function Home() {
       
       <Skills />
       
-      <div className="section-divider my-6 sm:my-8 md:my-12" />
+      <div className="section-divider my-4 sm:my-6 md:my-8" />
       
       <Projects />
       
-      <div className="section-divider my-8 sm:my-12 md:my-16" />
+      <div className="section-divider my-4 sm:my-6 md:my-8" />
       
       <Contact />
       

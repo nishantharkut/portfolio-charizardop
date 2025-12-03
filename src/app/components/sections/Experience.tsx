@@ -9,6 +9,7 @@ interface ExperienceItem {
   position: string;
   company: string;
   year: string;
+  months?: string;
   description: string;
 }
 
@@ -221,8 +222,11 @@ const Experience = () => {
 
                   {/* Position & Year - Mobile (improved layout) */}
                   <div className="experience-mobile">
-                    {/* Year positioned at absolute top right */}
-                    <div className="experience-year experience-year-mobile">{item.year}</div>
+                    {/* Year and months positioned at absolute top right */}
+                    <div className="experience-year-container">
+                      <div className="experience-year experience-year-mobile">{item.year}</div>
+                      {item.months && <div className="experience-months">{item.months}</div>}
+                    </div>
                     <div className="experience-mobile-header">
                       <div className="experience-mobile-content">
                         <h3 className="experience-position">{item.position}</h3>

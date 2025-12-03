@@ -7,7 +7,7 @@ export default function Skills() {
   const skillGroups = getSkillGroups();
 
   return (
-    <section id="skills" className="relative py-12 sm:py-16 md:py-20 lg:py-24">
+    <section id="skills" className="relative py-8 sm:py-12 md:py-16 lg:py-20">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

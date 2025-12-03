@@ -116,6 +116,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  scroll-behavior: smooth;
+  overscroll-behavior-y: none; /* Prevent rubber banding */
+}
+
+body {
+  overscroll-behavior-y: none; /* Prevent rubber banding on body */
+}
+
 /* GPU acceleration for frequently animated elements */
 .bento-card,
 .project-box,
