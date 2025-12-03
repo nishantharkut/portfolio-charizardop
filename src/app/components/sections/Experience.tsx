@@ -168,7 +168,7 @@ const Experience = () => {
       <div className="max-w-5xl mx-auto">
         {/* Title */}
         <h2 className="section-heading">
-          My Career <span> &<span style={{ display: 'block', marginTop: '-0.5em', marginBottom: '-0.2em' }}>Experience</span></span>
+          My Career <span className="experience-heading-break">&amp;<br className="experience-line-break"/>Experience</span>
         </h2>
 
         {/* Experience Timeline */}

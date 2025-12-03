@@ -6,6 +6,29 @@
   z-index: 1;
 }
 
+/* Heading Styles */
+.section-heading .experience-heading-break {
+  color: var(--color-accent);
+}
+
+.section-heading .experience-line-break {
+  display: inline;
+}
+
+/* Mobile: Show line break for better readability */
+@media (max-width: 767px) {
+  .section-heading .experience-line-break {
+    display: block;
+  }
+}
+
+/* Desktop: Hide line break for single line display */
+@media (min-width: 768px) {
+  .section-heading .experience-line-break {
+    display: none;
+  }
+}
+
 .experience-title {
   text-align: center;
   margin-bottom: 3rem;
