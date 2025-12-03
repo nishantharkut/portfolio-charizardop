@@ -86,6 +86,7 @@ export interface ExperienceItem {
   company: string;
   year: string;
   duration: string;
+  months?: string;
   description: string;
   responsibilities: string[];
   technologies: string[];
