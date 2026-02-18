@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "../../../contexts/ThemeContext";
+import { useLoading } from "../../contexts/LoadingContext";
 import { downloadResume } from "../../../utils/resume";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import Logo from "../ui/Logo";
@@ -12,6 +13,7 @@ import "../styles/Navbar.css";
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { actualTheme, toggleTheme } = useTheme();
+  const { isInitialLoading } = useLoading();
   const pathname = usePathname();
 
   const closeMobileMenu = useCallback(() => {
@@ -60,6 +62,8 @@ export default function Navbar() {
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
   }, [isMobileMenuOpen, closeMobileMenu]);
+
+  if (isInitialLoading) return null;
 
   return (
     <>

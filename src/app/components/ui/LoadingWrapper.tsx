@@ -56,7 +56,7 @@ export default function LoadingWrapper({ children }: { children: React.ReactNode
           />
         )}
         {shouldShowInitialLoading && isReturningVisitor && (
-          <div key="lazy-loading" className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm">
+          <div key="lazy-loading" className="fixed inset-0 flex items-center justify-center bg-black/90 backdrop-blur-sm" style={{ zIndex: 99999 }}>
             <LazyLoader
               show={isInitialLoading}
               onComplete={handlePixelLoaderComplete}

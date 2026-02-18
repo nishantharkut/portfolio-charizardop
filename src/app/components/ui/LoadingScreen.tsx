@@ -191,7 +191,7 @@ export default function RetroDragonLoader({
       style={{
         position: "fixed",
         inset: 0,
-        zIndex: 9999,
+        zIndex: 99999,
         background: "var(--color-bg-start, #060608)",
         color: "var(--color-text, #fff)",
       }}
