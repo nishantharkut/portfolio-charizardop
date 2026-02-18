@@ -4,18 +4,17 @@
       "id": 1,
       "title": "ODOO India Hackathon 2025 - Top 10",
       "category": "Hackathon",
-      "description": "Selected among the top 10 teams from 10,000+ participants for technical innovation and product viability in ODOO India Hackathon 2025.",
-      "details": "Competed against thousands of participants nationwide and secured a position in the top 10 for developing an innovative travel itinerary application. Demonstrated exceptional technical skills, product viability, and innovative thinking that impressed the judges.",
+      "description": "Top 10 out of 10,000+ teams at the ODOO India Hackathon 2025. Built a travel itinerary app.",
+      "details": "Competed in the ODOO India Hackathon 2025 and placed in the top 10 out of 10,000+ participants. Built a travel itinerary application that was evaluated on technical implementation and product viability.",
       "date": "2025",
       "organization": "ODOO",
       "link": "",
       "image": "/awards/Odoo.webp",
       "badge": "🏆",
       "impact": [
-        "Selected from 10,000+ participants nationwide",
-        "Recognized for technical innovation and product viability", 
-        "Demonstrated advanced problem-solving capabilities",
-        "Showcased expertise in full-stack development"
+        "Top 10 out of 10,000+ participants nationwide",
+        "Built a travel itinerary app judged on technical execution and product viability",
+        "Competed at national level against experienced teams"
       ],
       "featured": true
     },
@@ -24,118 +23,106 @@
       "title": "Winner - Hacknovate 6.0 Hackathon'25",
       "category": "Hackathon",
       "description": "Won first place in Agent.AI Track at Hacknovate 6.0 organized by ABES-IT, Ghaziabad, securing $200 prize for building Hogwarts OS.",
-      "details": "Developed an innovative AI-powered operating system interface inspired by the magical world of Harry Potter. The project showcased advanced AI integration, intuitive user experience design, and technical excellence.",
+      "details": "Won first place in the Agent.AI track at Hacknovate 6.0, organized by ABES-IT Ghaziabad. Built Hogwarts OS, a Harry Potter-themed Linux distribution featuring spell-based terminal commands, an AI-powered assistant, and gamification.",
       "date": "2025",
       "organization": "ABES-IT, Ghaziabad",
       "image": "/awards/hackonovate.webp",
       "badge": "🥇",
       "impact": [
-        "Won $200 cash prize for technical excellence",
-        "Built innovative AI-powered OS interface",
-        "Demonstrated expertise in AI/ML integration",
-        "Created unique user experience design"
+        "Won $200 cash prize in the Agent.AI track",
+        "Built Hogwarts OS - a Harry Potter-themed Linux distribution with AI assistant",
+        "Finished first among competing teams at ABES-IT, Ghaziabad"
       ]
     },
     {
       "id": 3,
       "title": "Winner - Winter Project 2024",
       "category": "UI/UX Design",
-      "description": "Secured first place in UI/UX Category at Winter Project 2024 organized by AASF, IIIT Gwalior for exceptional design innovation.",
-      "details": "Created outstanding user interface and user experience designs that demonstrated deep understanding of design principles, user psychology, and modern design trends.",
+      "description": "Won first place in the UI/UX category at Winter Project 2024, organized by AASF at IIIT Gwalior.",
+      "details": "Won first place in the UI/UX category at Winter Project 2024, organized by AASF at IIIT Gwalior.",
       "date": "2024",
       "organization": "AASF, IIIT Gwalior",
       "image": "/awards/WinterProject.webp",
       "badge": "🎨",
       "impact": [
-        "Recognized for exceptional UI/UX design skills",
-        "Demonstrated mastery of design principles",
-        "Created user-centered design solutions",
-        "Showcased innovative design thinking"
+        "Won first place in UI/UX category at AASF, IIIT Gwalior",
+        "Judged on design quality, usability, and presentation"
       ]
     },
     {
       "id": 4,
       "title": "Winner - Aakriti Competition 2024",
       "category": "Graphic Design",
-      "description": "Won first place in Graphic Design Category at Aakriti Competition 2024 organized by AASF, IIIT Gwalior for creative excellence.",
-      "details": "Demonstrated exceptional graphic design skills through creative visual communication, innovative design concepts, and technical proficiency in design tools.",
+      "description": "Won first place in the graphic design category at Aakriti 2024, organized by AASF at IIIT Gwalior.",
+      "details": "Won first place in the graphic design category at Aakriti Competition 2024, organized by AASF at IIIT Gwalior.",
       "date": "2024",
       "organization": "AASF, IIIT Gwalior",
       "image": "/awards/Aakrtiti.webp",
       "badge": "�",
       "impact": [
-        "Recognized for creative visual communication",
-        "Demonstrated advanced graphic design skills",
-        "Showcased innovative design concepts",
-        "Excellence in design tool proficiency"
+        "Won first place in graphic design category at AASF, IIIT Gwalior",
+        "Judged on creativity, visual communication, and technical skill"
       ]
     },
     {
       "id": 5,
       "title": "Executive Member - SAC Sports'23",
       "category": "Leadership",
-      "description": "Selected as the only first-year executive member at SAC Sports'23, IIIT Gwalior, organizing major sports events and team selections.",
-      "details": "Organized Sports Day, marathons, and other sporting events while handling team selections for Inter-IIIT Meet'24. Demonstrated exceptional leadership skills despite being a first-year student.",
+      "description": "Only first-year student picked as an executive member of SAC Sports at IIIT Gwalior. Helped run Sports Day, marathons, and team selections.",
+      "details": "Selected as the only first-year executive member of SAC Sports at IIIT Gwalior. Organized Sports Day, marathons, and handled team selections for Inter-IIIT Meet 24.",
       "date": "2023",
       "organization": "IIIT Gwalior",
-            "image": "/achievements/opensource.jpg",
+      "image": "/achievements/opensource.jpg",
       "badge": "⚽",
       "impact": [
-        "Only first-year selected for executive position",
-        "Organized major sports events and marathons",
-        "Handled team selections for Inter-IIIT Meet'24",
-        "Demonstrated exceptional leadership skills"
+        "Only first-year student selected for executive role",
+        "Organized Sports Day, marathons, and team selections for Inter-IIIT Meet 24"
       ]
     },
     {
       "id": 6,
       "title": "Executive Member - SAC Welfare'24",
       "category": "Community Service",
-      "description": "Served as executive member at SAC Welfare'24, organizing institute-level events and managing 100+ participants while designing promotional materials.",
-      "details": "Organized significant events including Hindi Divas, Environment Day, and Yoga Day for the institute. Managed large groups of 100+ people and created engaging poster designs for event promotion.",
+      "description": "Executive member at SAC Welfare, IIIT Gwalior. Organized events like Hindi Divas and Environment Day, handled logistics for 100+ people, and designed promotional materials.",
+      "details": "Served as executive member of SAC Welfare at IIIT Gwalior. Organized events including Hindi Divas, Environment Day, and Yoga Day. Managed events with 100+ participants and designed promotional materials.",
       "date": "2024",
       "organization": "IIIT Gwalior",
       "image": "/achievements/client-satisfaction.jpg",
       "badge": "🤝",
       "impact": [
-        "Organized major institute-level cultural events",
-        "Managed 100+ participants across events",
-        "Designed promotional posters and materials",
-        "Contributed to community welfare initiatives"
+        "Organized Hindi Divas, Environment Day, and Yoga Day events",
+        "Coordinated logistics for 100+ participant events",
+        "Designed promotional posters and materials"
       ]
     },
     {
       "id": 7,
       "title": "Executive & Tech Lead - E-Cell IIIT Gwalior",
       "category": "Technology Leadership",
-      "description": "Served as executive member and Tech Lead at E-Cell Club, creating engaging social media content and boosting online engagement.",
-      "details": "Led technology initiatives while creating compelling content for social media platforms including Instagram and LinkedIn. Successfully increased club engagement and online presence.",
+      "description": "Executive member and Tech Lead at E-Cell, IIIT Gwalior. Created social media content and handled tech initiatives for the club.",
+      "details": "Served as executive member and Tech Lead at E-Cell, IIIT Gwalior. Created content for social media platforms and handled tech-related initiatives for the club.",
       "date": "2024",
       "organization": "IIIT Gwalior",
       "image": "/achievements/innovation.jpg",
       "badge": "💡",
       "impact": [
-        "Led technology initiatives for entrepreneurship club",
-        "Created engaging social media content",
-        "Boosted online engagement across platforms",
-        "Enhanced club's digital presence"
+        "Created social media content for Instagram and LinkedIn",
+        "Handled tech initiatives as Tech Lead"
       ]
     },
     {
       "id": 8,
       "title": "Operations Team Member - Rotary Club",
       "category": "Community Leadership",
-      "description": "Served as executive operations team member at Rotary Club IIIT Gwalior, managing events and designing digital platforms.",
-      "details": "Handled and managed club events while designing various digital platforms for the organization. Contributed to community service initiatives and organizational growth.",
+      "description": "Operations team member at Rotary Club, IIIT Gwalior. Helped manage club events and designed some of their digital platforms.",
+      "details": "Served as operations team member at Rotary Club, IIIT Gwalior. Managed club events and designed digital platforms for the organization.",
       "date": "2024",
       "organization": "Rotary Club, IIIT Gwalior",
       "image": "/achievements/leadership.jpg",
       "badge": "🌟",
       "impact": [
-        "Managed and organized club events",
-        "Designed digital platforms for the organization",
-        "Contributed to community service initiatives",
-        "Enhanced operational efficiency"
+        "Managed club events and logistics",
+        "Designed digital platforms for the organization"
       ]
     }
   ],
@@ -147,7 +134,12 @@
       "date": "2024",
       "credentialId": "PSE-2024-001",
       "image": "/certifications/aws.png",
-      "skills": ["API Testing", "REST APIs", "API Documentation", "HTTP Methods"]
+      "skills": [
+        "API Testing",
+        "REST APIs",
+        "API Documentation",
+        "HTTP Methods"
+      ]
     },
     {
       "id": 2,
@@ -156,7 +148,12 @@
       "date": "2024",
       "credentialId": "MCK-FWD-2024",
       "image": "/certifications/gcp.png",
-      "skills": ["Leadership", "Strategic Thinking", "Problem Solving", "Professional Development"]
+      "skills": [
+        "Leadership",
+        "Strategic Thinking",
+        "Problem Solving",
+        "Professional Development"
+      ]
     },
     {
       "id": 3,
@@ -165,7 +162,14 @@
       "date": "2024",
       "credentialId": "WEB-2024-COMPLETE",
       "image": "/certifications/ceh.png",
-      "skills": ["Full Stack Development", "React", "Node.js", "MongoDB", "JavaScript", "HTML/CSS"]
+      "skills": [
+        "Full Stack Development",
+        "React",
+        "Node.js",
+        "MongoDB",
+        "JavaScript",
+        "HTML/CSS"
+      ]
     }
   ],
   "awards": [
@@ -175,7 +179,7 @@
       "event": "ODOO India Hackathon 2025",
       "position": "Top 10",
       "year": "2025",
-      "description": "Recognized among top 10 teams from 10,000+ participants for technical innovation",
+      "description": "Top 10 out of 10,000+ teams for building a travel itinerary app",
       "image": "/awards/creative-tech.jpg"
     },
     {
@@ -184,7 +188,7 @@
       "event": "Hacknovate 6.0",
       "position": "Winner",
       "year": "2025",
-      "description": "First place winner with $200 prize for innovative AI-powered OS development",
+      "description": "Won $200 for building Hogwarts OS — a Harry Potter-themed Linux distro with AI assistant",
       "image": "/awards/hackonovate.webp"
     },
     {
@@ -193,7 +197,7 @@
       "event": "Winter Project 2024",
       "position": "Winner",
       "year": "2024",
-      "description": "First place in UI/UX category for exceptional design innovation",
+      "description": "First place in UI/UX category at AASF, IIIT Gwalior",
       "image": "/awards/WinterProject.webp"
     },
     {
@@ -202,7 +206,7 @@
       "event": "Aakriti Competition 2024",
       "position": "Winner",
       "year": "2024",
-      "description": "First place winner in graphic design category for creative excellence",
+      "description": "First place in graphic design category at AASF, IIIT Gwalior",
       "image": "/awards/Aakrtiti.webp"
     }
   ]

@@ -28,7 +28,7 @@ const CodingStats: React.FC<CodingStatsProps> = ({ showTitle = true }) => {
               Coding <span style={{ color: 'var(--color-accent)' }}>Statistics</span>
             </h2>
             <p className="text-sm sm:text-base max-w-2xl mx-auto px-4" style={{ color: 'var(--color-text-secondary)' }}>
-              My contributions across platforms and problem-solving journey
+              GitHub contributions and problem-solving stats
             </p>
           </motion.div>
         )}

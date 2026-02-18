@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 
 const links = [
   {
-    label: "nishantharkut@gmail.com",
-    href: "mailto:nishantharkut@gmail.com",
+    label: "nhnishantharkut@gmail.com",
+    href: "mailto:nhnishantharkut@gmail.com",
     type: "Email",
   },
   {

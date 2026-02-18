@@ -429,11 +429,11 @@ export default function Hero() {
                   </svg>
                   <span className="text-xs sm:text-sm font-medium">{heroData.location}</span>
                 </div>
-                <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
+                <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 md:gap-4 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
                   {/* Secondary CTA */}
                   <a
                     href={heroData.cta.secondary.href}
-                    className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-medium text-center border-2 transition-all duration-300"
+                    className="px-3 py-2 text-xs font-medium text-center rounded-lg sm:px-4 sm:py-2.5 sm:text-sm md:px-5 md:py-2.5 lg:px-6 lg:py-3 lg:rounded-xl border-2 transition-all duration-300"
                     style={{
                       backgroundColor: 'var(--color-surface-elevated)',
                       borderColor: 'var(--color-accent)',
@@ -455,7 +455,7 @@ export default function Hero() {
                   {/* Primary CTA */}
                   <a
                     href={heroData.cta.primary.href}
-                    className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-semibold text-center border-2 transition-all duration-300"
+                    className="px-3 py-2 text-xs font-semibold text-center rounded-lg sm:px-4 sm:py-2.5 sm:text-sm md:px-5 md:py-2.5 lg:px-6 lg:py-3 lg:rounded-xl border-2 transition-all duration-300"
                     style={{
                       backgroundColor: 'var(--color-accent)',
                       borderColor: 'var(--color-text)',
@@ -708,11 +708,11 @@ export default function Hero() {
                 <span className="text-xs sm:text-sm font-medium">{heroData.location}</span>
               </div>
               
-              {/* CTAs - compact */}
-              <div className="flex flex-row gap-3 justify-center">
+              {/* CTAs - compact, responsive */}
+              <div className="flex flex-row gap-2 sm:gap-3 justify-center">
                 <a
                   href={heroData.cta.secondary.href}
-                  className="px-5 py-2 text-xs font-medium text-center border-2 transition-all duration-300 neubrutalism-button"
+                  className="px-3 py-1.5 text-xs font-medium text-center sm:px-4 sm:py-2 md:px-5 md:py-2 border-2 transition-all duration-300 neubrutalism-button"
                   style={{
                     backgroundColor: 'var(--color-surface-elevated)',
                     borderColor: 'var(--color-accent)',
@@ -733,7 +733,7 @@ export default function Hero() {
 
                 <a
                   href={heroData.cta.primary.href}
-                  className="px-5 py-2 text-xs font-semibold text-center border-2 transition-all duration-300 neubrutalism-button"
+                  className="px-3 py-1.5 text-xs font-semibold text-center sm:px-4 sm:py-2 md:px-5 md:py-2 border-2 transition-all duration-300 neubrutalism-button"
                   style={{
                     backgroundColor: 'var(--color-accent)',
                     borderColor: 'var(--color-text)',

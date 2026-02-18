@@ -242,12 +242,20 @@
   text-transform: uppercase;
   color: var(--color-text-muted);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  padding-bottom: 4px;
 }
 
-.navbar-links a:hover,
-.navbar-links a.navbar-link-active {
+.navbar-links a:hover {
   color: var(--color-text);
+}
+
+/* Clear active page indicator: accent color + underline */
+.navbar-links a.navbar-link-active {
+  color: var(--color-accent);
+  font-weight: 700;
+  box-shadow: 0 2px 0 0 var(--color-accent);
 }
 
 @media (min-width: 1200px) {
@@ -481,6 +489,14 @@
 .navbar-overlay-download:hover {
   color: var(--color-accent);
   border-color: var(--color-accent);
+}
+
+/* Active page in mobile menu */
+.navbar-overlay-link.navbar-overlay-link-active {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  border-left: 3px solid var(--color-accent);
+  padding-left: 12px;
 }
 
 .navbar-overlay-download {

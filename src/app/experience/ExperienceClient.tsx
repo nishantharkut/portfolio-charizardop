@@ -50,60 +50,97 @@ export default function ExperiencePage() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const isMobile = window.innerWidth <= 900;
+      const isMobile = window.innerWidth <= 768;
 
-      // Timeline growth animation - matching Career.css reference
-      const startPoint = isMobile ? "top 80%" : "top 70%";
-      const endPoint = isMobile ? "bottom 20%" : "bottom 30%";
+      if (isMobile) {
+        gsap.fromTo(
+          timelineRef.current,
+          { height: "0%" },
+          {
+            height: "calc(100% - 32px)",
+            duration: 1.2,
+            ease: "power1.inOut",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 80%",
+              end: "bottom 20%",
+              scrub: 1,
+              refreshPriority: 1
+            },
+          }
+        );
+        gsap.fromTo(
+          sparkRef.current,
+          { top: "0%", scale: 0.8, opacity: 0.5 },
+          {
+            top: "calc(100% - 16px)",
+            scale: 1.1,
+            opacity: 1,
+            duration: 1.2,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 80%",
+              end: "bottom 20%",
+              scrub: 0.7,
+              refreshPriority: 1
+            },
+          }
+        );
+      } else {
+        gsap.fromTo(
+          timelineRef.current,
+          { height: "0%" },
+          {
+            height: "100%",
+            duration: 1.5,
+            ease: "power1.inOut",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 70%",
+              end: "bottom 30%",
+              scrub: 1,
+              refreshPriority: 1
+            },
+          }
+        );
+        gsap.fromTo(
+          sparkRef.current,
+          { top: "0%", scale: 0.8, opacity: 0.5 },
+          {
+            top: "100%",
+            scale: 1,
+            opacity: 1,
+            duration: 1.5,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 70%",
+              end: "bottom 30%",
+              scrub: 0.5,
+              refreshPriority: 1
+            },
+          }
+        );
+      }
 
-      // Grow timeline line from top to bottom
-      gsap.fromTo(
-        timelineRef.current,
-        { height: "0%" },
-        {
-          height: "100%",
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: startPoint,
-            end: endPoint,
-            scrub: 1,
-          },
-        }
-      );
-
-      // Move the glowing dot along the timeline
-      gsap.fromTo(
-        sparkRef.current,
-        { top: "0%", opacity: 0.5 },
-        {
-          top: "100%",
-          opacity: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: startPoint,
-            end: endPoint,
-            scrub: 0.5,
-          },
-        }
-      );
-
-      // Fade in each career item as you scroll
-      itemsRef.current.forEach((item) => {
+      itemsRef.current.forEach((item, index) => {
         if (item) {
           gsap.fromTo(
             item,
-            { opacity: 0, y: 30 },
+            { opacity: 0, y: 20 },
             {
               opacity: 1,
               y: 0,
               duration: 0.6,
+              ease: "power2.out",
               scrollTrigger: {
                 trigger: item,
                 start: "top 85%",
                 end: "bottom 15%",
                 toggleActions: "play none none reverse",
+                refreshPriority: 1,
+                invalidateOnRefresh: true
               },
             }
           );
@@ -190,7 +227,7 @@ export default function ExperiencePage() {
               Professional
               <br />
               <span className="relative">
-                <span className="text-orange-500">Journey</span>
+                <span className="text-orange-500">Experience</span>
                 <motion.div
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
@@ -208,23 +245,22 @@ export default function ExperiencePage() {
               className="text-lg md:text-xl max-w-2xl mx-auto mb-8 drop-shadow-lg"
               style={{ color: 'var(--color-text)' }}
             >
-              From junior developer to <span className="text-orange-400 font-semibold">technical leader</span>, 
-              explore the milestones and achievements that shaped my career in 
-              <span className="text-orange-400 font-semibold"> creative web development</span>
+              My work experience so far — from <span className="text-orange-400 font-semibold">design internships</span> to 
+              <span className="text-orange-400 font-semibold"> software engineering</span>
             </motion.p>
             
-            {/* Button container with consistent sizing */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
+            {/* Button container — responsive sizing */}
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4 justify-center items-center">
               <Link 
                 href="/"
-                className="px-6 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center gap-2 text-sm w-fit"
+                className="px-3 py-2 text-xs neubrutalism-button font-bold uppercase tracking-wide text-center inline-flex items-center gap-1.5 sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm md:px-5 md:py-2.5 w-fit"
                 style={{ 
                   backgroundColor: 'var(--color-surface)',
                   borderColor: 'var(--color-accent)',
                   color: 'var(--color-text)'
                 }}
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
                 Back to Home
@@ -233,7 +269,7 @@ export default function ExperiencePage() {
               <motion.a 
                 href="#experience-timeline"
                 onClick={scrollToExperience}
-                className="px-6 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center gap-2 text-sm w-fit"
+                className="px-3 py-2 text-xs neubrutalism-button font-bold uppercase tracking-wide text-center inline-flex items-center gap-1.5 sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm md:px-5 md:py-2.5 w-fit"
                 style={{
                   borderColor: 'var(--color-accent)',
                   backgroundColor: 'var(--color-accent)',
@@ -245,7 +281,7 @@ export default function ExperiencePage() {
               >
                 View Experience
                 <motion.svg 
-                  className="w-4 h-4" 
+                  className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" 
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
@@ -260,56 +296,262 @@ export default function ExperiencePage() {
         </div>
       </section>
 
-      {/* Experience Timeline - Inspired by Career Design */}
-      <section 
+      {/* Experience Timeline — full content (duration, technologies, achievements) */}
+      <section
         ref={sectionRef}
-        className="relative z-10 w-full section-container career-section-redesign"
+        className="relative z-10 w-full py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-12"
         id="experience-timeline"
       >
-        <div className="career-container max-w-5xl mx-auto px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto">
           {/* Title */}
-          <motion.h2
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="career-title"
+            className="text-center mb-12 sm:mb-16 md:mb-20"
           >
-            My career <span>&</span>
-            <br /> experience
-          </motion.h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4" style={{ color: "var(--color-text)" }}>
+              Work <span className="text-orange-500">Experience</span>
+            </h2>
+            <p className="text-base sm:text-lg max-w-2xl mx-auto px-4" style={{ color: "var(--color-text-secondary)" }}>
+              Where I&apos;ve worked and what I&apos;ve built
+            </p>
+          </motion.div>
 
-          {/* Experience Items with Timeline */}
-          <div className="career-info relative">
-            {/* Timeline Line with Gradient */}
-            <div 
-              ref={timelineRef}
-              className="career-timeline"
-            />
-            
-            {/* Spark/Dot Effect */}
-            <div 
-              ref={sparkRef}
-              className="career-dot"
-            />
-
-            {/* Experience Cards */}
-            {experienceData.map((item, index) => (
-              <div
-                key={item.id}
-                ref={(el) => { itemsRef.current[index] = el; }}
-                className="career-info-box"
-              >
-                <div className="career-info-in">
-                  <div className="career-role">
-                    <h4>{item.position}</h4>
-                    <h5>{item.company}</h5>
+          {/* Mobile Experience Cards */}
+          <div className="block md:hidden">
+            <div className="space-y-8 pt-4">
+              {experienceData.map((item, index) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-10%" }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="w-full scroll-mt-20"
+                >
+                  <div
+                    className="relative w-full neubrutalism-card group min-h-[420px] sm:min-h-[460px] flex flex-col"
+                    style={{
+                      backgroundColor: "var(--color-surface)",
+                      borderColor: "var(--color-accent)",
+                    }}
+                  >
+                    <div className="p-5 relative overflow-hidden flex-1 flex flex-col">
+                      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="relative z-10 space-y-4">
+                        <div className="flex justify-between items-start mb-3">
+                          <span className="text-xl font-bold tracking-tight text-orange-500">{item.year}</span>
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-orange-500 rounded-sm" />
+                            <p className="text-xs font-bold tracking-wide opacity-90 uppercase" style={{ color: "var(--color-text-secondary)" }}>
+                              {item.duration}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="space-y-2 mb-4">
+                          <h3 className="text-lg font-bold leading-tight group-hover:text-orange-300 transition-colors duration-300 uppercase tracking-wide" style={{ color: "var(--color-text)" }}>
+                            {item.position}
+                          </h3>
+                          <div className="flex items-center gap-2">
+                            <div className="w-5 h-5 border border-orange-500/60 rounded-md bg-orange-500/30 flex items-center justify-center flex-shrink-0">
+                              <div className="w-2 h-2 bg-orange-500 rounded-sm" />
+                            </div>
+                            <h4 className="text-base font-bold bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent uppercase tracking-wide">
+                              {item.company}
+                            </h4>
+                          </div>
+                        </div>
+                        <div className="mb-4">
+                          <p className="text-sm leading-relaxed group-hover:text-opacity-95 transition-all duration-300" style={{ color: "var(--color-text-secondary)" }}>
+                            {item.description}
+                          </p>
+                        </div>
+                        <div className="mb-4">
+                          <div className="mb-2">
+                            <h5 className="font-bold text-xs uppercase tracking-[0.2em] opacity-90 flex items-center gap-2" style={{ color: "var(--color-text)" }}>
+                              <span className="w-2 h-2 bg-orange-500 rounded-sm" />
+                              Technologies Used
+                            </h5>
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            {item.technologies.map((tech, i) => (
+                              <motion.span
+                                key={i}
+                                className="px-2 py-1 border border-orange-500/70 rounded-lg bg-orange-500/20 text-orange-300 text-xs font-bold hover:bg-orange-500 hover:text-black transition-all duration-300 cursor-default shadow-[var(--shadow-neubrutalism)] hover:shadow-[var(--shadow-neubrutalism-hover-small)] hover:translate-x-[2px] hover:translate-y-[2px] uppercase tracking-wide"
+                                whileHover={{ scale: 1.05, y: -2 }}
+                                whileTap={{ scale: 0.95 }}
+                                transition={{ duration: 0.2 }}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                              >
+                                {tech}
+                              </motion.span>
+                            ))}
+                          </div>
+                        </div>
+                        <div>
+                          <div className="mb-2">
+                            <h5 className="font-bold text-xs uppercase tracking-[0.2em] opacity-90 flex items-center gap-2" style={{ color: "var(--color-text)" }}>
+                              <span className="w-2 h-2 bg-orange-500 rounded-sm" />
+                              Key Achievements
+                            </h5>
+                          </div>
+                          <div className="space-y-2">
+                            {item.achievements.map((achievement, i) => (
+                              <motion.div
+                                key={i}
+                                className="flex items-start gap-2 text-sm"
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: i * 0.1 }}
+                              >
+                                <div className="w-2 h-2 bg-orange-500 rounded-sm mt-1 flex-shrink-0" />
+                                <span className="font-medium" style={{ color: "var(--color-text-secondary)" }}>{achievement}</span>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <h3>{item.year}</h3>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop Timeline */}
+          <div className="hidden md:block relative">
+            <div
+              ref={timelineRef}
+              className="absolute left-1/2 -translate-x-1/2 w-[2px] h-full bg-gradient-to-b from-[#ff9a1c] to-transparent"
+            />
+            <div
+              ref={sparkRef}
+              className="absolute left-1/2 -translate-x-1/2 w-3 h-3 z-10 sparkle-dot"
+              style={{
+                background: "#ff9a1c",
+                borderRadius: "50%",
+                filter: "blur(1px)",
+                boxShadow: "0 0 8px 2px rgba(255, 154, 28, 0.8), 0 0 12px 5px rgba(255, 140, 64, 0.6)",
+              }}
+            />
+            <div className="relative">
+              {experienceData.map((item, index) => (
+                <div
+                  key={item.id}
+                  ref={(el) => { itemsRef.current[index] = el; }}
+                  className={`mb-8 sm:mb-10 md:mb-12 relative pl-14 sm:pl-12 md:pl-0 ${
+                    index % 2 === 0 ? "md:text-right md:pr-[calc(50%+40px)]" : "md:text-left md:pl-[calc(50%+40px)]"
+                  }`}
+                >
+                  <div
+                    className="absolute left-4 sm:left-3 md:left-1/2 md:-translate-x-1/2 w-3 sm:w-4 h-3 sm:h-4 bg-orange-500 rounded-full border-2 z-10 shadow-lg"
+                    style={{ borderColor: "var(--color-bg-start)" }}
+                  />
+                  <div
+                    className="relative w-full neubrutalism-card group min-h-[420px] sm:min-h-[460px] lg:min-h-[500px] flex flex-col"
+                    style={{
+                      backgroundColor: "var(--color-surface)",
+                      borderColor: "var(--color-accent)",
+                    }}
+                  >
+                    <div className="p-5 relative overflow-hidden flex-1 flex flex-col">
+                      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="relative z-10 space-y-4">
+                        <div className={`flex items-start ${index % 2 === 0 ? "md:justify-between md:flex-row-reverse" : "md:justify-between"} gap-4 mb-4`}>
+                          <span className="text-xl font-bold tracking-tight text-orange-500">{item.year}</span>
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-orange-500 rounded-sm" />
+                            <p className="text-xs font-bold tracking-wide opacity-90 uppercase" style={{ color: "var(--color-text-secondary)" }}>
+                              {item.duration}
+                            </p>
+                          </div>
+                        </div>
+                        <div className={`space-y-2 mb-4 ${index % 2 === 0 ? "md:text-right" : "md:text-left"}`}>
+                          <h3 className="text-lg font-bold leading-tight group-hover:text-orange-300 transition-colors duration-300 uppercase tracking-wide" style={{ color: "var(--color-text)" }}>
+                            {item.position}
+                          </h3>
+                          <div className={`flex items-center gap-2 ${index % 2 === 0 ? "md:justify-end" : "md:justify-start"}`}>
+                            <div className="w-5 h-5 border border-orange-500/60 rounded-md bg-orange-500/30 flex items-center justify-center flex-shrink-0">
+                              <div className="w-2 h-2 bg-orange-500 rounded-sm" />
+                            </div>
+                            <h4 className="text-base font-bold bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent uppercase tracking-wide">
+                              {item.company}
+                            </h4>
+                          </div>
+                        </div>
+                        <div className={`mb-4 ${index % 2 === 0 ? "md:text-right" : "md:text-left"}`}>
+                          <div className="relative">
+                            <div className={`absolute top-0 ${index % 2 === 0 ? "right-0" : "left-0"} w-6 h-0.5 bg-orange-500`} />
+                            <p className="text-sm leading-relaxed pt-3 group-hover:text-opacity-95 transition-all duration-300 font-medium" style={{ color: "var(--color-text-secondary)" }}>
+                              {item.description}
+                            </p>
+                          </div>
+                        </div>
+                        <div className={`mb-4 ${index % 2 === 0 ? "md:text-right" : "md:text-left"}`}>
+                          <div className="mb-2">
+                            <h5 className={`font-bold text-xs uppercase tracking-[0.2em] opacity-90 flex items-center gap-2 ${index % 2 === 0 ? "md:justify-end" : "md:justify-start"}`} style={{ color: "var(--color-text)" }}>
+                              <span className="w-2 h-2 bg-orange-500 rounded-sm" />
+                              Technologies Used
+                            </h5>
+                          </div>
+                          <div className={`flex flex-wrap gap-2 ${index % 2 === 0 ? "md:justify-end" : "md:justify-start"}`}>
+                            {item.technologies.map((tech, i) => (
+                              <motion.span
+                                key={i}
+                                className="px-2 py-1 border border-orange-500/70 rounded-lg bg-orange-500/20 text-orange-300 text-xs font-bold hover:bg-orange-500 hover:text-black transition-all duration-300 cursor-default shadow-[var(--shadow-neubrutalism)] hover:shadow-[var(--shadow-neubrutalism-hover-small)] hover:translate-x-[2px] hover:translate-y-[2px] uppercase tracking-wide"
+                                whileHover={{ scale: 1.05, y: -2 }}
+                                whileTap={{ scale: 0.95 }}
+                                transition={{ duration: 0.2 }}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                              >
+                                {tech}
+                              </motion.span>
+                            ))}
+                          </div>
+                        </div>
+                        <div className={index % 2 === 0 ? "md:text-right" : "md:text-left"}>
+                          <div className="mb-2">
+                            <h5 className={`font-bold text-xs uppercase tracking-[0.2em] opacity-90 flex items-center gap-2 ${index % 2 === 0 ? "md:justify-end" : "md:justify-start"}`} style={{ color: "var(--color-text)" }}>
+                              <span className="w-2 h-2 bg-orange-500 rounded-sm" />
+                              Key Achievements
+                            </h5>
+                          </div>
+                          <div className="space-y-2">
+                            {item.achievements.map((achievement, i) => (
+                              <motion.div
+                                key={i}
+                                className={`flex items-start gap-2 group/achievement p-1.5 hover:bg-orange-500/5 rounded transition-all duration-300 ${index % 2 === 0 ? "md:flex-row-reverse md:text-right" : ""}`}
+                                initial={{ opacity: 0, x: index % 2 === 0 ? 30 : -30 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: i * 0.1 }}
+                                whileHover={{ scale: 1.01 }}
+                              >
+                                <motion.div
+                                  className="flex-shrink-0 w-2 h-2 bg-orange-500 rounded-sm mt-1 shadow-sm group-hover/achievement:shadow-md group-hover/achievement:shadow-orange-500/40 transition-all duration-300"
+                                  whileHover={{ scale: 1.3, boxShadow: "0 0 15px rgba(255, 140, 66, 0.5)" }}
+                                  transition={{ duration: 0.2 }}
+                                />
+                                <span className="text-sm leading-relaxed group-hover/achievement:text-opacity-100 transition-all duration-300 font-medium" style={{ color: "var(--color-text-secondary)" }}>
+                                  {achievement}
+                                </span>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <p>{item.description}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -344,7 +586,7 @@ export default function ExperiencePage() {
                       borderColor: 'var(--color-accent)',
                     }}
                   >
-                    <span className="font-black text-xs sm:text-sm uppercase tracking-wide text-center px-2" style={{ color: 'var(--color-text)' }}>
+                    <span className="font-bold text-xs sm:text-sm uppercase tracking-wide text-center px-2" style={{ color: 'var(--color-text)' }}>
                       {skill}
                     </span>
                   </div>
@@ -544,10 +786,10 @@ export default function ExperiencePage() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6" style={{ color: 'var(--color-text)' }}>
-              Ready to <span className="text-orange-500">Collaborate?</span>
+              Want to <span className="text-orange-500">Work Together?</span>
             </h2>
             <p className="text-base sm:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto px-4" style={{ color: 'var(--color-text-secondary)' }}>
-              Let's bring your next project to life with innovative technology and creative design
+              I&apos;m open to internships, freelance work, and collaborations
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4">
               <Link 
@@ -590,6 +832,9 @@ export default function ExperiencePage() {
             box-shadow: 0 0 10px 4px rgba(255, 154, 28, 0.8), 0 0 20px 6px rgba(255, 140, 64, 0.6),
                         0 0 30px 10px rgba(255, 140, 64, 0.2);
           }
+        }
+        .sparkle-dot {
+          animation: sparkle 0.6s ease-out infinite alternate;
         }
       `}</style>
       

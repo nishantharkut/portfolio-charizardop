@@ -380,10 +380,10 @@ export default function AboutClient() {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-5xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>
-              Technical <span className="text-orange-500">Expertise</span>
+              Tech <span className="text-orange-500">Stack</span>
             </h2>
             <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--color-text-secondary)' }}>
-              A comprehensive skill set spanning frontend, backend, 3D graphics, and emerging technologies
+              Technologies and tools I work with regularly
             </p>
           </motion.div>
 
@@ -398,7 +398,7 @@ export default function AboutClient() {
                 className="h-full"
               >
                 {/* Neubrutalism Skills Card */}
-                <div className="relative w-full h-[280px] neubrutalism-card"
+                <div className="relative w-full min-h-[200px] neubrutalism-card"
                   style={{
                     backgroundColor: 'var(--color-surface)',
                     borderColor: 'var(--color-accent)',
@@ -408,27 +408,9 @@ export default function AboutClient() {
                     <h3 className="text-xl font-black mb-4 uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
                       {skill.category}
                     </h3>
-                    
-                    {/* Progress Bar */}
-                    <div className="mb-4">
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm font-black uppercase tracking-wide" style={{ color: 'var(--color-text-muted)' }}>Proficiency</span>
-                        <span className="text-sm text-orange-500 font-black">{skill.level}%</span>
-                      </div>
-                      <div className="w-full h-3 border-2 border-black" style={{ backgroundColor: 'var(--color-surface)' }}>
-                        <motion.div 
-                          className="bg-gradient-to-r from-[#ff9a1c] to-[#ff6b35] h-full border-r-2 border-black"
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.level}%` }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 1, delay: 0.5 }}
-                        />
-                      </div>
-                    </div>
 
                     {/* Technologies */}
                     <div className="flex-1">
-                      <h4 className="text-sm mb-3 font-black uppercase tracking-wider" style={{ color: 'var(--color-text-muted)' }}>Technologies</h4>
                       <div className="flex flex-wrap gap-2">
                         {skill.technologies.map((tech, i) => (
                           <span key={i} className="px-2 py-1 border-2 border-orange-500 bg-orange-500/20 text-orange-500 text-xs font-black hover:bg-orange-500 hover:text-black transition-all duration-300 shadow-[var(--shadow-neubrutalism-medium)] hover:shadow-[var(--shadow-neubrutalism-hover-small)] hover:translate-x-[1px] hover:translate-y-[1px] uppercase tracking-wide">
@@ -529,7 +511,7 @@ export default function AboutClient() {
               Beyond <span className="text-orange-500">Code</span>
             </h2>
             <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--color-text-secondary)' }}>
-              My passions and interests that fuel creativity and innovation
+              What I do when I&apos;m not coding
             </p>
           </motion.div>
 
@@ -581,10 +563,10 @@ export default function AboutClient() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: 'var(--color-text)' }}>
-              Let's Create Something <span className="text-orange-500">Amazing</span>
+              Let&apos;s <span className="text-orange-500">Work Together</span>
             </h2>
             <p className="text-lg mb-8 max-w-2xl mx-auto" style={{ color: 'var(--color-text-secondary)' }}>
-              I'm always excited to collaborate on innovative projects that push creative and technical boundaries.
+              I&apos;m looking for internship opportunities and open to working on interesting projects.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
               <Link 

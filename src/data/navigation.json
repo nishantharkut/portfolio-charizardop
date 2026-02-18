@@ -9,40 +9,30 @@
   },
   "footer": {
     "navigationSections": [
-      { 
+      {
         "title": "NAVIGATE",
         "links": [
-          { "label": "About Me", "href": "#about" },
+          { "label": "About", "href": "#about" },
           { "label": "Experience", "href": "#experience" },
-          { "label": "Coding Stats", "href": "#coding-stats" },
           { "label": "Skills", "href": "#skills" },
           { "label": "Projects", "href": "#projects" },
           { "label": "Contact", "href": "#contact" }
         ]
       },
-      { 
-        "title": "MY WORK",
-        "links": [
-          { "label": "GitHub Portfolio", "href": "https://github.com/nishantharkut" },
-          { "label": "Live Projects", "href": "#projects" },
-          { "label": "Open Source", "href": "https://github.com/nishantharkut?tab=repositories" },
-          { "label": "Medium Blogs", "href": "https://medium.com/@nhnishantharkut" }
-        ]
-      },
-      { 
+      {
         "title": "CONNECT",
         "links": [
-          { "label": "LinkedIn", "href": "https://in.linkedin.com/in/nishant-harkut" },
           { "label": "GitHub", "href": "https://github.com/nishantharkut" },
-          { "label": "Instagram", "href": "https://instagram.com/nishantharkut" },
-          { "label": "Email Me", "href": "mailto:nhnishantharkut@gmail.com" }
+          { "label": "LeetCode", "href": "https://leetcode.com/u/nishant_harkut/" },
+          { "label": "Codeforces", "href": "https://codeforces.com/profile/fiery_charizard" },
+          { "label": "CodeChef", "href": "https://codechef.com/users/nishantharkut" },
+          { "label": "Devfolio", "href": "https://devfolio.co/@CharizardOP" }
         ]
       }
     ],
     "socialLinks": [
       { "label": "GitHub", "href": "https://github.com/nishantharkut", "icon": "FaGithub" },
       { "label": "LinkedIn", "href": "https://in.linkedin.com/in/nishant-harkut", "icon": "FaLinkedin" },
-      { "label": "Twitter", "href": "https://twitter.com", "icon": "FaTwitter" },
       { "label": "Instagram", "href": "https://instagram.com/nishantharkut", "icon": "FaInstagram" }
     ]
   }

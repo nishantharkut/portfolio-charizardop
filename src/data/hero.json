@@ -1,6 +1,6 @@
 {
   "name": "Nishant Harkut",
-  "tagline": "Full Stack & AI Engineer :// building production-grade web applications, LLM-driven products, and scalable cloud backends for startups.",
+  "tagline": "Full Stack & AI Engineer :// building production-grade web applications, LLM-driven products, and scalable cloud backends.",
   "location": "Surat, India",
   "cta": {
     "primary": {
@@ -13,7 +13,7 @@
     }
   },
   "announcement": {
-    "text": "I am Currently Looking for Internships - SWE | Full stack Development | Security Analyst | Frontend Dev | Backend Dev",
+    "text": "Currently Looking for Internships — SWE | Full Stack Development",
     "link": {
       "text": "Let's collaborate",
       "href": "#contact"

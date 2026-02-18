@@ -2,18 +2,18 @@
   "experienceData": [
     {
       "id": 1,
-      "position": "Full Stack Developer Intern",
+      "position": "Software Engineering Intern",
       "company": "QuickIntell",
       "year": "2025",
       "duration": "Aug. 2025 - Present",
       "months": "6 months",
-      "description": "Working on document extraction and parsing solutions for client data, focusing on EOB (Explanation of Benefits) and ERA (Electronic Remittance Advice) processing.",
+      "description": "Working on the EOB-to-ERA pipeline for a healthcare RCM product. Handling backend services, OCR pipeline improvements, client frontends, and AI integrations.",
       "responsibilities": [
-        "Developed and optimized OCR pipelines for extracting structured data from unstructured documents",
-        "Implemented parsing logic for EOB and ERA documents to improve automation accuracy",
+        "Reduced OCR pipeline errors by ~80% through improved validation and error handling",
         "Built and maintained backend services using Python and FastAPI",
-        "Collaborated with cross-functional teams to integrate parsing solutions into client workflows",
-        "Enhanced data validation and error-handling mechanisms for reliable document processing"
+        "Created frontend interfaces for client-facing data review workflows",
+        "Working on AI pipeline integrations for document processing automation",
+        "Implementing data validation rules for EOB and ERA document parsing"
       ],
       "technologies": [
         "Python",
@@ -22,9 +22,9 @@
         "Regex"
       ],
       "achievements": [
-        "Automated extraction workflows that reduced manual processing time by 50%",
-        "Improved document parsing accuracy by 30% through advanced validation rules",
-        "Successfully deployed production-ready pipelines for multiple healthcare clients"
+        "Cut OCR pipeline error rate by ~80% with better validation logic",
+        "Built parsing pipelines for healthcare document processing",
+        "Delivered client frontend ahead of schedule"
       ],
       "logo": "/logos/blue-cube.svg"
     },
@@ -33,113 +33,37 @@
       "position": "UI & Graphic Design Intern",
       "company": "CookNKlean",
       "year": "2024",
-      "duration": "Apr. 2024 - Jul.   2024",
+      "duration": "Apr. 2024 - Jul. 2024",
       "months": "3 months",
-      "description": "Designed 10+ Creative Designs, marketing assets and 3 UI mockups for a home services platform, boosting social engagement by 10% and cutting feedback cycles by 25% through cross-functional collaboration and optimized workflows.",
+      "description": "Designed marketing assets and UI mockups for a home services platform during a 3-month design internship.",
       "responsibilities": [
-        "Designed 10+ marketing assets (social posts, banners, email headers) in Figma for brand campaigns",
-        "Built high-fidelity UI mockups for the booking portal, improving feedback cycles and development hand-off",
-        "Conducted usability feedback sessions and translated insights into actionable UI revisions",
-        "Optimized asset-export workflows using Figma plugins for faster delivery",
-        "Collaborated with product, marketing, and engineering teams to ensure design alignment"
+        "Created social media graphics, banners, and marketing materials in Figma",
+        "Designed UI mockups for the company's booking portal",
+        "Gathered feedback from stakeholders and iterated on designs",
+        "Prepared and exported design assets for development handoff",
+        "Worked with product and marketing teams on campaign visuals"
       ],
       "technologies": [
         "Figma",
         "Adobe Photoshop",
-        "Adobe Illustrator",
-        "Figma Plugins",
-        "Jira",
-        "Slack"
+        "Adobe Illustrator"
       ],
       "achievements": [
-        "Created 10+ marketing assets (social posts, banners, email headers) in Figma, contributing to a 10% lift in engagement on Instagram and Facebook.",
-        "Built 3 high-fidelity UI mockups for the company’s booking portal, which streamlined feedback cycles by 25% and informed the development hand-off.",
-        "Ran 5 usability feedback sessions with internal stakeholders, translating insights into two rounds of UI revisions that increased stakeholder approval from 60% to 85%.",
-        "Optimized asset-export processes using Figma plugins, cutting prep time by 15% and enabling on-schedule delivery of design deliverables."
+        "Designed 10+ marketing assets for social media campaigns",
+        "Created 3 UI mockups for the booking portal",
+        "Ran feedback sessions with stakeholders and incorporated revisions"
       ],
       "logo": "/logos/brane.svg"
     }
   ],
   "coreSkills": [
-    "Frontend Development",
-    "3D Web Experiences",
-    "Backend Architecture",
+    "Full Stack Development",
     "UI/UX Design",
-    "Creative Technology",
-    "Performance Optimization",
-    "Team Leadership",
-    "Client Relations"
+    "Backend Development",
+    "Frontend Development",
+    "API Design",
+    "AI/ML Integration"
   ],
-  "highlights": [
-    {
-      "number": "50+",
-      "label": "Projects Completed",
-      "description": "Successful delivery across web apps, 3D experiences, and enterprise solutions",
-      "icon": "FaRocket"
-    },
-    {
-      "number": "98%",
-      "label": "Client Satisfaction",
-      "description": "Consistent high-quality delivery and exceptional client relationships",
-      "icon": "FaStar"
-    },
-    {
-      "number": "6",
-      "label": "Team Members Led",
-      "description": "Successfully managed and mentored development teams",
-      "icon": "FaUsers"
-    },
-    {
-      "number": "40%",
-      "label": "Performance Gains",
-      "description": "Average improvement in application performance and load times",
-      "icon": "FaBolt"
-    }
-  ],
-  "technologyEvolution": [
-    {
-      "period": "2017-2019",
-      "title": "Foundation Years",
-      "description": "Building core web development skills and learning industry best practices",
-      "technologies": [
-        "PHP",
-        "MySQL",
-        "JavaScript",
-        "jQuery",
-        "HTML5",
-        "CSS3",
-        "Bootstrap"
-      ],
-      "color": "from-blue-500 to-purple-500"
-    },
-    {
-      "period": "2020-2022",
-      "title": "Modern Stack Adoption",
-      "description": "Embracing modern frameworks and expanding into 3D web experiences",
-      "technologies": [
-        "React",
-        "TypeScript",
-        "Node.js",
-        "Three.js",
-        "WebGL",
-        "GSAP",
-        "Docker"
-      ],
-      "color": "from-purple-500 to-pink-500"
-    },
-    {
-      "period": "2023-Present",
-      "title": "Innovation & Leadership",
-      "description": "Leading edge technologies and mentoring next-generation developers",
-      "technologies": [
-        "Next.js",
-        "Blender",
-        "AI/ML Integration",
-        "Cybersecurity",
-        "AWS",
-        "Framer Motion"
-      ],
-      "color": "from-pink-500 to-orange-500"
-    }
-  ]
+  "highlights": [],
+  "technologyEvolution": []
 }

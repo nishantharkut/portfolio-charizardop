@@ -101,8 +101,8 @@
       "id": 6,
       "title": "Uproot.AI",
       "category": "AI Career Coaching Platform",
-      "shortDescription": "AI-powered career coaching platform offering personalized guidance, interview prep, resume building, and 24/7 support for professional success.",
-      "fullDescription": "Uproot.AI is a comprehensive AI-powered career coaching SaaS platform that provides personalized career guidance, AI-driven interview preparation, intelligent resume and cover letter generation, skills assessments, and 24/7 AI chatbot support. The platform features subscription management via Stripe, Web3 wallet integration for payments, scheduled 1-on-1 coaching calls, and industry-specific insights across 50+ industries with a 95% success rate.",
+      "shortDescription": "AI-powered career coaching platform with personalized guidance, interview prep, resume building, and subscription management.",
+      "fullDescription": "Uproot.AI is an AI-powered career coaching SaaS platform that provides personalized career guidance, AI-driven interview preparation, intelligent resume and cover letter generation, skills assessments, and AI chatbot support. The platform features subscription management via Stripe, Web3 wallet integration for payments, scheduled 1-on-1 coaching calls, and industry-specific insights.",
       "techStack": ["Next.js 15", "React", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "NextAuth.js", "OpenAI API", "Stripe", "Cloudinary", "Inngest", "Resend", "Web3/Ethers.js", "shadcn/ui"],
       "implementation": [
         "Full-stack Next.js application with App Router and server-side rendering",

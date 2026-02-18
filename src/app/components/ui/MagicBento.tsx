@@ -140,8 +140,8 @@ const AboutMeContent: React.FC = () => {
           style={{ color: 'var(--color-text-secondary)' }}
           onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-text)'; }}
           onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-text-secondary)'; }}>
-          <span className="hidden md:inline">Full-stack developer with </span><span className="text-orange-400 font-medium">1+ years</span><span className="hidden md:inline"> of experience blending UI/UX, security, and AI integration into seamless web solutions.</span>
-<span className="md:hidden"> experience in full-stack development and AI-driven design.</span>
+          <span className="hidden md:inline">3rd year B.Tech IT + MBA at IIIT Gwalior. </span><span className="text-orange-400 font-medium">1+ years</span><span className="hidden md:inline"> of experience building full-stack apps and working on AI pipelines.</span>
+<span className="md:hidden"> experience in full-stack development.</span>
 
         </p>
       </div>
@@ -184,7 +184,7 @@ const AboutMeContent: React.FC = () => {
             e.currentTarget.style.borderColor = 'var(--color-border)';
           }}
         >
-          <span className="hidden md:inline">View Full Story →</span>
+          <span className="hidden md:inline">View About →</span>
           <span className="md:hidden">More →</span>
         </button>
       </div>
@@ -199,16 +199,16 @@ const ProjectsContent: React.FC = () => {
   // Add compelling project highlights that make visitors curious
   const projectHighlights: { [key: number]: string[] } = {
   1: [
-    "Developed a Scalable Web3 platform to 500+ users",
-    "Delivered Approx. 95% uptime with live chat"
+    "Web3 collaboration platform with escrow and NFT ticketing",
+    "Real-time chat built on Socket.IO"
   ],
   3: [
-    "AI-powered itinerary generation with 95%+ accuracy",
-    "Collaborative trip planning with real-time updates"
+    "AI-powered itinerary generation and budget tracking",
+    "Collaborative trip planning with shared dashboards"
   ],
   6: [
-    "AI-powered career coaching across 50+ industries",
-    "95% success rate with personalized guidance & Web3 payments"
+    "AI-powered career coaching SaaS with Stripe subscriptions",
+    "Resume analysis and interview prep using OpenAI API"
   ]
 };
 
@@ -723,7 +723,7 @@ const cardData: BentoCardProps[] = [
   {
     id: "about",
     title: "About Me",
-    description: "UI/UX Designer passionate about creating innovative digital experiences",
+    description: "Full-stack developer and 3rd year student at IIIT Gwalior",
     icon: <UserIcon className="w-5 h-5" />,
     className: "bento-card--about",
     content: <AboutMeContent />,
@@ -731,7 +731,7 @@ const cardData: BentoCardProps[] = [
   {
     id: "skills",
     title: "Top Skills",
-    description: "Full-stack development with modern technologies",
+    description: "Technologies and tools I use regularly",
     icon: <CodeBracketIcon className="w-5 h-5" />,
     className: "bento-card--skills",
     content: <SkillsContent />,
@@ -739,7 +739,7 @@ const cardData: BentoCardProps[] = [
   {
     id: "projects",
     title: "Featured Projects",
-    description: "Showcase of my best creative work and developments",
+    description: "Web apps, hackathon projects, and side projects",
     icon: <ArrowTopRightOnSquareIcon className="w-5 h-5" />,
     className: "bento-card--projects",
     content: <ProjectsContent />,
@@ -747,7 +747,7 @@ const cardData: BentoCardProps[] = [
   {
     id: "experience",
     title: "Experience",
-    description: "1+ years in full-stack development and creative design",
+    description: "1+ years — SWE intern at QuickIntell, design intern at CookNKlean",
     icon: <BriefcaseIcon className="w-5 h-5" />,
     className: "bento-card--experience",
     content: <ExperienceContent />,
@@ -1312,17 +1312,17 @@ const MagicBento: React.FC<BentoProps> = ({
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             /* Neubrutalism styling */
-            border: 4px solid var(--color-accent);
-            border-radius: 0;
+            border: 1.5px solid var(--color-accent);
+            border-radius: 16px;
             padding: 1.5rem;
             position: relative;
             overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             color: var(--color-text);
             display: flex;
             flex-direction: column;
             /* Neubrutalism shadow */
-            box-shadow: 8px 8px 0px 0px var(--shadow-neubrutalism);
+            box-shadow: 3px 3px 0px 0px var(--shadow-neubrutalism);
             z-index: 2;
             min-height: 140px;
           }
@@ -1341,8 +1341,8 @@ const MagicBento: React.FC<BentoProps> = ({
           
           .bento-card:hover {
             /* Neubrutalism hover effect */
-            box-shadow: 4px 4px 0px 0px var(--shadow-neubrutalism-hover);
-            transform: translate(4px, 4px);
+            box-shadow: 2px 2px 0px 0px var(--shadow-neubrutalism-hover);
+            transform: translate(2px, 2px);
             border-color: var(--color-accent-transparent);
           }
           
@@ -1552,8 +1552,8 @@ const MagicBento: React.FC<BentoProps> = ({
               grid-row: auto !important;
               min-height: 140px; /* Same as Experience/Achievements */
               /* Neubrutalism mobile adjustments */
-              border-width: 3px;
-              box-shadow: 4px 4px 0px 0px var(--shadow-neubrutalism);
+              border-width: 1.5px;
+              box-shadow: 3px 3px 0px 0px var(--shadow-neubrutalism);
               /* Performance optimizations */
               will-change: auto;
               transform: translateZ(0);
@@ -1587,7 +1587,7 @@ const MagicBento: React.FC<BentoProps> = ({
             .bento-card:hover {
               background: initial;
               /* Keep neubrutalism shadow but no transform */
-              box-shadow: 4px 4px 0px 0px var(--shadow-neubrutalism);
+              box-shadow: 3px 3px 0px 0px var(--shadow-neubrutalism);
               transform: none;
             }
             

@@ -202,7 +202,12 @@ export const getAwards = (): Award[] => {
 };
 
 export const getSkills = (): Skill[] => {
-  return skillsData.skills;
+  // Map skillGroups to Skill format for backward compatibility
+  return skillsData.skillGroups.map(group => ({
+    category: group.title,
+    technologies: group.items,
+    level: 0
+  }));
 };
 
 export const getSkillGroups = (): SkillGroup[] => {
@@ -214,7 +219,7 @@ export const getInterests = (): Interest[] => {
 };
 
 export const getTimeline = (): TimelineItem[] => {
-  return skillsData.timeline;
+  return [];
 };
 
 export const getExperienceData = (): ExperienceItem[] => {
@@ -226,11 +231,11 @@ export const getCoreSkills = (): string[] => {
 };
 
 export const getCareerHighlights = (): CareerHighlight[] => {
-  return experienceData.highlights;
+  return [];
 };
 
 export const getTechnologyEvolution = (): TechnologyEra[] => {
-  return experienceData.technologyEvolution;
+  return [];
 };
 
 export const getNavigationLinks = (): NavigationLink[] => {
@@ -276,7 +281,7 @@ export const getAchievementsByCategory = (category: string): Achievement[] => {
 };
 
 export const getSkillsByCategory = (category: string): Skill | undefined => {
-  return skillsData.skills.find(skill => 
+  return getSkills().find(skill => 
     skill.category.toLowerCase().includes(category.toLowerCase())
   );
 };

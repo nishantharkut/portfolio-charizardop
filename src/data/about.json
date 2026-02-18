@@ -1,38 +1,36 @@
 {
   "hero": {
-    "badge": "Web Architect",
+    "badge": "Student Developer",
     "title": "About",
-    "subtitle": "Full Stack Developer with a strong grasp of UI/UX, Web App Security, and AI Integration.",
+    "subtitle": "3rd year B.Tech IT + MBA at IIIT Gwalior. Full stack developer, currently interning at QuickIntell.",
   "profileImage": "/nishant-image.webp",
     "profileAlt": "Nishant Harkut",
     "profileCaption": "Nishant Harkut"
   },
   "aboutSections": [
     {
-      "title": "The Full-Stack Dev with Design DNA",
+      "title": "Who I Am",
       "content": [
-        "Hi, I'm Nishant Harkut, a full-stack developer and student at IIIT Gwalior who believes the best technology doesn't just work—it inspires. My journey began with pixels and evolved into production-ready platforms that marry stunning design with robust engineering."
+        "I'm Nishant Harkut, a 3rd year dual-degree student (B.Tech IT + MBA) at IIIT Gwalior. I got into tech through design — spent my first year learning UI/UX and graphic design, won a few college design competitions, and did a design internship. That background shaped how I think about building things, but I knew I wanted to go deeper than mockups."
       ]
     },
     {
       "title": "Design to Dev",
       "content": [
-        "What started as UI/UX victories in college competitions quickly revealed a deeper truth: I didn't just want to design experiences, I wanted to build them. This realization sparked my transition into full-stack development, where my design-first mindset became my secret weapon. In the competitive world of hackathons, this unique perspective helped me secure wins and finals positions across multiple events, ultimately leading to my role as a Full Stack Developer at QuickIntell and Project Admin for W3nity—a Web3 collaboration platform.",
-        "My technical foundation spans modern web technologies—React, Next.js, Node.js, and PostgreSQL for core functionality, enhanced with Three.js, GSAP, and WebGL for those jaw-dropping interactive experiences that make users pause and say 'how did they do that?' But beyond the impressive tech stack, I bring something many developers lack: an intuitive understanding of what makes interfaces not just functional, but memorable."
+        "After first year, I went all-in on development. I started building full-stack projects — a Web3 collaboration platform, an AI travel planner, a career coaching SaaS — and competing in hackathons. That led to a top-10 finish at ODOO India Hackathon (out of 10,000+ teams) and a first-place win at Hacknovate 6.0.",
+        "Right now I'm interning at QuickIntell as a Software Engineer, working on OCR pipelines, backend services, and AI integrations for their healthcare RCM product. My stack is mostly React, Next.js, Node.js, Python, and PostgreSQL, with some Three.js and GSAP when a project calls for it."
       ]
     },
     {
-      "title": "Security First",
+      "title": "Security Awareness",
       "content": [
-        "In an era where AI integration is reshaping web applications, security isn't an afterthought—it's foundational. My growing expertise in web application security, grounded in OWASP principles, ensures that every beautiful interface I create is built on rock-solid foundations.",
-        "Whether it's implementing robust authentication systems or securing API endpoints, I approach each project with the mindset that great user experiences must never come at the cost of user safety."
+        "I've been picking up web application security alongside development — OWASP fundamentals, auth implementations, API security patterns. It's not my primary focus, but I think building things without understanding how they break is a gap worth closing."
       ]
     },
     {
       "title": "Beyond Code",
       "content": [
-        "When I step away from the screen, you'll find me on basketball courts, at the gym, or experimenting with AI music generation—because creativity shouldn't be confined to code. I'm passionate about giving back to the tech community through open source contributions and mentoring others facing similar challenges.", 
-"My goal isn't just to build successful applications or launch a venture in mental health or dental tech—it's to create technology that genuinely improves lives while helping other developers discover their own paths forward."
+        "Outside of coding, I play basketball, go to the gym, and mess around with AI music generation. I'm also into graphic design, photography, and the occasional BGMI session."
       ]
     }
   ],

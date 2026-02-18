@@ -831,6 +831,40 @@ useEffect(() => {
 8. Use `<NeuCard>` and `<NeuButton>`
 9. **Remove commented-out Career Highlights section** (lines 591-665)
 
+### 8.3a Achievements Page Redesign — Moving Away from Generic Cards
+
+**Why it feels like “generic AI slop”:**
+- Every card uses the same recipe: neubrutalism border + orange accent + emoji/badge + “KEY IMPACT” bullets + same typography hierarchy. No variation by type (hackathon vs design vs leadership).
+- Fixed heights (`h-[440px]`, `min-h-[500px]`) force a uniform grid; everything has the same weight.
+- One visual language for featured, list, certifications, and awards — so the page reads as one long template.
+- “FEATURED” and category badges look like placeholder styling (yellow/orange, uppercase) rather than a deliberate system.
+
+**Redesign directions (pick one or combine):**
+
+1. **Type-based card variants**  
+   Give each achievement type a distinct card shape and emphasis instead of one card for all.
+   - **Hackathons**: Emphasize result (e.g. “Top 10”, “Winner”) as the hero; big placement/prize, smaller body; optional timeline ribbon or year pill.
+   - **Design / creative**: Image-first or large thumbnail; minimal text; category as a small label (e.g. “UI/UX”, “Graphic Design”), no “KEY IMPACT” list unless it adds value.
+   - **Leadership / community**: Role and org upfront; short one-line scope; optional small “impact” as a single line or tag, not a bullet list.
+   Certifications can stay compact (logo + name + issuer + credential link); awards can be “trophy card” style (position + event + year prominent, description secondary).
+
+2. **Layout and hierarchy**
+   - **Featured**: One or two hero items — full-bleed or large image with overlay text (title + one line), not the same horizontal card as everything else.
+   - **Rest**: Not a uniform grid. Use a **bento layout**: mix of wide and narrow cards so some achievements (e.g. hackathon wins) are larger, others (e.g. club roles) are smaller. Or a **timeline/list** for non-featured so the page tells a story (year → items) instead of “another row of boxes”.
+   - **Certifications**: Single row of compact “badges” or a narrow strip (logo + name + “View credential”) instead of tall cards that mirror achievement cards.
+
+3. **Visual system, not one-off styling**
+   - Replace generic “FEATURED” and “KEY IMPACT” with a clear system: e.g. one accent color for “placement/result”, another for “category”, and use it consistently. Avoid yellow/orange everywhere.
+   - Use your design tokens (e.g. `NeuCard`, `--color-accent`) so achievements don’t feel like a different product; only the *layout* and *card variants* differ.
+   - Optional: small illustrations or icons per category (trophy, palette, megaphone, etc.) instead of emoji to make it feel designed.
+
+**Concrete first steps**
+- [ ] Introduce 2–3 card components: e.g. `AchievementCardHackathon`, `AchievementCardLeadership`, `AchievementCardDesign`, and render by `achievement.category` (or a new `cardType` in data).
+- [ ] Remove fixed heights; use `min-h` only where needed and let content define height.
+- [ ] Redesign the **featured** block as one hero (e.g. one big card or one full-width strip) instead of repeating the same horizontal card.
+- [ ] Certifications: switch to a compact horizontal or badge-style layout; awards: distinct “award card” (position/event/year prominent).
+- [ ] Replace hardcoded orange/yellow with CSS variables and use one clear rule for “result/placement” vs “category” so the page doesn’t look like a default template.
+
 ### 8.4 ProjectsClient (`src/app/projects/ProjectsClient.tsx` — 731 lines)
 
 **Changes:**
