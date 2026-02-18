@@ -10,24 +10,12 @@ import { getProjects, type Project } from "../../../data";
 import { performanceManager } from '@/utils/performance';
 
 const Projects = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const projectFlexRef = useRef<HTMLDivElement>(null);
-  const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
-  const [isInitialized, setIsInitialized] = useState(false);
-  
-  // Modal state management
+  const sectionRef = useRef<HTMLDivElement>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  // Modal handler functions
-  const handleProjectClick = (project: Project) => {
-    setSelectedProject(project);
-  };
+  const handleProjectClick = (project: Project) => setSelectedProject(project);
+  const closeProjectDetail = () => setSelectedProject(null);
 
-  const closeProjectDetail = () => {
-    setSelectedProject(null);
-  };
-
-  // Prevent background scroll when modal is open
   useEffect(() => {
     if (selectedProject) {
       document.body.style.overflow = 'hidden';
@@ -37,180 +25,80 @@ const Projects = () => {
     return () => { document.body.style.overflow = ''; };
   }, [selectedProject]);
 
-  // Memoize performance settings to prevent re-renders
   const performanceSettings = useMemo(() => performanceManager.getOptimalSettings(), []);
-  
-  // State for hydration-safe device detection
-  const [deviceInfo, setDeviceInfo] = useState({
-    isMobile: false,
-    isTablet: false,
-    viewportWidth: 1200,
-    viewportHeight: 800
-  });
-  const [isHydrated, setIsHydrated] = useState(false);
 
-  // Hydration-safe device detection
+  // GSAP horizontal scroll — matches moncy.dev Work section
   useEffect(() => {
-    const updateDeviceInfo = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      
-      setDeviceInfo({
-        isMobile: width <= 768,
-        isTablet: width > 768 && width <= 1024,
-        viewportWidth: width,
-        viewportHeight: height
-      });
-    };
+    if (!sectionRef.current) return;
 
-    updateDeviceInfo();
-    setIsHydrated(true);
+    let translateX = 0;
 
-    const handleResize = () => {
-      updateDeviceInfo();
-    };
+    function setTranslateX() {
+      const boxes = sectionRef.current!.getElementsByClassName('project-box');
+      const container = sectionRef.current!.querySelector('.project-container');
+      if (!boxes.length || !container) return;
+      const rectLeft = container.getBoundingClientRect().left;
+      const rect = boxes[0].getBoundingClientRect();
+      const parentWidth = boxes[0].parentElement!.getBoundingClientRect().width;
+      const padding = parseInt(window.getComputedStyle(boxes[0]).padding) / 2;
+      translateX = rect.width * boxes.length - (rectLeft + parentWidth) + padding;
+    }
 
-    window.addEventListener('resize', handleResize, { passive: true });
-    
+    setTranslateX();
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top top',
+        end: `+=${translateX}`,
+        scrub: true,
+        pin: true,
+        id: 'work',
+      },
+    });
+
+    tl.to('.project-flex', {
+      x: -translateX,
+      ease: 'none',
+    });
+
     return () => {
-      window.removeEventListener('resize', handleResize);
+      tl.kill();
+      ScrollTrigger.getById('work')?.kill();
     };
   }, []);
-  // Optimized ScrollTrigger setup - runs once after hydration
-  useEffect(() => {
-    if (!containerRef.current || !isHydrated || isInitialized) return;
 
-    const initializeScrollTrigger = () => {
-      const container = containerRef.current;
-      const projectFlex = container?.querySelector('.project-flex') as HTMLElement;
-      
-      if (!container || !projectFlex) {
-        console.log('Projects: Elements not found for ScrollTrigger');
-        return;
-      }
-
-      // Clean up any existing triggers
-      scrollTriggerRef.current?.kill();
-
-      // Get project boxes for width calculation
-      const projectBoxes = projectFlex.querySelectorAll('.project-box');
-      if (projectBoxes.length === 0) {
-        console.log('Projects: No project boxes found');
-        return;
-      }
-
-      // Calculate scroll distance based on actual content width
-      const containerWidth = container.offsetWidth;
-      const totalWidth = projectFlex.scrollWidth;
-      
-      // Add extra space to ensure the "View All Projects" card is properly centered/visible
-      // This ensures the last card is positioned at center or slightly right of center
-      const extraSpace = containerWidth * 0.3; // 30% of container width for better positioning
-      const scrollDistance = totalWidth - containerWidth + extraSpace;
-      
-      console.log('Projects: Creating horizontal scroll animation', {
-        containerWidth,
-        totalWidth,
-        scrollDistance,
-        extraSpace,
-        projectCount: projectBoxes.length
-      });
-
-      // Only create animation if there's content to scroll
-      if (scrollDistance > 0) {
-        const timeline = gsap.timeline({
-          scrollTrigger: {
-            id: "projects-horizontal",
-            trigger: container,
-            pin: true,
-            scrub: 0.5, // Reduced scrub value for smoother motion
-            start: "center center", // Changed from "top top" for better entry
-            end: `+=${scrollDistance * 2}`, // Adjust scroll distance
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-            pinSpacing: true, // Ensure proper spacing is added
-            fastScrollEnd: true, // Better handling of fast scrolls
-            preventOverlaps: true, // Prevent overlapping with other ScrollTriggers
-            onUpdate: (self: any) => {
-              // Transform the project flex container horizontally
-              gsap.set(projectFlex, {
-                x: -scrollDistance * self.progress,
-                force3D: true
-              });
-            },
-            onRefresh: () => {
-              console.log('Projects: ScrollTrigger refreshed');
-            }
-          }
-        });
-
-        if (timeline.scrollTrigger) {
-          scrollTriggerRef.current = timeline.scrollTrigger;
-        }
-        console.log('Projects: Horizontal scroll ScrollTrigger created successfully');
-        setIsInitialized(true);
-      }
-    };
-
-    // Initialize after a delay to ensure DOM is ready and all sections are loaded
-    // Increased delay to account for dynamically loaded sections (like CodingStats)
-    const timer = setTimeout(initializeScrollTrigger, 300);
-
-    // Handle resize events
-    const handleResize = () => {
-      if (scrollTriggerRef.current) {
-        setTimeout(() => {
-          ScrollTrigger.refresh();
-        }, 100);
-      }
-    };
-
-    window.addEventListener('resize', handleResize, { passive: true });
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('resize', handleResize);
-      scrollTriggerRef.current?.kill();
-    };
-  }, [isHydrated]); // Depend on hydration state
-
-
-  // Get featured projects for the section showcase
   const allProjects = getProjects();
-  const featuredProjects = allProjects.filter(project => project.featured).slice(0, 3); // Show only first 3 featured projects
-  
-  // Transform data for compatibility with existing component structure
+  const featuredProjects = allProjects.filter(p => p.featured).slice(0, 3);
   const projects = featuredProjects.map((project, index) => ({
     number: String(index + 1).padStart(2, '0'),
     title: project.title,
     category: project.category,
     tools: project.techStack.join(', '),
     image: project.image,
-    originalProject: project // Keep reference to original project data for modal
+    originalProject: project,
   }));
 
   return (
-    <div 
-      className={`projects-section scroll-container contained-layout ${
-        isHydrated && deviceInfo.isMobile ? 'mobile' : ''
-      } ${
-        isHydrated && deviceInfo.isTablet ? 'tablet' : ''
-      } ${
-        performanceSettings.deviceTier === 'low' ? 'mobile-optimized' : ''
-      }`} 
-      id="projects" 
-      ref={containerRef}
-    >
+    <div className="projects-section" id="projects" ref={sectionRef}>
       <div className="project-container section-container">
         <h2 className="section-heading">
           My <span>Work</span>
         </h2>
-        <div className="project-flex" ref={projectFlexRef}>
+        <div className="project-flex">
           {projects.map((project, index) => (
-            <div 
-              className="project-box cursor-pointer" 
+            <div
+              className="project-box"
               key={index}
               onClick={() => handleProjectClick(project.originalProject)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  handleProjectClick(project.originalProject);
+                }
+              }}
             >
               <div className="project-header">
                 <div className="project-number">{project.number}</div>
@@ -219,32 +107,28 @@ const Projects = () => {
                   <p>{project.category}</p>
                 </div>
               </div>
-              
+
               <div className="project-info">
                 <h4>Tools and features</h4>
                 <p>{project.tools}</p>
               </div>
-              
+
               <div className="project-image">
-                <Image 
-                  src={project.image} 
+                <Image
+                  src={project.image}
                   alt={project.title}
                   width={400}
                   height={300}
                   quality={performanceSettings.deviceTier === 'low' ? 60 : 75}
                   priority={index === 0}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  style={{ 
-                    objectFit: 'cover',
-                    willChange: 'transform'
-                  }}
+                  style={{ objectFit: 'cover' }}
                   loading={index === 0 ? 'eager' : 'lazy'}
-                  className="optimized-image"
                 />
               </div>
             </div>
           ))}
-          
+
           {/* View all projects card */}
           <div className="project-box view-all-box">
             <Link href="/projects" className="view-all-link">
@@ -286,8 +170,16 @@ const Projects = () => {
                 </h2>
                 <button
                   onClick={closeProjectDetail}
-                  className="w-10 h-10 rounded-full border-2 border-black bg-[var(--color-surface-hover)] hover:bg-orange-500 hover:text-black flex items-center justify-center transition-colors duration-300 shadow-[var(--shadow-neubrutalism-medium)] flex-shrink-0"
-                  style={{ color: 'var(--color-text)' }}
+                  className="w-10 h-10 rounded-full border-2 border-black flex items-center justify-center transition-colors duration-300 shadow-[var(--shadow-neubrutalism-medium)] flex-shrink-0"
+                  style={{ backgroundColor: 'var(--color-surface-hover)', color: 'var(--color-text)' }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'var(--color-accent)';
+                    e.currentTarget.style.color = '#000';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'var(--color-surface-hover)';
+                    e.currentTarget.style.color = 'var(--color-text)';
+                  }}
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -318,14 +210,14 @@ const Projects = () => {
                 <div className="p-4 space-y-6 pb-24">
                   {/* Category Badge */}
                   <div>
-                    <span className="bg-orange-400 border-2 border-black px-3 py-2 font-black text-black text-sm shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide">
+                    <span className="border-2 border-black px-3 py-2 font-black text-black text-sm shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide" style={{ backgroundColor: 'var(--color-accent-light)' }}>
                       {selectedProject.category}
                     </span>
                   </div>
 
                   {/* Description */}
                   <div>
-                    <h3 className="text-lg font-black uppercase mb-3 border-b-2 border-orange-500 pb-2 inline-block" style={{ color: 'var(--color-text)' }}>
+                    <h3 className="text-lg font-black uppercase mb-3 border-b-2 pb-2 inline-block" style={{ color: 'var(--color-text)', borderColor: 'var(--color-accent)' }}>
                       About Project
                     </h3>
                     <p className="leading-relaxed text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>
@@ -335,14 +227,27 @@ const Projects = () => {
 
                   {/* Tech Stack */}
                   <div>
-                    <h3 className="text-lg font-black uppercase mb-3 border-b-2 border-orange-500 pb-2 inline-block" style={{ color: 'var(--color-text)' }}>
+                    <h3 className="text-lg font-black uppercase mb-3 border-b-2 pb-2 inline-block" style={{ color: 'var(--color-text)', borderColor: 'var(--color-accent)' }}>
                       Technologies
                     </h3>
                     <div className="grid grid-cols-2 gap-2">
                       {selectedProject.techStack.map((tech, i) => (
                         <div 
                           key={i} 
-                          className="px-3 py-2 border-2 border-orange-500 bg-orange-500/10 text-orange-500 text-sm font-black rounded-lg shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide text-center hover:bg-orange-500 hover:text-black transition-all duration-300"
+                          className="px-3 py-2 border-2 text-sm font-black rounded-lg shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide text-center transition-all duration-300"
+                          style={{ 
+                            borderColor: 'var(--color-accent)', 
+                            backgroundColor: 'var(--color-accent-transparent)',
+                            color: 'var(--color-accent)'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = 'var(--color-accent)';
+                            e.currentTarget.style.color = '#000';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = 'var(--color-accent-transparent)';
+                            e.currentTarget.style.color = 'var(--color-accent)';
+                          }}
                         >
                           {tech}
                         </div>
@@ -352,13 +257,13 @@ const Projects = () => {
 
                   {/* Key Features */}
                   <div>
-                    <h3 className="text-lg font-black uppercase mb-3 border-b-2 border-orange-500 pb-2 inline-block" style={{ color: 'var(--color-text)' }}>
+                    <h3 className="text-lg font-black uppercase mb-3 border-b-2 pb-2 inline-block" style={{ color: 'var(--color-text)', borderColor: 'var(--color-accent)' }}>
                       Key Features
                     </h3>
                     <div className="space-y-3">
                       {selectedProject.implementation.map((item, i) => (
                         <div key={i} className="flex items-start gap-3 p-3 border-2 border-[var(--color-border)] rounded-lg bg-[var(--color-surface)]">
-                          <span className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></span>
+                          <span className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: 'var(--color-accent)' }}></span>
                           <span className="text-sm leading-relaxed font-medium" style={{ color: 'var(--color-text-secondary)' }}>
                             {item}
                           </span>
@@ -377,7 +282,10 @@ const Projects = () => {
                       href={selectedProject.liveLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 px-4 py-3 neubrutalism-button bg-orange-500 hover:bg-orange-600 text-black font-black uppercase tracking-wide text-center border-2 border-black shadow-[var(--shadow-neubrutalism)] text-sm inline-flex items-center justify-center gap-2"
+                      className="flex-1 px-4 py-3 neubrutalism-button text-black font-black uppercase tracking-wide text-center border-2 border-black shadow-[var(--shadow-neubrutalism)] text-sm inline-flex items-center justify-center gap-2"
+                      style={{ backgroundColor: 'var(--color-accent)' }}
+                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--color-accent-hover)'}
+                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--color-accent)'}
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -413,15 +321,23 @@ const Projects = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}
-                className="relative neubrutalism-card border-4 max-w-4xl w-full h-[80vh] flex shadow-[var(--shadow-neubrutalism)] bg-[var(--color-surface-elevated)] rounded-lg overflow-hidden"
+                className="relative neubrutalism-card border-2 max-w-4xl w-full h-[80vh] flex shadow-[var(--shadow-neubrutalism)] bg-[var(--color-surface-elevated)] rounded-lg overflow-hidden"
                 style={{ borderColor: 'var(--color-accent)' }}
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Desktop Close Button */}
                 <button
                   onClick={closeProjectDetail}
-                  className="absolute top-4 right-4 w-10 h-10 rounded-full border-2 border-black bg-[var(--color-surface-hover)] hover:bg-orange-500 hover:text-black flex items-center justify-center transition-colors duration-300 z-30 shadow-[var(--shadow-neubrutalism-medium)]"
-                  style={{ color: 'var(--color-text)' }}
+                  className="absolute top-4 right-4 w-10 h-10 rounded-full border-2 border-black flex items-center justify-center transition-colors duration-300 z-30 shadow-[var(--shadow-neubrutalism-medium)]"
+                  style={{ backgroundColor: 'var(--color-surface-hover)', color: 'var(--color-text)' }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'var(--color-accent)';
+                    e.currentTarget.style.color = '#000';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'var(--color-surface-hover)';
+                    e.currentTarget.style.color = 'var(--color-text)';
+                  }}
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -456,7 +372,7 @@ const Projects = () => {
                           <h2 className="text-2xl font-black uppercase tracking-tight mb-2 pr-12" style={{ color: 'var(--color-text)' }}>
                             {selectedProject.title}
                           </h2>
-                          <span className="bg-orange-400 border-2 border-black px-3 py-1 font-black text-black text-xs shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide">
+                          <span className="border-2 border-black px-3 py-1 font-black text-black text-xs shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide" style={{ backgroundColor: 'var(--color-accent-light)' }}>
                             {selectedProject.category}
                           </span>
                         </div>
@@ -476,7 +392,20 @@ const Projects = () => {
                             {selectedProject.techStack.map((tech, i) => (
                               <span 
                                 key={i} 
-                                className="px-2 py-1 border-2 border-orange-500 bg-orange-500/20 text-orange-500 text-xs font-black rounded shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide hover:bg-orange-500 hover:text-black transition-all duration-300"
+                                className="px-2 py-1 border-2 text-xs font-black rounded shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide transition-all duration-300"
+                                style={{ 
+                                  borderColor: 'var(--color-accent)', 
+                                  backgroundColor: 'var(--color-accent-transparent)',
+                                  color: 'var(--color-accent)'
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.backgroundColor = 'var(--color-accent)';
+                                  e.currentTarget.style.color = '#000';
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.backgroundColor = 'var(--color-accent-transparent)';
+                                  e.currentTarget.style.color = 'var(--color-accent)';
+                                }}
                               >
                                 {tech}
                               </span>
@@ -490,7 +419,7 @@ const Projects = () => {
                           <ul className="space-y-2">
                             {selectedProject.implementation.map((item, i) => (
                               <li key={i} className="flex items-start gap-2" style={{ color: 'var(--color-text-secondary)' }}>
-                                <span className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></span>
+                                <span className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: 'var(--color-accent)' }}></span>
                                 <span className="text-sm leading-relaxed">{item}</span>
                               </li>
                             ))}
@@ -509,7 +438,10 @@ const Projects = () => {
                           href={selectedProject.liveLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1 px-6 py-3 neubrutalism-button bg-orange-500 hover:bg-orange-600 text-black font-black uppercase tracking-wide text-center border-2 border-black shadow-[var(--shadow-neubrutalism)] text-sm inline-flex items-center justify-center gap-2"
+                          className="flex-1 px-6 py-3 neubrutalism-button text-black font-black uppercase tracking-wide text-center border-2 border-black shadow-[var(--shadow-neubrutalism)] text-sm inline-flex items-center justify-center gap-2"
+                          style={{ backgroundColor: 'var(--color-accent)' }}
+                          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--color-accent-hover)'}
+                          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--color-accent)'}
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />

@@ -134,10 +134,9 @@ export interface AboutSection {
 }
 
 export interface HeroData {
-  badge: string;
   name: string;
-  title: string;
-  description: string;
+  tagline: string;
+  location: string;
   cta: {
     primary: {
       text: string;

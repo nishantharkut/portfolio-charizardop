@@ -194,6 +194,12 @@
   pointer-events: none;
 }
 
+@media (max-width: 768px) {
+  .fps-indicator {
+    display: none;
+  }
+}
+
 /* Low-end device optimizations */
 @media (max-device-width: 768px) and (-webkit-max-device-pixel-ratio: 2) {
   .low-end-optimization {

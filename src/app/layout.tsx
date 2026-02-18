@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Sora } from "next/font/google";
 import "./globals.css";
 import "../styles/performance.css";
 import { PerformanceProvider } from "@/contexts/PerformanceContext";
@@ -25,6 +25,15 @@ const geistMono = Geist_Mono({
   preload: false, // Don't preload monospace font
   fallback: ['ui-monospace', 'SFMono-Regular', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
   adjustFontFallback: true,
+});
+
+const sora = Sora({
+  variable: "--font-sora",
+  subsets: ["latin"],
+  display: 'swap',
+  preload: true,
+  weight: ['400', '600', '700', '800'],
+  fallback: ['system-ui', 'sans-serif'],
 });
 
 export const metadata: Metadata = {
@@ -224,7 +233,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${sora.variable} antialiased`}
         suppressHydrationWarning={true}
       >
         <ErrorBoundary>

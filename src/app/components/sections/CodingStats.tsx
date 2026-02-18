@@ -24,8 +24,8 @@ const CodingStats: React.FC<CodingStatsProps> = ({ showTitle = true }) => {
             transition={{ duration: 0.6 }}
             className="text-center mb-8 md:mb-12"
           >
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>
-              Coding <span className="text-orange-500">Statistics</span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>
+              Coding <span style={{ color: 'var(--color-accent)' }}>Statistics</span>
             </h2>
             <p className="text-sm sm:text-base max-w-2xl mx-auto px-4" style={{ color: 'var(--color-text-secondary)' }}>
               My contributions across platforms and problem-solving journey
@@ -95,7 +95,7 @@ const CodingStats: React.FC<CodingStatsProps> = ({ showTitle = true }) => {
                   borderColor: 'var(--color-accent)',
                 }}
               >
-                <SiLeetcode className="text-5xl md:text-6xl text-orange-500 mb-4 mx-auto" />
+                <SiLeetcode className="text-5xl md:text-6xl mb-4 mx-auto" style={{ color: 'var(--color-accent)' }} />
                 <h3 className="text-xl md:text-2xl font-black uppercase tracking-wide mb-3" style={{ color: 'var(--color-text)' }}>
                   LeetCode Stats
                 </h3>

@@ -1,374 +1,201 @@
 "use client";
 
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { useTheme } from '../../../contexts/ThemeContext';
-import { getNavigationLinks } from '../../../data';
-import { downloadResume } from '../../../utils/resume';
-import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
-import Logo from '../ui/Logo';
+import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useTheme } from "../../../contexts/ThemeContext";
+import { downloadResume } from "../../../utils/resume";
+import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
+import Logo from "../ui/Logo";
+import "../styles/Navbar.css";
 
 export default function Navbar() {
-  const links = getNavigationLinks();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { actualTheme, toggleTheme } = useTheme();
   const pathname = usePathname();
-  const router = useRouter();
 
-  // Function to check if link is active
+  const closeMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen(false);
+  }, []);
+
+  const toggleMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen((prev) => !prev);
+  }, []);
+
   const isActiveLink = (href: string) => {
-    if (href === '/' && pathname === '/') return true;
-    if (href !== '/' && pathname === href) return true;
+    if (href === "/" && pathname === "/") return true;
+    if (href !== "/" && pathname.startsWith(href)) return true;
     return false;
   };
 
-  // Function to handle contact button click
-  const handleContactClick = () => {
-    if (pathname === '/') {
-      // If on home page, scroll to contact section
-      const contactSection = document.getElementById('contact');
-      contactSection?.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      // If on other pages, navigate to home page and then scroll to contact
-      router.push('/');
-      // Wait for navigation to complete, then scroll to contact
-      setTimeout(() => {
-        const contactSection = document.getElementById('contact');
-        contactSection?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    }
-  };
-
-  // Function to handle download resume
-  const handleDownloadResume = (e: React.MouseEvent) => {
+  const handleDownloadResume = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     downloadResume();
-  };
+  }, []);
+
+  // Navigation items — always link to their dedicated pages
+  const navItems = [
+    { href: "/experience", label: "EXPERIENCE" },
+    { href: "/projects", label: "PROJECTS" },
+    { href: "/achievements", label: "MILESTONES" },
+  ];
+
+  const handleNavClick = useCallback(() => {
+    closeMobileMenu();
+  }, [closeMobileMenu]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
+  // Close menu on ESC
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isMobileMenuOpen) closeMobileMenu();
+    };
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [isMobileMenuOpen, closeMobileMenu]);
 
   return (
     <>
-      {/* Desktop Navbar */}
-      <div className="fixed top-4 inset-x-0 z-50 flex justify-center px-4">
-        <motion.nav
-          initial={{ y: -40, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.55, ease: 'easeOut' }}
-          className="hidden lg:flex items-center gap-6 xl:gap-10 pl-4 xl:pl-6 pr-3 h-14 xl:h-16 transition-all duration-300 max-w-7xl w-full border-4"
-          style={{
-            backgroundColor: 'var(--color-surface)',
-            borderColor: 'var(--color-accent)',
-            boxShadow: '6px 6px 0px 0px var(--shadow-neubrutalism)'
-          }}
-        >
-          <Link 
-            href="/" 
-            className="flex items-center justify-center w-10 xl:w-12 h-10 xl:h-12 glass-button text-xs xl:text-sm font-semibold tracking-widest hover:scale-105 transition-transform duration-300 overflow-hidden"
-            style={{ color: 'var(--color-text)' }}
-          >
-            <Logo width={40} height={40} priority />
+      {/* Gradient fade below navbar */}
+      <div className="navbar-fade" aria-hidden="true" />
+
+      {/* Desktop navbar: [logo nishant.dev]   (empty center)   [EXPERIENCE  PROJECTS  MILESTONES] */}
+      <header className="navbar navbar-desktop" role="banner">
+        <div className="navbar-group navbar-group-left">
+          <Link href="/" className="navbar-logo-link" aria-label="Home">
+            <Logo width={40} height={40} className="navbar-logo-desktop flex-shrink-0" priority />
+            <span className="navbar-brand">nishant.dev</span>
           </Link>
-          
-          <div className="flex-1 flex items-center justify-center gap-6 xl:gap-8 text-xs xl:text-[13px]">
-            {links.map(l => {
-              const isActive = isActiveLink(l.href);
-              return (
-                <Link 
-                  key={l.href} 
-                  href={l.href} 
-                  className={`relative py-1 transition-all duration-300 hover:opacity-80 group ${
-                    isActive ? 'font-semibold' : ''
-                  }`}
-                  style={{ 
-                    color: isActive ? 'var(--color-text)' : 'var(--color-text-muted)' 
-                  }}
+        </div>
+        <div className="navbar-group navbar-group-center" />
+        <nav className="navbar-group navbar-group-right" aria-label="Main">
+          <ul className="navbar-links">
+            {navItems.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className={isActiveLink(item.href) ? "navbar-link-active" : ""}
+                  onClick={handleNavClick}
                 >
-                  {l.label}
-                  <span 
-                    className={`absolute bottom-0 left-0 h-[2px] transition-all duration-300 ${
-                      isActive 
-                        ? 'w-full' 
-                        : 'w-0 group-hover:w-full'
-                    }`}
-                    style={{ background: 'var(--color-accent-gradient)' }} 
-                  />
+                  {item.label}
                 </Link>
-              );
-            })}
-          </div>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </header>
 
-          <div className="flex items-center gap-3">
-            {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className="flex items-center justify-center w-8 xl:w-10 h-8 xl:h-10 transition-all duration-300 border-2"
-              aria-label="Toggle theme"
-              style={{
-                backgroundColor: 'var(--color-surface-elevated)',
-                borderColor: 'var(--color-accent)',
-                boxShadow: '3px 3px 0px 0px var(--shadow-neubrutalism)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = 'none';
-                e.currentTarget.style.transform = 'translate(3px, 3px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism)';
-                e.currentTarget.style.transform = 'translate(0px, 0px)';
-              }}
-            >
-              {actualTheme === 'dark' ? (
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" style={{ color: 'var(--color-accent)' }}>
-                  <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
-                </svg>
-              ) : (
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" style={{ color: 'var(--color-text-muted)' }}>
-                  <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                </svg>
-              )}
-            </button>
-
-            {/* Download Resume Button */}
-            <button
-              onClick={handleDownloadResume}
-              className="flex items-center justify-center w-8 xl:w-10 h-8 xl:h-10 transition-all duration-300 border-2"
-              aria-label="Download Resume"
-              style={{
-                backgroundColor: 'var(--color-accent)',
-                borderColor: 'var(--color-text)',
-                boxShadow: '3px 3px 0px 0px var(--shadow-neubrutalism)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = 'none';
-                e.currentTarget.style.transform = 'translate(3px, 3px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism)';
-                e.currentTarget.style.transform = 'translate(0px, 0px)';
-              }}
-            >
-              <ArrowDownTrayIcon className="w-4 h-4" style={{ color: 'var(--color-button-text)' }} />
-            </button>
-            
-            <button 
-              onClick={handleContactClick}
-              className="text-xs xl:text-[12px] font-medium px-4 xl:px-6 py-2 xl:py-2.5 border-2 transition-all duration-300"
-              style={{ 
-                backgroundColor: 'var(--color-accent)',
-                color: 'var(--color-button-text)',
-                borderColor: 'var(--color-text)',
-                boxShadow: '3px 3px 0px 0px var(--shadow-neubrutalism)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = 'none';
-                e.currentTarget.style.transform = 'translate(3px, 3px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism)';
-                e.currentTarget.style.transform = 'translate(0px, 0px)';
-              }}
-            >
-              Connect Here
-            </button>
-          </div>
-        </motion.nav>
-      </div>
-
-      {/* Mobile Navbar */}
-      <div className="fixed top-4 inset-x-0 z-50 flex justify-center px-4 lg:hidden">
-        <motion.nav
-          initial={{ y: -40, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.55, ease: 'easeOut' }}
-          className="flex items-center justify-between pl-4 pr-3 h-14 transition-all duration-300 w-full max-w-sm border-4"
-          style={{
-            backgroundColor: 'var(--color-surface)',
-            borderColor: 'var(--color-accent)',
-            boxShadow: '4px 4px 0px 0px var(--shadow-neubrutalism)'
-          }}
-        >
-          <Link 
-            href="/" 
-            className="flex items-center justify-center w-10 h-10 text-xs font-semibold tracking-widest transition-all duration-300 overflow-hidden border-2"
-            style={{ 
-              color: 'var(--color-text)',
-              backgroundColor: 'var(--color-surface-elevated)',
-              borderColor: 'var(--color-accent)',
-              boxShadow: '2px 2px 0px 0px var(--shadow-neubrutalism)'
-            }}
-            onTouchStart={(e) => {
-              e.currentTarget.style.boxShadow = 'none';
-              e.currentTarget.style.transform = 'translate(2px, 2px)';
-            }}
-            onTouchEnd={(e) => {
-              e.currentTarget.style.boxShadow = '2px 2px 0px 0px var(--shadow-neubrutalism)';
-              e.currentTarget.style.transform = 'translate(0px, 0px)';
-            }}
-          >
-            <Logo width={40} height={40} priority />
+      {/* Mobile navbar: logo + hamburger */}
+      <header className="navbar navbar-mobile" role="banner">
+        <div className="navbar-group navbar-group-left">
+          <Link href="/" className="navbar-logo-link" aria-label="Home">
+            <Logo width={32} height={32} className="navbar-logo-mobile flex-shrink-0" priority />
+            <span className="navbar-brand">nishant.dev</span>
           </Link>
+        </div>
+        <button
+          type="button"
+          className={`navbar-hamburger ${isMobileMenuOpen ? "navbar-hamburger-open" : ""}`}
+          onClick={toggleMobileMenu}
+          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isMobileMenuOpen}
+        >
+          <span className="navbar-hamburger-line" />
+          <span className="navbar-hamburger-line" />
+          <span className="navbar-hamburger-line" />
+        </button>
+      </header>
 
-          <div className="flex items-center gap-2">
-            {/* Theme Toggle Mobile */}
-            <button
-              onClick={toggleTheme}
-              className="flex items-center justify-center w-8 h-8 transition-all duration-300 border-2"
-              aria-label="Toggle theme"
-              style={{
-                backgroundColor: 'var(--color-surface-elevated)',
-                borderColor: 'var(--color-accent)',
-                boxShadow: '2px 2px 0px 0px var(--shadow-neubrutalism)'
-              }}
-              onTouchStart={(e) => {
-                e.currentTarget.style.boxShadow = 'none';
-                e.currentTarget.style.transform = 'translate(2px, 2px)';
-              }}
-              onTouchEnd={(e) => {
-                e.currentTarget.style.boxShadow = '2px 2px 0px 0px var(--shadow-neubrutalism)';
-                e.currentTarget.style.transform = 'translate(0px, 0px)';
-              }}
-            >
-              {actualTheme === 'dark' ? (
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" style={{ color: 'var(--color-accent)' }}>
-                  <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
-                </svg>
-              ) : (
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" style={{ color: 'var(--color-text-muted)' }}>
-                  <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                </svg>
-              )}
-            </button>
-
-            {/* Download Resume Button Mobile */}
-            <button
-              onClick={handleDownloadResume}
-              className="flex items-center justify-center w-8 h-8 transition-all duration-300 border-2"
-              aria-label="Download Resume"
-              style={{
-                backgroundColor: 'var(--color-accent)',
-                borderColor: 'var(--color-text)',
-                boxShadow: '2px 2px 0px 0px var(--shadow-neubrutalism)'
-              }}
-              onTouchStart={(e) => {
-                e.currentTarget.style.boxShadow = 'none';
-                e.currentTarget.style.transform = 'translate(2px, 2px)';
-              }}
-              onTouchEnd={(e) => {
-                e.currentTarget.style.boxShadow = '2px 2px 0px 0px var(--shadow-neubrutalism)';
-                e.currentTarget.style.transform = 'translate(0px, 0px)';
-              }}
-            >
-              <ArrowDownTrayIcon className="w-4 h-4" style={{ color: 'var(--color-button-text)' }} />
-            </button>
-            
-            {/* Mobile Menu Toggle */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="flex items-center justify-center w-8 h-8 transition-all duration-300 border-2"
-              aria-label="Toggle menu"
-              style={{
-                backgroundColor: 'var(--color-surface-elevated)',
-                borderColor: 'var(--color-accent)',
-                boxShadow: '2px 2px 0px 0px var(--shadow-neubrutalism)'
-              }}
-              onTouchStart={(e) => {
-                e.currentTarget.style.boxShadow = 'none';
-                e.currentTarget.style.transform = 'translate(2px, 2px)';
-              }}
-              onTouchEnd={(e) => {
-                e.currentTarget.style.boxShadow = '2px 2px 0px 0px var(--shadow-neubrutalism)';
-                e.currentTarget.style.transform = 'translate(0px, 0px)';
-              }}
-            >
-              <svg className="w-4 h-4" style={{ color: 'var(--color-text)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                {isMobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+      {/* Mobile menu overlay */}
+      <div
+        className={`navbar-overlay ${isMobileMenuOpen ? "navbar-overlay-open" : ""}`}
+        aria-hidden={!isMobileMenuOpen}
+        aria-modal="true"
+        role="dialog"
+      >
+        <div className="navbar-overlay-backdrop" onClick={closeMobileMenu} aria-hidden="true" />
+        <div className="navbar-overlay-full">
+          <header className="navbar-overlay-header">
+            <Link href="/" className="navbar-overlay-brand" onClick={closeMobileMenu}>
+              <Logo width={32} height={32} className="navbar-logo-mobile flex-shrink-0" priority />
+              <span>nishant.dev</span>
+            </Link>
+            <div className="navbar-overlay-actions">
+              <button type="button" onClick={toggleTheme} aria-label="Toggle theme" className="navbar-overlay-close">
+                {actualTheme === "dark" ? (
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fillRule="evenodd"
+                      d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
                 ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                  </svg>
                 )}
-              </svg>
+              </button>
+              <button type="button" className="navbar-overlay-close" onClick={closeMobileMenu} aria-label="Close menu">
+                <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </header>
+          <nav className="navbar-overlay-nav" aria-label="Mobile menu">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="navbar-overlay-link"
+                onClick={handleNavClick}
+              >
+                {item.label}
+              </Link>
+            ))}
+            <button
+              type="button"
+              className="navbar-overlay-link navbar-overlay-download"
+              onClick={(e) => {
+                handleDownloadResume(e);
+                closeMobileMenu();
+              }}
+            >
+              RESUME
             </button>
-          </div>
-        </motion.nav>
+          </nav>
+        </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="fixed top-20 left-4 right-4 z-40 lg:hidden"
-          >
-            <div className="p-4 border-4" style={{
-              backgroundColor: 'var(--color-surface)',
-              borderColor: 'var(--color-accent)',
-              boxShadow: '6px 6px 0px 0px var(--shadow-neubrutalism)'
-            }}>
-              <div className="flex flex-col space-y-3">
-                {links.map(l => {
-                  const isActive = isActiveLink(l.href);
-                  return (
-                    <Link
-                      key={l.href}
-                      href={l.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className={`text-sm py-2 px-3 transition-all duration-300 border-2 ${
-                        isActive ? 'font-semibold' : ''
-                      }`}
-                      style={{ 
-                        color: isActive ? 'var(--color-button-text)' : 'var(--color-text)',
-                        backgroundColor: isActive ? 'var(--color-accent)' : 'var(--color-surface-elevated)',
-                        borderColor: 'var(--color-accent)',
-                        boxShadow: '2px 2px 0px 0px var(--shadow-neubrutalism)'
-                      }}
-                      onTouchStart={(e) => {
-                        e.currentTarget.style.boxShadow = 'none';
-                        e.currentTarget.style.transform = 'translate(2px, 2px)';
-                      }}
-                      onTouchEnd={(e) => {
-                        e.currentTarget.style.boxShadow = '2px 2px 0px 0px var(--shadow-neubrutalism)';
-                        e.currentTarget.style.transform = 'translate(0px, 0px)';
-                      }}
-                    >
-                      {l.label}
-                    </Link>
-                  );
-                })}
-                <div className="pt-2">
-                  <div className="section-divider mb-3" />
-                  <button
-                    onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      handleContactClick();
-                    }}
-                    className="block w-full text-center text-sm font-medium px-4 py-2.5 border-2 transition-all duration-300"
-                    style={{ 
-                      backgroundColor: 'var(--color-accent)',
-                      color: 'var(--color-button-text)',
-                      borderColor: 'var(--color-text)',
-                      boxShadow: '3px 3px 0px 0px var(--shadow-neubrutalism)'
-                    }}
-                    onTouchStart={(e) => {
-                      e.currentTarget.style.boxShadow = 'none';
-                      e.currentTarget.style.transform = 'translate(3px, 3px)';
-                    }}
-                    onTouchEnd={(e) => {
-                      e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism)';
-                      e.currentTarget.style.transform = 'translate(0px, 0px)';
-                    }}
-                  >
-                    Connect Here
-                  </button>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Floating actions: theme + resume */}
+      <div className="navbar-float-actions">
+        <button type="button" onClick={toggleTheme} aria-label="Toggle theme" className="navbar-float-btn">
+          {actualTheme === "dark" ? (
+            <svg className="navbar-float-icon" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fillRule="evenodd"
+                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                clipRule="evenodd"
+              />
+            </svg>
+          ) : (
+            <svg className="navbar-float-icon" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+            </svg>
+          )}
+        </button>
+        <button type="button" onClick={handleDownloadResume} aria-label="Download resume" className="navbar-float-btn">
+          <ArrowDownTrayIcon className="navbar-float-icon" />
+        </button>
+      </div>
     </>
   );
 }

@@ -68,10 +68,13 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/three": "^0.179.0",
+    "chrome-launcher": "^1.2.1",
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
     "husky": "^9.1.7",
+    "lighthouse": "^11.7.1",
     "lint-staged": "^16.1.5",
+    "puppeteer": "^21.11.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

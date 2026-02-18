@@ -9,120 +9,70 @@ import SplashCursorWrapper from './components/ui/SplashCursorWrapper';
 import PerformanceIndicator from './components/ui/PerformanceIndicator';
 import { ScrollTrigger } from '@/utils/gsap';
 
-// Lazy load non-critical sections with loading states that match existing heights
 const Bento = dynamic(() => import('./components/sections/Bento'), {
-  loading: () => <div className="min-h-[400px] flex items-center justify-center">
-    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
-  </div>,
+  loading: () => <div className="min-h-[400px]" />,
   ssr: true
 });
 
 const About = dynamic(() => import('./components/sections/About'), {
-  loading: () => <div className="min-h-[600px] flex items-center justify-center">
-    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
-  </div>,
+  loading: () => <div className="min-h-[600px]" />,
   ssr: true
 });
 
+const GitHubStats = dynamic(() => import('./components/sections/GitHubStats'), {
+  loading: () => <div className="min-h-[200px]" />,
+  ssr: false
+});
+
 const Experience = dynamic(() => import('./components/sections/Experience'), {
-  loading: () => <div className="min-h-[800px] flex items-center justify-center">
-    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
-  </div>,
+  loading: () => <div className="min-h-[800px]" />,
   ssr: true
 });
 
 const Skills = dynamic(() => import('./components/sections/Skills'), {
-  loading: () => <div className="min-h-[500px] flex items-center justify-center">
-    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
-  </div>,
+  loading: () => <div className="min-h-[500px]" />,
   ssr: true
 });
 
 const Projects = dynamic(() => import('./components/sections/Projects'), {
-  loading: () => <div className="min-h-[800px] flex items-center justify-center">
-    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
-  </div>,
+  loading: () => <div className="min-h-[800px]" />,
   ssr: true
 });
 
 const Contact = dynamic(() => import('./components/sections/Contact'), {
-  loading: () => <div className="min-h-[400px] flex items-center justify-center">
-    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
-  </div>,
+  loading: () => <div className="min-h-[400px]" />,
   ssr: true
 });
 
-const CodingStats = dynamic(() => import('./components/sections/CodingStats'), {
-  loading: () => <div className="min-h-[600px] flex items-center justify-center">
-    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg w-full h-full"></div>
-  </div>,
-  ssr: false
-});
-
 export default function Home() {
-  // ScrollTrigger refresh after page load and sections load
-  // Multiple refreshes to account for dynamic sections (CodingStats with ssr: false)
   useEffect(() => {
-    // Initial refresh
-    const timer1 = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 500);
-
-    // Refresh after CodingStats likely loads (client-side only)
-    const timer2 = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 1500);
-
-    // Final refresh to ensure everything is calculated correctly
-    const timer3 = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 2500);
-
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-      clearTimeout(timer3);
-    };
+    const timer1 = setTimeout(() => ScrollTrigger.refresh(), 500);
+    const timer2 = setTimeout(() => ScrollTrigger.refresh(), 1500);
+    return () => { clearTimeout(timer1); clearTimeout(timer2); };
   }, []);
 
   return (
     <main className="relative w-full min-h-screen overflow-x-hidden">
-      <SplashCursorWrapper SPLAT_RADIUS={0.05}/>
+      <SplashCursorWrapper SPLAT_RADIUS={0.025}/>
       <PerformanceIndicator />
       <Navbar />
       
-      {/* Hero loads immediately - critical above fold content */}
       <Hero />
       
-      <div className="section-divider my-8 sm:my-12 md:my-16" />
-      
-      {/* Test sections one by one */}
       <Bento />
-      
-      <div className="section-divider my-12 sm:my-16 md:my-20" />
-      
+
       <About />
-      
-      <div className="section-divider my-8 sm:my-12 md:my-16" />
-      
+
+      <GitHubStats showTitle={false} compact={true} />
+
       <Experience />
-      
-      <div className="section-divider my-8 sm:my-12 md:my-16" />
-      
-      <CodingStats />
-      
-      <div className="section-divider my-8 sm:my-12 md:my-16" />
-      
+
       <Skills />
-      
-      <div className="section-divider my-4 sm:my-6 md:my-8" />
-      
+
       <Projects />
-      
-      <div className="section-divider my-4 sm:my-6 md:my-8" />
-      
+
       <Contact />
-      
+
       <Footer />
     </main>
   );

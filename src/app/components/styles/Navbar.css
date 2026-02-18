@@ -1,0 +1,562 @@
+/* Navbar: [logo] nishant.dev   Let's Connect   ABOUT WORK CONTACT */
+/* Clean design with proper logo integration */
+
+/* Gradient separation between navbar and content — works in light and dark */
+.navbar-fade {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(
+    180deg,
+    var(--color-bg-start) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 9996;
+}
+
+.light .navbar-fade {
+  background: linear-gradient(
+    180deg,
+    var(--color-bg-start) 0%,
+    transparent 100%
+  );
+}
+
+.navbar {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+  z-index: 9999;
+  width: calc(100% - 32px);
+  max-width: 1280px;
+  padding: 20px 0;
+  margin: 0 auto;
+  box-sizing: border-box;
+  pointer-events: none;
+  background: transparent;
+}
+
+.navbar > * {
+  pointer-events: auto;
+}
+
+/* Desktop: 3-column grid so "Let's Connect" is truly centered — spacing like reference */
+.navbar-desktop {
+  display: none;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
+  padding: 0;
+}
+
+.navbar-desktop .navbar-group-left {
+  justify-self: start;
+}
+
+.navbar-desktop .navbar-group-center {
+  justify-self: center;
+}
+
+.navbar-desktop .navbar-group-right {
+  justify-self: end;
+}
+
+@media (min-width: 1024px) {
+  .navbar-desktop {
+    display: grid;
+  }
+  .navbar-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .navbar {
+    padding: 28px 0;
+  }
+}
+
+/* Mobile: logo + hamburger — visible only below 1024px; bar must be clearly visible */
+.navbar-mobile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  /* NO position override here — inherits position:fixed from .navbar */
+  z-index: 10000;
+  width: 100%;
+  box-sizing: border-box;
+  /* Transparent — the .navbar-fade gradient handles separation, same as desktop */
+  background: transparent;
+  border-bottom: none;
+}
+
+/* Ensure consistent width for left group */
+.navbar-mobile .navbar-group-left {
+  flex: 0 1 auto;
+}
+
+.navbar-mobile .navbar-brand {
+  color: var(--color-text);
+}
+
+.navbar-mobile .navbar-logo-link {
+  color: var(--color-text);
+}
+
+@media (min-width: 640px) {
+  .navbar {
+    padding: 24px 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .navbar-mobile {
+    display: none !important;
+  }
+}
+
+/* Mobile: full-width fixed bar so navbar is clearly visible */
+@media (max-width: 1023px) {
+  .navbar.navbar-mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    padding: 12px 20px;
+    background: transparent;
+    border-bottom: none;
+  }
+}
+
+.navbar-group {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-group-left {
+  gap: 12px;
+}
+
+.navbar-group-center {
+  gap: 0;
+}
+
+.navbar-group-right {
+  gap: 0;
+}
+
+/* Logo + Brand link combo */
+.navbar-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+}
+
+.navbar-logo-link:hover {
+  opacity: 0.85;
+}
+
+/* Dynamic logo sizing */
+.navbar-logo-desktop {
+  width: 40px;
+  height: 40px;
+}
+
+@media (min-width: 1200px) {
+  .navbar-logo-desktop {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.navbar-logo-mobile {
+  width: 32px;
+  height: 32px;
+}
+
+.navbar-brand {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .navbar-brand {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .navbar-brand {
+    font-size: 16px;
+  }
+}
+
+/* Center connect link */
+.navbar-connect {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+.navbar-connect:hover {
+  color: var(--color-accent);
+}
+
+@media (min-width: 1200px) {
+  .navbar-connect {
+    font-size: 14px;
+  }
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 40px;
+}
+
+.navbar-links a {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.navbar-links a:hover,
+.navbar-links a.navbar-link-active {
+  color: var(--color-text);
+}
+
+@media (min-width: 1200px) {
+  .navbar-links {
+    gap: 60px;
+  }
+  .navbar-links a {
+    font-size: 14px;
+  }
+}
+
+/* Animated hamburger menu - better positioning */
+.navbar-hamburger {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, opacity 0.3s ease;
+  position: relative;
+  gap: 5px;
+  z-index: 10000;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+/* Hide hamburger when menu is open - keep space occupied to prevent layout shift */
+.navbar-hamburger-open {
+  opacity: 0;
+  pointer-events: none;
+  cursor: default;
+}
+
+.navbar-hamburger:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.light .navbar-hamburger:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.navbar-hamburger:active {
+  transform: scale(0.95);
+}
+
+.navbar-hamburger-line {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+/* Remove X animation since we hide the button when open */
+.navbar-hamburger-open .navbar-hamburger-line:nth-child(1) {
+  transform: none;
+}
+
+.navbar-hamburger-open .navbar-hamburger-line:nth-child(2) {
+  opacity: 1;
+  transform: none;
+}
+
+.navbar-hamburger-open .navbar-hamburger-line:nth-child(3) {
+  transform: none;
+}
+
+/* ========== Mobile overlay: full-screen, reference-quality ========== */
+.navbar-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.navbar-overlay.navbar-overlay-open {
+  pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+}
+
+.navbar-overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--color-bg-start);
+  backdrop-filter: blur(10px);
+}
+
+.navbar-overlay-full {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  max-width: 480px;
+  margin: 0 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.navbar-overlay-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 56px;
+  padding: 12px 0;
+  flex-shrink: 0;
+}
+
+.navbar-overlay-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.navbar-overlay-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  flex-shrink: 0;
+}
+
+.navbar-overlay-brand span {
+  white-space: nowrap;
+}
+
+.navbar-overlay-brand:hover {
+  color: var(--color-text);
+  opacity: 0.9;
+}
+
+.navbar-overlay-close {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text);
+  padding: 0;
+  border-radius: 8px;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  flex-shrink: 0;
+}
+
+.navbar-overlay-close:hover {
+  background: var(--color-surface);
+  color: var(--color-accent);
+}
+
+.navbar-overlay-close:active {
+  transform: scale(0.95);
+}
+
+.navbar-overlay-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 28px 0 48px;
+  gap: 0;
+  position: relative;
+}
+
+/* Smooth fade-in animation for menu items */
+.navbar-overlay-open .navbar-overlay-nav {
+  animation: fadeInNav 0.4s ease forwards;
+}
+
+@keyframes fadeInNav {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navbar-overlay-link,
+.navbar-overlay-download {
+  display: block;
+  width: 100%;
+  padding: 18px 0;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  text-decoration: none;
+  text-align: left;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--color-border-light);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.navbar-overlay-link:last-of-type,
+.navbar-overlay-download {
+  border-bottom: none;
+}
+
+.navbar-overlay-link:hover,
+.navbar-overlay-download:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.navbar-overlay-download {
+  margin-top: 12px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border-light);
+}
+
+/* Floating actions: theme + resume — visible on ALL viewports */
+.navbar-float-actions {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9997;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+@supports (bottom: env(safe-area-inset-bottom)) {
+  .navbar-float-actions {
+    bottom: calc(24px + env(safe-area-inset-bottom));
+    right: calc(16px + env(safe-area-inset-right));
+  }
+}
+
+.navbar-float-actions > * {
+  pointer-events: auto;
+}
+
+.navbar-float-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--color-accent);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: all 0.25s ease;
+  box-shadow: 3px 3px 0px 0px var(--shadow-neubrutalism);
+}
+
+.navbar-float-btn:hover {
+  color: var(--color-accent);
+  box-shadow: 1px 1px 0px 0px var(--shadow-neubrutalism-hover);
+  transform: translate(2px, 2px);
+}
+
+.navbar-float-btn:active {
+  box-shadow: none;
+  transform: translate(3px, 3px);
+}
+
+/* Slightly smaller float buttons on mobile so they don't cover content */
+@media (max-width: 1023px) {
+  .navbar-float-actions {
+    bottom: 20px;
+    right: 16px;
+    gap: 8px;
+  }
+  .navbar-float-btn {
+    width: 40px;
+    height: 40px;
+  }
+  .navbar-float-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.navbar-float-icon {
+  width: 20px;
+  height: 20px;
+}

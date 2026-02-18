@@ -39,7 +39,7 @@ export default function AchievementsPage() {
 
   return (
     <main className="relative w-full min-h-screen overflow-x-hidden">
-      <SplashCursorWrapper SPLAT_RADIUS={0.05} />
+      <SplashCursorWrapper SPLAT_RADIUS={0.025} />
       <Navbar />
 
       {/* Hero Section */}
@@ -89,7 +89,7 @@ export default function AchievementsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold mb-6 drop-shadow-2xl" style={{ color: 'var(--color-text)' }}>
+            <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-8xl font-bold mb-6 drop-shadow-2xl" style={{ color: 'var(--color-text)' }}>
               My <span className="relative">
                 <span className="text-orange-500">Achievements</span>
                 <motion.div
@@ -100,7 +100,7 @@ export default function AchievementsPage() {
                 />
               </span>
             </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto mb-8 drop-shadow-lg" style={{ color: 'var(--color-text-secondary)' }}>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mx-auto mb-8 drop-shadow-lg" style={{ color: 'var(--color-text-secondary)' }}>
               A showcase of milestones, awards, and recognition that mark my journey as a creative technologist
             </p>
             
@@ -240,7 +240,7 @@ export default function AchievementsPage() {
                           <p className="text-orange-500 text-xs sm:text-sm uppercase tracking-wider font-black mb-2">
                             {achievement.category}
                           </p>
-                          <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-black uppercase tracking-tight mb-3 sm:mb-4 leading-tight" style={{ color: 'var(--color-text)' }}>
+                          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-black uppercase tracking-tight mb-3 sm:mb-4 leading-tight" style={{ color: 'var(--color-text)' }}>
                             {achievement.title}
                           </h3>
                         </div>

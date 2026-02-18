@@ -1,8 +1,7 @@
 {
-  "badge": "Hey, I'm",
   "name": "Nishant Harkut",
-  "title": "AKA CharizardOP",
-  "description": "Software Developer from Surat, India. Passionate about creating exceptional web experiences through intuitive UI/UX design. I excel in full stack development, security, generative AI, and cloud deployment.",
+  "tagline": "Full Stack & AI Engineer :// building production-grade web applications, LLM-driven products, and scalable cloud backends for startups.",
+  "location": "Surat, India",
   "cta": {
     "primary": {
       "text": "Connect With Me",

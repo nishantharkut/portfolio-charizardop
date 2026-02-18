@@ -52,53 +52,68 @@
   --color-error: #ef4444;
   --color-info: #3b82f6;
   
+  /* Card system - lighter borders for monochrome feel */
+  --color-card-bg: var(--color-surface);
+  --color-card-border: rgba(255, 255, 255, 0.12);
+  --color-card-shadow: rgba(255, 255, 255, 0.4);
+  --color-card-border-hover: rgba(255, 140, 66, 0.3);
+  
   /* Grid overlay */
   --grid-color: 255 140 66;
   --grid-opacity: 0.04;
 }
 
-/* Neubrutalism utility classes */
+/* Rounded minimal neubrutalism — consistent radius + offset shadow + hover press */
 .neubrutalism-card {
-  border-width: 4px;
+  border-width: 2px;
   border-color: var(--color-accent);
-  box-shadow: 8px 8px 0px 0px var(--shadow-neubrutalism);
+  border-radius: 12px;
+  box-shadow: 4px 4px 0px 0px var(--shadow-neubrutalism);
   transition: all 0.3s ease;
 }
 
 .neubrutalism-card:hover {
-  box-shadow: 4px 4px 0px 0px var(--shadow-neubrutalism-hover);
-  transform: translate(4px, 4px);
+  box-shadow: 2px 2px 0px 0px var(--shadow-neubrutalism-hover);
+  transform: translate(2px, 2px);
 }
 
 .neubrutalism-button {
-  border-width: 4px;
+  border-width: 2px;
   border-color: var(--color-accent);
-  box-shadow: 6px 6px 0px 0px var(--shadow-neubrutalism);
+  border-radius: 10px;
+  box-shadow: 3px 3px 0px 0px var(--shadow-neubrutalism);
   transition: all 0.3s ease;
 }
 
 .neubrutalism-button:hover {
-  box-shadow: 3px 3px 0px 0px var(--shadow-neubrutalism-hover);
+  box-shadow: 1px 1px 0px 0px var(--shadow-neubrutalism-hover);
+  transform: translate(2px, 2px);
+}
+
+.neubrutalism-button:active {
+  box-shadow: none;
   transform: translate(3px, 3px);
 }
 
 .neubrutalism-input {
-  border-width: 3px;
+  border-width: 2px;
   border-color: var(--color-accent);
-  box-shadow: 4px 4px 0px 0px var(--shadow-neubrutalism-small);
+  border-radius: 8px;
+  box-shadow: 3px 3px 0px 0px var(--shadow-neubrutalism-small);
   transition: all 0.3s ease;
   background-color: var(--color-surface-elevated);
 }
 
 .neubrutalism-input:focus {
   box-shadow: 2px 2px 0px 0px var(--shadow-neubrutalism-hover-small);
-  transform: translate(2px, 2px);
   outline: none;
+  border-color: var(--color-accent);
 }
 
 .neubrutalism-tag {
   border-width: 2px;
   border-color: var(--color-accent);
+  border-radius: 8px;
   box-shadow: 2px 2px 0px 0px var(--shadow-neubrutalism-small);
   transition: all 0.3s ease;
   background-color: var(--color-surface);
@@ -107,6 +122,121 @@
 .neubrutalism-tag:hover {
   box-shadow: none;
   transform: translate(2px, 2px);
+}
+
+/* ========================================
+   New Design System - NeuCard Component
+   ======================================== */
+
+/* NeuCard Default - Standard cards (skills, experience, contact) */
+.neu-card {
+  border-width: 2px;
+  border-color: var(--color-accent);
+  border-radius: 12px;
+  background-color: var(--color-surface);
+  box-shadow: 4px 4px 0px 0px var(--shadow-neubrutalism);
+}
+
+.neu-card.neu-hoverable:hover {
+  box-shadow: 2px 2px 0px 0px var(--shadow-neubrutalism-hover);
+  transform: translate(2px, 2px);
+}
+
+/* NeuCard Elevated - Featured/hero cards, modal containers */
+.neu-card-elevated {
+  border-width: 2px;
+  border-color: var(--color-accent);
+  border-radius: 14px;
+  background-color: var(--color-surface);
+  box-shadow: 6px 6px 0px 0px var(--shadow-neubrutalism);
+}
+
+.neu-card-elevated.neu-hoverable:hover {
+  box-shadow: 3px 3px 0px 0px var(--shadow-neubrutalism-hover);
+  transform: translate(3px, 3px);
+}
+
+/* NeuCard Tag - Skill tags, tech badges, category labels */
+.neu-card-tag {
+  border-width: 2px;
+  border-color: var(--color-accent);
+  border-radius: 8px;
+  background-color: var(--color-surface);
+  box-shadow: 2px 2px 0px 0px var(--shadow-neubrutalism-small);
+  padding: 0.375rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.neu-card-tag.neu-hoverable:hover {
+  box-shadow: none;
+  transform: translate(2px, 2px);
+}
+
+/* ========================================
+   New Design System - NeuButton Component
+   ======================================== */
+
+/* Primary button - Filled accent background (rounded minimal neubrutalism) */
+.neu-button-primary {
+  background-color: var(--color-accent);
+  border-width: 2px;
+  border-color: var(--color-text);
+  border-radius: 10px;
+  color: var(--color-button-text);
+  box-shadow: 3px 3px 0px 0px var(--shadow-neubrutalism);
+}
+
+.neu-button-primary:hover:not(:disabled) {
+  box-shadow: 1px 1px 0px 0px var(--shadow-neubrutalism-hover);
+  transform: translate(2px, 2px);
+}
+
+.neu-button-primary:active:not(:disabled) {
+  box-shadow: none;
+  transform: translate(3px, 3px);
+}
+
+/* Secondary button - Transparent with border */
+.neu-button-secondary {
+  background-color: var(--color-surface-elevated);
+  border-width: 2px;
+  border-color: var(--color-accent);
+  border-radius: 10px;
+  color: var(--color-text);
+  box-shadow: 3px 3px 0px 0px var(--shadow-neubrutalism);
+}
+
+.neu-button-secondary:hover:not(:disabled) {
+  box-shadow: 1px 1px 0px 0px var(--shadow-neubrutalism-hover);
+  transform: translate(2px, 2px);
+}
+
+.neu-button-secondary:active:not(:disabled) {
+  box-shadow: none;
+  transform: translate(3px, 3px);
+}
+
+/* Ghost button - Minimal styling for inline links */
+.neu-button-ghost {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--color-text);
+  box-shadow: none;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+}
+
+.neu-button-ghost:hover:not(:disabled) {
+  text-decoration-color: var(--color-accent);
+  transform: none;
+}
+
+.neu-button-ghost:active:not(:disabled) {
+  color: var(--color-accent);
 }
 
 /* Performance optimizations - Hardware acceleration for key elements */
@@ -123,6 +253,15 @@ html {
 
 body {
   overscroll-behavior-y: none; /* Prevent rubber banding on body */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-sora), system-ui, sans-serif;
 }
 
 /* GPU acceleration for frequently animated elements */
@@ -734,17 +873,17 @@ body::before {
   background: linear-gradient(90deg, transparent, var(--color-border-hover), transparent);
   margin: 0 auto;
   width: 100%;
-  max-width: 960px;
-  opacity: 0.6;
+  max-width: 800px;
+  opacity: 0.3;
 }
 
 /* Enhanced mobile section divider */
 @media (max-width: 640px) {
   .section-divider {
     background: linear-gradient(90deg, transparent 10%, var(--color-border-hover) 50%, transparent 90%);
-    opacity: 0.8;
-    height: 2px;
-    max-width: 320px;
+    opacity: 0.4;
+    height: 1px;
+    max-width: 280px;
   }
 }
 
@@ -872,9 +1011,9 @@ body::before {
   z-index: 30;
   background: var(--color-accent);
   color: var(--color-button-text);
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-  /*will-change: transform;*/ 
-  /* Performance optimization for animations */
+  box-shadow: none;
+  padding: 8px 0;
+  font-size: 0.8rem;
 }
 
 .banner-scroll-container {
@@ -919,18 +1058,19 @@ body::before {
 @media (max-width: 768px) {
   .banner-container {
     position: absolute !important;
-    bottom: 20px !important;
+    bottom: 0 !important;
     left: 0 !important;
     right: 0 !important;
     z-index: 30 !important;
     background: var(--color-accent) !important;
     color: var(--color-button-text) !important;
+    padding: 6px 0 !important;
     padding-bottom: env(safe-area-inset-bottom);
-    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.15) !important;
+    box-shadow: none !important;
   }
   
   .banner-scroll-container {
-    min-height: 40px !important;
+    min-height: 24px !important;
     display: flex !important;
     align-items: center !important;
     overflow: hidden !important;
@@ -972,15 +1112,15 @@ body::before {
 /* Large desktop optimization */
 @media (min-width: 1440px) {
   .banner-container {
-    padding: 1rem 2rem;
+    padding: 4px 2rem;
   }
 }
 
 /* Ultra-wide display optimization */
 @media (min-width: 1920px) {
   .banner-container {
-    padding: 1.25rem 4rem;
-    font-size: 1rem;
+    padding: 5px 4rem;
+    font-size: 0.75rem;
   }
 }
 
@@ -1035,4 +1175,18 @@ body::before {
 body.light {
   --bento-bg: #fff8eb;
   --bento-text: #222;
+}
+
+/* Section Container Utility — matches navbar width so headings align with logo */
+.section-container {
+  width: calc(100% - 32px);
+  max-width: 1280px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1600px) {
+  .section-container {
+    max-width: 1280px;
+  }
 }

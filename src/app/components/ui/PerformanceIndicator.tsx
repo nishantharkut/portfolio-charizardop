@@ -21,7 +21,7 @@ export default function PerformanceIndicator() {
   }
 
   return (
-    <div className="fixed top-4 right-4 z-[9999] bg-black/80 text-white p-2 rounded text-xs font-mono pointer-events-none">
+    <div className="hidden md:block fixed top-4 right-4 z-[9999] bg-black/80 text-white p-2 rounded text-xs font-mono pointer-events-none">
       <div>Device: {settings.deviceTier.toUpperCase()}</div>
       <div>WebGL: {settings.enableWebGL ? 'ON' : 'OFF'}</div>
       <div>Animations: {settings.enableComplexAnimations ? 'ON' : 'OFF'}</div>

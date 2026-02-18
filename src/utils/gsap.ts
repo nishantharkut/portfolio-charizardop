@@ -15,7 +15,7 @@ if (typeof window !== "undefined") {
   // Performance-optimized ScrollTrigger defaults
   ScrollTrigger.defaults({
     toggleActions: "play none none reverse",
-    markers: process.env.NODE_ENV === 'development', // Only show in dev
+    markers: false, // Disabled - was cluttering the UI
     invalidateOnRefresh: true,
     refreshPriority: 0,
     anticipatePin: 1, // Better performance for pinned elements

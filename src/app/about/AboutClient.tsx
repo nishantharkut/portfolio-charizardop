@@ -82,7 +82,7 @@ export default function AboutClient() {
 
   return (
     <main className="relative w-full min-h-screen overflow-x-hidden" style={{ color: 'var(--color-text)' }}>
-      <SplashCursorWrapper SPLAT_RADIUS={0.05} />
+      <SplashCursorWrapper SPLAT_RADIUS={0.025} />
       <Navbar />
 
       {/* Hero Section */}
@@ -484,7 +484,7 @@ export default function AboutClient() {
               >
                 {/* Timeline Dot */}
                 {/*
-                <div className="absolute left-3 md:left-1/2 md:-translate-x-1/2 w-3 h-3 bg-orange-500 rounded-full border-4" style={{ borderColor: 'var(--color-bg-start)' }} />
+                <div className="absolute left-3 md:left-1/2 md:-translate-x-1/2 w-3 h-3 bg-orange-500 rounded-full border-2" style={{ borderColor: 'var(--color-bg-start)' }} />
 
                 {/* Neubrutalism Timeline Card */}
                 {/*

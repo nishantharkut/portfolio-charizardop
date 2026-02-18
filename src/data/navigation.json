@@ -2,7 +2,6 @@
   "navigation": {
     "links": [
       { "href": "/", "label": "Home" },
-      { "href": "/about", "label": "About Me" },
       { "href": "/experience", "label": "Experience" },
       { "href": "/projects", "label": "Projects" },
       { "href": "/achievements", "label": "Achievements" }

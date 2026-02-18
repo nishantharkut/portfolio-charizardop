@@ -5,7 +5,6 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useRef, useEffect, useState, useMemo, useCallback } from 'react';
 import { Environment, PerspectiveCamera, OrbitControls, ContactShadows, useGLTF, useAnimations, AdaptiveDpr, PerformanceMonitor } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
-import TypewriterRoles from '../ui/RotatingRoles';
 import ScrollVelocity from '../ui/ScrollVelocity';
 import ErrorBoundary from '../../../components/ErrorBoundary';
 import { getHeroData } from '../../../data';
@@ -237,8 +236,8 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
       }
       
       // ABSOLUTELY FIXED VALUES - NO CALCULATIONS
-      const SCALE = 2.2; // Increased for better zoom level
-      const START_POSITION = { x: 4.75, y: -1.5, z: -60 };
+      const SCALE = 2; // Fits within viewport below navbar
+      const START_POSITION = { x: 0, y: 0, z: -60 }; // Centered
       
       // Apply immediately - no delays, no conditions
       group.current.scale.setScalar(SCALE);
@@ -258,8 +257,8 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
 
     // Entrance animation with fixed constants
     if (fitted && !hasEntered) {
-      // Use exact same constants as setup
-      const TARGET = { x: 3.25, y: -2.5, z: 0 };
+      // Use exact same constants as setup - CENTERED, shifted down 5%
+      const TARGET = { x: 0, y: -1.3, z: 0 };
       const TARGET_ROT = 0;
       
       // Fast, consistent lerp
@@ -316,7 +315,7 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
       const floatSpeed = 1.2; // Fixed speed
       
       // Use exact same Y as target position
-      const BASE_Y = -2.5;
+      const BASE_Y = -1.3;
       
       group.current.position.y = BASE_Y + Math.sin(state.clock.elapsedTime * floatSpeed) * floatAmplitude;
     }
@@ -338,44 +337,20 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
 }
 
 // Fallback Component for Mobile Devices - Shows Charizard GIF instead of 3D model
-function CharizardFallback() {
-  // No longer need setModelLoaded - page loads independently
+function CharizardFallback({ className = '' }: { className?: string }) {
   return (
-    <div className="absolute inset-0 flex items-center justify-center md:justify-end md:pr-16 -translate-y-40 md:translate-y-0">
-      <div className="w-[350px] h-[350px] sm:w-[400px] sm:h-[400px] md:w-[450px] md:h-[450px] lg:w-[500px] lg:h-[500px]">
-        {/* Charizard Flying GIF for mobile */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="relative w-full h-full flex items-center justify-center"
-        >
-          <img
-            src="/videos/Charizard_Flying.gif"
-            alt="Charizard Flying"
-            className="w-full h-full object-contain transform scale-160"
-            style={{
-              filter: 'brightness(1.1) contrast(1.1) saturate(1.2)'
-            }}
-            loading="eager"
-            onLoad={() => {
-              if (process.env.NODE_ENV === 'development') {
-                console.log('Charizard GIF loaded successfully');
-              }
-              // Don't call setModelLoaded - let page load independently
-            }}
-            onError={() => {
-              if (process.env.NODE_ENV === 'development') {
-                console.error('Failed to load Charizard GIF');
-              }
-              // Don't call setModelLoaded - let page load independently
-            }}
-          />
-        </motion.div>
-
-
-      </div>
-    </div>
+    <motion.img
+      initial={{ opacity: 0, scale: 0.9, y: 12 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ duration: 1.0, ease: "easeOut" }}
+      src="/videos/Charizard_Flying.gif"
+      alt="Charizard Flying"
+      className={`w-full h-full object-contain ${className}`}
+      style={{ filter: 'brightness(1.1) contrast(1.1) saturate(1.2)' }}
+      loading="eager"
+      onLoad={() => { if (process.env.NODE_ENV === 'development') console.log('Charizard GIF loaded'); }}
+      onError={() => { if (process.env.NODE_ENV === 'development') console.error('Failed to load Charizard GIF'); }}
+    />
   );
 }
 
@@ -401,6 +376,15 @@ export default function Hero() {
   });
   const [hasCanvasError, setHasCanvasError] = useState(false);
   const [modelLoaded, setModelLoaded] = useState(false);
+  const [canvasContainerReady, setCanvasContainerReady] = useState(false);
+  const canvasContainerRef = useRef<HTMLDivElement>(null);
+
+  // Defer Canvas mount until container is in the DOM to avoid R3F addEventListener(null) and insertBefore reconciliation errors
+  useEffect(() => {
+    if (!canvasContainerRef.current || hasCanvasError) return;
+    const id = requestAnimationFrame(() => setCanvasContainerReady(true));
+    return () => cancelAnimationFrame(id);
+  }, [hasCanvasError]);
 
 
 
@@ -419,24 +403,8 @@ export default function Hero() {
   // Show GIF fallback for mobile devices - only after client is ready and capabilities are determined
   if (isClient && capabilities.isMobile) {
     return (
-      <section className="relative w-full h-screen overflow-hidden">
-        {/* Subtle Text Background */}
-        <div className="absolute inset-0 z-0 pointer-events-none" style={{ opacity: 0.15 }}>
-          <ScrollVelocity
-            texts={["EXPERIENCE", "COFFEE", "CREATIVITY", "DEVELOPMENT"]}
-            velocity={40}
-            className="font-bold text-4xl md:text-6xl"
-            scrollerStyle={{ color: 'var(--color-text)', opacity: 0.2 }}
-            parallaxClassName=""
-            scrollerClassName="tracking-wider"
-            numCopies={10}
-            damping={40}
-            stiffness={500}
-          />
-        </div>
-
-        <CharizardFallback />
-        <div className="relative z-10 h-full flex items-center pb-16 sm:pb-14">
+      <section className="relative w-full min-h-[100svh] overflow-hidden">
+        <div className="relative z-10 min-h-[100svh] flex items-center pt-24 pb-28 sm:pt-28 sm:pb-24">
           {/* Container with exact same width as navbar: max-w-7xl */}
           <div className="max-w-7xl w-full mx-auto px-6 sm:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -447,55 +415,59 @@ export default function Hero() {
                 transition={{ duration: 0.9, ease: 'easeOut' }}
                 className="flex flex-col justify-center h-full lg:col-span-7 order-2 lg:order-1 max-w-2xl mx-auto lg:mx-0"
               >
-                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight tracking-tight mb-4 sm:mb-6 text-center lg:text-left">
-                  <span className="block">{heroData.badge}</span>
+                <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight tracking-tight mb-4 sm:mb-6 text-center lg:text-left" style={{ fontFamily: 'var(--font-sora), system-ui, sans-serif' }}>
                   <span className="block text-gradient-fire">{heroData.name}</span>
                 </h1>
-                <div className="mb-4 sm:mb-6 h-7 sm:h-8 md:h-9 text-base sm:text-lg md:text-xl lg:text-2xl text-center lg:text-left" style={{ color: 'var(--color-text-secondary)' }}>
-                  <TypewriterRoles />
-                </div>
-                <p className="text-sm sm:text-base lg:text-lg leading-relaxed mb-4 sm:mb-6 font-light max-w-xl mx-auto lg:mx-0 text-center lg:text-left" style={{ color: 'var(--color-text-secondary)' }}>
-                  {heroData.description}
+                <p className="text-sm sm:text-base lg:text-lg leading-relaxed mb-2 sm:mb-3 font-light max-w-xl mx-auto lg:mx-0 text-center lg:text-left" style={{ color: 'var(--color-text-secondary)' }}>
+                  {heroData.tagline}
                 </p>
+                {/* Location */}
+                <div className="flex items-center gap-2 mb-4 sm:mb-6 justify-center lg:justify-start" style={{ color: 'var(--color-text-secondary)' }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-accent)' }}>
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                  <span className="text-xs sm:text-sm font-medium">{heroData.location}</span>
+                </div>
                 <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
-                  {/* Secondary CTA - Neubrutalism with website colors */}
+                  {/* Secondary CTA */}
                   <a
                     href={heroData.cta.secondary.href}
-                    className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-medium text-center border-4 transition-all duration-300"
+                    className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-medium text-center border-2 transition-all duration-300"
                     style={{
                       backgroundColor: 'var(--color-surface-elevated)',
                       borderColor: 'var(--color-accent)',
                       color: 'var(--color-text)',
-                      boxShadow: '6px 6px 0px 0px var(--shadow-neubrutalism)'
+                      boxShadow: '3px 3px 0px 0px var(--shadow-neubrutalism)'
                     }}
                     onTouchStart={(e) => {
-                      e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism-hover)';
-                      e.currentTarget.style.transform = 'translate(3px, 3px)';
+                      e.currentTarget.style.boxShadow = '1px 1px 0px 0px var(--shadow-neubrutalism-hover)';
+                      e.currentTarget.style.transform = 'translate(2px, 2px)';
                     }}
                     onTouchEnd={(e) => {
-                      e.currentTarget.style.boxShadow = '6px 6px 0px 0px var(--shadow-neubrutalism)';
+                      e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism)';
                       e.currentTarget.style.transform = 'translate(0px, 0px)';
                     }}
                   >
                     {heroData.cta.secondary.text}
                   </a>
 
-                  {/* Primary CTA - Neubrutalism with website colors */}
+                  {/* Primary CTA */}
                   <a
                     href={heroData.cta.primary.href}
-                    className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-semibold text-center border-4 transition-all duration-300"
+                    className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-semibold text-center border-2 transition-all duration-300"
                     style={{
                       backgroundColor: 'var(--color-accent)',
                       borderColor: 'var(--color-text)',
                       color: 'var(--color-button-text)',
-                      boxShadow: '6px 6px 0px 0px var(--shadow-neubrutalism)'
+                      boxShadow: '3px 3px 0px 0px var(--shadow-neubrutalism)'
                     }}
                     onTouchStart={(e) => {
-                      e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism-hover)';
-                      e.currentTarget.style.transform = 'translate(3px, 3px)';
+                      e.currentTarget.style.boxShadow = '1px 1px 0px 0px var(--shadow-neubrutalism-hover)';
+                      e.currentTarget.style.transform = 'translate(2px, 2px)';
                     }}
                     onTouchEnd={(e) => {
-                      e.currentTarget.style.boxShadow = '6px 6px 0px 0px var(--shadow-neubrutalism)';
+                      e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism)';
                       e.currentTarget.style.transform = 'translate(0px, 0px)';
                     }}
                   >
@@ -505,14 +477,16 @@ export default function Hero() {
               </motion.div>
 
               {/* RIGHT SIDE - Fallback Visual */}
-              <div className="relative h-64 sm:h-80 lg:h-full lg:col-span-5 flex items-center justify-center pointer-events-none order-1 lg:order-2">
-                {/* Fallback renders here */}
+              <div className="relative h-[38svh] min-h-[240px] max-h-[360px] sm:h-[40svh] sm:max-h-[420px] lg:h-full lg:col-span-5 flex items-center justify-center pointer-events-none order-1 lg:order-2">
+                <div className="w-full max-w-[360px] sm:max-w-[420px] h-full">
+                  <CharizardFallback className="scale-[1.05] sm:scale-[1.1]" />
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Internship Announcement Strip - Static for Desktop, Animated for Mobile */}
+        {/* Announcement Strip */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -524,7 +498,7 @@ export default function Hero() {
             {heroData.announcement.text}
           </div>
 
-          {/* Mobile - Animated Scrolling Text (Left to Right) */}
+          {/* Mobile - Animated Scrolling Text */}
           <div className="md:hidden banner-scroll-container py-2.5 min-h-[40px] flex items-center overflow-hidden">
             <motion.div
               className="flex whitespace-nowrap"
@@ -534,11 +508,9 @@ export default function Hero() {
                 duration: 35,
                 ease: "linear",
                 repeat: Infinity,
-                delay: 1.5 // Start after page loads
+                delay: 1.5
               }}
-              style={{
-                minWidth: 'max-content',
-              }}
+              style={{ minWidth: 'max-content' }}
             >
               {[...Array(5)].map((_, i) => (
                 <div key={i} className="flex-shrink-0 px-8 py-1">
@@ -557,25 +529,13 @@ export default function Hero() {
 
   return (
     <section ref={heroRef} className="relative w-full h-screen overflow-hidden">
-      {/* Subtle Text Background */}
-        <div className="absolute inset-0 z-0 pointer-events-none" style={{ opacity: 0.15 }}>
-          <ScrollVelocity
-            texts={["EXPERIENCE", "COFFEE", "CREATIVITY", "DEVELOPMENT"]}
-            velocity={40}
-            className="font-bold text-4xl md:text-6xl"
-            scrollerStyle={{ color: 'var(--color-text)', opacity: 0.2 }}
-            parallaxClassName=""
-            scrollerClassName="tracking-wider"
-            numCopies={10}
-            damping={40}
-            stiffness={500}
-          />
-        </div>
 
-      {/* Optimized 3D Canvas with Performance Monitoring */}
-      <div className="absolute inset-0 pointer-events-none">
-        {!hasCanvasError ? (
+
+      {/* Optimized 3D Canvas with Performance Monitoring — mount only after container is in DOM to avoid R3F ref/null errors */}
+      <div ref={canvasContainerRef} className="absolute inset-0 pointer-events-none">
+        {!hasCanvasError && canvasContainerReady ? (
           <ErrorBoundary
+            key="hero-canvas-boundary"
             onError={(error) => {
               if (process.env.NODE_ENV === 'development') {
                 console.error('Canvas ErrorBoundary caught error:', error);
@@ -585,15 +545,15 @@ export default function Hero() {
             fallback={
               <div className="w-full h-full flex items-center justify-center">
                 <div className="text-center text-white/70">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-orange-500/20 rounded-full flex items-center justify-center">
-                    <div className="w-8 h-8 bg-orange-500 rounded"></div>
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--color-accent-transparent)' }}>
+                    <div className="w-8 h-8 rounded" style={{ backgroundColor: 'var(--color-accent)' }}></div>
                   </div>
                   <p className="text-sm">3D Rendering Error</p>
                 </div>
               </div>
             }
           >
-            <Canvas
+            <Canvas key="hero-canvas"
               shadows={performanceSettings.shadows}
               gl={{
                 antialias: performanceSettings.antialias,
@@ -693,274 +653,106 @@ export default function Hero() {
               />
             </Canvas>
           </ErrorBoundary>
-        ) : (
-          /* Canvas error fallback - no loader needed here */
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-1/2 right-8 md:right-16 lg:right-24 -translate-y-1/2 text-center text-white/50">
+        ) : hasCanvasError ? (
+          <div key="hero-canvas-fallback" className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-white/50">
               <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 bg-red-500/20 rounded-full flex items-center justify-center">
                 <div className="w-6 h-6 md:w-8 md:h-8 bg-red-500 rounded opacity-50"></div>
               </div>
               <p className="text-xs md:text-sm font-medium opacity-70">3D Error</p>
             </div>
           </div>
-        )}        {/* Ambient glow behind model - restore original positioning */}
-        <div className="absolute top-1/2 right-1/2 translate-x-1/4 -translate-y-1/2 w-96 h-96 opacity-30 [mask-image:radial-gradient(circle,black,transparent_70%)] bg-[radial-gradient(circle,rgba(255,140,40,0.4),transparent_60%)]" />
+        ) : null}
+        {/* Ambient glow behind model - centered */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 opacity-30 [mask-image:radial-gradient(circle,black,transparent_70%)] bg-[radial-gradient(circle,rgba(255,140,40,0.4),transparent_60%)]" />
       </div>
 
-      <div className="relative z-10 h-full flex items-center pb-12 sm:pb-10">
-        {/* Container with exact same width as navbar: max-w-7xl */}
+      {/* Text content - positioned at Charizard's feet level */}
+      <div style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, zIndex: 10, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center', paddingBottom: '60px' }}>
+        {/* Container */}
         <div className="max-w-7xl w-full mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* LEFT SIDE - Content - restore original */}
+          <div className="flex flex-col items-center text-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: 'easeOut' }}
-              className="flex flex-col justify-center h-full max-w-xl order-2 lg:order-1"
+              className="flex flex-col items-center justify-center max-w-3xl"
             >
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight tracking-tight mb-4 sm:mb-6 text-center lg:text-left" style={{ color: 'var(--color-text)' }}>
-                <span className="block">{heroData.badge}</span>
-                <span className="block text-gradient-fire">{heroData.name}</span>
+              {/* Name - HUGE */}
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[80px] font-bold leading-none tracking-tight mb-2" style={{ color: 'var(--color-text)', fontFamily: 'var(--font-sora), system-ui, sans-serif' }}>
+                {heroData.name}
               </h1>
-              <div className="mb-4 sm:mb-6 h-8 sm:h-9 text-lg sm:text-xl md:text-2xl text-center lg:text-left" style={{ color: 'var(--color-text-muted)' }}>
-                <TypewriterRoles />
-              </div>
-              <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-4 sm:mb-6 font-light max-w-lg mx-auto lg:mx-0 text-center lg:text-left" style={{ color: 'var(--color-text-muted)' }}>
-                {heroData.description}
+              
+              {/* Tagline */}
+              <p className="text-xs sm:text-sm md:text-base leading-relaxed mb-2 font-light max-w-xl px-4" style={{ color: 'var(--color-text-muted)' }}>
+                {heroData.tagline}
               </p>
-              <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
-                {/* Secondary CTA - Using website's surface color for neubrutalism */}
+              
+              {/* Location - bordered box */}
+              <div className="flex items-center gap-1.5 mb-4 px-4 py-1.5 border border-current rounded-sm" style={{ color: 'var(--color-text-muted)' }}>
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="14" 
+                  height="14" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                  style={{ color: 'var(--color-accent)' }}
+                >
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span className="text-xs sm:text-sm font-medium">{heroData.location}</span>
+              </div>
+              
+              {/* CTAs - compact */}
+              <div className="flex flex-row gap-3 justify-center">
                 <a
                   href={heroData.cta.secondary.href}
-                  className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-medium text-center border-4 transition-all duration-300 neubrutalism-button"
+                  className="px-5 py-2 text-xs font-medium text-center border-2 transition-all duration-300 neubrutalism-button"
                   style={{
                     backgroundColor: 'var(--color-surface-elevated)',
                     borderColor: 'var(--color-accent)',
                     color: 'var(--color-text)',
-                    boxShadow: '6px 6px 0px 0px var(--shadow-neubrutalism)'
+                    boxShadow: '2px 2px 0px 0px var(--shadow-neubrutalism)'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism-hover)';
-                    e.currentTarget.style.transform = 'translate(3px, 3px)';
+                    e.currentTarget.style.boxShadow = '0px 0px 0px 0px var(--shadow-neubrutalism-hover)';
+                    e.currentTarget.style.transform = 'translate(2px, 2px)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = '6px 6px 0px 0px var(--shadow-neubrutalism)';
+                    e.currentTarget.style.boxShadow = '2px 2px 0px 0px var(--shadow-neubrutalism)';
                     e.currentTarget.style.transform = 'translate(0px, 0px)';
                   }}
                 >
                   {heroData.cta.secondary.text}
                 </a>
 
-                {/* Primary CTA - Using website's accent color for neubrutalism */}
                 <a
                   href={heroData.cta.primary.href}
-                  className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-semibold text-center border-4 transition-all duration-300 neubrutalism-button"
+                  className="px-5 py-2 text-xs font-semibold text-center border-2 transition-all duration-300 neubrutalism-button"
                   style={{
                     backgroundColor: 'var(--color-accent)',
                     borderColor: 'var(--color-text)',
                     color: 'var(--color-button-text)',
-                    boxShadow: '6px 6px 0px 0px var(--shadow-neubrutalism)'
+                    boxShadow: '2px 2px 0px 0px var(--shadow-neubrutalism)'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism-hover)';
-                    e.currentTarget.style.transform = 'translate(3px, 3px)';
+                    e.currentTarget.style.boxShadow = '0px 0px 0px 0px var(--shadow-neubrutalism-hover)';
+                    e.currentTarget.style.transform = 'translate(2px, 2px)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = '6px 6px 0px 0px var(--shadow-neubrutalism)';
+                    e.currentTarget.style.boxShadow = '2px 2px 0px 0px var(--shadow-neubrutalism)';
                     e.currentTarget.style.transform = 'translate(0px, 0px)';
                   }}
                 >
                   {heroData.cta.primary.text}
                 </a>
               </div>
-
             </motion.div>
-
-            {/* RIGHT SIDE - Space for 3D Model (Canvas renders seamlessly behind) */}
-            <div className="relative h-64 sm:h-80 lg:h-full flex items-center justify-center pointer-events-none order-1 lg:order-2">
-              {/* Canvas renders absolutely positioned behind this space */}
-
-               {/* Pixel Charizard 3D Model Loading Indicator - Desktop Only */}
-               <motion.div
-                 initial={{ opacity: 0, scale: 0.8 }}
-                 animate={{ 
-                   opacity: isClient && loadingStrategy !== 'disabled' && shouldLoadModel && !modelLoaded ? 1 : 0,
-                   scale: isClient && loadingStrategy !== 'disabled' && shouldLoadModel && !modelLoaded ? 1 : 0.8
-                 }}
-                 transition={{ duration: 0.5, ease: "easeOut" }}
-                 className="absolute inset-0 flex items-center justify-center z-20"
-                 style={{ 
-                   pointerEvents: isClient && loadingStrategy !== 'disabled' && shouldLoadModel && !modelLoaded ? 'auto' : 'none'
-                 }}
-               >
-                  <div className="flex flex-col items-center">
-                    {/* Pixel Charizard SVG Animation - Desktop Only */}
-                    <div className="mb-4">
-                      <svg
-                        viewBox="0 0 24 24"
-                        width={64}
-                        height={64}
-                        style={{ imageRendering: "pixelated", shapeRendering: "crispEdges" }}
-                        xmlns="http://www.w3.org/2000/svg"
-                        role="img"
-                        aria-label="loading charizard"
-                      >
-                        <style>{`
-                          .frame { opacity: 0; animation: cycle 0.8s steps(1) infinite; }
-                          .f0 { animation-delay: 0s; }
-                          .f1 { animation-delay: -0.2s; }
-                          .f2 { animation-delay: -0.4s; }
-                          .f3 { animation-delay: -0.6s; }
-                          @keyframes cycle {
-                            0% { opacity: 1; }
-                            24.99% { opacity: 1; }
-                            25% { opacity: 0; }
-                            100% { opacity: 0; }
-                          }
-                          .tail { transform-origin: 100% 100%; animation: tail 0.4s ease-in-out infinite; }
-                          @keyframes tail {
-                            0% { transform: rotate(0deg); }
-                            50% { transform: rotate(-10deg) translateX(1px); }
-                            100% { transform: rotate(0deg); }
-                          }
-                          .glow { animation: glow 2s ease-in-out infinite alternate; }
-                          @keyframes glow {
-                            0% { filter: drop-shadow(0 0 4px rgba(255, 154, 60, 0.6)); }
-                            100% { filter: drop-shadow(0 0 12px rgba(255, 154, 60, 0.9)); }
-                          }
-                        `}</style>
-
-                        <g className="glow">
-                          {/* Frame 0 */}
-                          <g className="frame f0" transform="scale(6)">
-                            <rect x="0" y="1" width="3" height="3" fill="#ff9a3c" stroke="#000" strokeWidth="0.06" />
-                            <rect x="1" y="2" width="1" height="2" fill="#f9e36b" stroke="#000" strokeWidth="0.03" />
-                            <rect x="2.2" y="1.25" width="0.4" height="0.4" fill="#fff" stroke="#000" strokeWidth="0.03" />
-                            <rect x="2.32" y="1.45" width="0.16" height="0.16" fill="#000" />
-                            <rect x="0.2" y="3.6" width="0.8" height="0.46" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
-                            <rect x="2.05" y="3.6" width="0.8" height="0.46" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
-                            <g className="tail">
-                              <rect x="3.0" y="1.9" width="1" height="0.5" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
-                              <rect x="4.05" y="1.6" width="0.4" height="0.4" fill="#d32b00" stroke="#000" strokeWidth="0.02" />
-                              <rect x="4.18" y="1.35" width="0.25" height="0.25" fill="#ffcf6e" stroke="#000" strokeWidth="0.01" />
-                            </g>
-                          </g>
-
-                          {/* Frame 1 */}
-                          <g className="frame f1" transform="scale(6)">
-                            <rect x="0" y="1" width="3" height="3" fill="#ff9a3c" stroke="#000" strokeWidth="0.06" />
-                            <rect x="1" y="2" width="1" height="2" fill="#f9e36b" stroke="#000" strokeWidth="0.03" />
-                            <rect x="2.15" y="1.2" width="0.42" height="0.42" fill="#fff" stroke="#000" strokeWidth="0.03" />
-                            <rect x="2.28" y="1.38" width="0.16" height="0.16" fill="#000" />
-                            <rect x="0.05" y="3.5" width="0.8" height="0.46" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
-                            <rect x="2.15" y="3.15" width="0.8" height="0.55" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
-                            <g className="tail">
-                              <rect x="3.0" y="1.85" width="1" height="0.5" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
-                              <rect x="4.06" y="1.55" width="0.36" height="0.36" fill="#c12a00" stroke="#000" strokeWidth="0.02" />
-                              <rect x="4.22" y="1.28" width="0.22" height="0.22" fill="#ffd27f" stroke="#000" strokeWidth="0.01" />
-                            </g>
-                          </g>
-
-                          {/* Frame 2 */}
-                          <g className="frame f2" transform="scale(6)">
-                            <rect x="0" y="1" width="3" height="3" fill="#ff9a3c" stroke="#000" strokeWidth="0.06" />
-                            <rect x="1" y="2" width="1" height="2" fill="#f9e36b" stroke="#000" strokeWidth="0.03" />
-                            <rect x="2.3" y="1.22" width="0.38" height="0.38" fill="#fff" stroke="#000" strokeWidth="0.03" />
-                            <rect x="2.4" y="1.4" width="0.16" height="0.16" fill="#000" />
-                            <rect x="0.3" y="3.25" width="0.8" height="0.52" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
-                            <rect x="1.95" y="3.6" width="0.8" height="0.44" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
-                            <g className="tail">
-                              <rect x="3.0" y="1.82" width="1" height="0.5" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
-                              <rect x="4.02" y="1.55" width="0.4" height="0.36" fill="#d73300" stroke="#000" strokeWidth="0.02" />
-                              <rect x="4.18" y="1.28" width="0.2" height="0.2" fill="#ffd88a" stroke="#000" strokeWidth="0.01" />
-                            </g>
-                          </g>
-
-                          {/* Frame 3 */}
-                          <g className="frame f3" transform="scale(6)">
-                            <rect x="0" y="1" width="3" height="3" fill="#ff9a3c" stroke="#000" strokeWidth="0.06" />
-                            <rect x="1" y="2" width="1" height="2" fill="#f9e36b" stroke="#000" strokeWidth="0.03" />
-                            <rect x="2.2" y="1.12" width="0.44" height="0.44" fill="#fff" stroke="#000" strokeWidth="0.03" />
-                            <rect x="2.34" y="1.32" width="0.16" height="0.16" fill="#000" />
-                            <rect x="0.05" y="3.1" width="0.8" height="0.5" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
-                            <rect x="2.2" y="3.4" width="0.8" height="0.5" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
-                            <g className="tail">
-                              <rect x="3.0" y="1.78" width="1" height="0.5" fill="#ff9a3c" stroke="#000" strokeWidth="0.03" />
-                              <rect x="4.07" y="1.58" width="0.4" height="0.36" fill="#d73300" stroke="#000" strokeWidth="0.02" />
-                              <rect x="4.18" y="1.28" width="0.24" height="0.24" fill="#ffd88a" stroke="#000" strokeWidth="0.01" />
-                            </g>
-                          </g>
-                        </g>
-                      </svg>
-                    </div>
-
-                    {/* Innovative Loading Text - Properly aligned with SVG */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.2 }}
-                      className="space-y-2"
-                    >
-                      <motion.p 
-                        className="text-sm font-bold tracking-wider text-center"
-                        style={{ 
-                          color: 'var(--color-accent)',
-                          fontFamily: 'monospace',
-                          textShadow: '0 0 8px rgba(255, 154, 60, 0.5)'
-                        }}
-                        animate={{
-                          opacity: [0.7, 1, 0.7]
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                      >
-                        MATERIALIZING CHARIZARD
-                      </motion.p>
-                      
-                      <motion.div 
-                        className="flex justify-center space-x-1"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                      >
-                        {[...Array(3)].map((_, i) => (
-                          <motion.div
-                            key={i}
-                            className="w-1.5 h-1.5 rounded-full"
-                            style={{ backgroundColor: 'var(--color-accent)' }}
-                            animate={{
-                              scale: [1, 1.5, 1],
-                              opacity: [0.4, 1, 0.4]
-                            }}
-                            transition={{
-                              duration: 1.5,
-                              repeat: Infinity,
-                              delay: i * 0.2,
-                              ease: "easeInOut"
-                            }}
-                          />
-                        ))}
-                      </motion.div>
-
-                      <motion.p 
-                        className="text-xs opacity-70 tracking-wide text-center"
-                        style={{ 
-                          color: 'var(--color-text-muted)',
-                          fontFamily: 'monospace'
-                        }}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 0.7 }}
-                        transition={{ duration: 1, delay: 0.6 }}
-                      >
-                        Rendering 3D Experience...
-                      </motion.p>
-                    </motion.div>
-                  </div>
-                </motion.div>
-              </div>
           </div>
         </div>
       </div>
@@ -973,12 +765,12 @@ export default function Hero() {
         className="banner-container"
       >
         {/* Desktop & Tablet - Static Text */}
-        <div className="hidden md:flex text-center py-2 px-4 text-sm font-medium tracking-wide min-h-[36px] items-center justify-center">
+        <div className="hidden md:flex text-center py-2 px-4 text-sm font-medium tracking-wide items-center justify-center">
           {heroData.announcement.text}
         </div>
 
-        {/* Mobile - Animated Scrolling Text (Left to Right) */}
-        <div className="md:hidden banner-scroll-container py-2.5 min-h-[40px] flex items-center overflow-hidden relative">
+        {/* Mobile - Animated Scrolling Text */}
+        <div className="md:hidden banner-scroll-container py-2 flex items-center overflow-hidden relative">
           <motion.div
             className="flex whitespace-nowrap absolute"
             initial={{ x: '0%' }}
