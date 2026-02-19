@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     'n8n Automation Student',
     'Student Technical Skills',
     'IIIT Gwalior Portfolio',
-    'Computer Science Student',
+    'Information Technology Student',
     'Full Stack Student Developer',
     'React Student Developer',
     'Node.js Student Developer'

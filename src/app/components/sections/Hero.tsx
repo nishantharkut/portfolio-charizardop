@@ -404,71 +404,52 @@ export default function Hero() {
   if (isClient && capabilities.isMobile) {
     return (
       <section className="relative w-full min-h-[100svh] overflow-hidden">
-        <div className="relative z-10 min-h-[100svh] flex items-center pt-24 pb-28 sm:pt-28 sm:pb-24">
-          {/* Container with exact same width as navbar: max-w-7xl */}
-          <div className="max-w-7xl w-full mx-auto px-6 sm:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-              {/* LEFT SIDE - Content */}
+        <div className="relative z-10 min-h-[100svh] flex items-center pt-16 pb-8 sm:pt-20 sm:pb-10">
+          <div className="max-w-7xl w-full mx-auto px-5 sm:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-1 lg:gap-12 items-center">
+              {/* Content - improved mobile hierarchy and spacing */}
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, ease: 'easeOut' }}
-                className="flex flex-col justify-center h-full lg:col-span-7 order-2 lg:order-1 max-w-2xl mx-auto lg:mx-0"
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+                className="flex flex-col justify-center h-full lg:col-span-7 order-2 lg:order-1 max-w-2xl mx-auto lg:mx-0 text-center lg:text-left"
               >
-                <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight tracking-tight mb-4 sm:mb-6 text-center lg:text-left" style={{ fontFamily: 'var(--font-sora), system-ui, sans-serif' }}>
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight mb-4 sm:mb-5" style={{ fontFamily: 'var(--font-sora), system-ui, sans-serif' }}>
                   <span className="block text-gradient-fire">{heroData.name}</span>
                 </h1>
-                <p className="text-sm sm:text-base lg:text-lg leading-relaxed mb-2 sm:mb-3 font-light max-w-xl mx-auto lg:mx-0 text-center lg:text-left" style={{ color: 'var(--color-text-secondary)' }}>
+                <p className="text-sm sm:text-base leading-relaxed mb-4 sm:mb-5 font-light max-w-lg mx-auto lg:mx-0" style={{ color: 'var(--color-text-secondary)' }}>
                   {heroData.tagline}
                 </p>
-                {/* Location */}
-                <div className="flex items-center gap-2 mb-4 sm:mb-6 justify-center lg:justify-start" style={{ color: 'var(--color-text-secondary)' }}>
+                {/* Location - bordered like desktop */}
+                <div className="flex items-center gap-2 mb-6 sm:mb-8 justify-center lg:justify-start px-4 py-1.5 border border-current rounded-sm w-fit mx-auto lg:mx-0" style={{ color: 'var(--color-text-secondary)' }}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-accent)' }}>
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                     <circle cx="12" cy="10" r="3"></circle>
                   </svg>
                   <span className="text-xs sm:text-sm font-medium">{heroData.location}</span>
                 </div>
-                <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 md:gap-4 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
-                  {/* Secondary CTA */}
+                <div className="flex flex-row flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
+                  {/* Secondary CTA - clean, no neubrutalism */}
                   <a
                     href={heroData.cta.secondary.href}
-                    className="px-3 py-2 text-xs font-medium text-center rounded-lg sm:px-4 sm:py-2.5 sm:text-sm md:px-5 md:py-2.5 lg:px-6 lg:py-3 lg:rounded-xl border-2 transition-all duration-300"
+                    className="px-4 py-3 text-sm font-medium text-center rounded-xl sm:px-5 sm:py-3 border transition-all duration-200 hover:opacity-90 active:opacity-95"
                     style={{
                       backgroundColor: 'var(--color-surface-elevated)',
-                      borderColor: 'var(--color-accent)',
-                      color: 'var(--color-text)',
-                      boxShadow: '3px 3px 0px 0px var(--shadow-neubrutalism)'
-                    }}
-                    onTouchStart={(e) => {
-                      e.currentTarget.style.boxShadow = '1px 1px 0px 0px var(--shadow-neubrutalism-hover)';
-                      e.currentTarget.style.transform = 'translate(2px, 2px)';
-                    }}
-                    onTouchEnd={(e) => {
-                      e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism)';
-                      e.currentTarget.style.transform = 'translate(0px, 0px)';
+                      borderColor: 'var(--color-border)',
+                      color: 'var(--color-text)'
                     }}
                   >
                     {heroData.cta.secondary.text}
                   </a>
 
-                  {/* Primary CTA */}
+                  {/* Primary CTA - clean, no neubrutalism */}
                   <a
                     href={heroData.cta.primary.href}
-                    className="px-3 py-2 text-xs font-semibold text-center rounded-lg sm:px-4 sm:py-2.5 sm:text-sm md:px-5 md:py-2.5 lg:px-6 lg:py-3 lg:rounded-xl border-2 transition-all duration-300"
+                    className="px-4 py-3 text-sm font-semibold text-center rounded-xl sm:px-5 sm:py-3 border transition-all duration-200 hover:opacity-90 active:opacity-95"
                     style={{
                       backgroundColor: 'var(--color-accent)',
-                      borderColor: 'var(--color-text)',
-                      color: 'var(--color-button-text)',
-                      boxShadow: '3px 3px 0px 0px var(--shadow-neubrutalism)'
-                    }}
-                    onTouchStart={(e) => {
-                      e.currentTarget.style.boxShadow = '1px 1px 0px 0px var(--shadow-neubrutalism-hover)';
-                      e.currentTarget.style.transform = 'translate(2px, 2px)';
-                    }}
-                    onTouchEnd={(e) => {
-                      e.currentTarget.style.boxShadow = '3px 3px 0px 0px var(--shadow-neubrutalism)';
-                      e.currentTarget.style.transform = 'translate(0px, 0px)';
+                      borderColor: 'var(--color-accent)',
+                      color: 'var(--color-button-text)'
                     }}
                   >
                     {heroData.cta.primary.text}
@@ -476,10 +457,10 @@ export default function Hero() {
                 </div>
               </motion.div>
 
-              {/* RIGHT SIDE - Fallback Visual */}
-              <div className="relative h-[38svh] min-h-[240px] max-h-[360px] sm:h-[40svh] sm:max-h-[420px] lg:h-full lg:col-span-5 flex items-center justify-center pointer-events-none order-1 lg:order-2">
-                <div className="w-full max-w-[360px] sm:max-w-[420px] h-full">
-                  <CharizardFallback className="scale-[1.05] sm:scale-[1.1]" />
+              {/* RIGHT SIDE - Fallback Visual: row height = GIF height so text sits right below (GIF stays high, not pulled down) */}
+              <div className="relative h-auto lg:h-full lg:col-span-5 flex items-center justify-center pointer-events-none order-1 lg:order-2">
+                <div className="w-full max-w-[380px] sm:max-w-[440px] lg:h-full flex items-center justify-center">
+                  <CharizardFallback className="scale-[1.2] sm:scale-[1.25]" />
                 </div>
               </div>
             </div>
@@ -498,26 +479,27 @@ export default function Hero() {
             {heroData.announcement.text}
           </div>
 
-          {/* Mobile - Animated Scrolling Text */}
+          {/* Mobile - Animated Scrolling Text (seamless marquee) */}
           <div className="md:hidden banner-scroll-container py-2.5 min-h-[40px] flex items-center overflow-hidden">
             <motion.div
               className="flex whitespace-nowrap"
-              initial={{ transform: 'translateX(100%)' }}
-              animate={{ transform: 'translateX(-100%)' }}
+              initial={{ x: 0 }}
+              animate={{ x: '-50%' }}
               transition={{
-                duration: 35,
+                duration: 28,
                 ease: "linear",
                 repeat: Infinity,
-                delay: 1.5
+                repeatType: "loop",
+                delay: 1
               }}
-              style={{ minWidth: 'max-content' }}
+              style={{ willChange: 'transform', width: 'max-content' }}
             >
-              {[...Array(5)].map((_, i) => (
-                <div key={i} className="flex-shrink-0 px-8 py-1">
-                  <span className="text-xs font-medium tracking-wide whitespace-nowrap">
-                    {heroData.announcement.text}
-                  </span>
-                  {i < 4 && <span className="mx-6 text-xs opacity-60">•</span>}
+              {[...Array(2)].map((_, copyIndex) => (
+                <div key={copyIndex} className="flex flex-shrink-0 items-center px-8 py-1">
+                  <span className="text-xs font-medium tracking-wide whitespace-nowrap">{heroData.announcement.text}</span>
+                  <span className="mx-6 text-xs opacity-60">•</span>
+                  <span className="text-xs font-medium tracking-wide whitespace-nowrap">{heroData.announcement.text}</span>
+                  <span className="mx-6 text-xs opacity-60">•</span>
                 </div>
               ))}
             </motion.div>
@@ -667,8 +649,8 @@ export default function Hero() {
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 opacity-30 [mask-image:radial-gradient(circle,black,transparent_70%)] bg-[radial-gradient(circle,rgba(255,140,40,0.4),transparent_60%)]" />
       </div>
 
-      {/* Text content - positioned at Charizard's feet level */}
-      <div style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, zIndex: 10, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center', paddingBottom: '60px' }}>
+      {/* Text content - positioned higher so less gap below 3D model (desktop) */}
+      <div style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, zIndex: 10, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 'clamp(80px, 18vh, 140px)' }}>
         {/* Container */}
         <div className="max-w-7xl w-full mx-auto px-4">
           <div className="flex flex-col items-center text-center">
@@ -678,7 +660,7 @@ export default function Hero() {
               transition={{ duration: 0.9, ease: 'easeOut' }}
               className="flex flex-col items-center justify-center max-w-3xl"
             >
-              {/* Name - HUGE */}
+              {/* Name - HUGE (desktop: original sizes) */}
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[80px] font-bold leading-none tracking-tight mb-2" style={{ color: 'var(--color-text)', fontFamily: 'var(--font-sora), system-ui, sans-serif' }}>
                 {heroData.name}
               </h1>
@@ -769,25 +751,29 @@ export default function Hero() {
           {heroData.announcement.text}
         </div>
 
-        {/* Mobile - Animated Scrolling Text */}
+        {/* Mobile - Animated Scrolling Text (marquee: duplicate content, animate -50% for seamless loop) */}
         <div className="md:hidden banner-scroll-container py-2 flex items-center overflow-hidden relative">
           <motion.div
-            className="flex whitespace-nowrap absolute"
-            initial={{ x: '0%' }}
+            className="flex whitespace-nowrap"
+            initial={{ x: 0 }}
             animate={{ x: '-50%' }}
             transition={{
-              duration: 25,
+              duration: 28,
               ease: "linear",
               repeat: Infinity,
-              repeatDelay: 0
+              repeatType: "loop"
             }}
             style={{
-              minWidth: 'max-content',
-              willChange: 'transform'
+              willChange: 'transform',
+              width: 'max-content'
             }}
           >
-            {[...Array(8)].map((_, i) => (
-              <div key={i} className="flex-shrink-0 inline-flex items-center">
+            {[...Array(2)].map((_, copyIndex) => (
+              <div key={copyIndex} className="flex flex-shrink-0 items-center">
+                <span className="text-xs font-medium tracking-wide whitespace-nowrap px-6">
+                  {heroData.announcement.text}
+                </span>
+                <span className="mx-4 text-xs opacity-60">•</span>
                 <span className="text-xs font-medium tracking-wide whitespace-nowrap px-6">
                   {heroData.announcement.text}
                 </span>

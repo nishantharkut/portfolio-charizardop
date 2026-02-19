@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     'Student Portfolio',
     'Internship Seeker',
     'Entry Level Developer',
-    'Computer Science Student India',
+    'Information Technology Student India',
     'IIIT Gwalior Portfolio'
   ],
   authors: [{ name: 'Nishant Harkut', url: 'https://www.nishantharkut.dev' }],

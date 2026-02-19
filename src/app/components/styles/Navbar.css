@@ -528,31 +528,32 @@
   pointer-events: auto;
 }
 
+/* Floating buttons — clean, no neubrutalism */
 .navbar-float-btn {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 2px solid var(--color-accent);
-  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-elevated);
   color: var(--color-text-muted);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  transition: all 0.25s ease;
-  box-shadow: 3px 3px 0px 0px var(--shadow-neubrutalism);
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .navbar-float-btn:hover {
   color: var(--color-accent);
-  box-shadow: 1px 1px 0px 0px var(--shadow-neubrutalism-hover);
-  transform: translate(2px, 2px);
+  border-color: var(--color-accent);
+  background: var(--color-surface);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .navbar-float-btn:active {
-  box-shadow: none;
-  transform: translate(3px, 3px);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Slightly smaller float buttons on mobile so they don't cover content */
