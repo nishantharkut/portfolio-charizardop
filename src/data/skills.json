@@ -78,32 +78,32 @@
   "interests": [
     {
       "title": "Graphic Design",
-      "description": "Design work — logos, posters, social media graphics",
+      "description": "Logos, posters, social graphics",
       "icon": "FaPalette"
     },
     {
       "title": "Basketball",
-      "description": "Regular pickup games and gym sessions",
+      "description": "Pickup games and gym",
       "icon": "FaBasketballBall"
     },
     {
       "title": "Gaming",
-      "description": "BGMI and other games when I need a break",
+      "description": "BGMI and others",
       "icon": "FaGamepad"
     },
     {
       "title": "AI & ML",
-      "description": "Experimenting with AI tools, LLMs, and integrations",
+      "description": "AI tools and LLMs",
       "icon": "FaRobot"
     },
     {
       "title": "Photography",
-      "description": "Capturing moments, mostly on my phone",
+      "description": "Mostly on my phone",
       "icon": "FaCamera"
     },
     {
-      "title": "Music Production",
-      "description": "Messing around with AI music generation",
+      "title": "Music",
+      "description": "AI music experiments",
       "icon": "FaMusic"
     }
   ]

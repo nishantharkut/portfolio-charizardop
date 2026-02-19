@@ -2,35 +2,35 @@
   "hero": {
     "badge": "Student Developer",
     "title": "About",
-    "subtitle": "3rd year B.Tech IT + MBA at IIIT Gwalior. Full stack developer, currently interning at QuickIntell.",
-  "profileImage": "/nishant-image.webp",
+    "subtitle": "B.Tech IT + MBA at IIIT Gwalior. I build full-stack products and currently work as a Software Engineer intern at QuickIntell.",
+    "profileImage": "/nishant-image.webp",
     "profileAlt": "Nishant Harkut",
     "profileCaption": "Nishant Harkut"
   },
   "aboutSections": [
     {
-      "title": "Who I Am",
+      "title": "Background",
       "content": [
-        "I'm Nishant Harkut, a 3rd year dual-degree student (B.Tech IT + MBA) at IIIT Gwalior. I got into tech through design — spent my first year learning UI/UX and graphic design, won a few college design competitions, and did a design internship. That background shaped how I think about building things, but I knew I wanted to go deeper than mockups."
+        "I'm Nishant Harkut. I'm in my third year of a dual degree (B.Tech IT + MBA) at IIIT Gwalior. I started with UI/UX and graphic design — won some college design competitions and did a design internship. That led me into wanting to build the things I was designing, not just mock them up."
       ]
     },
     {
-      "title": "Design to Dev",
+      "title": "Design to dev",
       "content": [
-        "After first year, I went all-in on development. I started building full-stack projects — a Web3 collaboration platform, an AI travel planner, a career coaching SaaS — and competing in hackathons. That led to a top-10 finish at ODOO India Hackathon (out of 10,000+ teams) and a first-place win at Hacknovate 6.0.",
-        "Right now I'm interning at QuickIntell as a Software Engineer, working on OCR pipelines, backend services, and AI integrations for their healthcare RCM product. My stack is mostly React, Next.js, Node.js, Python, and PostgreSQL, with some Three.js and GSAP when a project calls for it."
+        "I switched focus to development and started shipping full-stack projects: a Web3 collaboration platform, an AI travel planner, a career-coaching SaaS. I've competed in hackathons — top 10 at ODOO India (out of 10,000+ teams) and first place at Hacknovate 6.0.",
+        "I'm currently interning at QuickIntell as a Software Engineer: OCR pipelines, backend services, and AI integrations for their healthcare RCM product. I use React, Next.js, Node.js, Python, PostgreSQL, and sometimes Three.js and GSAP when the project needs it."
       ]
     },
     {
-      "title": "Security Awareness",
+      "title": "Security",
       "content": [
-        "I've been picking up web application security alongside development — OWASP fundamentals, auth implementations, API security patterns. It's not my primary focus, but I think building things without understanding how they break is a gap worth closing."
+        "I'm learning web application security in parallel — OWASP basics, auth, API security. Not my main focus, but I'd rather build things knowing how they can break."
       ]
     },
     {
-      "title": "Beyond Code",
+      "title": "Off the keyboard",
       "content": [
-        "Outside of coding, I play basketball, go to the gym, and mess around with AI music generation. I'm also into graphic design, photography, and the occasional BGMI session."
+        "Basketball, gym, AI music experiments. I still do graphic design and photography, and I play BGMI when I want to switch off."
       ]
     }
   ],

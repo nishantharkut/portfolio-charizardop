@@ -5,8 +5,8 @@ import Link from "next/link";
 
 const details = [
   { label: "Location", value: "India" },
-  { label: "Focus", value: "Full-Stack, Web Performance, Security" },
-  { label: "Education", value: "B.Tech, Information Technology" },
+  { label: "Focus", value: "Web dev, performance, security" },
+  { label: "Education", value: "B.Tech IT + MBA, IIIT Gwalior" },
   { label: "Currently", value: "Open to opportunities" },
 ];
 
@@ -38,10 +38,9 @@ export default function About() {
               style={{ color: "var(--color-text-muted)" }}
             >
               I build things for the web. Most of my time goes into writing
-              React and Node, figuring out why something broke in production,
-              and occasionally making interfaces that people actually enjoy
-              using. I care about performance, clean code, and shipping
-              stuff that works.
+              code, debugging issues in production, and crafting interfaces
+              that people enjoy using. I care about performance, clean code,
+              and shipping work that delivers.
             </p>
 
             {/* Detail rows */}
@@ -84,7 +83,7 @@ export default function About() {
                 className="text-sm font-medium inline-flex items-center gap-1.5 transition-colors duration-200 hover:opacity-80"
                 style={{ color: "var(--color-accent)" }}
               >
-                More about me
+                Full story
                 <span aria-hidden className="text-base">&rarr;</span>
               </Link>
             </motion.div>

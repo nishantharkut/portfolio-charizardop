@@ -48,22 +48,7 @@ export default function AboutClient() {
   const timeline = getTimeline();
   const { reloadWithTransition } = usePageReload();
   const { actualTheme } = useTheme();
-  const [floatingElements, setFloatingElements] = useState<Array<{left: number, top: number, delay: number, xOffset: number, duration: number}>>([]);
-  const [isMounted, setIsMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-    // Generate floating element positions on client side only
-    const newElements = Array.from({ length: 15 }, () => ({
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      delay: Math.random() * 2,
-      xOffset: (Math.random() - 0.5) * 100,
-      duration: 3 + Math.random() * 4
-    }));
-    setFloatingElements(newElements);
-  }, []);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -126,30 +111,6 @@ export default function AboutClient() {
             brightness={actualTheme === 'light' ? 0.3 : 0.7}
           /> */}
         </div>
-        {/* Floating Elements */}
-        <div className="absolute inset-0 opacity-10 z-10">
-          {isMounted && floatingElements.map((element, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-orange-500 rounded-full"
-              style={{
-                left: `${element.left}%`,
-                top: `${element.top}%`,
-              }}
-              animate={{
-                y: [0, -30, 0],
-                x: [0, element.xOffset, 0],
-                opacity: [0.3, 1, 0.3],
-              }}
-              transition={{
-                duration: element.duration,
-                repeat: Infinity,
-                delay: element.delay,
-              }}
-            />
-          ))}
-        </div>
-
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-20">
           {/* Content */}
           <motion.div
@@ -206,7 +167,7 @@ export default function AboutClient() {
             >
               <PageHeroCta
                 primary={{
-                  label: 'Learn more',
+                  label: 'Scroll to story',
                   href: '#who-i-am',
                   onClick: (e) => {
                     e.preventDefault();
@@ -270,7 +231,7 @@ export default function AboutClient() {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-5xl font-bold mb-6" style={{ color: 'var(--color-text)' }}>
-              Who <span className="text-gradient-fire">I Am</span>
+              Story
             </h2>
             <div className="w-24 h-1 mx-auto mb-8" style={{ background: 'var(--color-accent-gradient)' }}></div>
           </motion.div>
@@ -335,7 +296,7 @@ export default function AboutClient() {
                     color: 'var(--color-text)'
                   }}
                 >
-                  Explore My Work
+                  Projects
                 </Link>
                 <Link 
                   href="/experience"
@@ -346,7 +307,7 @@ export default function AboutClient() {
                     color: 'var(--color-button-text)'
                   }}
                 >
-                  View Experience
+                  Experience
                 </Link>
               </div>
             </motion.div>
@@ -365,10 +326,10 @@ export default function AboutClient() {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-5xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>
-              Tech <span className="text-orange-500">Stack</span>
+              Stack
             </h2>
             <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--color-text-secondary)' }}>
-              Technologies and tools I work with regularly
+              What I use day to day
             </p>
           </motion.div>
 
@@ -493,10 +454,10 @@ export default function AboutClient() {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-5xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>
-              Beyond <span className="text-orange-500">Code</span>
+              Off the keyboard
             </h2>
             <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--color-text-secondary)' }}>
-              What I do when I&apos;m not coding
+              Hobbies and side interests
             </p>
           </motion.div>
 
@@ -548,10 +509,10 @@ export default function AboutClient() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: 'var(--color-text)' }}>
-              Let&apos;s <span className="text-orange-500">Work Together</span>
+              Contact
             </h2>
             <p className="text-lg mb-8 max-w-2xl mx-auto" style={{ color: 'var(--color-text-secondary)' }}>
-              I&apos;m looking for internship opportunities and open to working on interesting projects.
+              Open to internships and interesting projects.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
               <Link 
@@ -563,7 +524,7 @@ export default function AboutClient() {
                   color: 'var(--color-text)'
                 }}
               >
-                View My Work
+                Projects
               </Link>
               <a 
                 href="#contact"
@@ -574,7 +535,7 @@ export default function AboutClient() {
                   color: 'var(--color-button-text)'
                 }}
               >
-                Get In Touch
+                Get in touch
               </a>
             </div>
           </motion.div>
