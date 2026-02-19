@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import type { Achievement } from '@/data';
+import { ImageUpload } from '../components/ImageUpload';
 
 const defaultItem: Partial<Achievement> = {
   title: '',
@@ -75,57 +76,75 @@ export default function AdminAchievementsPage() {
       .finally(() => setSaving(false));
   }
 
-  const ss = { marginBottom: 8, display: 'block', width: '100%', maxWidth: 400, padding: 6, boxSizing: 'border-box' as const };
-  const label = { display: 'block', marginTop: 12, marginBottom: 2, fontSize: 14 };
-
-  if (loading) return <p>Loading…</p>;
-  if (error && list.length === 0) return <p style={{ color: 'crimson' }}>{error}</p>;
+  if (loading) return <div className="admin-loading">Loading…</div>;
+  if (error && list.length === 0) return <div className="admin-error">{error}</div>;
 
   return (
     <div>
-      <h1 style={{ fontSize: 20, marginBottom: 16 }}>Achievements</h1>
-      {error && <p style={{ color: 'crimson', marginBottom: 8 }}>{error}</p>}
-      <button type="button" onClick={openAdd} style={{ marginBottom: 16, padding: '6px 12px' }}>Add achievement</button>
+      <h1 className="admin-page-title">Achievements</h1>
+      {error && <div className="admin-error">{error}</div>}
+      <button type="button" className="admin-btn admin-btn-primary" onClick={openAdd} style={{ marginBottom: 16 }}>Add achievement</button>
 
-      <form onSubmit={handleSubmit} style={{ marginBottom: 24, padding: 16, border: '1px solid #ccc', maxWidth: 500 }}>
-        <h2 style={{ fontSize: 16, marginBottom: 12 }}>{editingId ? 'Edit' : 'New'} achievement</h2>
-        <label style={label}>Title</label>
-        <input style={ss} value={form.title ?? ''} onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))} required />
-        <label style={label}>Category</label>
-        <input style={ss} value={form.category ?? ''} onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))} />
-        <label style={label}>Description</label>
-        <textarea style={{ ...ss, minHeight: 50 }} value={form.description ?? ''} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} />
-        <label style={label}>Details</label>
-        <textarea style={{ ...ss, minHeight: 60 }} value={form.details ?? ''} onChange={(e) => setForm((f) => ({ ...f, details: e.target.value }))} />
-        <label style={label}>Date</label>
-        <input style={ss} value={form.date ?? ''} onChange={(e) => setForm((f) => ({ ...f, date: e.target.value }))} />
-        <label style={label}>Organization</label>
-        <input style={ss} value={form.organization ?? ''} onChange={(e) => setForm((f) => ({ ...f, organization: e.target.value }))} />
-        <label style={label}>Link</label>
-        <input style={ss} value={form.link ?? ''} onChange={(e) => setForm((f) => ({ ...f, link: e.target.value }))} />
-        <label style={label}>Image path</label>
-        <input style={ss} value={form.image ?? ''} onChange={(e) => setForm((f) => ({ ...f, image: e.target.value }))} placeholder="/awards/name.webp" />
-        <label style={label}>Badge (emoji)</label>
-        <input style={ss} value={form.badge ?? ''} onChange={(e) => setForm((f) => ({ ...f, badge: e.target.value }))} placeholder="🏆" />
-        <label style={label}>Impact (one per line)</label>
-        <textarea style={{ ...ss, minHeight: 60 }} value={Array.isArray(form.impact) ? form.impact.join('\n') : ''} onChange={(e) => setForm((f) => ({ ...f, impact: e.target.value.split('\n').map((x) => x.trim()).filter(Boolean) }))} />
-        <label style={{ ...label, display: 'flex', alignItems: 'center', gap: 8 }}>
-          <input type="checkbox" checked={form.featured ?? false} onChange={(e) => setForm((f) => ({ ...f, featured: e.target.checked }))} />
-          Featured
-        </label>
-        <div style={{ marginTop: 16 }}>
-          <button type="submit" disabled={saving} style={{ padding: '6px 14px' }}>{saving ? '…' : editingId ? 'Update' : 'Add'}</button>
-          {editingId && <button type="button" onClick={openAdd} style={{ marginLeft: 8, padding: '6px 14px' }}>Cancel</button>}
-        </div>
-      </form>
+      <div className="admin-card">
+        <h2>{editingId ? 'Edit' : 'New'} achievement</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="admin-form-group">
+            <label>Title</label>
+            <input className="admin-input" value={form.title ?? ''} onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))} required />
+          </div>
+          <div className="admin-form-group">
+            <label>Category</label>
+            <input className="admin-input" value={form.category ?? ''} onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))} />
+          </div>
+          <div className="admin-form-group">
+            <label>Description</label>
+            <textarea className="admin-input" style={{ minHeight: 60 }} value={form.description ?? ''} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} />
+          </div>
+          <div className="admin-form-group">
+            <label>Details</label>
+            <textarea className="admin-input" style={{ minHeight: 80 }} value={form.details ?? ''} onChange={(e) => setForm((f) => ({ ...f, details: e.target.value }))} />
+          </div>
+          <div className="admin-form-group">
+            <label>Date</label>
+            <input className="admin-input" value={form.date ?? ''} onChange={(e) => setForm((f) => ({ ...f, date: e.target.value }))} />
+          </div>
+          <div className="admin-form-group">
+            <label>Organization</label>
+            <input className="admin-input" value={form.organization ?? ''} onChange={(e) => setForm((f) => ({ ...f, organization: e.target.value }))} />
+          </div>
+          <div className="admin-form-group">
+            <label>Link</label>
+            <input className="admin-input" type="url" value={form.link ?? ''} onChange={(e) => setForm((f) => ({ ...f, link: e.target.value }))} />
+          </div>
+          <ImageUpload folder="awards" label="Image" value={form.image ?? ''} onChange={(path) => setForm((f) => ({ ...f, image: path }))} />
+          <div className="admin-form-group">
+            <label>Badge (emoji)</label>
+            <input className="admin-input" value={form.badge ?? ''} onChange={(e) => setForm((f) => ({ ...f, badge: e.target.value }))} placeholder="🏆" />
+          </div>
+          <div className="admin-form-group">
+            <label>Impact (one per line)</label>
+            <textarea className="admin-input" style={{ minHeight: 80 }} value={Array.isArray(form.impact) ? form.impact.join('\n') : ''} onChange={(e) => setForm((f) => ({ ...f, impact: e.target.value.split('\n').map((x) => x.trim()).filter(Boolean) }))} />
+          </div>
+          <div className="admin-form-group">
+            <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <input type="checkbox" checked={form.featured ?? false} onChange={(e) => setForm((f) => ({ ...f, featured: e.target.checked }))} />
+              Featured
+            </label>
+          </div>
+          <div className="admin-form-actions">
+            <button type="submit" className="admin-btn admin-btn-primary" disabled={saving}>{saving ? '…' : editingId ? 'Update' : 'Add'}</button>
+            {editingId && <button type="button" className="admin-btn" onClick={openAdd}>Cancel</button>}
+          </div>
+        </form>
+      </div>
 
-      <ul style={{ listStyle: 'none', padding: 0 }}>
+      <ul className="admin-list">
         {list.map((p) => (
-          <li key={p.id} style={{ marginBottom: 12, padding: 8, border: '1px solid #eee' }}>
+          <li key={p.id} className="admin-list-item">
             <strong>{p.title}</strong> — {p.category} ({p.date})
-            <div style={{ marginTop: 4 }}>
-              <button type="button" onClick={() => openEdit(p)} style={{ marginRight: 8, padding: '2px 8px', fontSize: 13 }}>Edit</button>
-              <button type="button" onClick={() => remove(p.id)} style={{ padding: '2px 8px', fontSize: 13 }}>Delete</button>
+            <div className="admin-item-actions">
+              <button type="button" onClick={() => openEdit(p)}>Edit</button>
+              <button type="button" onClick={() => remove(p.id)}>Delete</button>
             </div>
           </li>
         ))}

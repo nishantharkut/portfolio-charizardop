@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import './admin.css';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [checked, setChecked] = useState(false);
@@ -36,23 +37,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   if (!isLogin && !checked) {
-    return (
-      <div style={{ padding: 32, fontFamily: 'system-ui' }}>Checking auth…</div>
-    );
+    return <div className="admin-wrap admin-loading">Checking auth…</div>;
   }
 
   if (isLogin) return <>{children}</>;
 
   return (
-    <div style={{ fontFamily: 'system-ui', padding: 24, maxWidth: 900, margin: '0 auto' }}>
-      <nav style={{ marginBottom: 24, display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
-        <Link href="/admin" style={{ fontWeight: 600 }}>Admin</Link>
-        <Link href="/admin/projects">Projects</Link>
-        <Link href="/admin/experience">Experience</Link>
-        <Link href="/admin/achievements">Achievements</Link>
-        <button type="button" onClick={logout} style={{ marginLeft: 'auto', padding: '4px 8px' }}>Logout</button>
+    <div className="admin-wrap">
+      <nav className="admin-nav">
+        <Link href="/admin" data-active={pathname === '/admin'}>Admin</Link>
+        <Link href="/admin/projects" data-active={pathname === '/admin/projects'}>Projects</Link>
+        <Link href="/admin/experience" data-active={pathname === '/admin/experience'}>Experience</Link>
+        <Link href="/admin/achievements" data-active={pathname === '/admin/achievements'}>Achievements</Link>
+        <button type="button" className="admin-logout" onClick={logout}>Logout</button>
       </nav>
-      {children}
+      <main className="admin-main">{children}</main>
     </div>
   );
 }

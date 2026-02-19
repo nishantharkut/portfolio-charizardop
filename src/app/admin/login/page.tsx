@@ -2,6 +2,7 @@
 
 import { Suspense, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import '../admin.css';
 
 function AdminLoginForm() {
   const [password, setPassword] = useState('');
@@ -35,30 +36,38 @@ function AdminLoginForm() {
   }
 
   return (
-    <div style={{ maxWidth: 320, margin: '4rem auto', padding: 16, fontFamily: 'system-ui' }}>
-      <h1 style={{ fontSize: 18, marginBottom: 16 }}>Admin login</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-          autoFocus
-          style={{ width: '100%', padding: 8, marginBottom: 8, boxSizing: 'border-box' }}
-        />
-        {error && <p style={{ color: 'crimson', fontSize: 14, marginBottom: 8 }}>{error}</p>}
-        <button type="submit" disabled={loading} style={{ padding: '8px 16px' }}>
-          {loading ? '…' : 'Log in'}
-        </button>
-      </form>
+    <div className="admin-wrap">
+      <div className="admin-card" style={{ maxWidth: 360, margin: '4rem auto' }}>
+        <h1 className="admin-page-title">Admin login</h1>
+        {error && <p className="admin-error">{error}</p>}
+        <form onSubmit={handleSubmit}>
+          <div className="admin-form-group">
+            <label htmlFor="admin-password">Password</label>
+            <input
+              id="admin-password"
+              type="password"
+              className="admin-input"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              required
+              autoFocus
+            />
+          </div>
+          <div className="admin-form-actions">
+            <button type="submit" className="admin-btn admin-btn-primary" disabled={loading}>
+              {loading ? '…' : 'Log in'}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
 
 export default function AdminLoginPage() {
   return (
-    <Suspense fallback={<div style={{ maxWidth: 320, margin: '4rem auto', padding: 16, fontFamily: 'system-ui' }}>Loading…</div>}>
+    <Suspense fallback={<div className="admin-wrap admin-loading">Loading…</div>}>
       <AdminLoginForm />
     </Suspense>
   );

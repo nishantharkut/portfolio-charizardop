@@ -68,3 +68,25 @@ export async function updateFile(
     throw new Error(`GitHub updateFile failed (${res.status}): ${err}`);
   }
 }
+
+/** Create a new file in the repo (no sha). Use for uploads. */
+export async function createFile(
+  path: string,
+  contentBase64: string,
+  message: string
+): Promise<void> {
+  const { owner, repo } = getRepo();
+  const body = { message, content: contentBase64 };
+  const res = await fetch(
+    `${GITHUB_API}/repos/${owner}/${repo}/contents/${path}`,
+    {
+      method: 'PUT',
+      headers: { ...getAuthHeaders(), 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    }
+  );
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`GitHub createFile failed (${res.status}): ${err}`);
+  }
+}
