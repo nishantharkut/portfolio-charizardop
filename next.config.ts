@@ -8,6 +8,17 @@ const nextConfig: NextConfig = {
   // Performance optimizations
   compress: true,
   poweredByHeader: false,
+
+  // So Google (and other crawlers) get a favicon when they request /favicon.ico
+  async redirects() {
+    return [
+      {
+        source: '/favicon.ico',
+        destination: '/nishantharkut-logo.png',
+        permanent: true,
+      },
+    ];
+  },
   
   // Enhanced image optimization for Vercel
   images: {

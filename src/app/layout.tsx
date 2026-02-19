@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     default: 'Nishant Harkut',
     template: '%s | Nishant Harkut'
   },
-  description: 'Nishant Harkut is a 3rd year BTech IT student at IIIT Gwalior specializing in full stack development, MERN stack, GenAI, and Agentic AI. Looking for internships in software engineering and web development.',
+  description: 'Nishant Harkut — BTech IT, IIIT Gwalior. Full stack engineer with 6+ Months of Industry experience. Open to software engineering internships and SDE roles.',
   keywords: [
     'Nishant Harkut',
     'IIIT Gwalior Student',
@@ -79,16 +79,16 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Nishant Harkut - IIIT Gwalior Student | Full Stack Developer',
-    description: 'Portfolio of Nishant Harkut, a 3rd year BTech IT student at IIIT Gwalior. Specializing in MERN stack, GenAI, and Agentic AI. Available for internships in software engineering.',
+    title: 'Nishant Harkut | Full Stack Dev',
+    description: 'Full stack engineer, BTech IT at IIIT Gwalior. 6+ Months of Industry experience. Open to software engineering internships and SDE roles.',
     url: 'https://www.nishantharkut.dev',
-    siteName: 'Nishant Harkut - Student Portfolio',
+    siteName: 'Nishant.dev',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Nishant Harkut - IIIT Gwalior Student Portfolio',
+        alt: 'Nishant Harkut — Software Engineer portfolio',
       },
       {
         url: '/nishantharkut-logo.png',
@@ -102,8 +102,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Nishant Harkut - IIIT Gwalior Student | Full Stack Developer',
-    description: 'BTech IT student at IIIT Gwalior specializing in MERN stack, GenAI, and Agentic AI. Available for software engineering internships.',
+    title: 'Nishant Harkut | Full Stack Developer | BTech IT, IIIT Gwalior',
+    description: 'Full stack engineer, BTech IT at IIIT Gwalior. Open to software engineering internships and SDE roles.',
     images: ['/og-image.jpg'],
     creator: '@HarkutNishant',
   },
@@ -122,6 +122,8 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      // First icon is the default; 48x48+ recommended for Google Search favicon
+      { url: '/nishantharkut-logo.png', sizes: '48x48', type: 'image/png' },
       { url: '/nishantharkut-logo.png', sizes: '72x72', type: 'image/png' },
       { url: '/nishantharkut-logo.png', sizes: '96x96', type: 'image/png' },
       { url: '/nishantharkut-logo.png', sizes: '128x128', type: 'image/png' },
