@@ -20,6 +20,7 @@ import StarBorder from '../components/ui/StarBorder';
 import SplashCursorWrapper from '../components/ui/SplashCursorWrapper';
 import { usePageReload } from '../components/ui/LazyLoader';
 import PixelBlast from '../components/ui/PixelBlast';
+import { PageHeroCta } from '../components/ui/PageHeroCta';
 // Lazy load FaultyTerminal with proper loading state
 import { LazyFaultyTerminal } from '../../components/lazy/LazyBoundaries';
 import { 
@@ -159,7 +160,7 @@ export default function AboutClient() {
           >
             {/* Neubrutalism Badge */}
 
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 drop-shadow-2xl" style={{ color: 'var(--color-text)' }}>
+            <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 drop-shadow-2xl" style={{ color: 'var(--color-text)' }}>
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -168,11 +169,12 @@ export default function AboutClient() {
               >
                 {aboutData.hero.title}
               </motion.span>{" "}
-              <span className="text-gradient-fire relative">
+              <span className="text-gradient-fire relative inline-block sm:inline">
                 <motion.span
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.8 }}
+                  className="relative z-10"
                 >
                   Me
                 </motion.span>
@@ -180,7 +182,7 @@ export default function AboutClient() {
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 1.2 }}
-                  className="absolute bottom-1 sm:bottom-2 left-0 w-full h-1 origin-left"
+                  className="absolute left-0 w-full h-1 origin-left top-full mt-1 sm:top-auto sm:mt-0 sm:bottom-2"
                   style={{ background: 'var(--color-accent-gradient)' }}
                 />
               </span>
@@ -190,7 +192,7 @@ export default function AboutClient() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.0 }}
-              className="text-lg md:text-xl mb-8 leading-relaxed drop-shadow-lg"
+              className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 leading-relaxed drop-shadow-lg"
               style={{ color: 'var(--color-text-secondary)' }}
             >
               {aboutData.hero.subtitle}
@@ -200,36 +202,19 @@ export default function AboutClient() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.4 }}
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start items-center"
+              className="flex justify-center lg:justify-start"
             >
-              <Link 
-                href="/"
-                className="px-4 py-2.5 sm:px-6 sm:py-3 md:px-8 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center justify-center gap-2 text-sm sm:text-base w-fit"
-                style={{ 
-                  backgroundColor: 'var(--color-surface)',
-                  borderColor: 'var(--color-accent)',
-                  color: 'var(--color-text)'
+              <PageHeroCta
+                primary={{
+                  label: 'Learn more',
+                  href: '#who-i-am',
+                  onClick: (e) => {
+                    e.preventDefault();
+                    document.getElementById('who-i-am')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  },
                 }}
-              >
-                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Back to Home
-              </Link>
-              <a 
-                href="#who-i-am"
-                className="px-4 py-2.5 sm:px-6 sm:py-3 md:px-8 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center justify-center gap-2 text-sm sm:text-base w-fit"
-                style={{ 
-                  borderColor: 'var(--color-accent)',
-                  backgroundColor: 'var(--color-accent)',
-                  color: 'var(--color-button-text)'
-                }}
-              >
-                Learn More
-                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </a>
+                signature={true}
+              />
             </motion.div>
           </motion.div>
 

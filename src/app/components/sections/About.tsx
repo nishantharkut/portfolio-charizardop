@@ -19,10 +19,9 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-12 sm:mb-14"
-          style={{ color: "var(--color-text)", fontWeight: 500 }}
+          className="section-heading-gradient text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-12 sm:mb-14"
         >
-          About <span style={{ color: "var(--color-accent)" }}>Me</span>
+          About Me
         </motion.h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10 lg:gap-16 items-start">

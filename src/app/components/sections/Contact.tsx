@@ -36,10 +36,9 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4"
-          style={{ color: "var(--color-text)", fontWeight: 500 }}
+          className="section-heading-gradient text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4"
         >
-          Get in <span style={{ color: "var(--color-accent)" }}>touch</span>
+          Get in touch
         </motion.h2>
 
         <motion.p

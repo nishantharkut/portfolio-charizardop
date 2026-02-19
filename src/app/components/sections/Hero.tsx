@@ -428,28 +428,46 @@ export default function Hero() {
                   </svg>
                   <span className="text-xs sm:text-sm font-medium">{heroData.location}</span>
                 </div>
-                <div className="flex flex-row flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
-                  {/* Secondary CTA - clean, no neubrutalism */}
+                <div className="flex flex-row flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
+                  {/* Secondary CTA - minimal neubrutalism (matches desktop & rest of project) */}
                   <a
                     href={heroData.cta.secondary.href}
-                    className="px-4 py-3 text-sm font-medium text-center rounded-xl sm:px-5 sm:py-3 border transition-all duration-200 hover:opacity-90 active:opacity-95"
+                    className="px-3 py-2 text-xs font-medium text-center sm:px-4 sm:py-2.5 sm:text-sm border-2 transition-all duration-300 neubrutalism-button rounded-lg sm:rounded-xl"
                     style={{
                       backgroundColor: 'var(--color-surface-elevated)',
-                      borderColor: 'var(--color-border)',
-                      color: 'var(--color-text)'
+                      borderColor: 'var(--color-accent)',
+                      color: 'var(--color-text)',
+                      boxShadow: '2px 2px 0px 0px var(--shadow-neubrutalism)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow = '0px 0px 0px 0px var(--shadow-neubrutalism-hover)';
+                      e.currentTarget.style.transform = 'translate(2px, 2px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = '2px 2px 0px 0px var(--shadow-neubrutalism)';
+                      e.currentTarget.style.transform = 'translate(0px, 0px)';
                     }}
                   >
                     {heroData.cta.secondary.text}
                   </a>
 
-                  {/* Primary CTA - clean, no neubrutalism */}
+                  {/* Primary CTA - minimal neubrutalism */}
                   <a
                     href={heroData.cta.primary.href}
-                    className="px-4 py-3 text-sm font-semibold text-center rounded-xl sm:px-5 sm:py-3 border transition-all duration-200 hover:opacity-90 active:opacity-95"
+                    className="px-3 py-2 text-xs font-semibold text-center sm:px-4 sm:py-2.5 sm:text-sm border-2 transition-all duration-300 neubrutalism-button rounded-lg sm:rounded-xl"
                     style={{
                       backgroundColor: 'var(--color-accent)',
-                      borderColor: 'var(--color-accent)',
-                      color: 'var(--color-button-text)'
+                      borderColor: 'var(--color-text)',
+                      color: 'var(--color-button-text)',
+                      boxShadow: '2px 2px 0px 0px var(--shadow-neubrutalism)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow = '0px 0px 0px 0px var(--shadow-neubrutalism-hover)';
+                      e.currentTarget.style.transform = 'translate(2px, 2px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = '2px 2px 0px 0px var(--shadow-neubrutalism)';
+                      e.currentTarget.style.transform = 'translate(0px, 0px)';
                     }}
                   >
                     {heroData.cta.primary.text}
@@ -460,7 +478,7 @@ export default function Hero() {
               {/* RIGHT SIDE - Fallback Visual: row height = GIF height so text sits right below (GIF stays high, not pulled down) */}
               <div className="relative h-auto lg:h-full lg:col-span-5 flex items-center justify-center pointer-events-none order-1 lg:order-2">
                 <div className="w-full max-w-[380px] sm:max-w-[440px] lg:h-full flex items-center justify-center">
-                  <CharizardFallback className="scale-[1.2] sm:scale-[1.25]" />
+                  <CharizardFallback className="scale-[1.44] sm:scale-[1.5]" />
                 </div>
               </div>
             </div>

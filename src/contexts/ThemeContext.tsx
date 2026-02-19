@@ -14,8 +14,8 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>('dark'); // Start with dark to match SSR
-  const [actualTheme, setActualTheme] = useState<'light' | 'dark'>('dark'); // Default to dark for SSR
+  const [theme, setThemeState] = useState<Theme>('light'); // Default: light mode
+  const [actualTheme, setActualTheme] = useState<'light' | 'dark'>('light'); // Default: light for SSR/first paint
   const [mounted, setMounted] = useState(false);
 
   const setTheme = (newTheme: Theme) => {
@@ -52,7 +52,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         if (typeof window !== 'undefined') {
           resolvedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         } else {
-          resolvedTheme = 'dark'; // Default for SSR
+          resolvedTheme = 'light'; // Default for SSR
         }
       } else {
         resolvedTheme = theme;
@@ -105,8 +105,8 @@ export function useTheme() {
     // Provide default values for SSR or when provider isn't available
     console.warn('useTheme called outside ThemeProvider, using default values');
     return {
-      theme: 'dark' as Theme,
-      actualTheme: 'dark' as 'light' | 'dark',
+      theme: 'light' as Theme,
+      actualTheme: 'light' as 'light' | 'dark',
       setTheme: () => {},
       toggleTheme: () => {}
     };

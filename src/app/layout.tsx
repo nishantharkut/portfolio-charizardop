@@ -8,6 +8,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import { LoadingProvider } from "./contexts/LoadingContext";
 import LoadingWrapper from "./components/ui/LoadingWrapper";
 import ServiceWorkerRegistration from "./components/ServiceWorkerRegistration";
+import TopScrollBar from "./components/ui/TopScrollBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -239,6 +240,7 @@ export default function RootLayout({
         <ErrorBoundary>
           <PerformanceProvider>
             <ThemeProvider>
+              <TopScrollBar />
               <LoadingProvider>
                 <LoadingWrapper>
                   <ServiceWorkerRegistration />

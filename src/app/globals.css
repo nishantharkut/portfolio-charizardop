@@ -1,66 +1,59 @@
 @import "tailwindcss";
 @import "../styles/performance.css";
 
-/* Default theme variables (dark mode base) - Charizard Fire Theme */
+/* Default theme: light mode (Charizard Fire Theme) */
 :root {
-  /* Dark mode - Deep charcoal with orange accents (Charizard's body/wings) */
-  --color-bg-start: #0a0b0f;
-  --color-bg-end: #1a1b23;
-  --color-text: #ffffff;
-  --color-text-secondary: rgba(255, 255, 255, 0.85);
-  --color-text-muted: rgba(255, 255, 255, 0.65);
-  --color-button-text: #000000;
+  /* Light mode - Warm cream/orange tones */
+  --color-bg-start: #fefcf8;
+  --color-bg-end: #faf7f0;
+  --color-text: #2d2d2d;
+  --color-text-secondary: rgba(45, 45, 45, 0.85);
+  --color-text-muted: rgba(45, 45, 45, 0.65);
+  --color-button-text: #ffffff;
   
-  /* Charizard Fire colors - keeping the perfect hero scheme */
-  --color-accent: #ff8c42;
-  --color-accent-hover: #ff7b33;
-  --color-accent-light: #ffb366;
-  --color-accent-dark: #e67429;
-  --color-accent-gradient: linear-gradient(135deg, #ff8c42 0%, #ff6b35 35%, #e74c3c 70%, #ff8966 100%);
-  --color-accent-transparent: rgba(255, 140, 66, 0.4);
-  --color-accent-glow: rgba(255, 140, 66, 0.3);
+  --color-accent: #e67429;
+  --color-accent-hover: #d96620;
+  --color-accent-light: #f59e54;
+  --color-accent-dark: #cc5a1a;
+  --color-accent-gradient: linear-gradient(135deg, #e67429 0%, #d96620 35%, #cc5a1a 70%, #f59e54 100%);
+  --color-accent-transparent: rgba(230, 116, 41, 0.3);
+  --color-accent-glow: rgba(230, 116, 41, 0.25);
   
-  /* Secondary colors - warm tones to complement fire theme */
-  --color-secondary: #ffa726;
-  --color-secondary-muted: rgba(255, 167, 38, 0.6);
+  --color-secondary: #f57c00;
+  --color-secondary-muted: rgba(245, 124, 0, 0.4);
   
-  /* Surface colors - dark charcoal like Charizard's body */
-  --color-surface: #1e1f26;
-  --color-surface-hover: #2a2b34;
-  --color-surface-elevated: #252631;
-  --color-border: rgba(255, 140, 66, 0.15);
-  --color-border-hover: rgba(255, 140, 66, 0.25);
-  --color-border-light: rgba(255, 255, 255, 0.08);
+  --color-surface: #f8f5f0;
+  --color-surface-hover: #f0ebe3;
+  --color-surface-elevated: #ffffff;
+  --color-border: rgba(230, 116, 41, 0.15);
+  --color-border-hover: rgba(230, 116, 41, 0.3);
+  --color-border-light: rgba(45, 45, 45, 0.08);
   
-  /* Glass and UI elements */
-  --color-glass-bg: rgba(30, 31, 38, 0.75);
-  --color-glass-border: rgba(255, 140, 66, 0.2);
-  --color-glass-highlight: rgba(255, 255, 255, 0.1);
-  --shadow-color: rgba(0, 0, 0, 0.4);
-  --shadow-accent: rgba(255, 140, 66, 0.2);
+  --color-glass-bg: rgba(255, 255, 255, 0.85);
+  --color-glass-border: rgba(230, 116, 41, 0.2);
+  --color-glass-highlight: rgba(255, 255, 255, 0.95);
+  --shadow-color: rgba(45, 45, 45, 0.1);
+  --shadow-accent: rgba(230, 116, 41, 0.15);
   
-  /* Neubrutalism shadows - whitish for dark mode */
-  --shadow-neubrutalism: rgba(255, 255, 255, 0.7);
-  --shadow-neubrutalism-hover: rgba(255, 255, 255, 0.3);
-  --shadow-neubrutalism-small: rgba(255, 255, 255, 0.6);
-  --shadow-neubrutalism-medium: rgba(255, 255, 255, 0.5);
-  --shadow-neubrutalism-hover-small: rgba(255, 255, 255, 0.2);
+  --shadow-neubrutalism: rgba(0, 0, 0, 1);
+  --shadow-neubrutalism-hover: rgba(0, 0, 0, 1);
+  --shadow-neubrutalism-small: rgba(0, 0, 0, 1);
+  --shadow-neubrutalism-medium: rgba(0, 0, 0, 1);
+  --shadow-neubrutalism-hover-small: rgba(0, 0, 0, 1);
   
-  /* Status colors */
-  --color-success: #4ade80;
-  --color-warning: #fbbf24;
-  --color-error: #ef4444;
-  --color-info: #3b82f6;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #dc2626;
+  --color-info: #2563eb;
   
-  /* Card system - lighter borders for monochrome feel */
   --color-card-bg: var(--color-surface);
-  --color-card-border: rgba(255, 255, 255, 0.12);
-  --color-card-shadow: rgba(255, 255, 255, 0.4);
-  --color-card-border-hover: rgba(255, 140, 66, 0.3);
+  --color-card-border: rgba(230, 116, 41, 0.15);
+  --color-card-shadow: rgba(0, 0, 0, 0.15);
+  --color-card-border-hover: rgba(230, 116, 41, 0.3);
   
-  /* Grid overlay */
-  --grid-color: 255 140 66;
-  --grid-opacity: 0.04;
+  --grid-color: 230 116 41;
+  --grid-opacity: 0.03;
+  --color-skeleton: #e5e7eb;
 }
 
 /* Rounded minimal neubrutalism — consistent radius + offset shadow + hover press */
@@ -389,7 +382,49 @@ h6 {
   align-items: center;
 }
 
+/* Dark mode overrides (when .dark class is on html) */
 .dark {
+  --color-bg-start: #0a0b0f;
+  --color-bg-end: #1a1b23;
+  --color-text: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.85);
+  --color-text-muted: rgba(255, 255, 255, 0.65);
+  --color-button-text: #000000;
+  --color-accent: #ff8c42;
+  --color-accent-hover: #ff7b33;
+  --color-accent-light: #ffb366;
+  --color-accent-dark: #e67429;
+  --color-accent-gradient: linear-gradient(135deg, #ff8c42 0%, #ff6b35 35%, #e74c3c 70%, #ff8966 100%);
+  --color-accent-transparent: rgba(255, 140, 66, 0.4);
+  --color-accent-glow: rgba(255, 140, 66, 0.3);
+  --color-secondary: #ffa726;
+  --color-secondary-muted: rgba(255, 167, 38, 0.6);
+  --color-surface: #1e1f26;
+  --color-surface-hover: #2a2b34;
+  --color-surface-elevated: #252631;
+  --color-border: rgba(255, 140, 66, 0.15);
+  --color-border-hover: rgba(255, 140, 66, 0.25);
+  --color-border-light: rgba(255, 255, 255, 0.08);
+  --color-glass-bg: rgba(30, 31, 38, 0.75);
+  --color-glass-border: rgba(255, 140, 66, 0.2);
+  --color-glass-highlight: rgba(255, 255, 255, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --shadow-accent: rgba(255, 140, 66, 0.2);
+  --shadow-neubrutalism: rgba(255, 255, 255, 0.7);
+  --shadow-neubrutalism-hover: rgba(255, 255, 255, 0.3);
+  --shadow-neubrutalism-small: rgba(255, 255, 255, 0.6);
+  --shadow-neubrutalism-medium: rgba(255, 255, 255, 0.5);
+  --shadow-neubrutalism-hover-small: rgba(255, 255, 255, 0.2);
+  --color-success: #4ade80;
+  --color-warning: #fbbf24;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+  --color-card-bg: var(--color-surface);
+  --color-card-border: rgba(255, 255, 255, 0.12);
+  --color-card-shadow: rgba(255, 255, 255, 0.4);
+  --color-card-border-hover: rgba(255, 140, 66, 0.3);
+  --grid-color: 255 140 66;
+  --grid-opacity: 0.04;
   --color-skeleton: #374151;
 }
 
@@ -467,7 +502,7 @@ body {
     circle at 25% 25%, 
     var(--color-bg-start) 0%, 
     var(--color-bg-end) 50%, 
-    #0f1016 90%
+    var(--color-surface-hover) 90%
   );
   min-height: 100dvh;
   -webkit-font-smoothing: antialiased;
@@ -516,14 +551,39 @@ body::before {
   100% { opacity: 0.15; }
 }
 
-/* Scrollbar styling */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-accent) transparent;
+/* Hide default scrollbar — use top scroll bar instead */
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: linear-gradient(var(--color-accent), #ff7b33); border-radius: 20px; }
+html::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Top scroll bar — reading progress at top of viewport */
+.top-scroll-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.06);
+  pointer-events: none;
+}
+.light .top-scroll-bar {
+  background: rgba(0, 0, 0, 0.08);
+}
+.top-scroll-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-light));
+  border-radius: 0 2px 2px 0;
+  transition: width 0.08s ease-out;
+  box-shadow: 0 0 12px var(--color-accent-glow);
+}
 
 /* Safe area support for modern devices */
 .safe-area {
@@ -860,6 +920,17 @@ body::before {
   -webkit-background-clip: text;
   color: transparent;
   filter: drop-shadow(0 0 8px rgba(255, 140, 66, 0.3));
+}
+
+/* Section headings — same gradient and font as Experience "My career & experience" */
+.section-heading-gradient {
+  font-family: var(--font-sora), system-ui, sans-serif;
+  font-weight: 400;
+  background: linear-gradient(0deg, var(--color-accent), var(--color-text));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .fire-glow {

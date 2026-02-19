@@ -141,10 +141,9 @@ export default function Skills() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-14"
-          style={{ color: "var(--color-text)", fontWeight: 500 }}
+          className="section-heading-gradient text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-14"
         >
-          Tech <span style={{ color: "var(--color-accent)" }}>Stack</span>
+          Tech Stack
         </motion.h2>
 
         <div className="flex flex-col gap-10 sm:gap-12">

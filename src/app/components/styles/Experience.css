@@ -36,10 +36,11 @@
   margin: 0 auto;
 }
 
-/* Section title — gradient from accent to white, matching reference 70px */
+/* Section title — same responsive scale as About, Skills, Contact, Projects */
 .experience-title {
-  font-size: 70px;
-  line-height: 70px;
+  font-family: var(--font-sora), system-ui, sans-serif;
+  font-size: 2.25rem;   /* text-4xl */
+  line-height: 1.15;
   font-weight: 400;
   text-align: center;
   background: linear-gradient(0deg, var(--color-accent), var(--color-text));
@@ -49,6 +50,15 @@
   color: transparent;
   margin-top: 0;
   margin-bottom: 48px;
+}
+@media (min-width: 640px) {
+  .experience-title { font-size: 3rem; }      /* text-5xl */
+}
+@media (min-width: 768px) {
+  .experience-title { font-size: 3.75rem; }   /* text-6xl */
+}
+@media (min-width: 1024px) {
+  .experience-title { font-size: 4.5rem; }     /* text-7xl */
 }
 
 .experience-title > span {
@@ -209,10 +219,6 @@
 /* ======== Responsive — matches reference breakpoints exactly ======== */
 
 @media only screen and (max-width: 1400px) {
-  .experience-title {
-    font-size: 50px;
-    line-height: 50px;
-  }
   .experience-info h4 {
     font-size: 22px;
     line-height: 24px;
@@ -269,8 +275,6 @@
   }
   .experience-title {
     width: 100%;
-    font-size: 45px;
-    line-height: 45px;
     margin-top: 0;
   }
   .experience-info-in {

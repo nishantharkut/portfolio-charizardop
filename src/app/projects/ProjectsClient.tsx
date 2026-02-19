@@ -9,6 +9,7 @@ import Footer from '../components/layout/Footer';
 import { getProjects, type Project } from '../../data';
 import SplashCursorWrapper from '../components/ui/SplashCursorWrapper';
 import PixelBlast from '../components/ui/PixelBlast';
+import { PageHeroCta } from '../components/ui/PageHeroCta';
 // Lazy load components with proper error boundaries
 import { LazyFaultyTerminal } from '../../components/lazy/LazyBoundaries';
 
@@ -202,64 +203,29 @@ export default function ProjectsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold mb-6 drop-shadow-2xl" style={{ color: 'var(--color-text)' }}>
-              My <span className="relative">
-                <span className="text-orange-500">Projects</span>
+            <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-8xl font-bold mb-4 sm:mb-6 drop-shadow-2xl" style={{ color: 'var(--color-text)' }}>
+              My <span className="relative inline-block sm:inline">
+                <span className="relative z-10" style={{ color: 'var(--color-accent)' }}>Projects</span>
                 <motion.div
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 1.2 }}
-                  className="absolute bottom-1 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-orange-600 origin-left"
+                  className="absolute left-0 w-full h-1 origin-left top-full mt-1 sm:top-auto sm:mt-0 sm:bottom-1"
+                  style={{ background: 'var(--color-accent-gradient)' }}
                 />
               </span>
             </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto mb-8 drop-shadow-lg" style={{ color: 'var(--color-text)' }}>
+            <p className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-6 sm:mb-8 drop-shadow-lg" style={{ color: 'var(--color-text)' }}>
               Things I&apos;ve built — web apps, hackathon projects, and side projects
             </p>
             
-            {/* Hero buttons — responsive sizing */}
-            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4 justify-center items-center">
-              <Link 
-                href="/"
-                className="px-3 py-2 text-xs neubrutalism-button font-bold uppercase tracking-wide text-center inline-flex items-center gap-1.5 sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm md:px-5 md:py-2.5 w-fit"
-                style={{ 
-                  backgroundColor: 'var(--color-surface)',
-                  borderColor: 'var(--color-accent)',
-                  color: 'var(--color-text)'
-                }}
-              >
-                <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Back to Home
-              </Link>
-              
-              <motion.a 
-                href="#projects-grid"
-                onClick={scrollToProjects}
-                className="px-3 py-2 text-xs neubrutalism-button font-bold uppercase tracking-wide text-center inline-flex items-center gap-1.5 sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm md:px-5 md:py-2.5 w-fit"
-                style={{ 
-                  borderColor: 'var(--color-accent)',
-                  backgroundColor: 'var(--color-accent)',
-                  color: 'var(--color-button-text)'
-                }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2 }}
-              >
-                View All
-                <motion.svg 
-                  className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                  animate={{ y: [0, 2, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </motion.svg>
-              </motion.a>
-            </div>
+            <PageHeroCta
+              primary={{
+                label: 'View all',
+                href: '#projects-grid',
+                onClick: scrollToProjects,
+              }}
+            />
           </motion.div>
         </div>
       </section>

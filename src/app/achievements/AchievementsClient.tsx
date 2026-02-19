@@ -16,8 +16,32 @@ import {
   getFeaturedAchievements
 } from '../../data';
 import PixelBlast from '../components/ui/PixelBlast';
+import { AchievementImage } from '../components/ui/AchievementImage';
+import { PageHeroCta } from '../components/ui/PageHeroCta';
 // Lazy load FaultyTerminal with proper loading state
 import { LazyFaultyTerminal } from '../../components/lazy/LazyBoundaries';
+
+function CertLogo({ src, name, issuer }: { src: string; name: string; issuer: string }) {
+  const [err, setErr] = useState(false);
+  const initial = issuer?.trim() ? issuer.charAt(0) : 'C';
+  if (!src || err) {
+    return (
+      <span className="text-lg font-bold" style={{ color: 'var(--color-accent)' }}>
+        {initial}
+      </span>
+    );
+  }
+  return (
+    <Image
+      src={src}
+      alt={name}
+      fill
+      className="object-contain p-1"
+      sizes="56px"
+      onError={() => setErr(true)}
+    />
+  );
+}
 
 export default function AchievementsPage() {
   const achievements = getAchievements();
@@ -89,73 +113,32 @@ export default function AchievementsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-8xl font-bold mb-6 drop-shadow-2xl" style={{ color: 'var(--color-text)' }}>
-              My <span className="relative">
-                <span className="text-orange-500">Achievements</span>
+            <h1 className="text-2xl sm:text-3xl md:text-6xl lg:text-8xl font-bold mb-4 sm:mb-6 drop-shadow-2xl" style={{ color: 'var(--color-text)' }}>
+              My <span className="relative inline-block sm:inline">
+                <span className="relative z-10" style={{ color: 'var(--color-accent)' }}>Achievements</span>
                 <motion.div
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 1.2 }}
-                  className="absolute bottom-1 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-orange-600 origin-left"
+                  className="absolute left-0 w-full h-1 origin-left top-full mt-1 sm:top-auto sm:mt-0 sm:bottom-1"
+                  style={{ background: 'var(--color-accent-gradient)' }}
                 />
               </span>
             </h1>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mx-auto mb-8 drop-shadow-lg" style={{ color: 'var(--color-text-secondary)' }}>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mx-auto mb-6 sm:mb-8 drop-shadow-lg" style={{ color: 'var(--color-text-secondary)' }}>
               Hackathon wins, design awards, and things I&apos;ve been part of in college
             </p>
             
-            {/* Hero buttons — responsive sizing */}
-            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4 justify-center items-center">
-              <Link 
-                href="/"
-                className="px-3 py-2 text-xs neubrutalism-button font-bold uppercase tracking-wide text-center inline-flex items-center gap-1.5 sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm md:px-5 md:py-2.5 w-fit"
-                style={{ 
-                  backgroundColor: 'var(--color-surface)',
-                  borderColor: 'var(--color-accent)',
-                  color: 'var(--color-text)'
-                }}
-              >
-                <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Back to Home
-              </Link>
-              
-              <motion.a 
-                href="#achievements"
-                onClick={(e) => {
+            <PageHeroCta
+              primary={{
+                label: 'View all',
+                href: '#achievements',
+                onClick: (e) => {
                   e.preventDefault();
-                  const achievementsSection = document.getElementById('achievements');
-                  if (achievementsSection) {
-                    achievementsSection.scrollIntoView({
-                      behavior: 'smooth',
-                      block: 'start'
-                    });
-                  }
-                }}
-                className="px-3 py-2 text-xs neubrutalism-button font-bold uppercase tracking-wide text-center inline-flex items-center gap-1.5 sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm md:px-5 md:py-2.5 w-fit"
-                style={{ 
-                  borderColor: 'var(--color-accent)',
-                  backgroundColor: 'var(--color-accent)',
-                  color: 'var(--color-button-text)'
-                }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2 }}
-              >
-                View All
-                <motion.svg 
-                  className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                  animate={{ y: [0, 2, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </motion.svg>
-              </motion.a>
-            </div>
+                  document.getElementById('achievements')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                },
+              }}
+            />
           </motion.div>
         </div>
 
@@ -179,122 +162,60 @@ export default function AchievementsPage() {
             </p>
           </motion.div>
 
-          {/* Featured Achievement Cards */}
-          <div className="space-y-8 sm:space-y-10 lg:space-y-12 mb-12 sm:mb-16 lg:mb-20">
-            {featuredAchievements.map((achievement, index) => (
-              <motion.div
-                key={achievement.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="w-full"
-              >
-                {/* Mobile-Optimized Featured Achievement Card */}
-                <div className="relative neubrutalism-card overflow-hidden min-h-[600px] sm:min-h-[620px] lg:h-[540px]"
-                  style={{
-                    backgroundColor: 'var(--color-surface)',
-                  }}
-                >
-                  {/* Mobile: Stack vertically, Desktop: Side by side */}
-                  <div className="flex flex-col lg:flex-row h-full">
-                    {/* Image Section - Better mobile sizing */}
-                    <div className="relative h-64 sm:h-72 md:h-80 lg:h-full lg:w-2/5 border-b-4 lg:border-b-0 lg:border-r-4 border-black overflow-hidden bg-gray-100">
-                      <Image
-                        src={achievement.image}
-                        alt={achievement.title}
-                        fill
-                        className="object-cover w-full h-full hover:scale-105 transition-transform duration-500"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 40vw"
-                        priority={index === 0}
-                        onError={(e) => {
-                          // Fallback to a placeholder or hide the image container
-                          const target = e.currentTarget as HTMLImageElement;
-                          target.style.display = 'none';
-                          // Show a fallback background
-                          const parent = target.parentElement;
-                          if (parent) {
-                            parent.style.background = 'linear-gradient(135deg, var(--color-accent), var(--color-surface-elevated))';
-                            parent.innerHTML = `
-                              <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="text-center">
-                                  <div class="text-4xl mb-2">${achievement.badge}</div>
-                                  <div class="text-sm font-bold text-black">${achievement.category}</div>
-                                </div>
-                              </div>
-                            `;
-                          }
-                        }}
-                      />
-                      {/* Gradient overlay for better text readability */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent lg:hidden"></div>
-                      <div className="absolute top-3 right-3 bg-yellow-400 border-2 border-black px-2 py-1 sm:px-3 sm:py-2 font-black text-black text-xs sm:text-sm shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide z-10">
-                        FEATURED
-                      </div>
-                    </div>
-
-                    {/* Content Section - Better mobile spacing and layout */}
-                    <div className="p-4 sm:p-6 lg:p-8 lg:w-3/5 flex flex-col justify-between min-h-0">
-                      <div className="space-y-3 sm:space-y-4">
-                        <div className="mb-3 sm:mb-4">
-                          <p className="text-orange-500 text-xs sm:text-sm uppercase tracking-wider font-black mb-2">
-                            {achievement.category}
-                          </p>
-                          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-black uppercase tracking-tight mb-3 sm:mb-4 leading-tight" style={{ color: 'var(--color-text)' }}>
-                            {achievement.title}
-                          </h3>
-                        </div>
-                        
-                        <p className="text-sm sm:text-base lg:text-lg mb-4 sm:mb-6 leading-relaxed font-medium" style={{ color: 'var(--color-text-secondary)' }}>
-                          {achievement.description}
-                        </p>
-                        
-                        <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
-                          <h4 className="font-black text-xs sm:text-sm uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
-                            KEY IMPACT
-                          </h4>
-                          <ul className="space-y-2 sm:space-y-3">
-                            {achievement.impact.slice(0, 3).map((impact, i) => (
-                              <li key={i} className="flex items-start gap-2 sm:gap-3 text-sm sm:text-base font-medium" style={{ color: 'var(--color-text-secondary)' }}>
-                                <span className="w-2 h-2 bg-orange-400 border border-black mt-2 flex-shrink-0"></span>
-                                <span className="leading-relaxed">{impact}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                      
-                      <div className="flex flex-col gap-3 sm:gap-4 pt-3 sm:pt-4 border-t-4 border-black mt-auto">
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                          <span className="text-sm sm:text-base font-black uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
-                            {achievement.organization}
-                          </span>
-                          <span className="text-orange-500 text-sm sm:text-base font-black uppercase tracking-wide">
-                            {achievement.date}
-                          </span>
-                        </div>
-                        {achievement.link && (
-                          <a
-                            href={achievement.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-full sm:w-auto px-4 py-3 sm:px-6 lg:px-8 neubrutalism-button bg-orange-500 hover:bg-orange-600 text-black font-black uppercase tracking-wide text-center border-2 border-black shadow-[var(--shadow-neubrutalism)] inline-flex items-center justify-center gap-2 text-sm sm:text-base transition-all duration-300 hover:scale-105"
-                          >
-                            VIEW DETAILS 
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  </div>
+          {/* Featured — one hero: image-first with overlay (no duplicate cards) */}
+          {featuredAchievements.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="mb-12 sm:mb-16 lg:mb-20"
+            >
+              <div className="relative rounded-xl overflow-hidden border-2 min-h-[320px] sm:min-h-[380px] lg:min-h-[420px]" style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-surface)' }}>
+                <div className="absolute inset-0">
+                  <AchievementImage
+                    src={featuredAchievements[0].image}
+                    alt={featuredAchievements[0].title}
+                    category={featuredAchievements[0].category}
+                    className="transition-transform duration-500 hover:scale-[1.02]"
+                    sizes="(max-width: 1024px) 100vw, 1200px"
+                    priority
+                  />
                 </div>
-              </motion.div>
-            ))}
-          </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6 lg:p-8 text-left">
+                  <span className="inline-block text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--color-accent)' }}>
+                    {featuredAchievements[0].category}
+                  </span>
+                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-2 text-white">
+                    {featuredAchievements[0].title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-white/90 max-w-2xl mb-4 line-clamp-2">
+                    {featuredAchievements[0].description}
+                  </p>
+                  <div className="flex flex-wrap items-center gap-3 text-sm">
+                    <span className="text-white/80">{featuredAchievements[0].organization}</span>
+                    <span className="text-white/60">·</span>
+                    <span style={{ color: 'var(--color-accent)' }}>{featuredAchievements[0].date}</span>
+                  </div>
+                  {featuredAchievements[0].link && (
+                    <a
+                      href={featuredAchievements[0].link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-lg text-sm font-medium border transition-colors"
+                      style={{ backgroundColor: 'var(--color-accent)', color: 'var(--color-button-text)', borderColor: 'var(--color-accent)' }}
+                    >
+                      View details
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          )}
 
-          {/* All Achievements Grid */}
+          {/* All Achievements — bento-style, type-based cards; image when present, graceful fallback */}
           <div className="space-y-4 sm:space-y-6 lg:space-y-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -311,83 +232,76 @@ export default function AchievementsPage() {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-              {achievements.filter(a => !a.featured).map((achievement, index) => (
-                <motion.div
-                  key={achievement.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="h-full"
-                >
-                  {/* Mobile-Optimized Achievement Card */}
-                  <div
-                    className="relative w-full h-[440px] sm:h-[460px] lg:h-[480px] neubrutalism-card flex flex-col p-4 sm:p-5 lg:p-6"
-                    style={{
-                      backgroundColor: 'var(--color-surface)',
-                    }}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 auto-rows-fr">
+              {achievements.filter(a => !a.featured).map((achievement, index) => {
+                const isHackathon = /hackathon/i.test(achievement.category);
+                const isDesign = /design|graphic|ui\/ux/i.test(achievement.category);
+                const isLeadership = /leadership|community|welfare/i.test(achievement.category);
+                const spanClass = isHackathon ? 'lg:col-span-2' : isDesign ? '' : '';
+                return (
+                  <motion.div
+                    key={achievement.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.06 }}
+                    className={`${spanClass} min-h-0 flex`}
                   >
-                    {/* Header Section - Better mobile sizing */}
-                    <div className="pb-4 border-b-4 border-black flex items-center justify-between flex-shrink-0 min-h-[60px] sm:min-h-[70px]">
-                      <div className="text-2xl sm:text-3xl lg:text-4xl">{achievement.badge}</div>
-                      <div className="bg-orange-400 border-2 border-black px-2 py-1 sm:px-3 sm:py-2 font-black text-black text-xs sm:text-sm shadow-[var(--shadow-neubrutalism-medium)] uppercase tracking-wide">
-                        {achievement.date}
+                    <div
+                      className="relative w-full rounded-xl border-2 overflow-hidden flex flex-col min-h-[280px]"
+                      style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-surface)' }}
+                    >
+                      {/* Image or fallback — prominent for design, smaller for others */}
+                      <div className={`relative w-full overflow-hidden ${isDesign ? 'aspect-[4/3]' : 'aspect-[2/1] sm:aspect-[16/7]'}`}>
+                        <AchievementImage
+                          src={achievement.image}
+                          alt={achievement.title}
+                          category={achievement.category}
+                          className="transition-transform duration-300 hover:scale-[1.03]"
+                          sizes={isHackathon ? '(max-width: 1024px) 100vw, 66vw' : '(max-width: 1024px) 100vw, 33vw'}
+                        />
                       </div>
-                    </div>
-                    
-                    {/* Content Section - Better spacing */}
-                    <div className="flex-1 flex flex-col pt-4 space-y-3 sm:space-y-4">
-                      {/* Category & Title */}
-                      <div>
-                        <p className="text-orange-500 text-xs sm:text-sm uppercase tracking-wider font-black mb-2">
-                          {achievement.category}
-                        </p>
-                        <h3 className="text-base sm:text-lg lg:text-xl font-black uppercase tracking-tight leading-tight" style={{ color: 'var(--color-text)' }}>
+                      <div className="p-4 sm:p-5 flex flex-col flex-1 min-h-0">
+                        <div className="flex items-start justify-between gap-2 mb-2">
+                          <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--color-accent)' }}>
+                            {achievement.category}
+                          </span>
+                          <span className="text-xs font-medium shrink-0" style={{ color: 'var(--color-text-muted)' }}>
+                            {achievement.date}
+                          </span>
+                        </div>
+                        <h3 className="text-base sm:text-lg font-bold leading-tight mb-2" style={{ color: 'var(--color-text)' }}>
                           {achievement.title}
                         </h3>
-                      </div>
-                      
-                      {/* Description */}
-                      <div className="flex-1 min-h-0">
-                        <p className="text-sm sm:text-base leading-relaxed font-medium line-clamp-3 overflow-hidden" style={{ color: 'var(--color-text-secondary)' }}>
+                        <p className="text-sm leading-relaxed line-clamp-2 flex-1" style={{ color: 'var(--color-text-secondary)' }}>
                           {achievement.description}
                         </p>
-                      </div>
-                      
-                      {/* Organization */}
-                      {achievement.organization && (
-                        <div>
-                          <p className="text-xs sm:text-sm font-black text-orange-400 uppercase tracking-wide">
+                        {achievement.organization && (
+                          <p className="text-xs mt-2" style={{ color: 'var(--color-text-muted)' }}>
                             {achievement.organization}
                           </p>
-                        </div>
-                      )}
-
-                      {/* Impact Section */}
-                      <div className="mt-auto border-t-4 border-black pt-3 sm:pt-4">
-                        <h4 className="text-xs sm:text-sm uppercase tracking-wide font-black mb-2 sm:mb-3" style={{ color: 'var(--color-text)' }}>
-                          KEY IMPACT
-                        </h4>
-                        <div className="space-y-2">
-                          {achievement.impact.slice(0, 2).map((impact, i) => (
-                            <div key={i} className="flex items-start gap-2 text-xs sm:text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
-                              <span className="w-2 h-2 bg-orange-400 border border-black mt-1.5 flex-shrink-0"></span>
-                              <span className="font-medium">{impact}</span>
-                            </div>
-                          ))}
-                        </div>
+                        )}
+                        {isHackathon && achievement.impact.length > 0 && (
+                          <ul className="mt-3 space-y-1">
+                            {achievement.impact.slice(0, 2).map((impact, i) => (
+                              <li key={i} className="flex items-start gap-2 text-xs" style={{ color: 'var(--color-text-secondary)' }}>
+                                <span className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style={{ backgroundColor: 'var(--color-accent)' }} />
+                                <span>{impact}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
                       </div>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Certifications Section - Fixed with better content visibility */}
+      {/* Certifications — compact badge strip: logo/initial + name + issuer + link */}
       <section className="relative z-10 py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -395,7 +309,7 @@ export default function AchievementsPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-8 sm:mb-12 lg:mb-16"
+            className="text-center mb-8 sm:mb-12"
           >
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4" style={{ color: 'var(--color-text)' }}>
               Professional <span style={{ color: 'var(--color-accent)' }}>Certifications</span>
@@ -405,192 +319,46 @@ export default function AchievementsPage() {
             </p>
           </motion.div>
 
-          {/* Grid Layout - Increased heights for better content visibility */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
             {certifications.map((cert, index) => (
               <motion.div
                 key={cert.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ y: -4, transition: { duration: 0.3 } }}
-                className="h-full group"
+                transition={{ duration: 0.4, delay: index * 0.08 }}
+                className="flex items-center gap-4 p-4 rounded-xl border-2 min-w-[280px] sm:min-w-0 sm:flex-1 sm:max-w-[360px]"
+                style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-surface)' }}
               >
-                {/* Certification Card with increased height for content visibility */}
-                <div className="relative w-full min-h-[500px] sm:min-h-[520px] lg:min-h-[540px] neubrutalism-card flex flex-col overflow-hidden"
-                  style={{
-                    backgroundColor: 'var(--color-surface)',
-                    borderColor: 'var(--color-accent)'
-                  }}
-                >
-                  {/* Header Section with better proportions */}
-                  <div className="relative p-3 sm:p-4 lg:p-5 border-b-4 border-black flex-shrink-0"
-                    style={{ backgroundColor: 'var(--color-surface-elevated)' }}>
-                    
-                    {/* Year Badge */}
-                    <div className="absolute top-2 right-2">
-                      <div className="px-2 py-1 sm:px-3 sm:py-1 font-black text-black text-xs sm:text-sm shadow-[var(--shadow-neubrutalism-small)] uppercase tracking-wide border-2 border-black transform rotate-2 group-hover:rotate-3 transition-transform duration-300"
-                        style={{ backgroundColor: 'var(--color-accent)' }}>
-                        {cert.date}
-                      </div>
-                    </div>
-
-                    {/* Verification Badge */}
-                    <div className="absolute top-2 left-2">
-                      <div className="w-5 h-5 sm:w-6 sm:h-6 bg-green-400 border-2 border-black rounded-full flex items-center justify-center shadow-[var(--shadow-neubrutalism-small)]">
-                        <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-black" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                      </div>
-                    </div>
-
-                    {/* Company Logo */}
-                    <div className="flex justify-center pt-2 sm:pt-3">
-                      <div className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 relative group-hover:scale-105 transition-transform duration-300 bg-gray-100 rounded border-2 border-black flex items-center justify-center">
-                        <Image
-                          src={cert.image}
-                          alt={cert.name}
-                          fill
-                          className="object-contain"
-                          sizes="(max-width: 640px) 48px, (max-width: 1024px) 64px, 80px"
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none';
-                          }}
-                        />
-                        {/* Fallback text when image fails */}
-                        <span className="text-xs font-bold text-gray-600 absolute inset-0 flex items-center justify-center">
-                          {cert.issuer.split(' ')[0]}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Content Section with proper flex distribution */}
-                  <div className="flex-1 flex flex-col p-3 sm:p-4 lg:p-5">
-                    {/* Title & Issuer */}
-                    <div className="text-center mb-4 flex-shrink-0">
-                      <h3 className="text-sm sm:text-base lg:text-lg font-black uppercase tracking-tight leading-tight mb-3" style={{ color: 'var(--color-text)' }}>
-                        {cert.name}
-                      </h3>
-                      <div className="inline-flex items-center gap-2 px-2 py-1 sm:px-3 sm:py-1 border-2 border-black shadow-[var(--shadow-neubrutalism-small)]"
-                        style={{ 
-                          backgroundColor: 'var(--color-accent)',
-                          color: 'var(--color-button-text)'
-                        }}>
-                        <span className="text-xs sm:text-sm font-black uppercase tracking-wide">
-                          {cert.issuer}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    {/* Skills Section with flexible height */}
-                    <div className="flex-1 flex flex-col">
-                      <div className="mb-3 flex-shrink-0">
-                        <h4 className="text-xs sm:text-sm font-black uppercase tracking-wide mb-3 text-center" style={{ color: 'var(--color-text)' }}>
-                          SKILLS VALIDATED
-                        </h4>
-                      </div>
-                      
-                      {/* Skills list with better spacing */}
-                      <div className="flex-1 space-y-2">
-                        {cert.skills.slice(0, 4).map((skill, i) => (
-                          <motion.div
-                            key={i}
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.4, delay: index * 0.1 + i * 0.1 }}
-                            className="flex items-center gap-2 p-2 sm:p-2.5 border-2 border-black shadow-[var(--shadow-neubrutalism-small)] transition-colors duration-300"
-                            style={{ 
-                              backgroundColor: 'var(--color-surface-elevated)',
-                              borderColor: 'black'
-                            }}
-                          >
-                            <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: 'var(--color-accent)' }}></div>
-                            <span className="text-xs sm:text-sm font-semibold" style={{ color: 'var(--color-text)' }}>
-                              {skill}
-                            </span>
-                          </motion.div>
-                        ))}
-                        
-                        {/* Extra skills indicator if needed */}
-                        {cert.skills.length > 4 && (
-                          <div className="flex items-center justify-center p-2 sm:p-2.5 border-2 border-black shadow-[var(--shadow-neubrutalism-small)]"
-                            style={{ 
-                              backgroundColor: 'var(--color-surface-hover)',
-                              borderColor: 'black',
-                              color: 'var(--color-text)'
-                            }}>
-                            <span className="text-xs sm:text-sm font-bold">
-                              +{cert.skills.length - 4} more skills
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    
-                    {/* Credential ID Section */}
-                    {cert.credentialId && (
-                      <div className="mt-4 pt-3 border-t-4 border-black flex-shrink-0">
-                        <div className="text-center">
-                          <p className="text-xs uppercase tracking-wider font-black mb-2" style={{ color: 'var(--color-text-secondary)' }}>
-                            Credential ID
-                          </p>
-                          <div className="inline-flex items-center gap-2 px-3 py-2 border-2 border-black shadow-[var(--shadow-neubrutalism-small)]"
-                            style={{ 
-                              backgroundColor: 'var(--color-surface-elevated)',
-                              color: 'var(--color-text)'
-                            }}>
-                            <svg className="w-4 h-4" style={{ color: 'var(--color-text-secondary)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                            <code className="text-xs sm:text-sm font-mono font-semibold">
-                              {cert.credentialId}
-                            </code>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                <div className="relative w-14 h-14 rounded-lg flex-shrink-0 overflow-hidden flex items-center justify-center" style={{ backgroundColor: 'var(--color-surface-elevated)' }}>
+                  <CertLogo src={cert.image} name={cert.name} issuer={cert.issuer} />
                 </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-bold leading-tight mb-0.5" style={{ color: 'var(--color-text)' }}>
+                    {cert.name}
+                  </h3>
+                  <p className="text-xs mb-2" style={{ color: 'var(--color-text-muted)' }}>
+                    {cert.issuer}
+                  </p>
+                  <span className="text-xs font-medium" style={{ color: 'var(--color-accent)' }}>
+                    {cert.date}
+                    {cert.credentialId && ` · ${cert.credentialId}`}
+                  </span>
+                </div>
+                <a
+                  href="#"
+                  className="text-xs font-semibold shrink-0 px-3 py-1.5 rounded-md border transition-colors"
+                  style={{ color: 'var(--color-accent)', borderColor: 'var(--color-accent)' }}
+                >
+                  View credential
+                </a>
               </motion.div>
             ))}
           </div>
-
-          {/* Call to Action */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-center mt-12 sm:mt-16"
-          >
-            <div className="inline-flex items-center gap-3 px-6 py-4 border-2 border-black shadow-[var(--shadow-neubrutalism-medium)]"
-              style={{ 
-                backgroundColor: 'var(--color-surface-elevated)',
-                color: 'var(--color-text)'
-              }}>
-              <div className="w-8 h-8 rounded-full flex items-center justify-center border-2 border-black"
-                style={{ backgroundColor: 'var(--color-accent)' }}>
-                <svg className="w-4 h-4 text-black" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              </div>
-              <div className="text-left">
-                <p className="text-sm font-black" style={{ color: 'var(--color-text)' }}>
-                  Verified Skills
-                </p>
-                <p className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>
-                  Skills validated through certifications
-                </p>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </section>
 
-     {/* Awards & Recognition Section - Clean & Minimal */}
+      {/* Awards — trophy cards: image when present, position + event + year prominent */}
       <section className="relative z-10 py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -608,55 +376,45 @@ export default function AchievementsPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             {awards.map((award, index) => (
               <motion.div
                 key={award.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="h-full"
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+                className="flex"
               >
-                {/* Clean Award Card */}
-                <div className="relative w-full h-[320px] sm:h-[340px] lg:h-[360px] neubrutalism-card flex flex-col"
-                  style={{
-                    backgroundColor: 'var(--color-surface)',
-                  }}
-                >
-                  {/* Header with Trophy and Position */}
-                  <div className="p-4 sm:p-5 lg:p-6 border-b-4 border-black">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <span className="text-2xl sm:text-3xl">🏆</span>
-                        <div className="bg-yellow-400 border-2 border-black px-3 py-1 font-black text-black text-sm shadow-[var(--shadow-neubrutalism-small)] uppercase tracking-wide">
-                          {award.position}
-                        </div>
-                      </div>
-                      <div className="text-sm sm:text-base font-bold" style={{ color: 'var(--color-text-secondary)' }}>
+                <div className="relative w-full rounded-xl border-2 overflow-hidden flex flex-col min-h-0" style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-surface)' }}>
+                  <div className="relative w-full aspect-[16/10] flex items-center justify-center overflow-hidden" style={{ backgroundColor: 'var(--color-surface-elevated)' }}>
+                    <AchievementImage
+                      src={award.image}
+                      alt={award.title}
+                      category="Hackathon"
+                      objectFit="cover"
+                      className="transition-transform duration-300 hover:scale-[1.03]"
+                      sizes="(max-width: 640px) 100vw, 50vw"
+                    />
+                    <div className="absolute top-3 right-3 flex items-center gap-2">
+                      <span className="px-2 py-1 text-xs font-bold rounded" style={{ backgroundColor: 'var(--color-accent)', color: 'var(--color-button-text)' }}>
+                        {award.position}
+                      </span>
+                      <span className="text-xs font-medium px-2 py-1 rounded border" style={{ color: 'var(--color-text)', borderColor: 'var(--color-border)' }}>
                         {award.year}
-                      </div>
+                      </span>
                     </div>
                   </div>
-                  
-                  {/* Content */}
-                  <div className="p-4 sm:p-5 lg:p-6 flex-1 flex flex-col">
-                    {/* Title */}
-                    <h3 className="text-lg sm:text-xl lg:text-2xl font-black uppercase tracking-tight leading-tight mb-3" style={{ color: 'var(--color-text)' }}>
+                  <div className="p-4 sm:p-5 flex flex-col flex-1 min-h-0">
+                    <h3 className="text-base sm:text-lg font-bold leading-tight mb-1" style={{ color: 'var(--color-text)' }}>
                       {award.title}
                     </h3>
-                    
-                    {/* Event */}
-                    <p className="text-sm sm:text-base font-black uppercase tracking-wide mb-4" style={{ color: 'var(--color-accent)' }}>
+                    <p className="text-sm font-semibold mb-2" style={{ color: 'var(--color-accent)' }}>
                       {award.event}
                     </p>
-                    
-                    {/* Description */}
-                    <div className="flex-1 min-h-0">
-                      <p className="text-sm sm:text-base leading-relaxed font-medium line-clamp-2 overflow-hidden" style={{ color: 'var(--color-text-secondary)' }}>
-                        {award.description}
-                      </p>
-                    </div>
+                    <p className="text-sm leading-relaxed line-clamp-2" style={{ color: 'var(--color-text-secondary)' }}>
+                      {award.description}
+                    </p>
                   </div>
                 </div>
               </motion.div>

@@ -83,7 +83,7 @@ const Projects = () => {
     <div className="projects-section" id="projects" ref={sectionRef}>
       <div className="project-container section-container">
         <h2 className="section-heading">
-          My <span>Work</span>
+          My Work
         </h2>
         <div className="project-flex">
           {projects.map((project, index) => (
