@@ -177,7 +177,7 @@ export default function ExperiencePage() {
           <PixelBlast
               variant="circle"
               pixelSize={2}
-              color="#ff8c42"
+              color="#c96f2e"
               patternScale={7}
               patternDensity={1.2}
               pixelSizeJitter={1.6}
@@ -204,7 +204,7 @@ export default function ExperiencePage() {
             noiseAmp={0.9}
             chromaticAberration={1.5}
             curvature={0.1}
-            tint="#ff8c42"
+            tint="#c96f2e"
             mouseReact={true}
             mouseStrength={0.3}
             brightness={0.6}
@@ -502,7 +502,7 @@ export default function ExperiencePage() {
                               >
                                 <motion.div
                                   className="flex-shrink-0 w-2 h-2 bg-orange-500 rounded-sm mt-1 shadow-sm group-hover/achievement:shadow-md group-hover/achievement:shadow-orange-500/40 transition-all duration-300"
-                                  whileHover={{ scale: 1.3, boxShadow: "0 0 15px rgba(255, 140, 66, 0.5)" }}
+                                  whileHover={{ scale: 1.3, boxShadow: "0 0 15px rgba(201, 111, 46, 0.5)" }}
                                   transition={{ duration: 0.2 }}
                                 />
                                 <span className="text-sm leading-relaxed group-hover/achievement:text-opacity-100 transition-all duration-300 font-medium" style={{ color: "var(--color-text-secondary)" }}>

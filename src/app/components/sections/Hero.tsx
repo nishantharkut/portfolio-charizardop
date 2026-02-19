@@ -606,7 +606,7 @@ export default function Hero() {
                     angle={0.3}
                     penumbra={1}
                     intensity={0.3}
-                    color="#ff6b35"
+                    color="#c96f2e"
                   />
                 </>
               )}

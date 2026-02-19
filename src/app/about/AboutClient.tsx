@@ -93,7 +93,7 @@ export default function AboutClient() {
   <PixelBlast
     variant="circle"
     pixelSize={2}
-    color="#ff8c42"
+    color="#c96f2e"
     patternScale={7}
     patternDensity={1.2}
     pixelSizeJitter={1.6}
@@ -120,7 +120,7 @@ export default function AboutClient() {
             noiseAmp={1.1}
             chromaticAberration={2}
             curvature={0.15}
-            tint="#ff8c42"
+            tint="#c96f2e"
             mouseReact={true}
             mouseStrength={0.3}
             brightness={actualTheme === 'light' ? 0.3 : 0.7}

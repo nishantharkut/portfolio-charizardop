@@ -18,7 +18,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({
   const { actualTheme } = useTheme();
   const isDark = actualTheme === "dark";
   const [imageError, setImageError] = useState(false);
-  const chartColor = isDark ? "ff8c42" : "ff6b1a";
+  const chartColor = isDark ? "e07a38" : "c96f2e";
 
   return (
     <section

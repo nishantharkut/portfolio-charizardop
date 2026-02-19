@@ -11,29 +11,30 @@
   --color-text-muted: rgba(45, 45, 45, 0.65);
   --color-button-text: #ffffff;
   
-  --color-accent: #e67429;
-  --color-accent-hover: #d96620;
-  --color-accent-light: #f59e54;
-  --color-accent-dark: #cc5a1a;
-  --color-accent-gradient: linear-gradient(135deg, #e67429 0%, #d96620 35%, #cc5a1a 70%, #f59e54 100%);
-  --color-accent-transparent: rgba(230, 116, 41, 0.3);
-  --color-accent-glow: rgba(230, 116, 41, 0.25);
+  /* Softer warm orange – less neon, easier on the eyes */
+  --color-accent: #c96f2e;
+  --color-accent-hover: #b86326;
+  --color-accent-light: #dc8f52;
+  --color-accent-dark: #a5561e;
+  --color-accent-gradient: linear-gradient(135deg, #c96f2e 0%, #b86326 35%, #a5561e 70%, #dc8f52 100%);
+  --color-accent-transparent: rgba(201, 111, 46, 0.28);
+  --color-accent-glow: rgba(201, 111, 46, 0.2);
   
-  --color-secondary: #f57c00;
-  --color-secondary-muted: rgba(245, 124, 0, 0.4);
+  --color-secondary: #c76b1f;
+  --color-secondary-muted: rgba(199, 107, 31, 0.4);
   
   --color-surface: #f8f5f0;
   --color-surface-hover: #f0ebe3;
   --color-surface-elevated: #ffffff;
-  --color-border: rgba(230, 116, 41, 0.15);
-  --color-border-hover: rgba(230, 116, 41, 0.3);
+  --color-border: rgba(201, 111, 46, 0.14);
+  --color-border-hover: rgba(201, 111, 46, 0.28);
   --color-border-light: rgba(45, 45, 45, 0.08);
   
   --color-glass-bg: rgba(255, 255, 255, 0.85);
-  --color-glass-border: rgba(230, 116, 41, 0.2);
+  --color-glass-border: rgba(201, 111, 46, 0.18);
   --color-glass-highlight: rgba(255, 255, 255, 0.95);
   --shadow-color: rgba(45, 45, 45, 0.1);
-  --shadow-accent: rgba(230, 116, 41, 0.15);
+  --shadow-accent: rgba(201, 111, 46, 0.12);
   
   --shadow-neubrutalism: rgba(0, 0, 0, 1);
   --shadow-neubrutalism-hover: rgba(0, 0, 0, 1);
@@ -47,11 +48,11 @@
   --color-info: #2563eb;
   
   --color-card-bg: var(--color-surface);
-  --color-card-border: rgba(230, 116, 41, 0.15);
+  --color-card-border: rgba(201, 111, 46, 0.14);
   --color-card-shadow: rgba(0, 0, 0, 0.15);
-  --color-card-border-hover: rgba(230, 116, 41, 0.3);
+  --color-card-border-hover: rgba(201, 111, 46, 0.28);
   
-  --grid-color: 230 116 41;
+  --grid-color: 201 111 46;
   --grid-opacity: 0.03;
   --color-skeleton: #e5e7eb;
 }
@@ -281,33 +282,33 @@ h6 {
   --color-text-muted: rgba(45, 45, 45, 0.65);
   --color-button-text: #ffffff;
   
-  /* Enhanced fire colors for light mode - more vibrant against light background */
-  --color-accent: #e67429;
-  --color-accent-hover: #d96620;
-  --color-accent-light: #f59e54;
-  --color-accent-dark: #cc5a1a;
-  --color-accent-gradient: linear-gradient(135deg, #e67429 0%, #d96620 35%, #cc5a1a 70%, #f59e54 100%);
-  --color-accent-transparent: rgba(230, 116, 41, 0.3);
-  --color-accent-glow: rgba(230, 116, 41, 0.25);
+  /* Softer warm orange for light mode – less neon, easier on the eyes */
+  --color-accent: #c96f2e;
+  --color-accent-hover: #b86326;
+  --color-accent-light: #dc8f52;
+  --color-accent-dark: #a5561e;
+  --color-accent-gradient: linear-gradient(135deg, #c96f2e 0%, #b86326 35%, #a5561e 70%, #dc8f52 100%);
+  --color-accent-transparent: rgba(201, 111, 46, 0.28);
+  --color-accent-glow: rgba(201, 111, 46, 0.2);
   
   /* Secondary colors for light mode */
-  --color-secondary: #f57c00;
-  --color-secondary-muted: rgba(245, 124, 0, 0.4);
+  --color-secondary: #c76b1f;
+  --color-secondary-muted: rgba(199, 107, 31, 0.4);
   
   /* Light surface colors - warm cream tones */
   --color-surface: #f8f5f0;
   --color-surface-hover: #f0ebe3;
   --color-surface-elevated: #ffffff;
-  --color-border: rgba(230, 116, 41, 0.15);
-  --color-border-hover: rgba(230, 116, 41, 0.3);
+  --color-border: rgba(201, 111, 46, 0.14);
+  --color-border-hover: rgba(201, 111, 46, 0.28);
   --color-border-light: rgba(45, 45, 45, 0.08);
   
   /* Glass and UI elements for light mode */
   --color-glass-bg: rgba(255, 255, 255, 0.85);
-  --color-glass-border: rgba(230, 116, 41, 0.2);
+  --color-glass-border: rgba(201, 111, 46, 0.18);
   --color-glass-highlight: rgba(255, 255, 255, 0.95);
   --shadow-color: rgba(45, 45, 45, 0.1);
-  --shadow-accent: rgba(230, 116, 41, 0.15);
+  --shadow-accent: rgba(201, 111, 46, 0.12);
   
   /* Neubrutalism shadows - dark for light mode */
   --shadow-neubrutalism: rgba(0, 0, 0, 1);
@@ -323,7 +324,7 @@ h6 {
   --color-info: #2563eb;
   
   /* Grid overlay for light mode */
-  --grid-color: 230 116 41;
+  --grid-color: 201 111 46;
   --grid-opacity: 0.03;
   
   /* Skeleton colors for light mode */
@@ -390,26 +391,27 @@ h6 {
   --color-text-secondary: rgba(255, 255, 255, 0.85);
   --color-text-muted: rgba(255, 255, 255, 0.65);
   --color-button-text: #000000;
-  --color-accent: #ff8c42;
-  --color-accent-hover: #ff7b33;
-  --color-accent-light: #ffb366;
-  --color-accent-dark: #e67429;
-  --color-accent-gradient: linear-gradient(135deg, #ff8c42 0%, #ff6b35 35%, #e74c3c 70%, #ff8966 100%);
-  --color-accent-transparent: rgba(255, 140, 66, 0.4);
-  --color-accent-glow: rgba(255, 140, 66, 0.3);
-  --color-secondary: #ffa726;
-  --color-secondary-muted: rgba(255, 167, 38, 0.6);
+  /* Softer orange for dark mode – less neon, still visible and warm */
+  --color-accent: #e07a38;
+  --color-accent-hover: #d16d2c;
+  --color-accent-light: #ed9a5c;
+  --color-accent-dark: #b85f28;
+  --color-accent-gradient: linear-gradient(135deg, #e07a38 0%, #d16d2c 35%, #b85f28 70%, #ed9a5c 100%);
+  --color-accent-transparent: rgba(224, 122, 56, 0.35);
+  --color-accent-glow: rgba(224, 122, 56, 0.22);
+  --color-secondary: #e08a42;
+  --color-secondary-muted: rgba(224, 138, 66, 0.5);
   --color-surface: #1e1f26;
   --color-surface-hover: #2a2b34;
   --color-surface-elevated: #252631;
-  --color-border: rgba(255, 140, 66, 0.15);
-  --color-border-hover: rgba(255, 140, 66, 0.25);
+  --color-border: rgba(224, 122, 56, 0.14);
+  --color-border-hover: rgba(224, 122, 56, 0.22);
   --color-border-light: rgba(255, 255, 255, 0.08);
   --color-glass-bg: rgba(30, 31, 38, 0.75);
-  --color-glass-border: rgba(255, 140, 66, 0.2);
+  --color-glass-border: rgba(224, 122, 56, 0.18);
   --color-glass-highlight: rgba(255, 255, 255, 0.1);
   --shadow-color: rgba(0, 0, 0, 0.4);
-  --shadow-accent: rgba(255, 140, 66, 0.2);
+  --shadow-accent: rgba(224, 122, 56, 0.16);
   --shadow-neubrutalism: rgba(255, 255, 255, 0.7);
   --shadow-neubrutalism-hover: rgba(255, 255, 255, 0.3);
   --shadow-neubrutalism-small: rgba(255, 255, 255, 0.6);
@@ -422,8 +424,8 @@ h6 {
   --color-card-bg: var(--color-surface);
   --color-card-border: rgba(255, 255, 255, 0.12);
   --color-card-shadow: rgba(255, 255, 255, 0.4);
-  --color-card-border-hover: rgba(255, 140, 66, 0.3);
-  --grid-color: 255 140 66;
+  --color-card-border-hover: rgba(224, 122, 56, 0.28);
+  --grid-color: 224 122 56;
   --grid-opacity: 0.04;
   --color-skeleton: #374151;
 }
@@ -443,7 +445,7 @@ h6 {
   border: 1px solid var(--color-glass-border);
   box-shadow: 
     0 8px 32px var(--shadow-color),
-    0 4px 16px rgba(230, 116, 41, 0.08),
+    0 4px 16px var(--shadow-accent),
     inset 0 1px 0 var(--color-glass-highlight),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
 }
@@ -465,7 +467,7 @@ h6 {
     0 12px 40px var(--shadow-accent),
     0 6px 20px var(--shadow-color),
     inset 0 1px 0 var(--color-glass-highlight),
-    inset 0 0 0 1px rgba(230, 116, 41, 0.2);
+    inset 0 0 0 1px var(--color-glass-border);
 }
 
 .light .glass-card {
@@ -915,11 +917,11 @@ html::-webkit-scrollbar,
 
 
 .text-gradient-fire {
-  background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 25%, #e74c3c 50%, #ff8966 75%, #ffa726 100%);
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 25%, var(--color-accent-dark) 50%, var(--color-accent-light) 75%, var(--color-secondary) 100%);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 0 8px rgba(255, 140, 66, 0.3));
+  filter: drop-shadow(0 0 8px var(--color-accent-glow));
 }
 
 /* Section headings — same gradient and font as Experience "My career & experience" */
@@ -934,9 +936,9 @@ html::-webkit-scrollbar,
 }
 
 .fire-glow {
-  filter: drop-shadow(0 0 12px rgba(255, 140, 66, 0.4)) 
-          drop-shadow(0 0 24px rgba(255, 140, 66, 0.2))
-          drop-shadow(0 0 36px rgba(255, 107, 53, 0.1));
+  filter: drop-shadow(0 0 12px var(--color-accent-glow)) 
+          drop-shadow(0 0 24px var(--color-accent-transparent))
+          drop-shadow(0 0 36px var(--color-accent-transparent));
 }
 
 .section-divider {

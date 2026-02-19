@@ -42,7 +42,7 @@ export default function ThemedAurora({
   const themeColors = {
     dark: {
       // Original Charizard fire colors for dark mode
-      colorStops: ["#ff8c42", "#e67429", "#ffa726"]
+      colorStops: ["#c96f2e", "#b86326", "#dc8f52"]
     },
     light: {
       // Your requested colors with enhanced visibility
