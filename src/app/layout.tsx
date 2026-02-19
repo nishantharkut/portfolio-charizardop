@@ -91,7 +91,7 @@ export const metadata: Metadata = {
         alt: 'Nishant Harkut — Software Engineer portfolio',
       },
       {
-        url: '/nishantharkut-logo.png',
+        url: '/nishantharkut-logo-lightbg.png',
         width: 72,
         height: 72,
         alt: 'Nishant Harkut Logo',
@@ -122,17 +122,17 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      // First icon is the default; 48x48+ recommended for Google Search favicon
-      { url: '/nishantharkut-logo.png', sizes: '48x48', type: 'image/png' },
-      { url: '/nishantharkut-logo.png', sizes: '72x72', type: 'image/png' },
-      { url: '/nishantharkut-logo.png', sizes: '96x96', type: 'image/png' },
-      { url: '/nishantharkut-logo.png', sizes: '128x128', type: 'image/png' },
-      { url: '/nishantharkut-logo.png', sizes: '192x192', type: 'image/png' },
+      // Light-bg logo so favicon is visible on Google's white search result background
+      { url: '/nishantharkut-logo-lightbg.png', sizes: '48x48', type: 'image/png' },
+      { url: '/nishantharkut-logo-lightbg.png', sizes: '72x72', type: 'image/png' },
+      { url: '/nishantharkut-logo-lightbg.png', sizes: '96x96', type: 'image/png' },
+      { url: '/nishantharkut-logo-lightbg.png', sizes: '128x128', type: 'image/png' },
+      { url: '/nishantharkut-logo-lightbg.png', sizes: '192x192', type: 'image/png' },
     ],
-    shortcut: '/nishantharkut-logo.png',
+    shortcut: '/nishantharkut-logo-lightbg.png',
     apple: [
-      { url: '/nishantharkut-logo.png', sizes: '180x180', type: 'image/png' },
-      { url: '/nishantharkut-logo.png', sizes: '192x192', type: 'image/png' },
+      { url: '/nishantharkut-logo-lightbg.png', sizes: '180x180', type: 'image/png' },
+      { url: '/nishantharkut-logo-lightbg.png', sizes: '192x192', type: 'image/png' },
     ],
   },
   manifest: '/manifest.json',

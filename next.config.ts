@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/favicon.ico',
-        destination: '/nishantharkut-logo.png',
+        destination: '/nishantharkut-logo-lightbg.png',
         permanent: true,
       },
     ];
