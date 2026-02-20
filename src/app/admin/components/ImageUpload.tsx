@@ -49,6 +49,10 @@ export function ImageUpload({
     }
   }
 
+  function openFileDialog() {
+    inputRef.current?.click();
+  }
+
   return (
     <div className="admin-form-group">
       <label>{label}</label>
@@ -65,7 +69,8 @@ export function ImageUpload({
           ref={inputRef}
           type="file"
           accept="image/*"
-          aria-label={`Upload ${label}`}
+          aria-label={`Choose ${label} file`}
+          className="admin-file-input-hidden"
           onChange={(e) => {
             const f = e.target.files?.[0];
             setSelectedFile(f ?? null);
@@ -75,14 +80,14 @@ export function ImageUpload({
         <button
           type="button"
           className="admin-btn"
-          onClick={handleUpload}
+          onClick={selectedFile ? handleUpload : openFileDialog}
           disabled={uploading}
         >
-          {uploading ? 'Uploading…' : 'Upload image'}
+          {uploading ? 'Uploading…' : selectedFile ? `Upload "${selectedFile.name}"` : 'Choose image'}
         </button>
         {selectedFile && (
           <span className="admin-hint" style={{ marginLeft: 8 }}>
-            {selectedFile.name}
+            {selectedFile.name} — click button above to upload
           </span>
         )}
       </div>
