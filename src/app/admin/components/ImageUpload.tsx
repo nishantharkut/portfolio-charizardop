@@ -16,16 +16,16 @@ export function ImageUpload({
   label?: string;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState('');
 
   async function handleUpload() {
-    const input = inputRef.current;
-    if (!input?.files?.length) {
+    const file = selectedFile ?? inputRef.current?.files?.[0];
+    if (!file) {
       setUploadError('Choose a file first');
       return;
     }
-    const file = input.files[0];
     setUploadError('');
     setUploading(true);
     try {
@@ -40,7 +40,8 @@ export function ImageUpload({
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || 'Upload failed');
       onChange(data.path);
-      input.value = '';
+      setSelectedFile(null);
+      if (inputRef.current) inputRef.current.value = '';
     } catch (e) {
       setUploadError(e instanceof Error ? e.message : 'Upload failed');
     } finally {
@@ -65,6 +66,11 @@ export function ImageUpload({
           type="file"
           accept="image/*"
           aria-label={`Upload ${label}`}
+          onChange={(e) => {
+            const f = e.target.files?.[0];
+            setSelectedFile(f ?? null);
+            setUploadError('');
+          }}
         />
         <button
           type="button"
@@ -74,6 +80,11 @@ export function ImageUpload({
         >
           {uploading ? 'Uploading…' : 'Upload image'}
         </button>
+        {selectedFile && (
+          <span className="admin-hint" style={{ marginLeft: 8 }}>
+            {selectedFile.name}
+          </span>
+        )}
       </div>
       <p className="admin-hint" style={{ marginTop: 4, marginBottom: 0 }}>Max 5MB. Uses GitHub repo; ensure GITHUB_TOKEN and GITHUB_REPO are set.</p>
       {uploadError && <p className="admin-error" style={{ marginTop: 6, marginBottom: 0 }}>{uploadError}</p>}

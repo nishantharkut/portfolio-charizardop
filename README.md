@@ -1,5 +1,18 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Project structure
+
+- **`src/app/`** – Next.js App Router: pages, API routes, admin, and global layout/styles.
+- **`src/app/_dev/`** – Dev-only test pages (e.g. `/_dev/test-logo`). Not linked from the main site.
+- **`src/components/`** – Shared components (ErrorBoundary, lazy loaders, UI).
+- **`src/app/components/`** – App-specific components (sections, layout, 3D, admin).
+- **`src/data/`** – Portfolio content (JSON) and data helpers.
+- **`src/lib/`** – Utilities (GitHub API, admin auth), plus `lib/api/` and `lib/legacy-api/`.
+- **`src/contexts/`**, **`src/hooks/`**, **`src/utils/`**, **`src/types/`** – React context, hooks, helpers, types.
+- **`docs/`** – Documentation and guides (admin, deployment, SEO, etc.). Backups of old test/backup files in `docs/backups/`.
+- **`scripts/`** – Build/deploy and performance scripts; `scripts/verification/` for one-off test scripts.
+- **`public/`** – Static assets (images, favicon, manifest).
+
 ## Getting Started
 
 First, run the development server:
