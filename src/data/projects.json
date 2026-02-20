@@ -6,7 +6,21 @@
       "category": "Web3 Collaboration Platform",
       "shortDescription": "All-in-one Web3-enabled collaboration platform for freelancing, events, and real-time community chat.",
       "fullDescription": "W3nity is a unified Web3-enabled collaboration platform combining a freelancing marketplace with on-chain escrow, event management with NFT ticketing, and real-time community chat. The project includes frontend (React + TypeScript + Tailwind), a Node/Express backend, smart contracts (Solidity + Hardhat), and real-time features using Socket.IO.",
-      "techStack": ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "Node.js", "Express", "MongoDB", "Socket.IO", "Solidity", "Hardhat", "Ethers.js", "Wagmi", "Alchemy"],
+      "techStack": [
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "Framer Motion",
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "Socket.IO",
+        "Solidity",
+        "Hardhat",
+        "Ethers.js",
+        "Wagmi",
+        "Alchemy"
+      ],
       "implementation": [
         "Frontend SPA built with React + TypeScript and Tailwind CSS with component-based architecture",
         "Backend REST API using Node.js and Express with MongoDB (Mongoose)",
@@ -25,7 +39,14 @@
       "category": "Themed OS / Linux Distribution",
       "shortDescription": "A Harry-Potter–themed Linux Mint based OS and modular toolset — immersive UI, gamification, and AI-powered assistant.",
       "fullDescription": "Hogwarts OS reimagines the desktop experience with house-based personalization, spell-based terminal commands, an Electron-based Marauder's Map file explorer, AI-powered portrait assistant, and gamification layers (XP, house points). It ships both as a full ISO distribution and modular installable components for Linux Mint.",
-      "techStack": ["Linux Mint (Cinnamon)", "Electron", "Node.js", "Python", "Shell scripting", "GTK/GDM customizations"],
+      "techStack": [
+        "Linux Mint (Cinnamon)",
+        "Electron",
+        "Node.js",
+        "Python",
+        "Shell scripting",
+        "GTK/GDM customizations"
+      ],
       "implementation": [
         "Full ISO build based on Linux Mint Cinnamon with branded boot and desktop customizations",
         "Modular apps (Sorting Hat, Marauder's Map, Owl Post) implemented as Electron/Python tools",
@@ -44,7 +65,22 @@
       "category": "AI Powered Travel Planning Platform",
       "shortDescription": "Intelligent, collaborative travel planner with AI itinerary generation, budgeting tools, and visual trip sharing.",
       "fullDescription": "GlobeTrotter is a platform that simplifies multi-city trip planning through user-friendly features like AI-powered itinerary suggestions, cost estimation, visualization dashboards, and collaborative sharing. Built with a React frontend and Node/Express backend, it includes secure authentication, budget tracking, admin tools, and Cloudinary media storage.",
-      "techStack": ["React.js", "Vite", "Tailwind CSS", "Material UI", "Node.js", "Express.js", "MongoDB (Mongoose)", "JWT", "Google OAuth 2.0", "Bcrypt", "Cloudinary", "Vercel", "Render", "Recharts"],
+      "techStack": [
+        "React.js",
+        "Vite",
+        "Tailwind CSS",
+        "Material UI",
+        "Node.js",
+        "Express.js",
+        "MongoDB (Mongoose)",
+        "JWT",
+        "Google OAuth 2.0",
+        "Bcrypt",
+        "Cloudinary",
+        "Vercel",
+        "Render",
+        "Recharts"
+      ],
       "implementation": [
         "React frontend with Vite, styled using Tailwind CSS and Material UI components",
         "Node.js and Express.js backend providing REST APIs for authentication, trip CRUD, and AI integration",
@@ -66,7 +102,15 @@
       "category": "Web App / Productivity",
       "shortDescription": "A productivity web app to log, track, and analyze DSA and competitive programming practice.",
       "fullDescription": "NoobsterDSA centralizes DSA & CP practice tracking: daily logs, contest tracking, weekly goals, analytics dashboards, and auto-tagging of problems (platform/difficulty). Built for learners with a clean, gamified UI and PWA support.",
-      "techStack": ["React (TypeScript)", "Vite", "Tailwind CSS", "shadcn/ui", "Radix UI", "Supabase", "PostgreSQL"],
+      "techStack": [
+        "React (TypeScript)",
+        "Vite",
+        "Tailwind CSS",
+        "shadcn/ui",
+        "Radix UI",
+        "Supabase",
+        "PostgreSQL"
+      ],
       "implementation": [
         "Logging system for daily practice with metadata (date, topic, problems, time, notes)",
         "Contest performance tracker and weekly goals with reflections",
@@ -84,7 +128,17 @@
       "category": "Mobile App (Android)",
       "shortDescription": "Campus-focused Android app for peer-to-peer book exchanges with listings, auctions, and real-time chat.",
       "fullDescription": "BookSwap is an Android application built to facilitate textbook and novel exchange within college campuses. It supports user authentication, book listings (including auctions and timers), image uploads via Cloudinary, and one-to-one real-time messaging between buyers and sellers using Firebase services.",
-      "techStack": ["Java", "Android (XML layouts)", "MVVM", "Firebase Authentication", "Cloud Firestore", "Realtime Database", "Cloudinary", "LiveData", "Picasso"],
+      "techStack": [
+        "Java",
+        "Android (XML layouts)",
+        "MVVM",
+        "Firebase Authentication",
+        "Cloud Firestore",
+        "Realtime Database",
+        "Cloudinary",
+        "LiveData",
+        "Picasso"
+      ],
       "implementation": [
         "MVVM-structured Android app with Activities & Fragments for core screens",
         "Authentication and user management with Firebase Authentication",
@@ -103,7 +157,22 @@
       "category": "AI Career Coaching Platform",
       "shortDescription": "AI-powered career coaching platform with personalized guidance, interview prep, resume building, and subscription management.",
       "fullDescription": "Uproot.AI is an AI-powered career coaching SaaS platform that provides personalized career guidance, AI-driven interview preparation, intelligent resume and cover letter generation, skills assessments, and AI chatbot support. The platform features subscription management via Stripe, Web3 wallet integration for payments, scheduled 1-on-1 coaching calls, and industry-specific insights.",
-      "techStack": ["Next.js 15", "React", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "NextAuth.js", "OpenAI API", "Stripe", "Cloudinary", "Inngest", "Resend", "Web3/Ethers.js", "shadcn/ui"],
+      "techStack": [
+        "Next.js 15",
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "Prisma",
+        "PostgreSQL",
+        "NextAuth.js",
+        "OpenAI API",
+        "Stripe",
+        "Cloudinary",
+        "Inngest",
+        "Resend",
+        "Web3/Ethers.js",
+        "shadcn/ui"
+      ],
       "implementation": [
         "Full-stack Next.js application with App Router and server-side rendering",
         "AI-powered features: resume analysis, cover letter generation, interview prep using OpenAI API",
@@ -121,6 +190,46 @@
       "githubLink": "https://github.com/nishantharkut/Uproot.AI",
       "image": "/images/uproot.jpg",
       "featured": true
+    },
+    {
+      "id": 7,
+      "title": "UNI-TEL",
+      "category": "EdTech, Academic Management Platform, Student Productivity",
+      "shortDescription": "A unified academic platform designed to manage academics, resources, communication, and student utilities within a single campus-focused system.",
+      "fullDescription": "UNI-TEL is a campus-focused academic platform built to centralize student workflows in a single, scalable system. It supports semester and subject management, attendance tracking, grade entry, and automatic SGPA/CGPA calculation with visual performance analytics. The platform is designed with modular architecture to allow future expansion into learning resources, notes management, announcements, reminders, and peer collaboration tools. Several of these features are planned but not yet implemented, with UI and data models already scaffolded. UNI-TEL emphasizes clean data modeling, secure authentication, responsive design, and maintainable TypeScript code, making it suitable for real campus use rather than a demo-only project.",
+      "techStack": [
+        "React (Vite)",
+        "TypeScript",
+        "Tailwind CSS",
+        "shadcn/ui",
+        "Supabase (PostgreSQL",
+        "Auth)",
+        "Recharts",
+        "HTML",
+        "CSS",
+        "SQL",
+        "Vercel (deployment-ready)"
+      ],
+      "implementation": [
+        "User authentication and profile management using Supabase Auth.",
+        "Relational database design for users, semesters, subjects, attendance, and academic records.",
+        "Semester and subject management with credit-based configuration.",
+        "Attendance tracking system with percentage calculation and threshold alerts.",
+        "Automatic SGPA and CGPA calculation based on subject credits and grades.",
+        "Academic performance visualization using charts and dashboards.",
+        "Responsive UI built with Tailwind CSS and shadcn/ui components.",
+        "Type-safe frontend logic using TypeScript for maintainability.",
+        "Scaffolded modules for academic resources and notes (UI + data models prepared).",
+        "Planned announcements and notification system (architecture prepared, backend pending).",
+        "Planned reminders and academic planning tools for exams and deadlines.",
+        "Planned collaboration features for peer interaction and shared resources.",
+        "JSON-based data import/export planned for backup and portability.",
+        "Deployment-ready configuration with environment-based setup."
+      ],
+      "liveLink": "https://uni-tel.vercel.app/",
+      "githubLink": "https://github.com/nishantharkut/UNI-TEL",
+      "image": "/images/uni-tel.jpg",
+      "featured": false
     }
   ]
 }
