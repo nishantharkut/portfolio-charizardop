@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import type { Project } from '@/data';
 import { ImageUpload } from '../components/ImageUpload';
+import { DraggableList } from '../components/DraggableList';
 
 const defaultProject: Partial<Project> = {
   title: '',
@@ -138,17 +139,16 @@ export default function AdminProjectsPage() {
         </form>
       </div>
 
-      <ul className="admin-list">
-        {list.map((p) => (
-          <li key={p.id} className="admin-list-item">
-            <strong>{p.title}</strong> — {p.category}
-            <div className="admin-item-actions">
-              <button type="button" onClick={() => openEdit(p)}>Edit</button>
-              <button type="button" onClick={() => remove(p.id)}>Delete</button>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <p className="admin-hint">Drag items to reorder. Order is saved to the repo.</p>
+      <DraggableList<Project>
+        items={list}
+        onReorder={setList}
+        onEdit={openEdit}
+        onDelete={remove}
+        saving={saving}
+        orderEndpoint="/api/admin/projects/order"
+        renderItem={(p) => <><strong>{p.title}</strong> — {p.category}</>}
+      />
     </div>
   );
 }

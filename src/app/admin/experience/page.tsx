@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import type { ExperienceItem } from '@/data';
 import { ImageUpload } from '../components/ImageUpload';
+import { DraggableList } from '../components/DraggableList';
 
 const defaultItem: Partial<ExperienceItem> = {
   position: '',
@@ -131,17 +132,16 @@ export default function AdminExperiencePage() {
         </form>
       </div>
 
-      <ul className="admin-list">
-        {list.map((p) => (
-          <li key={p.id} className="admin-list-item">
-            <strong>{p.position}</strong> at {p.company} ({p.year})
-            <div className="admin-item-actions">
-              <button type="button" onClick={() => openEdit(p)}>Edit</button>
-              <button type="button" onClick={() => remove(p.id)}>Delete</button>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <p className="admin-hint">Drag items to reorder. Order is saved to the repo.</p>
+      <DraggableList<ExperienceItem>
+        items={list}
+        onReorder={setList}
+        onEdit={openEdit}
+        onDelete={remove}
+        saving={saving}
+        orderEndpoint="/api/admin/experience/order"
+        renderItem={(p) => <><strong>{p.position}</strong> at {p.company} ({p.year})</>}
+      />
     </div>
   );
 }

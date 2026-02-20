@@ -113,6 +113,7 @@ const nextConfig: NextConfig = {
   
   // Enhanced experimental features for performance
   experimental: {
+    serverActions: { bodySizeLimit: '6mb' },
     optimizePackageImports: [
       'gsap', 
       'framer-motion', 

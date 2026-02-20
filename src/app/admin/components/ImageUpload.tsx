@@ -75,6 +75,7 @@ export function ImageUpload({
           {uploading ? 'Uploading…' : 'Upload image'}
         </button>
       </div>
+      <p className="admin-hint" style={{ marginTop: 4, marginBottom: 0 }}>Max 5MB. Uses GitHub repo; ensure GITHUB_TOKEN and GITHUB_REPO are set.</p>
       {uploadError && <p className="admin-error" style={{ marginTop: 6, marginBottom: 0 }}>{uploadError}</p>}
     </div>
   );

@@ -14,15 +14,24 @@ function safeName(original: string): string {
 export async function POST(request: NextRequest) {
   const err = requireAdmin(request);
   if (err) return err;
+
+  if (!process.env.GITHUB_TOKEN || !process.env.GITHUB_REPO) {
+    return NextResponse.json(
+      { error: 'Server: GITHUB_TOKEN and GITHUB_REPO must be set for uploads' },
+      { status: 503 }
+    );
+  }
+
   let formData: FormData;
   try {
     formData = await request.formData();
-  } catch {
-    return NextResponse.json({ error: 'Invalid form' }, { status: 400 });
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : 'Invalid form';
+    return NextResponse.json({ error: `Failed to read form: ${msg}. Try a smaller image (under 5MB).` }, { status: 400 });
   }
   const file = formData.get('file');
   if (!file || !(file instanceof Blob)) {
-    return NextResponse.json({ error: 'No file' }, { status: 400 });
+    return NextResponse.json({ error: 'No file selected' }, { status: 400 });
   }
   const folder = (formData.get('folder') as string) || 'images';
   if (!ALLOWED_FOLDERS.includes(folder as (typeof ALLOWED_FOLDERS)[number])) {

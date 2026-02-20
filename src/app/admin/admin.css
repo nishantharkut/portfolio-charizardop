@@ -225,6 +225,12 @@
   flex-shrink: 0;
 }
 
+.admin-hint {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
 .admin-loading {
   padding: 24px;
   text-align: center;
@@ -240,6 +246,41 @@
   background: #fff;
   color: #1a1a1a;
   min-height: 44px;
+}
+
+.admin-draggable-list .admin-list-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.admin-drag-handle {
+  cursor: grab;
+  color: #888;
+  user-select: none;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.admin-drag-handle:active {
+  cursor: grabbing;
+}
+
+.admin-list-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-list-item.admin-dragging {
+  opacity: 0.5;
+}
+
+.admin-list-item.admin-drag-over {
+  border-color: #1a1a1a;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.15);
 }
 
 @media (max-width: 600px) {
