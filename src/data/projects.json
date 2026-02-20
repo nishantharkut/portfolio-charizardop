@@ -41,6 +41,43 @@
       "featured": true
     },
     {
+      "id": 3,
+      "title": "GlobeTrotter",
+      "category": "AI Powered Travel Planning Platform",
+      "shortDescription": "Intelligent, collaborative travel planner with AI itinerary generation, budgeting tools, and visual trip sharing.",
+      "fullDescription": "GlobeTrotter is a platform that simplifies multi-city trip planning through user-friendly features like AI-powered itinerary suggestions, cost estimation, visualization dashboards, and collaborative sharing. Built with a React frontend and Node/Express backend, it includes secure authentication, budget tracking, admin tools, and Cloudinary media storage.",
+      "techStack": [
+        "React.js",
+        "Vite",
+        "Tailwind CSS",
+        "Material UI",
+        "Node.js",
+        "Express.js",
+        "MongoDB (Mongoose)",
+        "JWT",
+        "Google OAuth 2.0",
+        "Bcrypt",
+        "Cloudinary",
+        "Vercel",
+        "Render",
+        "Recharts"
+      ],
+      "implementation": [
+        "React frontend with Vite, styled using Tailwind CSS and Material UI components",
+        "Node.js and Express.js backend providing REST APIs for authentication, trip CRUD, and AI integration",
+        "MongoDB with Mongoose for storing users, trips, activities, budgets",
+        "Authentication handled via JWT and Google OAuth, with secure password hashing via Bcrypt",
+        "File uploads managed through Cloudinary, email notifications via Gmail SMTP",
+        "Deployment: frontend on Vercel, backend on Render",
+        "Admin dashboard implemented for user and content management with analytics",
+        "AI-powered itinerary suggestions, budgeting cost breakdowns, timeline and calendar visualizations"
+      ],
+      "liveLink": "https://globe-trotter-code-fusion-ruddy.vercel.app",
+      "githubLink": "https://github.com/nishantharkut/GlobeTrotter-CodeFusion",
+      "image": "/images/GlobeTrotter.jpg",
+      "featured": true
+    },
+    {
       "id": 1,
       "title": "W3nity",
       "category": "Web3 Collaboration Platform",
@@ -98,43 +135,6 @@
       "githubLink": "https://github.com/nishantharkut/Hogwarts-OS",
       "image": "/images/hogwartsos.jpg",
       "featured": false
-    },
-    {
-      "id": 3,
-      "title": "GlobeTrotter",
-      "category": "AI Powered Travel Planning Platform",
-      "shortDescription": "Intelligent, collaborative travel planner with AI itinerary generation, budgeting tools, and visual trip sharing.",
-      "fullDescription": "GlobeTrotter is a platform that simplifies multi-city trip planning through user-friendly features like AI-powered itinerary suggestions, cost estimation, visualization dashboards, and collaborative sharing. Built with a React frontend and Node/Express backend, it includes secure authentication, budget tracking, admin tools, and Cloudinary media storage.",
-      "techStack": [
-        "React.js",
-        "Vite",
-        "Tailwind CSS",
-        "Material UI",
-        "Node.js",
-        "Express.js",
-        "MongoDB (Mongoose)",
-        "JWT",
-        "Google OAuth 2.0",
-        "Bcrypt",
-        "Cloudinary",
-        "Vercel",
-        "Render",
-        "Recharts"
-      ],
-      "implementation": [
-        "React frontend with Vite, styled using Tailwind CSS and Material UI components",
-        "Node.js and Express.js backend providing REST APIs for authentication, trip CRUD, and AI integration",
-        "MongoDB with Mongoose for storing users, trips, activities, budgets",
-        "Authentication handled via JWT and Google OAuth, with secure password hashing via Bcrypt",
-        "File uploads managed through Cloudinary, email notifications via Gmail SMTP",
-        "Deployment: frontend on Vercel, backend on Render",
-        "Admin dashboard implemented for user and content management with analytics",
-        "AI-powered itinerary suggestions, budgeting cost breakdowns, timeline and calendar visualizations"
-      ],
-      "liveLink": "https://globe-trotter-code-fusion-ruddy.vercel.app",
-      "githubLink": "https://github.com/nishantharkut/GlobeTrotter-CodeFusion",
-      "image": "/images/GlobeTrotter.jpg",
-      "featured": true
     },
     {
       "id": 4,
