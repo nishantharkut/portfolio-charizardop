@@ -85,7 +85,7 @@ export const metadata: Metadata = {
     siteName: 'Nishant.dev',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Nishant Harkut — Software Engineer portfolio',
