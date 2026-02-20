@@ -137,32 +137,6 @@
       "featured": false
     },
     {
-      "id": 4,
-      "title": "NoobsterDSA",
-      "category": "Web App / Productivity",
-      "shortDescription": "A productivity web app to log, track, and analyze DSA and competitive programming practice.",
-      "fullDescription": "NoobsterDSA centralizes DSA & CP practice tracking: daily logs, contest tracking, weekly goals, analytics dashboards, and auto-tagging of problems (platform/difficulty). Built for learners with a clean, gamified UI and PWA support.",
-      "techStack": [
-        "React (TypeScript)",
-        "Vite",
-        "Tailwind CSS",
-        "shadcn/ui",
-        "Radix UI",
-        "Supabase",
-        "PostgreSQL"
-      ],
-      "implementation": [
-        "Logging system for daily practice with metadata (date, topic, problems, time, notes)",
-        "Contest performance tracker and weekly goals with reflections",
-        "Analytics dashboards: heatmaps, time-distribution charts, and progress summaries",
-        "Auto-tagging from problem URLs and markdown-enabled notes",
-        "PWA features and responsive design for mobile/desktop"
-      ],
-      "liveLink": "https://noobster-dsa.vercel.app",
-      "githubLink": "https://github.com/nishantharkut/Noobster-DSA",
-      "image": "/images/NoobsterDSA.jpg"
-    },
-    {
       "id": 7,
       "title": "UNI-TEL",
       "category": "EdTech, Academic Management Platform, Student Productivity",
@@ -201,6 +175,32 @@
       "githubLink": "https://github.com/nishantharkut/UNI-TEL",
       "image": "/images/uni-tel.jpg",
       "featured": false
+    },
+    {
+      "id": 4,
+      "title": "NoobsterDSA",
+      "category": "Web App / Productivity",
+      "shortDescription": "A productivity web app to log, track, and analyze DSA and competitive programming practice.",
+      "fullDescription": "NoobsterDSA centralizes DSA & CP practice tracking: daily logs, contest tracking, weekly goals, analytics dashboards, and auto-tagging of problems (platform/difficulty). Built for learners with a clean, gamified UI and PWA support.",
+      "techStack": [
+        "React (TypeScript)",
+        "Vite",
+        "Tailwind CSS",
+        "shadcn/ui",
+        "Radix UI",
+        "Supabase",
+        "PostgreSQL"
+      ],
+      "implementation": [
+        "Logging system for daily practice with metadata (date, topic, problems, time, notes)",
+        "Contest performance tracker and weekly goals with reflections",
+        "Analytics dashboards: heatmaps, time-distribution charts, and progress summaries",
+        "Auto-tagging from problem URLs and markdown-enabled notes",
+        "PWA features and responsive design for mobile/desktop"
+      ],
+      "liveLink": "https://noobster-dsa.vercel.app",
+      "githubLink": "https://github.com/nishantharkut/Noobster-DSA",
+      "image": "/images/NoobsterDSA.jpg"
     },
     {
       "id": 5,
