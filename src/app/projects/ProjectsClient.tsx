@@ -25,7 +25,7 @@ function ProjectCard({ project }: { project: Project }) {
       style={{ height: '500px' }} // slightly increased height
     >
       {/* Project Image - 16:9 aspect ratio */}
-      <div className="relative w-full aspect-[16/9] border-b-4 border-black overflow-hidden flex-shrink-0">
+      <div className="relative w-full aspect-[16/9] border-b-4 border-black overflow-hidden flex-shrink-0 rounded-t-[12px]">
         <Image
           src={project.image}
           alt={project.title}
