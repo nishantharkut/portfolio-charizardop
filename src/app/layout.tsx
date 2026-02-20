@@ -173,7 +173,7 @@ export default function RootLayout({
         
         {/* Preload only critical above-the-fold assets */}
         <link rel="preload" href="/nishant-image.webp" as="image" fetchPriority="high" />
-        <link rel="preload" href="/logo-light.png" as="image" fetchPriority="high" />
+        <link rel="preload" href="/nishantharkut-logo-lightbg.png" as="image" fetchPriority="high" />
         
         {/* Defer 3D model loading - load after critical content */}
         <link rel="preload" href="/models/charizard.glb" as="fetch" crossOrigin="anonymous" fetchPriority="low" />
