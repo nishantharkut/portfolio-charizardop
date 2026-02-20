@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import type { Project } from '@/data';
 import { ImageUpload } from '../components/ImageUpload';
 import { DraggableList } from '../components/DraggableList';
+import { adminFetch } from '../lib/api';
 
 const defaultProject: Partial<Project> = {
   title: '',
@@ -53,17 +54,14 @@ export default function AdminProjectsPage() {
     setSaving(true);
     const method = editingId ? 'PUT' : 'POST';
     const body = editingId ? { ...form, id: editingId } : form;
-    fetch('/api/admin/projects', {
+    adminFetch('/api/admin/projects', {
       method,
       headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
       body: JSON.stringify(body),
     })
-      .then((r) => r.json().then((d) => ({ ok: r.ok, data: d })))
-      .then(({ ok, data }) => {
-        if (!ok) throw new Error(data.error || 'Failed');
-        if (editingId) setList((prev) => prev.map((p) => (p.id === editingId ? data : p)));
-        else setList((prev) => [...prev, data]);
+      .then(({ data }) => {
+        if (editingId) setList((prev) => prev.map((p) => (p.id === editingId ? (data as Project) : p)));
+        else setList((prev) => [...prev, data as Project]);
         setForm(defaultProject);
         setEditingId(null);
       })
@@ -74,8 +72,7 @@ export default function AdminProjectsPage() {
   function remove(id: number) {
     if (!confirm('Delete this project?')) return;
     setSaving(true);
-    fetch(`/api/admin/projects?id=${id}`, { method: 'DELETE', credentials: 'include' })
-      .then((r) => (r.ok ? undefined : r.json().then((d) => Promise.reject(new Error(d.error)))))
+    adminFetch(`/api/admin/projects?id=${id}`, { method: 'DELETE' })
       .then(() => setList((prev) => prev.filter((p) => p.id !== id)))
       .catch((e) => setError(e.message))
       .finally(() => setSaving(false));

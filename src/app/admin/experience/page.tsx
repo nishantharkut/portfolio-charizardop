@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import type { ExperienceItem } from '@/data';
 import { ImageUpload } from '../components/ImageUpload';
 import { DraggableList } from '../components/DraggableList';
+import { adminFetch } from '../lib/api';
 
 const defaultItem: Partial<ExperienceItem> = {
   position: '',
@@ -53,12 +54,10 @@ export default function AdminExperiencePage() {
     setSaving(true);
     const method = editingId ? 'PUT' : 'POST';
     const body = editingId ? { ...form, id: editingId } : form;
-    fetch('/api/admin/experience', { method, headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify(body) })
-      .then((r) => r.json().then((d) => ({ ok: r.ok, data: d })))
-      .then(({ ok, data }) => {
-        if (!ok) throw new Error(data.error || 'Failed');
-        if (editingId) setList((prev) => prev.map((p) => (p.id === editingId ? data : p)));
-        else setList((prev) => [...prev, data]);
+    adminFetch('/api/admin/experience', { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+      .then(({ data }) => {
+        if (editingId) setList((prev) => prev.map((p) => (p.id === editingId ? (data as ExperienceItem) : p)));
+        else setList((prev) => [...prev, data as ExperienceItem]);
         setForm(defaultItem);
         setEditingId(null);
       })
@@ -69,8 +68,7 @@ export default function AdminExperiencePage() {
   function remove(id: number) {
     if (!confirm('Delete this experience?')) return;
     setSaving(true);
-    fetch(`/api/admin/experience?id=${id}`, { method: 'DELETE', credentials: 'include' })
-      .then((r) => (r.ok ? undefined : r.json().then((d) => Promise.reject(new Error(d.error)))))
+    adminFetch(`/api/admin/experience?id=${id}`, { method: 'DELETE' })
       .then(() => setList((prev) => prev.filter((p) => p.id !== id)))
       .catch((e) => setError(e.message))
       .finally(() => setSaving(false));

@@ -6,8 +6,17 @@ import experienceData from './experience.json';
 import navigationData from './navigation.json';
 import aboutData from './about.json';
 import heroData from './hero.json';
+import siteData from './site.json';
 
 // Type definitions
+export interface SiteConfig {
+  faviconPath: string;
+  /** Open Graph image (e.g. 1200x630). Used for social previews. */
+  ogImagePath?: string;
+  /** Twitter card image. Falls back to ogImagePath if not set. */
+  twitterImagePath?: string;
+}
+
 export interface Project {
   id: number;
   title: string;
@@ -256,6 +265,20 @@ export const getAboutData = (): AboutData => {
 
 export const getHeroData = (): HeroData => {
   return heroData;
+};
+
+const DEFAULT_FAVICON = '/nishantharkut-logo-lightbg.png';
+const DEFAULT_OG_IMAGE = '/og-image.png';
+const DEFAULT_TWITTER_IMAGE = '/og-image.jpg';
+
+/** Returns site config with safe defaults so layout never sees missing values. */
+export const getSiteConfig = (): SiteConfig => {
+  const raw = siteData as Partial<SiteConfig>;
+  return {
+    faviconPath: raw?.faviconPath ?? DEFAULT_FAVICON,
+    ogImagePath: raw?.ogImagePath ?? DEFAULT_OG_IMAGE,
+    twitterImagePath: raw?.twitterImagePath ?? DEFAULT_TWITTER_IMAGE,
+  };
 };
 
 // Utility functions for filtering and searching

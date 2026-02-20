@@ -166,6 +166,35 @@ export class PerformanceManager {
   }
 
   getOptimalSettings() {
+    // SSR: return safe defaults when navigator/window are not available (e.g. during static generation)
+    if (typeof navigator === 'undefined') {
+      return {
+        deviceTier: 'medium' as const,
+        isLowPowerMode: false,
+        reducedMotion: false,
+        memoryPressure: false,
+        networkConstraints: false,
+        isOnline: true,
+        connectionType: 'unknown',
+        maxParticles: 75,
+        animationQuality: 'medium' as const,
+        enableWebGL: true,
+        enableComplexAnimations: true,
+        targetFPS: 60,
+        enableBlur: true,
+        enableShadows: false,
+        enableGradients: true,
+        enableTransitions: true,
+        imageQuality: 'high' as const,
+        lazyLoadThreshold: 100,
+        preloadImages: false,
+        webglMaxTextures: 8,
+        webglShadowQuality: 'low' as const,
+        touchOptimized: false,
+        reducedTooltips: false,
+      };
+    }
+
     const memoryPressure = this.memoryInfo ? 
       (this.memoryInfo.usedJSHeapSize / this.memoryInfo.totalJSHeapSize) > 0.8 : false;
     

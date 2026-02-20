@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Sora } from "next/font/google";
+import { getSiteConfig } from "@/data";
 import "./globals.css";
 import "../styles/performance.css";
 import { PerformanceProvider } from "@/contexts/PerformanceContext";
@@ -36,6 +37,11 @@ const sora = Sora({
   weight: ['400', '600', '700', '800'],
   fallback: ['system-ui', 'sans-serif'],
 });
+
+const siteConfig = getSiteConfig();
+const siteIcon = siteConfig.faviconPath || '/nishantharkut-logo-lightbg.png';
+const ogImage = siteConfig.ogImagePath || '/og-image.png';
+const twitterImage = siteConfig.twitterImagePath || siteConfig.ogImagePath || '/og-image.jpg';
 
 export const metadata: Metadata = {
   title: {
@@ -84,18 +90,8 @@ export const metadata: Metadata = {
     url: 'https://www.nishantharkut.dev',
     siteName: 'Nishant.dev',
     images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Nishant Harkut — Software Engineer portfolio',
-      },
-      {
-        url: '/nishantharkut-logo-lightbg.png',
-        width: 72,
-        height: 72,
-        alt: 'Nishant Harkut Logo',
-      }
+      { url: ogImage, width: 1200, height: 630, alt: 'Nishant Harkut — Software Engineer portfolio' },
+      { url: siteIcon, width: 72, height: 72, alt: 'Nishant Harkut Logo' },
     ],
     locale: 'en_IN',
     type: 'website',
@@ -104,7 +100,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Nishant Harkut | Full Stack Developer | BTech IT, IIIT Gwalior',
     description: 'Full stack engineer, BTech IT at IIIT Gwalior. Open to software engineering internships and SDE roles.',
-    images: ['/og-image.jpg'],
+    images: [twitterImage],
     creator: '@HarkutNishant',
   },
   robots: {
@@ -122,17 +118,16 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      // Light-bg logo so favicon is visible on Google's white search result background
-      { url: '/nishantharkut-logo-lightbg.png', sizes: '48x48', type: 'image/png' },
-      { url: '/nishantharkut-logo-lightbg.png', sizes: '72x72', type: 'image/png' },
-      { url: '/nishantharkut-logo-lightbg.png', sizes: '96x96', type: 'image/png' },
-      { url: '/nishantharkut-logo-lightbg.png', sizes: '128x128', type: 'image/png' },
-      { url: '/nishantharkut-logo-lightbg.png', sizes: '192x192', type: 'image/png' },
+      { url: siteIcon, sizes: '48x48', type: 'image/png' },
+      { url: siteIcon, sizes: '72x72', type: 'image/png' },
+      { url: siteIcon, sizes: '96x96', type: 'image/png' },
+      { url: siteIcon, sizes: '128x128', type: 'image/png' },
+      { url: siteIcon, sizes: '192x192', type: 'image/png' },
     ],
-    shortcut: '/nishantharkut-logo-lightbg.png',
+    shortcut: siteIcon,
     apple: [
-      { url: '/nishantharkut-logo-lightbg.png', sizes: '180x180', type: 'image/png' },
-      { url: '/nishantharkut-logo-lightbg.png', sizes: '192x192', type: 'image/png' },
+      { url: siteIcon, sizes: '180x180', type: 'image/png' },
+      { url: siteIcon, sizes: '192x192', type: 'image/png' },
     ],
   },
   manifest: '/manifest.json',
@@ -173,7 +168,7 @@ export default function RootLayout({
         
         {/* Preload only critical above-the-fold assets */}
         <link rel="preload" href="/nishant-image.webp" as="image" fetchPriority="high" />
-        <link rel="preload" href="/nishantharkut-logo-lightbg.png" as="image" fetchPriority="high" />
+        <link rel="preload" href={siteIcon} as="image" fetchPriority="high" />
         
         {/* Defer 3D model loading - load after critical content */}
         <link rel="preload" href="/models/charizard.glb" as="fetch" crossOrigin="anonymous" fetchPriority="low" />
