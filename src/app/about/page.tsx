@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     url: 'https://www.nishantharkut.dev/about',
     images: [
       {
-        url: '/og-image.png',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'About Nishant Harkut - IIIT Gwalior Student Profile',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'About Nishant Harkut - IIIT Gwalior BTech Student | MERN Stack Developer', 
     description: 'Learn about my journey as a BTech IT student at IIIT Gwalior with expertise in MERN stack, GenAI, and Agentic AI development.',
-    images: ['/og-image.png'],
+    images: ['/og-image.jpg'],
   },
   alternates: {
     canonical: '/about',

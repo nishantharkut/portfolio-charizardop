@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     url: 'https://www.nishantharkut.dev/achievements',
     images: [
       {
-        url: '/og-image.png',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Nishant Harkut Achievements - IIIT Gwalior Student',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Achievements - Nishant Harkut | IIIT Gwalior Student',
     description: 'Awards, certifications, and recognitions in full stack development and technical competitions.',
-    images: ['/og-image.png'],
+    images: ['/og-image.jpg'],
   },
   alternates: {
     canonical: '/achievements',
