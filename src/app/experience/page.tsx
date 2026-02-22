@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     url: 'https://www.nishantharkut.dev/experience',
     images: [
       {
-        url: '/experience-og-image.jpg',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Nishant Harkut Experience - IIIT Gwalior Student',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Experience - Nishant Harkut | IIIT Gwalior Student',
     description: 'Professional journey as a BTech IT student with expertise in MERN stack, GenAI, and full stack development.',
-    images: ['/experience-og-image.jpg'],
+    images: ['/og-image.png'],
   },
   alternates: {
     canonical: '/experience',
