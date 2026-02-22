@@ -15,7 +15,7 @@ const defaultHero: HeroData = {
 
 const defaultSite: SiteConfig = {
   faviconPath: '/nishantharkut-logo-lightbg.png',
-  ogImagePath: '/og-image.png',
+  ogImagePath: '/og-image.jpg',
   twitterImagePath: '/og-image.jpg',
 };
 

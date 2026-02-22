@@ -40,8 +40,8 @@ const sora = Sora({
 
 const siteConfig = getSiteConfig();
 const siteIcon = siteConfig.faviconPath || '/nishantharkut-logo-lightbg.png';
-const ogImage = siteConfig.ogImagePath || '/og-image.png';
-const twitterImage = siteConfig.twitterImagePath || siteConfig.ogImagePath || '/og-image.png';
+const ogImage = siteConfig.ogImagePath || '/og-image.jpg';
+const twitterImage = siteConfig.twitterImagePath || siteConfig.ogImagePath || '/og-image.jpg';
 
 export const metadata: Metadata = {
   title: {
