@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     url: 'https://www.nishantharkut.dev/projects',
     images: [
       {
-        url: '/projects-og-image.jpg',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Nishant Harkut Projects - IIIT Gwalior Student Portfolio',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Projects - Nishant Harkut | IIIT Gwalior Student',
     description: 'Full stack projects and applications showcasing expertise in MERN stack, GenAI, and web development.',
-    images: ['/projects-og-image.jpg'],
+    images: ['/og-image.png'],
   },
   alternates: {
     canonical: '/projects',

@@ -269,7 +269,7 @@ export const getHeroData = (): HeroData => {
 
 const DEFAULT_FAVICON = '/nishantharkut-logo-lightbg.png';
 const DEFAULT_OG_IMAGE = '/og-image.png';
-const DEFAULT_TWITTER_IMAGE = '/og-image.jpg';
+const DEFAULT_TWITTER_IMAGE = '/og-image.png';
 
 /** Returns site config with safe defaults so layout never sees missing values. */
 export const getSiteConfig = (): SiteConfig => {
