@@ -9,6 +9,7 @@ import ScrollVelocity from '../ui/ScrollVelocity';
 import ErrorBoundary from '../../../components/ErrorBoundary';
 import { getHeroData } from '../../../data';
 import { useIntersectionModelLoading, useModelPreloading, usePerformanceAwareModelLoading } from '../../../hooks/useIntersectionModelLoading';
+import { useLoading } from '../../contexts/LoadingContext';
 import * as THREE from 'three';
 
 // Device and Browser Detection Hook
@@ -132,7 +133,7 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
       setHasEntered(false);
       setIdleTime(0);
       frameSkip.current = 0;
-      
+
       if (process.env.NODE_ENV === 'development') {
         console.log('Scene loaded - preparing for deterministic setup');
       }
@@ -149,7 +150,7 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
           hasGeometry = true;
         }
       });
-      
+
       if (hasGeometry) {
         if (process.env.NODE_ENV === 'development') {
           console.log('Model loaded with geometry');
@@ -210,13 +211,13 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
   useEffect(() => {
     if (selectedAnimation && actions[selectedAnimation]) {
       const action = actions[selectedAnimation];
-      action.reset().fadeIn(0.5).play();
+      action?.reset().fadeIn(0.5).play();
       // Increase animation speed significantly
-      action.timeScale = 2.0; // 2x speed for much faster animation
+      if (action) action.timeScale = 2.0; // 2x speed for much faster animation
     }
     return () => {
       if (selectedAnimation && actions[selectedAnimation]) {
-        actions[selectedAnimation].fadeOut(0.3);
+        actions[selectedAnimation]?.fadeOut(0.3);
       }
     };
   }, [actions, selectedAnimation]);
@@ -234,16 +235,16 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
       if (process.env.NODE_ENV === 'development') {
         console.log('Immediate Charizard setup for desktop...');
       }
-      
+
       // ABSOLUTELY FIXED VALUES - NO CALCULATIONS
       const SCALE = 2; // Fits within viewport below navbar
       const START_POSITION = { x: 0, y: 0, z: -60 }; // Centered
-      
+
       // Apply immediately - no delays, no conditions
       group.current.scale.setScalar(SCALE);
       group.current.position.set(START_POSITION.x, START_POSITION.y, START_POSITION.z);
       group.current.rotation.set(0, -0.2, 0);
-      
+
       setFitted(true);
       if (process.env.NODE_ENV === 'development') {
         console.log(`Immediate setup complete - Scale: ${SCALE}, Start: [${START_POSITION.x}, ${START_POSITION.y}, ${START_POSITION.z}]`);
@@ -260,7 +261,7 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
       // Use exact same constants as setup - CENTERED, shifted down 5%
       const TARGET = { x: 0, y: -1.3, z: 0 };
       const TARGET_ROT = 0;
-      
+
       // Fast, consistent lerp
       const lerp = 0.06;
       group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, TARGET.x, lerp);
@@ -313,10 +314,10 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
       // Gentle floating with exact base position
       const floatAmplitude = capabilities.isLowEnd ? 0.04 : 0.08; // Reduced amplitude
       const floatSpeed = 1.2; // Fixed speed
-      
+
       // Use exact same Y as target position
       const BASE_Y = -1.3;
-      
+
       group.current.position.y = BASE_Y + Math.sin(state.clock.elapsedTime * floatSpeed) * floatAmplitude;
     }
   });
@@ -364,10 +365,13 @@ export default function Hero() {
     delay: loadingStrategy === 'immediate' ? 500 : 1000,
     enabled: loadingStrategy !== 'disabled'
   });
-  
+
   // Preload model assets
   useModelPreloading();
-  
+
+  // Loading context — signals the global loader when Charizard is ready
+  const { setModelLoaded: signalModelReady } = useLoading();
+
   const [performanceSettings, setPerformanceSettings] = useState({
     shadows: false, // Default to false for SSR
     antialias: false,
@@ -582,11 +586,11 @@ export default function Hero() {
               <AdaptiveDpr pixelated />
               <PerformanceController onPerformanceChange={setPerformanceSettings} />
 
-              <PerspectiveCamera 
-                makeDefault 
-                position={[0, 0, 12]} 
-                fov={45} 
-                near={0.1} 
+              <PerspectiveCamera
+                makeDefault
+                position={[0, 0, 12]}
+                fov={45}
+                near={0.1}
                 far={1000}
               />
 
@@ -611,16 +615,17 @@ export default function Hero() {
                 </>
               )}
 
-               {shouldLoadModel && isModelVisible && (
-                 <CharizardModel
-                   capabilities={capabilities}
-                   performanceSettings={performanceSettings}
-                   onError={() => setHasCanvasError(true)}
-                   onModelLoaded={() => {
-                     setModelLoaded(true);
-                   }}
-                 />
-               )}
+              {shouldLoadModel && isModelVisible && (
+                <CharizardModel
+                  capabilities={capabilities}
+                  performanceSettings={performanceSettings}
+                  onError={() => setHasCanvasError(true)}
+                  onModelLoaded={() => {
+                    setModelLoaded(true);
+                    signalModelReady(true); // ← dismiss global loader
+                  }}
+                />
+              )}
 
               {!capabilities.isLowEnd && (
                 <ContactShadows
@@ -682,23 +687,23 @@ export default function Hero() {
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[80px] font-bold leading-none tracking-tight mb-2" style={{ color: 'var(--color-text)', fontFamily: 'var(--font-sora), system-ui, sans-serif' }}>
                 {heroData.name}
               </h1>
-              
+
               {/* Tagline */}
               <p className="text-xs sm:text-sm md:text-base leading-relaxed mb-2 font-light max-w-xl px-4" style={{ color: 'var(--color-text-muted)' }}>
                 {heroData.tagline}
               </p>
-              
+
               {/* Location - bordered box */}
               <div className="flex items-center gap-1.5 mb-4 px-4 py-1.5 border border-current rounded-sm" style={{ color: 'var(--color-text-muted)' }}>
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  width="14" 
-                  height="14" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
                   strokeLinejoin="round"
                   style={{ color: 'var(--color-accent)' }}
                 >
@@ -707,7 +712,7 @@ export default function Hero() {
                 </svg>
                 <span className="text-xs sm:text-sm font-medium">{heroData.location}</span>
               </div>
-              
+
               {/* CTAs - compact, responsive */}
               <div className="flex flex-row gap-2 sm:gap-3 justify-center">
                 <a
@@ -800,7 +805,7 @@ export default function Hero() {
             ))}
           </motion.div>
         </div>
-        
+
       </motion.div>
     </section>
   );

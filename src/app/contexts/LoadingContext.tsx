@@ -15,87 +15,81 @@ interface LoadingContextType {
 const LoadingContext = createContext<LoadingContextType | undefined>(undefined);
 
 export function LoadingProvider({ children }: { children: React.ReactNode }) {
-  // Always start with loading true to show the video, but only for true initial loads
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [isModelLoaded, setIsModelLoaded] = useState(false);
   const [isVideoComplete, setIsVideoComplete] = useState(false);
   const [hasCompletedInitialLoad, setHasCompletedInitialLoad] = useState(false);
 
-  // Check if user has visited before - if yes, show retro loader instead of full video
+  // ── Helpers ──────────────────────────────────────────────────────────────
+  const persistVisit = () => {
+    if (typeof window === 'undefined') return;
+    try {
+      sessionStorage.setItem('hasVisited', 'true');
+      sessionStorage.setItem('hasCompletedInitialLoad', 'true');
+    } catch {
+      // silent — private browsing, quota exceeded, etc.
+    }
+  };
+
+  const dismiss = () => {
+    setIsInitialLoading(false);
+    setHasCompletedInitialLoad(true);
+    persistVisit();
+  };
+
+  // ── Returning-visitor fast path ────────────────────────────────────────
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const hasVisited = sessionStorage.getItem('hasVisited');
-        const hasCompletedLoad = sessionStorage.getItem('hasCompletedInitialLoad');
-        
-        if (hasVisited && hasCompletedLoad) {
-          // User has visited before and completed initial load - no loading needed
-          setIsInitialLoading(false);
-          setIsModelLoaded(true);
-          setIsVideoComplete(true);
-          setHasCompletedInitialLoad(true);
-        } else if (hasVisited) {
-          // Show retro loader for returning visitors
-          setIsInitialLoading(true);
-          setIsModelLoaded(true);
-          
-          // Fast retro loading sequence
-          const timer = setTimeout(() => {
-            setIsVideoComplete(true);
-            setIsInitialLoading(false);
-            setHasCompletedInitialLoad(true);
-            sessionStorage.setItem('hasCompletedInitialLoad', 'true');
-          }, 1500); // Fast 1.5 second retro loader
-          
-          return () => clearTimeout(timer);
-        }
-      } catch (error) {
-        console.warn('SessionStorage not available:', error);
+    if (typeof window === 'undefined') return;
+    try {
+      const hasVisited = sessionStorage.getItem('hasVisited');
+      const hasCompletedLoad = sessionStorage.getItem('hasCompletedInitialLoad');
+
+      if (hasVisited && hasCompletedLoad) {
+        // Already seen the full experience — skip loader entirely
+        setIsInitialLoading(false);
+        setIsModelLoaded(true);
+        setIsVideoComplete(true);
+        setHasCompletedInitialLoad(true);
+      } else if (hasVisited) {
+        // Returning visitor in same tab — 1.5 s fast loader (LoadingScreen timeout fires)
+        setIsInitialLoading(true);
+        setIsModelLoaded(true);
       }
+    } catch {
+      // sessionStorage unavailable — fall through to normal load
     }
   }, []);
 
-  // Auto-complete loading when video completes
+  // ── 3D model ready → dismiss loader (with 400 ms grace for fly-in) ────
+  // This is the HAPPY PATH. The loader waits here before fading out.
   useEffect(() => {
-    if (isVideoComplete && isInitialLoading && !hasCompletedInitialLoad) {
-      // Complete loading immediately when video ends
-      const timer = setTimeout(() => {
-        setIsInitialLoading(false);
-        setHasCompletedInitialLoad(true);
-        if (typeof window !== 'undefined') {
-          try {
-            sessionStorage.setItem('hasVisited', 'true');
-            sessionStorage.setItem('hasCompletedInitialLoad', 'true');
-          } catch (error) {
-            console.warn('Cannot set sessionStorage:', error);
-          }
-        }
-      }, 100); // Very short delay for smooth transition
-      return () => clearTimeout(timer);
-    }
+    if (!isModelLoaded || !isInitialLoading || hasCompletedInitialLoad) return;
+    // 400 ms grace: Charizard starts his entrance animation, THEN the loader
+    // fades out — so the user sees him arrive rather than pop in from nothing.
+    const timer = setTimeout(dismiss, 400);
+    return () => clearTimeout(timer);
+  }, [isModelLoaded, isInitialLoading, hasCompletedInitialLoad]);
+
+  // ── LoadingScreen timeout/video-end → dismiss loader ─────────────────
+  // This is the SLOW / FAILURE PATH. If the 3D model never signals ready
+  // (WebGL error, very slow connection), the LoadingScreen's own internal
+  // fallbackTimeoutMs fires, calls onComplete → setVideoComplete(true) here.
+  // The LoadingScreen handles the UX gracefully (progress bar reaches 100%,
+  // text says "ENVIRONMENT READY", then it calls onComplete).
+  useEffect(() => {
+    if (!isVideoComplete || !isInitialLoading || hasCompletedInitialLoad) return;
+    const timer = setTimeout(dismiss, 100);
+    return () => clearTimeout(timer);
   }, [isVideoComplete, isInitialLoading, hasCompletedInitialLoad]);
 
+  // ── Public API ─────────────────────────────────────────────────────────
   const startInitialLoading = () => {
     setIsInitialLoading(true);
     setIsModelLoaded(false);
     setIsVideoComplete(false);
   };
-  
-  const finishInitialLoading = () => {
-    setIsInitialLoading(false);
-    setHasCompletedInitialLoad(true);
-    if (typeof window !== 'undefined') {
-      try {
-        sessionStorage.setItem('hasVisited', 'true');
-        sessionStorage.setItem('hasCompletedInitialLoad', 'true');
-      } catch (error) {
-        console.warn('Cannot set sessionStorage:', error);
-      }
-    }
-  };
 
-  const setModelLoadedState = (loaded: boolean) => setIsModelLoaded(loaded);
-  const setVideoCompleteState = (complete: boolean) => setIsVideoComplete(complete);
+  const finishInitialLoading = () => dismiss();
 
   return (
     <LoadingContext.Provider value={{
@@ -104,8 +98,8 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
       isVideoComplete,
       startInitialLoading,
       finishInitialLoading,
-      setModelLoaded: setModelLoadedState,
-      setVideoComplete: setVideoCompleteState
+      setModelLoaded: (loaded) => setIsModelLoaded(loaded),
+      setVideoComplete: (complete) => setIsVideoComplete(complete),
     }}>
       {children}
     </LoadingContext.Provider>
