@@ -141,6 +141,7 @@ export default function RetroDragonLoader({
           width: 100px;
           height: 100px;
           border-radius: 50%;
+          overflow: hidden;
           box-shadow: 0 0 30px 0 var(--color-three), 0 20px 50px 0 var(--color-four);
           animation: fColorize calc(var(--t) * 3) ease-in-out infinite;
         }
@@ -254,7 +255,7 @@ export default function RetroDragonLoader({
               <div className="fractal-ring" />
 
               {/* Hidden SVG: defines the mask only — rendered at 0×0 so it doesn't block */}
-              <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden>
+              <svg width="0" height="0" style={{ position: "absolute", display: "block", overflow: "visible" }} aria-hidden>
                 <defs>
                   <mask id="fClip">
                     {/* black background = hide everything */}
