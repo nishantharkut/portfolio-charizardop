@@ -6,7 +6,7 @@ import Link from "next/link";
 const details = [
   { label: "Location", value: "India" },
   { label: "Focus", value: "Web dev, performance, security" },
-  { label: "Education", value: "B.Tech IT + MBA, IIIT Gwalior" },
+  { label: "Education", value: "B.Tech in IT, IIIT Gwalior" },
   { label: "Currently", value: "Open to opportunities" },
 ];
 
