@@ -140,7 +140,7 @@ const AboutMeContent: React.FC = () => {
           style={{ color: 'var(--color-text-secondary)' }}
           onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-text)'; }}
           onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-text-secondary)'; }}>
-          <span className="hidden md:inline">3rd year B.Tech IT + MBA at IIIT Gwalior. </span><span className="text-orange-400 font-medium">1+ years</span><span className="hidden md:inline"> of experience building full-stack apps and working on AI pipelines.</span>
+          <span className="hidden md:inline">3rd year B.Tech IT at IIIT Gwalior. </span><span className="text-orange-400 font-medium">1+ years</span><span className="hidden md:inline"> of experience building full-stack apps and working on AI pipelines.</span>
 <span className="md:hidden"> experience in full-stack development.</span>
 
         </p>
