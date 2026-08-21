@@ -26,12 +26,12 @@ async function readDesktopBoundary(page) {
     const spacerTop = spacer.getBoundingClientRect().top + window.scrollY;
     const pinDistance = Number.parseFloat(getComputedStyle(spacer).paddingBottom) || 0;
     window.scrollTo(0, spacerTop + Math.max(0, pinDistance - 1));
-    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    await new Promise((resolve) => setTimeout(resolve, 150));
 
     const sectionRect = section.getBoundingClientRect();
     const contactRect = contact.getBoundingClientRect();
     window.scrollTo(0, spacerTop + pinDistance);
-    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    await new Promise((resolve) => setTimeout(resolve, 150));
     const lastRectAtEnd = lastCard.getBoundingClientRect();
 
     return {
