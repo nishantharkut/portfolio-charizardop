@@ -17,7 +17,6 @@ import Footer from '../components/layout/Footer';
 import { useTheme } from '../../contexts/ThemeContext';
 import TiltedCard from '../components/ui/TiltedCard';
 import StarBorder from '../components/ui/StarBorder';
-import SplashCursorWrapper from '../components/ui/SplashCursorWrapper';
 import { usePageReload } from '../components/ui/LazyLoader';
 import PixelBlast from '../components/ui/PixelBlast';
 import { PageHeroCta } from '../components/ui/PageHeroCta';
@@ -68,7 +67,6 @@ export default function AboutClient() {
 
   return (
     <main className="relative w-full min-h-screen overflow-x-hidden" style={{ color: 'var(--color-text)' }}>
-      <SplashCursorWrapper SPLAT_RADIUS={0.025} />
       <Navbar />
 
       {/* Hero Section */}

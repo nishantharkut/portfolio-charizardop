@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Hero from './components/sections/Hero';
-import SplashCursorWrapper from './components/ui/SplashCursorWrapper';
 import PerformanceIndicator from './components/ui/PerformanceIndicator';
 import { ScrollTrigger } from '@/utils/gsap';
 
@@ -53,7 +52,6 @@ export default function Home() {
 
   return (
     <main className="relative w-full min-h-screen overflow-x-hidden">
-      <SplashCursorWrapper SPLAT_RADIUS={0.025}/>
       <PerformanceIndicator />
       <Navbar />
       
