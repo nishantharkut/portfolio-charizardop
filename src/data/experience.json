@@ -6,63 +6,55 @@
       "company": "QuickIntell",
       "year": "2025",
       "duration": "Aug. 2025 - Present",
-      "months": "6 months",
-      "description": "Working on the EOB-to-ERA pipeline for a healthcare RCM product. Handling backend services, OCR pipeline improvements, client frontends, and AI integrations.",
+      "months": "1+ year",
+      "description": "I work on a healthcare revenue-cycle platform that converts EOB documents into X12 835 ERA files and gives operations teams tools to upload, review, and correct data.",
       "responsibilities": [
-        "Reduced OCR pipeline errors by ~80% through improved validation and error handling",
-        "Built and maintained backend services using Python and FastAPI",
-        "Created frontend interfaces for client-facing data review workflows",
-        "Working on AI pipeline integrations for document processing automation",
-        "Implementing data validation rules for EOB and ERA document parsing"
+        "Wrote 19 payer-specific Python parsers, raising field-extraction accuracy from approximately 55% to 95% and expanding support from 44 to 71 payer formats",
+        "Corrected X12 835 output across 44 ERA generators by deriving missing payment fields and reconciling claim and service-line totals",
+        "Restored production document processing after an Amazon Bedrock model upgrade broke requests at several call sites",
+        "Delivered more than 40 Go, JavaScript, and TypeScript product and security changes through five stakeholder review rounds",
+        "Documented 23 reproducible defects across at least five healthcare workflows with severity, impact, and reproduction steps"
       ],
-      "technologies": [
-        "Python",
-        "FastAPI",
-        "OCR",
-        "Regex"
-      ],
+      "technologies": ["Python", "Go", "TypeScript", "React", "AWS"],
       "achievements": [
-        "Cut OCR pipeline error rate by ~80% with better validation logic",
-        "Built parsing pipelines for healthcare document processing",
-        "Delivered client frontend ahead of schedule"
+        "Added 19 payer-specific parsers, raising field-extraction accuracy from approximately 55% to 95% and expanding support from 44 to 71 payer formats",
+        "Corrected X12 835 output across 44 ERA generators, with 108 relevant tests passing and zero regressions",
+        "Restored document processing after a Bedrock model upgrade by removing unsupported parameters, reordering system messages, and adding classification-error logging",
+        "Shipped 40+ Go, JavaScript, and TypeScript product and security changes through five review rounds, including an 8-KPI React dashboard, bulk operations, RBAC, and signed-file access",
+        "Recorded 23 reproducible defects across 5+ healthcare workflows for engineering and product review"
       ],
       "logo": "/logos/blue-cube.svg"
     },
     {
       "id": 2,
-      "position": "UI & Graphic Design Intern",
-      "company": "CookNKlean",
+      "position": "UI/UX and Graphic Design Intern",
+      "company": "Cook N Klean",
       "year": "2024",
-      "duration": "Apr. 2024 - Jul. 2024",
+      "duration": "Apr. 2024 - Jun. 2024",
       "months": "3 months",
-      "description": "Designed marketing assets and UI mockups for a home services platform during a 3-month design internship.",
+      "description": "I worked with the founding team on product UI and campaign design for a home-services startup.",
       "responsibilities": [
-        "Created social media graphics, banners, and marketing materials in Figma",
-        "Designed UI mockups for the company's booking portal",
-        "Gathered feedback from stakeholders and iterated on designs",
-        "Prepared and exported design assets for development handoff",
-        "Worked with product and marketing teams on campaign visuals"
+        "Designed more than 20 social media creatives and promotional assets",
+        "Created more than 10 UI screens and reusable components in Figma",
+        "Iterated on product and campaign designs with feedback from the founding team",
+        "Prepared final visual assets for product and marketing use"
       ],
-      "technologies": [
-        "Figma",
-        "Adobe Photoshop",
-        "Adobe Illustrator"
-      ],
+      "technologies": ["Figma", "Adobe Photoshop", "Adobe Illustrator"],
       "achievements": [
-        "Designed 10+ marketing assets for social media campaigns",
-        "Created 3 UI mockups for the booking portal",
-        "Ran feedback sessions with stakeholders and incorporated revisions"
+        "Designed 20+ social media creatives and promotional assets while keeping the visual identity consistent",
+        "Created 10+ UI screens and reusable Figma components for the product",
+        "Worked directly with the founding team and revised designs from stakeholder feedback"
       ],
       "logo": "/logos/brane.svg"
     }
   ],
   "coreSkills": [
-    "Full Stack Development",
-    "UI/UX Design",
-    "Backend Development",
-    "Frontend Development",
-    "API Design",
-    "AI/ML Integration"
+    "Backend Engineering",
+    "Full-Stack Development",
+    "Applied Machine Learning",
+    "AWS Cloud",
+    "Testing and Debugging",
+    "Open Source"
   ],
   "highlights": [],
   "technologyEvolution": []

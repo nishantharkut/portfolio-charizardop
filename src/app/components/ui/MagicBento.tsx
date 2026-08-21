@@ -36,12 +36,9 @@ import {
   SiJavascript, 
   SiPython, 
   SiCplusplus,
-  SiSolidity,
   SiMysql,
   SiNodedotjs, 
   SiExpress, 
-  SiRedux,
-  SiFramer,
   SiMongodb, 
   SiPostgresql, 
   SiFirebase,
@@ -49,29 +46,11 @@ import {
   SiAmazonwebservices, 
   SiGit, 
   SiDocker, 
-  SiVercel,
-  SiNetlify,
   SiLinux, 
   SiTailwindcss,
-  SiHtml5,
-  SiCss3,
-  SiPhp,
-  SiKubernetes,
-  SiGraphql,
-  SiFigma,
-  SiAdobephotoshop,
-  SiAdobeillustrator,
   SiPostman,
-  SiJenkins,
-  SiWordpress,
-  SiBootstrap,
-  SiSass,
-  SiWebpack,
   SiVite,
   SiJest,
-  SiCypress,
-  SiRedis,
-  SiElasticsearch,
   SiGooglecloud,
 } from "react-icons/si";
 
@@ -140,8 +119,8 @@ const AboutMeContent: React.FC = () => {
           style={{ color: 'var(--color-text-secondary)' }}
           onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-text)'; }}
           onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-text-secondary)'; }}>
-          <span className="hidden md:inline">3rd year B.Tech IT at IIIT Gwalior. </span><span className="text-orange-400 font-medium">1+ years</span><span className="hidden md:inline"> of experience building full-stack apps and working on AI pipelines.</span>
-<span className="md:hidden"> experience in full-stack development.</span>
+          <span className="hidden md:inline">Pre-final-year IT student at IIIT Gwalior with </span><span className="text-orange-400 font-medium">1+ years</span><span className="hidden md:inline"> at QuickIntell across backend, product, AWS, and ML work.</span>
+<span className="md:hidden"> at QuickIntell in software engineering.</span>
 
         </p>
       </div>
@@ -199,16 +178,16 @@ const ProjectsContent: React.FC = () => {
   // Add compelling project highlights that make visitors curious
   const projectHighlights: { [key: number]: string[] } = {
   1: [
-    "Web3 collaboration platform with escrow and NFT ticketing",
-    "Real-time chat built on Socket.IO"
+    "166 passing Python tests across finance workflows",
+    "AWS queue, retry, and deduplication path"
+  ],
+  2: [
+    "35+ endpoints for repository decisions",
+    "Signed webhooks and user-triggered draft PRs"
   ],
   3: [
-    "AI-powered itinerary generation and budget tracking",
-    "Collaborative trip planning with shared dashboards"
-  ],
-  6: [
-    "AI-powered career coaching SaaS with Stripe subscriptions",
-    "Resume analysis and interview prep using OpenAI API"
+    "KB-scale students evaluated across 10 seeds",
+    "56,200 hardware replay vectors on two MCUs"
   ]
 };
 
@@ -461,60 +440,56 @@ const ExperienceContent: React.FC = () => {
 // Light mode: Dark colors -> Yellowish-orange on hover
 const techSkillsData = {
   languages: [
-    { icon: <SiCplusplus className="w-6 h-6" />, name: "C/C++", originalColor: "#00599C" },
     { icon: <SiPython className="w-6 h-6" />, name: "Python", originalColor: "#3776AB" },
-    { icon: <SiJavascript className="w-6 h-6" />, name: "JavaScript", originalColor: "#F7DF1E" },
+    { icon: <ConceptIcon text="Go" className="w-6 h-6" />, name: "Go", originalColor: "#00ADD8" },
     { icon: <SiTypescript className="w-6 h-6" />, name: "TypeScript", originalColor: "#3178C6" },
+    { icon: <SiJavascript className="w-6 h-6" />, name: "JavaScript", originalColor: "#F7DF1E" },
+    { icon: <SiCplusplus className="w-6 h-6" />, name: "C/C++", originalColor: "#00599C" },
     { icon: <SiMysql className="w-6 h-6" />, name: "SQL", originalColor: "#4479A1" },
-    { icon: <SiSolidity className="w-6 h-6" />, name: "Solidity", originalColor: "#363636" },
-    { icon: <SiHtml5 className="w-6 h-6" />, name: "HTML5", originalColor: "#E34F26" },
-    { icon: <SiCss3 className="w-6 h-6" />, name: "CSS3", originalColor: "#1572B6" },
-    { icon: <SiPhp className="w-6 h-6" />, name: "PHP", originalColor: "#777BB4" },
+    { icon: <ConceptIcon text="Kt" className="w-6 h-6" />, name: "Kotlin", originalColor: "#7F52FF" },
     { icon: <ConceptIcon text="Java" className="w-6 h-6" />, name: "Java", originalColor: "#007396" },
+    { icon: <ConceptIcon text="sh" className="w-6 h-6" />, name: "Bash", originalColor: "#4EAA25" },
   ],
   frameworks: [
-    { icon: <SiReact className="w-6 h-6" />, name: "React.js", originalColor: "#61DAFB" },
+    { icon: <ConceptIcon text="API" className="w-6 h-6" />, name: "FastAPI", originalColor: "#009688" },
+    { icon: <SiReact className="w-6 h-6" />, name: "React", originalColor: "#61DAFB" },
     { icon: <SiNextdotjs className="w-6 h-6" />, name: "Next.js", originalColor: "#000000" },
     { icon: <SiNodedotjs className="w-6 h-6" />, name: "Node.js", originalColor: "#339933" },
+    { icon: <ConceptIcon text="H" className="w-6 h-6" />, name: "Hono", originalColor: "#E36002" },
     { icon: <SiExpress className="w-6 h-6" />, name: "Express.js", originalColor: "#000000" },
-    { icon: <SiRedux className="w-6 h-6" />, name: "Redux", originalColor: "#764ABC" },
     { icon: <SiTailwindcss className="w-6 h-6" />, name: "Tailwind CSS", originalColor: "#06B6D4" },
-    { icon: <SiBootstrap className="w-6 h-6" />, name: "Bootstrap", originalColor: "#7952B3" },
-    { icon: <SiSass className="w-6 h-6" />, name: "Sass", originalColor: "#CC6699" },
-    { icon: <SiFramer className="w-6 h-6" />, name: "Framer Motion", originalColor: "#0055FF" },
-    { icon: <SiWordpress className="w-6 h-6" />, name: "WordPress", originalColor: "#21759B" },
+    { icon: <ConceptIcon text="PT" className="w-6 h-6" />, name: "PyTorch", originalColor: "#EE4C2C" },
+    { icon: <ConceptIcon text="SK" className="w-6 h-6" />, name: "scikit-learn", originalColor: "#F7931E" },
   ],
   databases: [
     { icon: <SiMongodb className="w-6 h-6" />, name: "MongoDB", originalColor: "#47A248" },
-    { icon: <SiMysql className="w-6 h-6" />, name: "MySQL", originalColor: "#4479A1" },
     { icon: <SiPostgresql className="w-6 h-6" />, name: "PostgreSQL", originalColor: "#336791" },
+    { icon: <SiMysql className="w-6 h-6" />, name: "MySQL", originalColor: "#4479A1" },
+    { icon: <ConceptIcon text="DDB" className="w-6 h-6" />, name: "DynamoDB", originalColor: "#4053D6" },
     { icon: <SiFirebase className="w-6 h-6" />, name: "Firebase", originalColor: "#FFCA28" },
     { icon: <SiSupabase className="w-6 h-6" />, name: "Supabase", originalColor: "#3ECF8E" },
-    { icon: <SiRedis className="w-6 h-6" />, name: "Redis", originalColor: "#DC382D" },
-    { icon: <SiElasticsearch className="w-6 h-6" />, name: "Elasticsearch", originalColor: "#005571" },
   ],
   cloud: [
     { icon: <SiAmazonwebservices className="w-6 h-6" />, name: "AWS", originalColor: "#FF9900" },
+    { icon: <ConceptIcon text="BR" className="w-6 h-6" />, name: "Amazon Bedrock", originalColor: "#FF9900" },
+    { icon: <ConceptIcon text="EC2" className="w-6 h-6" />, name: "Amazon EC2", originalColor: "#FF9900" },
+    { icon: <ConceptIcon text="S3" className="w-6 h-6" />, name: "Amazon S3", originalColor: "#569A31" },
+    { icon: <ConceptIcon text="L" className="w-6 h-6" />, name: "AWS Lambda", originalColor: "#FF9900" },
+    { icon: <ConceptIcon text="SQS" className="w-6 h-6" />, name: "Amazon SQS", originalColor: "#FF4F8B" },
     { icon: <SiGooglecloud className="w-6 h-6" />, name: "Google Cloud", originalColor: "#4285F4" },
-    { icon: <SiGit className="w-6 h-6" />, name: "Git", originalColor: "#F05032" },
-    { icon: <SiGithub className="w-6 h-6" />, name: "GitHub", originalColor: "#181717" },
     { icon: <SiDocker className="w-6 h-6" />, name: "Docker", originalColor: "#2496ED" },
-    { icon: <SiKubernetes className="w-6 h-6" />, name: "Kubernetes", originalColor: "#326CE5" },
-    { icon: <SiVercel className="w-6 h-6" />, name: "Vercel", originalColor: "#000000" },
-    { icon: <SiNetlify className="w-6 h-6" />, name: "Netlify", originalColor: "#00C7B7" },
-    { icon: <SiJenkins className="w-6 h-6" />, name: "Jenkins", originalColor: "#D33833" },
+    { icon: <SiGithub className="w-6 h-6" />, name: "GitHub Actions", originalColor: "#2088FF" },
   ],
   tools: [
-    { icon: <SiFigma className="w-6 h-6" />, name: "Figma", originalColor: "#F24E1E" },
-    { icon: <SiAdobephotoshop className="w-6 h-6" />, name: "Photoshop", originalColor: "#31A8FF" },
-    { icon: <SiAdobeillustrator className="w-6 h-6" />, name: "Illustrator", originalColor: "#FF9A00" },
-    { icon: <SiPostman className="w-6 h-6" />, name: "Postman", originalColor: "#FF6C37" },
-    { icon: <SiWebpack className="w-6 h-6" />, name: "Webpack", originalColor: "#8DD6F9" },
-    { icon: <SiVite className="w-6 h-6" />, name: "Vite", originalColor: "#646CFF" },
-    { icon: <SiJest className="w-6 h-6" />, name: "Jest", originalColor: "#C21325" },
-    { icon: <SiCypress className="w-6 h-6" />, name: "Cypress", originalColor: "#17202C" },
-    { icon: <SiGraphql className="w-6 h-6" />, name: "GraphQL", originalColor: "#E10098" },
+    { icon: <SiGit className="w-6 h-6" />, name: "Git", originalColor: "#F05032" },
     { icon: <SiLinux className="w-6 h-6" />, name: "Linux", originalColor: "#FCC624" },
+    { icon: <SiPostman className="w-6 h-6" />, name: "Postman", originalColor: "#FF6C37" },
+    { icon: <ConceptIcon text="py" className="w-6 h-6" />, name: "pytest", originalColor: "#0A9EDC" },
+    { icon: <SiJest className="w-6 h-6" />, name: "Jest", originalColor: "#C21325" },
+    { icon: <SiVite className="w-6 h-6" />, name: "Vitest", originalColor: "#6E9F18" },
+    { icon: <ConceptIcon text="ONNX" className="w-6 h-6" />, name: "ONNX", originalColor: "#005CED" },
+    { icon: <ConceptIcon text="OV" className="w-6 h-6" />, name: "OpenVINO", originalColor: "#734F96" },
+    { icon: <ConceptIcon text="SHAP" className="w-6 h-6" />, name: "SHAP", originalColor: "#FF7F0E" },
   ],
 };
 
@@ -723,7 +698,7 @@ const cardData: BentoCardProps[] = [
   {
     id: "about",
     title: "About Me",
-    description: "Full-stack developer and 3rd year student at IIIT Gwalior",
+    description: "Software engineering intern and pre-final-year IT student",
     icon: <UserIcon className="w-5 h-5" />,
     className: "bento-card--about",
     content: <AboutMeContent />,
@@ -731,7 +706,7 @@ const cardData: BentoCardProps[] = [
   {
     id: "skills",
     title: "Top Skills",
-    description: "Technologies and tools I use regularly",
+    description: "Python, Go, TypeScript, AWS, ML, and testing",
     icon: <CodeBracketIcon className="w-5 h-5" />,
     className: "bento-card--skills",
     content: <SkillsContent />,
@@ -739,7 +714,7 @@ const cardData: BentoCardProps[] = [
   {
     id: "projects",
     title: "Featured Projects",
-    description: "Web apps, hackathon projects, and side projects",
+    description: "Backend, cloud, applied ML, and developer tooling",
     icon: <ArrowTopRightOnSquareIcon className="w-5 h-5" />,
     className: "bento-card--projects",
     content: <ProjectsContent />,
@@ -747,7 +722,7 @@ const cardData: BentoCardProps[] = [
   {
     id: "experience",
     title: "Experience",
-    description: "1+ years — SWE intern at QuickIntell, design intern at CookNKlean",
+    description: "QuickIntell engineering and Cook N Klean design internships",
     icon: <BriefcaseIcon className="w-5 h-5" />,
     className: "bento-card--experience",
     content: <ExperienceContent />,
@@ -755,7 +730,7 @@ const cardData: BentoCardProps[] = [
   {
     id: "achievements",
     title: "Achievements",
-    description: "Awards, certifications and recognitions",
+    description: "Open source, ML selection, hackathons, and leadership",
     icon: <TrophyIcon className="w-5 h-5" />,
     className: "bento-card--achievements",
     content: <AchievementsContent />,

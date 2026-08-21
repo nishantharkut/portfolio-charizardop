@@ -216,7 +216,7 @@ export default function ProjectsPage() {
               </span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-6 sm:mb-8 drop-shadow-lg" style={{ color: 'var(--color-text)' }}>
-              Things I&apos;ve built — web apps, hackathon projects, and side projects
+              Products and research across backend systems, AWS, applied ML, and developer tooling
             </p>
             
             <PageHeroCta

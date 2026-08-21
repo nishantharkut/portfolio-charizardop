@@ -3,22 +3,20 @@ import AchievementsClient from './AchievementsClient';
 
 export const metadata: Metadata = {
   title: 'Achievements',
-  description: 'Nishant Harkut\'s achievements, awards, and certifications as a BTech IT student at IIIT Gwalior. Recognitions in full stack development, hackathons, and technical competitions.',
+  description: 'Nishant Harkut\'s machine-learning selection, open-source contributions, hackathon results, certifications, and campus leadership.',
   keywords: [
     'Nishant Harkut Achievements',
     'IIIT Gwalior Awards',
-    'Student Developer Certifications',
-    'Hackathon Wins',
-    'Technical Achievements',
-    'Programming Competitions',
-    'Developer Certifications',
-    'Student Awards',
-    'Technical Recognitions',
-    'MERN Stack Certifications'
+    'Amazon ML Summer School 2026',
+    'HackOn with Amazon Finalist',
+    'Open Source Contributor',
+    'Hackathon Winner',
+    'Student Leadership',
+    'IIIT Gwalior Achievements'
   ],
   openGraph: {
     title: 'Achievements - Nishant Harkut',
-    description: 'Awards, certifications, and achievements of Nishant Harkut, IIIT Gwalior student in full stack development and technical competitions.',
+    description: 'Machine-learning selection, open-source contributions, national hackathon results, certifications, and campus leadership.',
     url: 'https://www.nishantharkut.dev/achievements',
     images: [
       {
@@ -32,7 +30,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Achievements - Nishant Harkut | IIIT Gwalior Student',
-    description: 'Awards, certifications, and recognitions in full stack development and technical competitions.',
+    description: 'Machine-learning selection, open-source work, national hackathon results, certifications, and campus leadership.',
     images: ['/og-image.jpg'],
   },
   alternates: {

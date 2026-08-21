@@ -247,8 +247,8 @@ export default function ExperiencePage() {
               className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-6 sm:mb-8 drop-shadow-lg"
               style={{ color: 'var(--color-text)' }}
             >
-              My work experience so far — from <span className="font-semibold" style={{ color: 'var(--color-accent)' }}>design internships</span> to{' '}
-              <span className="font-semibold" style={{ color: 'var(--color-accent)' }}>software engineering</span>
+              Work across <span className="font-semibold" style={{ color: 'var(--color-accent)' }}>software engineering</span>, product QA, and{' '}
+              <span className="font-semibold" style={{ color: 'var(--color-accent)' }}>design</span>
             </motion.p>
             
             <PageHeroCta

@@ -1,22 +1,16 @@
 {
   "name": "Nishant Harkut",
-  "tagline": "Full Stack & AI Engineer :// building production-grade web applications, LLM-driven products, and scalable cloud backends.",
+  "tagline": "Software engineering intern working across Python, Go, TypeScript, AWS, and applied ML. I build backend systems, full-stack products, and research prototypes.",
   "location": "Surat, India",
   "cta": {
-    "primary": {
-      "text": "Connect With Me",
-      "href": "#contact"
-    },
+    "primary": { "text": "Connect With Me", "href": "#contact" },
     "secondary": {
       "text": "View Resume",
       "href": "https://drive.google.com/drive/folders/1fSNKk9LIwZCeYhz7645_k0onNmW4o2p4?usp=sharing"
     }
   },
   "announcement": {
-    "text": "Currently Looking for Internships — SWE | Full Stack Development",
-    "link": {
-      "text": "Let's collaborate",
-      "href": "#contact"
-    }
+    "text": "Open to 2027 software engineering and applied ML internships",
+    "link": { "text": "Let's collaborate", "href": "#contact" }
   }
 }

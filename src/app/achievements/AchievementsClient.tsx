@@ -126,7 +126,7 @@ export default function AchievementsPage() {
               </span>
             </h1>
             <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mx-auto mb-6 sm:mb-8 drop-shadow-lg" style={{ color: 'var(--color-text-secondary)' }}>
-              Hackathon wins, design awards, and things I&apos;ve been part of in college
+              Machine learning, open source, national hackathons, and campus leadership
             </p>
             
             <PageHeroCta

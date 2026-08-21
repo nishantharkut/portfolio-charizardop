@@ -2,109 +2,35 @@
   "skillGroups": [
     {
       "title": "Languages",
-      "items": [
-        "C",
-        "C++",
-        "JavaScript",
-        "TypeScript",
-        "Python",
-        "Go",
-        "SQL",
-        "HTML",
-        "CSS"
-      ]
+      "items": ["Python", "Go", "TypeScript", "JavaScript", "C++", "C", "SQL", "Kotlin", "Java", "Bash"]
     },
     {
-      "title": "Frontend",
-      "items": [
-        "React.js",
-        "Next.js",
-        "Tailwind CSS",
-        "Three.js",
-        "GSAP",
-        "WebGL",
-        "Framer Motion"
-      ]
+      "title": "Frontend & Backend",
+      "items": ["React", "Next.js", "Node.js", "Express.js", "Hono", "FastAPI", "Tailwind CSS", "REST APIs", "WebSockets", "Server-Sent Events"]
     },
     {
-      "title": "Backend",
-      "items": [
-        "Node.js",
-        "Express",
-        "Prisma",
-        "PostgreSQL",
-        "REST",
-        "GraphQL",
-        "FastAPI",
-        "WebSockets"
-      ]
+      "title": "Machine Learning & Data",
+      "items": ["PyTorch", "scikit-learn", "Pandas", "NumPy", "XGBoost", "LightGBM", "CatBoost", "SHAP", "openSMILE", "ONNX", "OpenVINO"]
     },
     {
       "title": "Databases",
-      "items": [
-        "MongoDB",
-        "MySQL",
-        "PostgreSQL",
-        "SQLite",
-        "Firebase Firestore",
-        "Redis"
-      ]
+      "items": ["MongoDB", "PostgreSQL", "MySQL", "DynamoDB", "MongoDB Atlas Vector Search", "Firebase", "Supabase"]
     },
     {
-      "title": "Devops / Cloud",
-      "items": [
-        "Google Cloud Platform (GCP)",
-"AWS",
-        "Vercel",
-        "Render",
-        "Railway",
-        "Docker",
-        "Nginx",
-        "GitHub Actions"
-      ]
+      "title": "Cloud & DevOps",
+      "items": ["AWS", "Amazon Bedrock", "EC2", "S3", "Lambda", "API Gateway", "SQS", "CloudWatch", "GCP", "Docker", "Linux", "GitHub Actions", "CI/CD"]
     },
     {
-      "title": "Tools & Others",
-      "items": [
-        "Git",
-        "GitHub",
-        "Postman",
-        "JWT",
-        "OAuth",
-        "OWASP"
-      ]
+      "title": "Testing, APIs & Security",
+      "items": ["Git", "GitHub", "Postman", "pytest", "Jest", "Vitest", "Unit Testing", "Integration Testing", "OpenAPI", "OAuth 2.0", "JWT", "TLS/HTTPS"]
     }
   ],
   "interests": [
-    {
-      "title": "Graphic Design",
-      "description": "Logos, posters, social graphics",
-      "icon": "FaPalette"
-    },
-    {
-      "title": "Basketball",
-      "description": "Pickup games and gym",
-      "icon": "FaBasketballBall"
-    },
-    {
-      "title": "Gaming",
-      "description": "BGMI and others",
-      "icon": "FaGamepad"
-    },
-    {
-      "title": "AI & ML",
-      "description": "AI tools and LLMs",
-      "icon": "FaRobot"
-    },
-    {
-      "title": "Photography",
-      "description": "Mostly on my phone",
-      "icon": "FaCamera"
-    },
-    {
-      "title": "Music",
-      "description": "AI music experiments",
-      "icon": "FaMusic"
-    }
+    { "title": "Graphic Design", "description": "Logos, posters, social graphics", "icon": "FaPalette" },
+    { "title": "Basketball", "description": "Pickup games and gym", "icon": "FaBasketballBall" },
+    { "title": "Gaming", "description": "BGMI and others", "icon": "FaGamepad" },
+    { "title": "AI & ML", "description": "Models, evaluation, and applied research", "icon": "FaRobot" },
+    { "title": "Photography", "description": "Mostly on my phone", "icon": "FaCamera" },
+    { "title": "Music", "description": "Listening and experiments", "icon": "FaMusic" }
   ]
 }

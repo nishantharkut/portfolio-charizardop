@@ -48,28 +48,22 @@ export const metadata: Metadata = {
     default: 'Nishant Harkut',
     template: '%s | Nishant Harkut'
   },
-  description: 'Nishant Harkut — BTech IT, IIIT Gwalior. Full stack engineer with 6+ Months of Industry experience. Open to software engineering internships and SDE roles.',
+  description: 'Portfolio of Nishant Harkut, an Information Technology student at IIIT Gwalior and Software Engineering Intern at QuickIntell. Work in backend systems, full-stack products, AWS, applied ML, and open source.',
   keywords: [
     'Nishant Harkut',
     'IIIT Gwalior Student',
-    'BTech IT Student',
-    'Full Stack Developer Student',
-    'MERN Stack Developer',
-    'GenAI Developer',
-    'Agentic AI',
-    'n8n Automation',
-    'React Developer',
-    'Node.js Developer',
-    'MongoDB Developer',
-    'Express.js Developer',
+    'Information Technology Student',
+    'Backend Engineer',
+    'Full Stack Engineer',
+    'Applied Machine Learning',
+    'AWS Developer',
+    'Python Developer',
+    'Go Developer',
+    'TypeScript Developer',
     'Software Engineering Intern',
-    'Frontend Developer Intern',
-    'Backend Developer Intern',
-    'Web Development Intern',
+    'Open Source Contributor',
+    'Machine Learning Research',
     'Student Portfolio',
-    'Internship Seeker',
-    'Entry Level Developer',
-    'Information Technology Student India',
     'IIIT Gwalior Portfolio'
   ],
   authors: [{ name: 'Nishant Harkut', url: 'https://www.nishantharkut.dev' }],
@@ -85,12 +79,12 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Nishant Harkut | Full Stack Dev',
-    description: 'Full stack engineer, BTech IT at IIIT Gwalior. 6+ Months of Industry experience. Open to software engineering internships and SDE roles.',
+    title: 'Nishant Harkut | Software Engineering, Applied ML, AWS',
+    description: 'Software Engineering Intern and Information Technology student working across backend systems, full-stack products, AWS, applied ML, and open source.',
     url: 'https://www.nishantharkut.dev',
     siteName: 'Nishant.dev',
     images: [
-      { url: ogImage, width: 1200, height: 630, alt: 'Nishant Harkut — Software Engineer portfolio' },
+      { url: ogImage, width: 1200, height: 630, alt: 'Nishant Harkut software engineering portfolio' },
       { url: siteIcon, width: 72, height: 72, alt: 'Nishant Harkut Logo' },
     ],
     locale: 'en_IN',
@@ -98,8 +92,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Nishant Harkut | Full Stack Developer | BTech IT, IIIT Gwalior',
-    description: 'Full stack engineer, BTech IT at IIIT Gwalior. Open to software engineering internships and SDE roles.',
+    title: 'Nishant Harkut | Software Engineering, Applied ML, AWS',
+    description: 'Backend and full-stack engineering, AWS, applied ML research, and open-source work.',
     images: [twitterImage],
     creator: '@HarkutNishant',
   },
@@ -193,33 +187,31 @@ export default function RootLayout({
                 "https://www.instagram.com/nishant.harkut/",
                 "https://devfolio.co/@CharizardOP"
               ],
-              "jobTitle": "Full Stack Developer Student",
+              "jobTitle": "Software Engineering Intern",
               "worksFor": {
                 "@type": "EducationalOrganization",
                 "name": "IIIT Gwalior",
-                "description": "BTech IT Student"
+                "description": "Information Technology Student"
               },
               "affiliation": {
                 "@type": "EducationalOrganization",
-                "name": "Indian Institute of Information Technology Gwalior"
+                "name": "Indian Institute of Information Technology, Gwalior"
               },
               "knowsAbout": [
-                "Full Stack Development",
-                "MERN Stack",
-                "GenAI",
-                "Agentic AI", 
-                "n8n Automation",
+                "Backend Engineering",
+                "Full-Stack Development",
+                "Applied Machine Learning",
+                "AWS",
+                "Open Source",
+                "Python",
+                "Go",
                 "React",
-                "Node.js",
+                "FastAPI",
                 "MongoDB",
-                "Express.js",
                 "TypeScript",
-                "Three.js",
-                "Web Development",
-                "Frontend Development",
-                "Backend Development"
+                "Testing and Debugging"
               ],
-              "description": "3rd year BTech IT student at IIIT Gwalior specializing in full stack development, MERN stack, GenAI, and Agentic AI. Available for software engineering internships.",
+              "description": "Pre-final-year Information Technology student at IIIT Gwalior and Software Engineering Intern at QuickIntell, graduating in May 2028.",
               "address": {
                 "@type": "PostalAddress",
                 "addressCountry": "India"
