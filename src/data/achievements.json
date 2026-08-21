@@ -31,22 +31,6 @@
       ]
     },
     {
-      "id": 3,
-      "title": "Finalist or Semifinalist at 10+ Hackathons",
-      "category": "Hackathons",
-      "description": "Advanced at national and inter-college events including HackOn with Amazon, Odoo India Hackathon, Flipkart GRID, and the ET GenAI Hackathon.",
-      "details": "Reached finalist or semifinalist stages at more than ten hackathons, including a Top 25 Grand Finale finish at HackOn with Amazon 6.0 and an Agent.AI track win at Hacknovate 6.0.",
-      "date": "2024 - 2026",
-      "organization": "National and inter-college competitions",
-      "link": "",
-      "image": "/achievements/hackathons.png",
-      "badge": "10+ finishes",
-      "impact": [
-        "Top 25 at HackOn with Amazon 6.0 from 70,261 registrations",
-        "Finalist at Odoo India Hackathon and semifinalist at Flipkart GRID and ET GenAI"
-      ]
-    },
-    {
       "id": 4,
       "title": "Overall Head, Student Activity Council",
       "category": "Leadership",
@@ -114,16 +98,90 @@
       "id": 8,
       "title": "Operations Manager, Rotaract Club",
       "category": "Community Leadership",
-      "description": "Managed volunteer schedules and event logistics for the Rotaract Club of IIIT Gwalior.",
-      "details": "Worked on club operations from December 2023 to March 2025, covering volunteer coordination and event execution.",
+      "description": "Served as Operations Manager for the Rotaract Club of IIIT Gwalior.",
+      "details": "Held the Operations Manager role from December 2023 to March 2025.",
       "date": "Dec 2023 - Mar 2025",
       "organization": "Rotaract Club of IIIT Gwalior",
       "link": "https://in.linkedin.com/company/rotaract-club-abv-iiitm",
       "image": "/achievements/rotaract.png",
       "badge": "Operations Manager",
       "impact": [
-        "Managed volunteer schedules for club activities",
-        "Coordinated event logistics from planning through execution"
+        "Served for 16 months in the club's operations team"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Social Media Volunteer, Aurora",
+      "category": "Arts and Culture",
+      "description": "Supported social-media work for Aurora, IIIT Gwalior's cultural festival.",
+      "details": "Volunteered with Aurora's social-media team from October 2023 to March 2024.",
+      "date": "Oct 2023 - Mar 2024",
+      "organization": "Aurora, IIIT Gwalior",
+      "link": "https://x.com/IiitmAurora",
+      "image": "/achievements/aurora.png",
+      "badge": "Social Media Volunteer",
+      "impact": [
+        "Completed a six-month social-media volunteering term"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Alumni Meet '24 Representative",
+      "category": "Campus Leadership",
+      "description": "Represented the institute team supporting Alumni Meet '24.",
+      "details": "Served as an Alumni Meet '24 Representative from December 2023 to January 2024.",
+      "date": "Dec 2023 - Jan 2024",
+      "organization": "IIIT Gwalior",
+      "link": "",
+      "image": "/achievements/iiitm-sac.png",
+      "badge": "Representative",
+      "impact": [
+        "Supported the institute's 2024 alumni meet"
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Squad Leader, Mood Indigo",
+      "category": "Arts and Culture",
+      "description": "Served as a squad leader for Mood Indigo, IIT Bombay's cultural festival.",
+      "details": "Completed a three-month squad-leader term from October to December 2023.",
+      "date": "Oct 2023 - Dec 2023",
+      "organization": "Mood Indigo, IIT Bombay",
+      "link": "https://linktr.ee/iitbombay.moodi",
+      "image": "/achievements/mood-indigo.png",
+      "badge": "Squad Leader",
+      "impact": [
+        "Received a contingent leader certificate"
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Member, IAENG",
+      "category": "Professional Membership",
+      "description": "Member of the International Association of Engineers since November 2023.",
+      "details": "Maintains an active IAENG membership alongside academic and engineering work.",
+      "date": "Nov 2023 - Present",
+      "organization": "International Association of Engineers",
+      "link": "https://www.iaeng.org/",
+      "image": "/achievements/iaeng.png",
+      "badge": "Member",
+      "impact": [
+        "Professional membership held since November 2023"
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Operations Team Lead, Hindi Pakhwada '23",
+      "category": "Campus Operations",
+      "description": "Led event operations for the institute's Hindi Pakhwada '23 programme.",
+      "details": "Served as Operations Team Lead for the September 2023 campus programme.",
+      "date": "Sep 2023",
+      "organization": "IIIT Gwalior",
+      "link": "",
+      "image": "/achievements/iiitm-sac.png",
+      "badge": "Operations Team Lead",
+      "impact": [
+        "Led the event's operations team"
       ]
     }
   ],
@@ -138,13 +196,35 @@
       "skills": ["JavaScript", "React", "Node.js", "MongoDB"]
     },
     {
-      "id": 2,
-      "name": "McKinsey.org Forward Program",
-      "issuer": "McKinsey & Company",
-      "date": "Jul 2025",
-      "credentialId": "",
-      "image": "/certifications/mckinsey.png",
-      "skills": ["Problem Solving", "Communication", "Project Planning"]
+      "id": 4,
+      "name": "Google Cybersecurity coursework (4 certificates)",
+      "issuer": "Google",
+      "date": "May - Jun 2025",
+      "credentialId": "4 course credentials",
+      "image": "/certifications/google.svg",
+      "skills": ["Linux", "SQL", "Computer Networks", "Network Security", "Security Risk Management", "Cybersecurity"],
+      "courses": [
+        {
+          "name": "Tools of the Trade: Linux and SQL",
+          "date": "Jun 2025",
+          "credentialId": "LVIJ6Q8KMVUP"
+        },
+        {
+          "name": "Connect and Protect: Networks and Network Security",
+          "date": "Jun 2025",
+          "credentialId": "MM6WATXALSHY"
+        },
+        {
+          "name": "Play It Safe: Manage Security Risks",
+          "date": "May 2025",
+          "credentialId": "CZ9N52QVEH0Z"
+        },
+        {
+          "name": "Foundations of Cybersecurity",
+          "date": "May 2025",
+          "credentialId": "9SNPB102F2S6"
+        }
+      ]
     },
     {
       "id": 3,
@@ -176,6 +256,69 @@
       "image": "/awards/et-genai.png"
     },
     {
+      "id": 8,
+      "title": "Finalist, Frontend Arena",
+      "event": "Frontend Arena, IEEE",
+      "position": "Finalist",
+      "year": "2026",
+      "description": "Reached the final round of Frontend Arena in April 2026.",
+      "image": "/awards/frontend-arena.png"
+    },
+    {
+      "id": 9,
+      "title": "Finalist, HackByte 4.0",
+      "event": "HackByte 4.0, IIITDM Jabalpur",
+      "position": "Finalist",
+      "year": "2026",
+      "description": "Reached the final round of HackByte 4.0 in April 2026.",
+      "image": "/awards/hackbyte.png"
+    },
+    {
+      "id": 10,
+      "title": "Finalist, Frontend Odyssey",
+      "event": "Frontend Odyssey, IIT Patna",
+      "position": "Finalist",
+      "year": "2026",
+      "description": "Reached the final round of Frontend Odyssey in March 2026.",
+      "image": "/awards/frontend-odyssey.png"
+    },
+    {
+      "id": 11,
+      "title": "Top 25 Team, HP Power Lab 2.0",
+      "event": "HP Power Lab 2.0",
+      "position": "Top 25",
+      "year": "2025",
+      "description": "Finished among the Top 25 teams in HP Power Lab 2.0.",
+      "image": "/awards/hp-power-lab.png"
+    },
+    {
+      "id": 12,
+      "title": "Finalist, Code Cubicle 5.0",
+      "event": "Code Cubicle 5.0, Geek Room",
+      "position": "Finalist",
+      "year": "2025",
+      "description": "Reached the final round of Code Cubicle 5.0 in October 2025.",
+      "image": "/awards/code-cubicle.png"
+    },
+    {
+      "id": 13,
+      "title": "Finalist, Code Slayer 2k25",
+      "event": "Code Slayer 2k25, NIT Delhi",
+      "position": "Finalist",
+      "year": "2025",
+      "description": "Reached the final round of Code Slayer 2k25 in October 2025.",
+      "image": "/awards/code-slayer.png"
+    },
+    {
+      "id": 14,
+      "title": "Finalist, HackWithUttarPradesh '25",
+      "event": "HackWithUttarPradesh '25, Chandigarh University",
+      "position": "Finalist",
+      "year": "2025",
+      "description": "Reached the final round of HackWithUttarPradesh '25.",
+      "image": "/awards/hackwithup.png"
+    },
+    {
       "id": 3,
       "title": "Semifinalist, Flipkart GRID 7.0",
       "event": "Flipkart GRID 7.0",
@@ -194,6 +337,15 @@
       "image": "/awards/odoo-preview.png"
     },
     {
+      "id": 15,
+      "title": "Finalist, HackWithGujarat '25",
+      "event": "HackWithGujarat '25",
+      "position": "Finalist",
+      "year": "2025",
+      "description": "Reached the final round with the team behind W3nity.",
+      "image": "/awards/hackwithgujarat.png"
+    },
+    {
       "id": 5,
       "title": "Agent.AI Track Winner",
       "event": "Hacknovate 6.0",
@@ -201,6 +353,15 @@
       "year": "2025",
       "description": "Won the Agent.AI track with the team behind Hogwarts OS.",
       "image": "/awards/hacknovate-preview.png"
+    },
+    {
+      "id": 16,
+      "title": "Semifinalist, Adobe India Hackathon",
+      "event": "Adobe India Hackathon 2025",
+      "position": "Semifinalist",
+      "year": "2025",
+      "description": "Advanced to the semifinal round of the Adobe India Hackathon 2025.",
+      "image": "/awards/adobe-india.png"
     },
     {
       "id": 6,

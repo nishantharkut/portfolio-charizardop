@@ -87,7 +87,7 @@
       ],
       "liveLink": "https://arth-saathi-two.vercel.app",
       "githubLink": "https://github.com/kanikaa-3018/ArthSaathi_ETgenAI",
-      "image": "/images/arthsaathi.png",
+      "image": "/images/arthsaathi-hero.png",
       "featured": false
     },
     {
@@ -141,7 +141,7 @@
       ],
       "liveLink": "https://w3nity.vercel.app",
       "githubLink": "https://github.com/nishantharkut/W3nity",
-      "image": "/images/w3nity-preview.png",
+      "image": "/images/w3nity-hero.png",
       "featured": false
     },
     {
@@ -177,7 +177,7 @@
       ],
       "liveLink": "https://uni-tel.vercel.app/",
       "githubLink": "https://github.com/nishantharkut/UNI-TEL",
-      "image": "/images/uni-tel-preview.png",
+      "image": "/images/uni-tel-hero.png",
       "featured": false
     },
     {
