@@ -5,15 +5,13 @@
       "title": "Selected for Amazon ML Summer School 2026",
       "category": "Machine Learning",
       "description": "Selected among 3,000 students from 134,421 applicants nationwide.",
-      "details": "Selected for Amazon ML Summer School 2026 through a nationwide application process that chose 3,000 students from 134,421 applicants.",
+      "details": "Amazon selected 3,000 students from 134,421 applicants for its 2026 machine-learning program.",
       "date": "2026",
       "organization": "Amazon",
       "link": "",
-      "image": "",
+      "image": "/achievements/amazon-mlss.png",
       "badge": "3,000 / 134,421",
-      "impact": [
-        "Chosen among 3,000 students from 134,421 applicants"
-      ],
+      "impact": ["Chosen among 3,000 students from 134,421 applicants"],
       "featured": true
     },
     {
@@ -25,7 +23,7 @@
       "date": "2026",
       "organization": "Learning Unlimited, Kiwix, Palisadoes Foundation",
       "link": "https://github.com/nishantharkut",
-      "image": "",
+      "image": "/achievements/open-source.png",
       "badge": "16 merged PRs",
       "impact": [
         "9 Learning Unlimited pull requests across 38 files",
@@ -34,64 +32,128 @@
     },
     {
       "id": 3,
-      "title": "Overall Head, Student Activity Council",
-      "category": "Leadership",
-      "description": "Progressed from Sports Executive to Joint Secretary, Welfare and then Overall Head across three successive council roles.",
-      "details": "Serves as Overall Head of the Student Activity Council after earlier roles as Sports Executive and Joint Secretary, Welfare.",
-      "date": "2023 - Present",
-      "organization": "IIIT Gwalior",
+      "title": "Finalist or Semifinalist at 10+ Hackathons",
+      "category": "Hackathons",
+      "description": "Advanced at national and inter-college events including HackOn with Amazon, Odoo India Hackathon, Flipkart GRID, and the ET GenAI Hackathon.",
+      "details": "Reached finalist or semifinalist stages at more than ten hackathons, including a Top 25 Grand Finale finish at HackOn with Amazon 6.0 and an Agent.AI track win at Hacknovate 6.0.",
+      "date": "2024 - 2026",
+      "organization": "National and inter-college competitions",
       "link": "",
-      "image": "",
-      "badge": "Overall Head",
+      "image": "/achievements/hackathons.png",
+      "badge": "10+ finishes",
       "impact": [
-        "Progressed through three successive student-council roles",
-        "Coordinated student activities and council operations"
+        "Top 25 at HackOn with Amazon 6.0 from 70,261 registrations",
+        "Finalist at Odoo India Hackathon and semifinalist at Flipkart GRID and ET GenAI"
       ]
     },
     {
       "id": 4,
-      "title": "Design Head and Operations Head",
+      "title": "Overall Head, Student Activity Council",
       "category": "Leadership",
-      "description": "Led campaign communication for the Entrepreneurship Cell and event operations for the Rotaract Club.",
-      "details": "Served as Design Head of the Entrepreneurship Cell and Operations Head of the Rotaract Club, coordinating campaign assets, volunteer schedules, and event logistics.",
-      "date": "2023 - 2025",
+      "description": "Progressed from Sports Executive to Joint Secretary, Welfare, and then Overall Head across three council roles.",
+      "details": "Serves as Overall Head of the Student Activity Council after earlier terms in the Sports and Welfare cells.",
+      "date": "2024 - Present",
       "organization": "IIIT Gwalior",
       "link": "",
-      "image": "",
-      "badge": "Campus Leadership",
+      "image": "/achievements/iiitm-sac.png",
+      "badge": "Overall Head",
       "impact": [
-        "Led campaign communication for the Entrepreneurship Cell",
-        "Coordinated volunteers and event logistics for the Rotaract Club"
+        "Advanced through three successive Student Activity Council roles",
+        "Previously served as Sports Executive and Joint Secretary, Welfare"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Executive, SAC Sports",
+      "category": "Leadership",
+      "description": "Selected as the only first-year Sports Executive and helped run Sports Day, marathons, and team selections.",
+      "details": "Supported Sports Day, campus marathons, and team selection for the Inter-IIIT sports meet during the 2023-24 term.",
+      "date": "Nov 2023 - Apr 2024",
+      "organization": "IIIT Gwalior",
+      "link": "",
+      "image": "/achievements/iiitm-sac.png",
+      "badge": "Sports Executive",
+      "impact": [
+        "Only first-year student selected for the executive role",
+        "Supported sports events and Inter-IIIT team selection"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Joint Secretary, SAC Welfare",
+      "category": "Community Service",
+      "description": "Helped organise Hindi Day, Environment Day, and Yoga Day activities, including logistics for events with more than 100 participants.",
+      "details": "Managed participant logistics and promotional material for Welfare Cell events before moving into the Overall Head role.",
+      "date": "Apr 2024 - Aug 2024",
+      "organization": "IIIT Gwalior",
+      "link": "",
+      "image": "/achievements/iiitm-sac.png",
+      "badge": "Joint Secretary",
+      "impact": [
+        "Coordinated logistics for events with 100+ participants",
+        "Created promotional material for campus welfare activities"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Design Team Lead, Entrepreneurship Cell",
+      "category": "Design Leadership",
+      "description": "Produced social-media posts and edited campaign videos for the institute's Entrepreneurship Cell.",
+      "details": "Led the design team for E-Cell communication across its social channels from October 2023 to January 2025.",
+      "date": "Oct 2023 - Jan 2025",
+      "organization": "E-Cell, IIIT Gwalior",
+      "link": "https://in.linkedin.com/company/e-cell-iiit-gwalior",
+      "image": "/achievements/ecell.png",
+      "badge": "Design Team Lead",
+      "impact": [
+        "Designed social-media posts for club campaigns",
+        "Edited campaign and event videos"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Operations Manager, Rotaract Club",
+      "category": "Community Leadership",
+      "description": "Managed volunteer schedules and event logistics for the Rotaract Club of IIIT Gwalior.",
+      "details": "Worked on club operations from December 2023 to March 2025, covering volunteer coordination and event execution.",
+      "date": "Dec 2023 - Mar 2025",
+      "organization": "Rotaract Club of IIIT Gwalior",
+      "link": "https://in.linkedin.com/company/rotaract-club-abv-iiitm",
+      "image": "/achievements/rotaract.png",
+      "badge": "Operations Manager",
+      "impact": [
+        "Managed volunteer schedules for club activities",
+        "Coordinated event logistics from planning through execution"
       ]
     }
   ],
   "certifications": [
     {
       "id": 1,
-      "name": "Postman API Fundamentals Student Expert",
-      "issuer": "Postman",
-      "date": "2024",
-      "credentialId": "",
-      "image": "",
-      "skills": ["API Testing", "REST APIs", "API Documentation", "HTTP"]
+      "name": "The Complete Full-Stack Web Development Bootcamp",
+      "issuer": "Udemy",
+      "date": "Oct 2025",
+      "credentialId": "UC-4967f38f-8805-4583-8568-a03d1f445d36",
+      "image": "/certifications/udemy.svg",
+      "skills": ["JavaScript", "React", "Node.js", "MongoDB"]
     },
     {
       "id": 2,
       "name": "McKinsey.org Forward Program",
       "issuer": "McKinsey & Company",
-      "date": "2024",
+      "date": "Jul 2025",
       "credentialId": "",
-      "image": "",
+      "image": "/certifications/mckinsey.png",
       "skills": ["Problem Solving", "Communication", "Project Planning"]
     },
     {
       "id": 3,
-      "name": "Complete 2024 Web Development Bootcamp",
-      "issuer": "Dr. Angela Yu, Udemy",
-      "date": "2024",
-      "credentialId": "",
-      "image": "",
-      "skills": ["JavaScript", "React", "Node.js", "MongoDB"]
+      "name": "Postman API Fundamentals Student Expert",
+      "issuer": "Postman",
+      "date": "Aug 2024",
+      "credentialId": "66ccecf40ea2cf5db674684a",
+      "image": "/certifications/postman.svg",
+      "skills": ["API Testing", "REST APIs", "API Documentation", "HTTP"]
     }
   ],
   "awards": [
@@ -102,34 +164,61 @@
       "position": "Top 25",
       "year": "2026",
       "description": "Reached the Grand Finale as a Top 25 team from 70,261 registrations.",
-      "image": ""
+      "image": "/awards/hackon-amazon.png"
     },
     {
       "id": 2,
-      "title": "Agent.AI Track Winner",
-      "event": "Hacknovate 6.0",
-      "position": "Winner",
-      "year": "2025",
-      "description": "Won the Agent.AI track at Hacknovate 6.0.",
-      "image": "/awards/hackonovate.webp"
+      "title": "Semifinalist, ET GenAI Hackathon",
+      "event": "Economic Times GenAI Hackathon",
+      "position": "Semifinalist",
+      "year": "2026",
+      "description": "Advanced to the semifinal round of the Economic Times GenAI Hackathon 2026.",
+      "image": "/awards/et-genai.png"
     },
     {
       "id": 3,
+      "title": "Semifinalist, Flipkart GRID 7.0",
+      "event": "Flipkart GRID 7.0",
+      "position": "Semifinalist",
+      "year": "2025",
+      "description": "Advanced to the semifinal round of Flipkart GRID 7.0.",
+      "image": "/awards/flipkart-grid.png"
+    },
+    {
+      "id": 4,
       "title": "Finalist, Odoo India Hackathon",
       "event": "Odoo India Hackathon 2025",
       "position": "Finalist",
       "year": "2025",
       "description": "Reached the finalist round at the Odoo India Hackathon 2025.",
-      "image": "/awards/Odoo.webp"
+      "image": "/awards/odoo-preview.png"
     },
     {
-      "id": 4,
-      "title": "National Hackathon Semifinalist",
-      "event": "Flipkart GRID 7.0 and ET GenAI Hackathon",
-      "position": "Semifinalist",
-      "year": "2025 - 2026",
-      "description": "Reached the semifinals of Flipkart GRID 7.0 and the Economic Times GenAI Hackathon 2026, part of 10+ finalist or semifinalist finishes.",
-      "image": ""
+      "id": 5,
+      "title": "Agent.AI Track Winner",
+      "event": "Hacknovate 6.0",
+      "position": "Winner",
+      "year": "2025",
+      "description": "Won the Agent.AI track with the team behind Hogwarts OS.",
+      "image": "/awards/hacknovate-preview.png"
+    },
+    {
+      "id": 6,
+      "title": "UI/UX Category Winner",
+      "event": "AASF Winter Project 2024",
+      "position": "Winner",
+      "year": "2024",
+      "description": "Won the UI/UX category at the AASF Winter Project competition.",
+      "image": "/awards/winterproject-preview.png"
+    },
+    {
+      "id": 7,
+      "title": "Graphic Design Winner",
+      "event": "Aakriti 2024",
+      "position": "Winner",
+      "year": "2024",
+      "description": "Won the graphic-design category at Aakriti 2024.",
+      "image": "/awards/aakriti-preview.png"
     }
   ]
 }
