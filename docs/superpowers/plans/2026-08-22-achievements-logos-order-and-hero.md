@@ -68,7 +68,7 @@ Delete achievement ID `4` completely. Do not modify the two earlier, independent
 
 - [ ] **Step 3: Add deterministic dates and recognised logo identifiers**
 
-Use ISO-like `sortDate` values for leadership end dates, with `9999-12` for the ongoing IAENG membership. Use React Icon keys for Amazon, GitHub, Flipkart, Odoo, Adobe, HP, and IEEE; use local image paths for Economic Times, IIITM, E-Cell, and Rotaract. Leave `logo` absent for entries without a clean identity asset.
+Use ISO-like `sortDate` values for leadership start dates. Use React Icon keys for Amazon, GitHub, Flipkart, Odoo, Adobe, HP, and IEEE; use local image paths for Economic Times, IIITM, E-Cell, and Rotaract. Leave `logo` absent for entries without a clean identity asset.
 
 - [ ] **Step 4: Keep JSON valid**
 

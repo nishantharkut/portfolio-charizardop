@@ -41,6 +41,8 @@ export interface Achievement {
   organization?: string;
   link?: string;
   image: string;
+  logo?: string;
+  sortDate?: string;
   badge?: string;
   impact: string[];
   featured?: boolean;
@@ -73,6 +75,8 @@ export interface Award {
   year: string;
   description: string;
   image: string;
+  logo?: string;
+  sortDate?: string;
 }
 
 export interface Skill {

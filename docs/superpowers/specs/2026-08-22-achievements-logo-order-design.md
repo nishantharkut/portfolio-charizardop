@@ -29,7 +29,7 @@ On mobile, marks remain within their row and never create a reserved empty colum
 - Sections remain in the current order: selected milestones, competitions, leadership and campus work, credentials.
 - Competition year groups are sorted newest first.
 - Competition entries within a year use verified event dates where available. Entries with only a year retain their source order after date-specific entries.
-- Leadership entries are sorted by their end date, with ongoing memberships first, followed by the latest completed term.
+- Leadership entries are sorted by their start date, newest first. Ongoing status does not override when a role began.
 - Certifications remain newest first.
 
 ## Data And Rendering

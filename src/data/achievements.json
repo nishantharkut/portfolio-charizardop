@@ -10,6 +10,8 @@
       "organization": "Amazon",
       "link": "",
       "image": "/achievements/amazon-mlss.png",
+      "logo": "amazon",
+      "sortDate": "2026",
       "badge": "3,000 / 134,421",
       "impact": ["Chosen among 3,000 students from 134,421 applicants"],
       "featured": true
@@ -24,26 +26,12 @@
       "organization": "Learning Unlimited, Kiwix, Palisadoes Foundation",
       "link": "https://github.com/nishantharkut",
       "image": "/achievements/open-source.png",
+      "logo": "github",
+      "sortDate": "2026",
       "badge": "16 merged PRs",
       "impact": [
         "9 Learning Unlimited pull requests across 38 files",
         "5 Kiwix and 2 Palisadoes pull requests merged upstream"
-      ]
-    },
-    {
-      "id": 4,
-      "title": "Overall Head, Student Activity Council",
-      "category": "Leadership",
-      "description": "Progressed from Sports Executive to Joint Secretary, Welfare, and then Overall Head across three council roles.",
-      "details": "Serves as Overall Head of the Student Activity Council after earlier terms in the Sports and Welfare cells.",
-      "date": "2024 - Present",
-      "organization": "IIIT Gwalior",
-      "link": "",
-      "image": "/achievements/iiitm-sac.png",
-      "badge": "Overall Head",
-      "impact": [
-        "Advanced through three successive Student Activity Council roles",
-        "Previously served as Sports Executive and Joint Secretary, Welfare"
       ]
     },
     {
@@ -56,6 +44,8 @@
       "organization": "IIIT Gwalior",
       "link": "",
       "image": "/achievements/iiitm-sac.png",
+      "logo": "/assets/logos/iiitm.png",
+      "sortDate": "2023-11",
       "badge": "Sports Executive",
       "impact": [
         "Only first-year student selected for the executive role",
@@ -67,11 +57,13 @@
       "title": "Joint Secretary, SAC Welfare",
       "category": "Community Service",
       "description": "Helped organise Hindi Day, Environment Day, and Yoga Day activities, including logistics for events with more than 100 participants.",
-      "details": "Managed participant logistics and promotional material for Welfare Cell events before moving into the Overall Head role.",
+      "details": "Managed participant logistics and promotional material during the Welfare Cell term.",
       "date": "Apr 2024 - Aug 2024",
       "organization": "IIIT Gwalior",
       "link": "",
       "image": "/achievements/iiitm-sac.png",
+      "logo": "/assets/logos/iiitm.png",
+      "sortDate": "2024-04",
       "badge": "Joint Secretary",
       "impact": [
         "Coordinated logistics for events with 100+ participants",
@@ -88,6 +80,8 @@
       "organization": "E-Cell, IIIT Gwalior",
       "link": "https://in.linkedin.com/company/e-cell-iiit-gwalior",
       "image": "/achievements/ecell.png",
+      "logo": "/assets/logos/ecell.png",
+      "sortDate": "2023-10",
       "badge": "Design Team Lead",
       "impact": [
         "Designed social-media posts for club campaigns",
@@ -104,6 +98,8 @@
       "organization": "Rotaract Club of IIIT Gwalior",
       "link": "https://in.linkedin.com/company/rotaract-club-abv-iiitm",
       "image": "/achievements/rotaract.png",
+      "logo": "/assets/logos/rotaract.png",
+      "sortDate": "2023-12",
       "badge": "Operations Manager",
       "impact": [
         "Served for 16 months in the club's operations team"
@@ -119,6 +115,8 @@
       "organization": "Aurora, IIIT Gwalior",
       "link": "https://x.com/IiitmAurora",
       "image": "/achievements/aurora.png",
+      "logo": "/achievements/aurora.png",
+      "sortDate": "2023-10",
       "badge": "Social Media Volunteer",
       "impact": [
         "Completed a six-month social-media volunteering term"
@@ -134,6 +132,8 @@
       "organization": "IIIT Gwalior",
       "link": "",
       "image": "/achievements/iiitm-sac.png",
+      "logo": "/assets/logos/iiitm.png",
+      "sortDate": "2023-12",
       "badge": "Representative",
       "impact": [
         "Supported the institute's 2024 alumni meet"
@@ -149,6 +149,8 @@
       "organization": "Mood Indigo, IIT Bombay",
       "link": "https://linktr.ee/iitbombay.moodi",
       "image": "/achievements/mood-indigo.png",
+      "logo": "/achievements/mood-indigo.png",
+      "sortDate": "2023-10",
       "badge": "Squad Leader",
       "impact": [
         "Received a contingent leader certificate"
@@ -164,6 +166,8 @@
       "organization": "International Association of Engineers",
       "link": "https://www.iaeng.org/",
       "image": "/achievements/iaeng.png",
+      "logo": "/achievements/iaeng.png",
+      "sortDate": "2023-11",
       "badge": "Member",
       "impact": [
         "Professional membership held since November 2023"
@@ -179,6 +183,8 @@
       "organization": "IIIT Gwalior",
       "link": "",
       "image": "/achievements/iiitm-sac.png",
+      "logo": "/assets/logos/iiitm.png",
+      "sortDate": "2023-09",
       "badge": "Operations Team Lead",
       "impact": [
         "Led the event's operations team"
@@ -249,7 +255,9 @@
       "position": "Top 25",
       "year": "2026",
       "description": "Reached the Grand Finale as a Top 25 team from 70,261 registrations.",
-      "image": "/awards/hackon-amazon.png"
+      "image": "/awards/hackon-amazon.png",
+      "logo": "amazon",
+      "sortDate": "2026"
     },
     {
       "id": 2,
@@ -258,7 +266,9 @@
       "position": "Semifinalist",
       "year": "2026",
       "description": "Advanced to the semifinal round of the Economic Times GenAI Hackathon 2026.",
-      "image": "/awards/et-genai.png"
+      "image": "/awards/et-genai.png",
+      "logo": "/assets/logos/economic-times.svg",
+      "sortDate": "2026"
     },
     {
       "id": 8,
@@ -267,7 +277,9 @@
       "position": "Finalist",
       "year": "2026",
       "description": "Reached the final round of Frontend Arena in April 2026.",
-      "image": "/awards/frontend-arena.png"
+      "image": "/awards/frontend-arena.png",
+      "logo": "ieee",
+      "sortDate": "2026-04"
     },
     {
       "id": 9,
@@ -276,7 +288,8 @@
       "position": "Finalist",
       "year": "2026",
       "description": "Reached the final round of HackByte 4.0 in April 2026.",
-      "image": "/awards/hackbyte.png"
+      "image": "/awards/hackbyte.png",
+      "sortDate": "2026-04"
     },
     {
       "id": 10,
@@ -285,7 +298,8 @@
       "position": "Finalist",
       "year": "2026",
       "description": "Reached the final round of Frontend Odyssey in March 2026.",
-      "image": "/awards/frontend-odyssey.png"
+      "image": "/awards/frontend-odyssey.png",
+      "sortDate": "2026-03"
     },
     {
       "id": 11,
@@ -294,7 +308,9 @@
       "position": "Top 25",
       "year": "2025",
       "description": "Finished among the Top 25 teams in HP Power Lab 2.0.",
-      "image": "/awards/hp-power-lab.png"
+      "image": "/awards/hp-power-lab.png",
+      "logo": "hp",
+      "sortDate": "2025"
     },
     {
       "id": 12,
@@ -330,7 +346,9 @@
       "position": "Semifinalist",
       "year": "2025",
       "description": "Advanced to the semifinal round of Flipkart GRID 7.0.",
-      "image": "/awards/flipkart-grid.png"
+      "image": "/awards/flipkart-grid.png",
+      "logo": "flipkart",
+      "sortDate": "2025"
     },
     {
       "id": 4,
@@ -339,7 +357,9 @@
       "position": "Finalist",
       "year": "2025",
       "description": "Reached the finalist round at the Odoo India Hackathon 2025.",
-      "image": "/awards/odoo-preview.png"
+      "image": "/awards/odoo-preview.png",
+      "logo": "odoo",
+      "sortDate": "2025"
     },
     {
       "id": 15,
@@ -366,7 +386,9 @@
       "position": "Semifinalist",
       "year": "2025",
       "description": "Advanced to the semifinal round of the Adobe India Hackathon 2025.",
-      "image": "/awards/adobe-india.png"
+      "image": "/awards/adobe-india.png",
+      "logo": "adobe",
+      "sortDate": "2025"
     },
     {
       "id": 6,
@@ -375,7 +397,9 @@
       "position": "Winner",
       "year": "2024",
       "description": "Won the UI/UX category at the AASF Winter Project competition.",
-      "image": "/awards/winterproject-preview.png"
+      "image": "/awards/winterproject-preview.png",
+      "logo": "/assets/logos/iiitm.png",
+      "sortDate": "2024"
     },
     {
       "id": 7,
@@ -384,7 +408,9 @@
       "position": "Winner",
       "year": "2024",
       "description": "Won the graphic-design category at Aakriti 2024.",
-      "image": "/awards/aakriti-preview.png"
+      "image": "/awards/aakriti-preview.png",
+      "logo": "/assets/logos/iiitm.png",
+      "sortDate": "2024"
     }
   ]
 }

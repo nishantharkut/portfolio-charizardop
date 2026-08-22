@@ -4,10 +4,11 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowTopRightOnSquareIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import type { IconType } from 'react-icons';
+import { SiAdobe, SiAmazon, SiFlipkart, SiGithub, SiHp, SiIeee, SiOdoo } from 'react-icons/si';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import PixelBlast from '../components/ui/PixelBlast';
-import { AchievementImage } from '../components/ui/AchievementImage';
 import { PageHeroCta } from '../components/ui/PageHeroCta';
 import {
   getAchievements,
@@ -23,8 +24,18 @@ const evidence = [
   { value: '3,000 / 134,421', label: 'Amazon ML Summer School 2026' },
   { value: '16', label: 'Merged upstream pull requests' },
   { value: 'Top 25', label: 'HackOn with Amazon 6.0' },
-  { value: '3 roles', label: 'Student Activity Council progression' },
+  { value: '10+', label: 'Hackathon finalist appearances' },
 ];
+
+const brandLogos: Record<string, IconType> = {
+  adobe: SiAdobe,
+  amazon: SiAmazon,
+  flipkart: SiFlipkart,
+  github: SiGithub,
+  hp: SiHp,
+  ieee: SiIeee,
+  odoo: SiOdoo,
+};
 
 const isAward = (item: Milestone): item is Award => 'event' in item;
 
@@ -49,6 +60,27 @@ function CertLogo({ src, name, issuer }: { src: string; name: string; issuer: st
       sizes="48px"
       onError={() => setError(true)}
     />
+  );
+}
+
+function IdentityLogo({ logo, label, className = '' }: { logo?: string; label: string; className?: string }) {
+  if (!logo) return null;
+
+  const BrandLogo = brandLogos[logo];
+
+  return (
+    <div
+      data-identity-logo
+      className={`relative flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden border ${className}`}
+      style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-bg-start)' }}
+      title={label}
+    >
+      {BrandLogo ? (
+        <BrandLogo className="h-7 w-7" style={{ color: 'var(--color-text)' }} aria-label={`${label} logo`} />
+      ) : (
+        <Image src={logo} alt={`${label} logo`} fill className="object-contain p-1.5" sizes="48px" />
+      )}
+    </div>
   );
 }
 
@@ -90,17 +122,21 @@ export default function AchievementsPage() {
     achievements.find((item) => item.id === 1),
     achievements.find((item) => item.id === 2),
     awards.find((item) => item.id === 1),
+    awards.find((item) => item.id === 2),
     awards.find((item) => item.id === 5),
-    achievements.find((item) => item.id === 4),
   ].filter((item): item is Milestone => Boolean(item));
 
-  const leadership = achievements.filter((item) => item.id !== 1 && item.id !== 2);
-  const awardsByYear = awards.reduce<Map<string, Award[]>>((groups, award) => {
+  const leadership = achievements
+    .filter((item) => item.id !== 1 && item.id !== 2)
+    .sort((a, b) => (b.sortDate ?? b.date).localeCompare(a.sortDate ?? a.date));
+  const awardsByYear = [...awards]
+    .sort((a, b) => Number(b.year) - Number(a.year))
+    .reduce<Map<string, Award[]>>((groups, award) => {
     const current = groups.get(award.year) ?? [];
     current.push(award);
     groups.set(award.year, current);
     return groups;
-  }, new Map());
+    }, new Map());
 
   const reveal = reduceMotion
     ? {}
@@ -118,7 +154,10 @@ export default function AchievementsPage() {
     >
       <Navbar />
 
-      <section className="relative flex min-h-[76vh] items-center justify-center overflow-hidden px-4 pb-16 pt-28">
+      <section
+        data-achievements-hero
+        className="relative flex h-screen items-center justify-center overflow-hidden"
+      >
         <div className="absolute inset-0 z-0">
           <PixelBlast
             variant="circle"
@@ -131,41 +170,55 @@ export default function AchievementsPage() {
             rippleSpeed={0.4}
             rippleThickness={0.12}
             rippleIntensityScale={1.5}
-            speed={1}
+            speed={0.6}
             edgeFade={0.25}
             transparent
           />
         </div>
 
-        <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.7 }}
-          className="relative z-10 mx-auto max-w-3xl text-center"
-        >
-          <h1
-            className="mb-5 text-4xl font-semibold sm:text-6xl lg:text-7xl"
-            style={{ color: 'var(--color-text)' }}
+        <div className="relative z-10 px-4 text-center">
+          <motion.div
+            initial={reduceMotion ? false : { opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduceMotion ? 0 : 0.8, delay: reduceMotion ? 0 : 0.2 }}
           >
-            Achievements
-          </h1>
-          <p
-            className="mx-auto mb-8 max-w-2xl text-sm sm:text-base md:text-lg"
-            style={{ color: 'var(--color-text-secondary)' }}
-          >
-            Machine learning, open source, national hackathons, and campus leadership
-          </p>
-          <PageHeroCta
-            primary={{
-              label: 'View record',
-              href: '#achievements',
-              onClick: (event) => {
-                event.preventDefault();
-                document.getElementById('achievements')?.scrollIntoView({ behavior: 'smooth' });
-              },
-            }}
-          />
-        </motion.div>
+            <h1
+              className="mb-4 text-2xl font-bold drop-shadow-2xl sm:mb-6 sm:text-4xl md:text-6xl lg:text-8xl"
+              style={{ color: 'var(--color-text)' }}
+            >
+              My{' '}
+              <span className="relative inline-block sm:inline">
+                <span className="relative z-10" style={{ color: 'var(--color-accent)' }}>
+                  Achievements
+                </span>
+                <motion.span
+                  initial={reduceMotion ? false : { scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: reduceMotion ? 0 : 1, delay: reduceMotion ? 0 : 1.2 }}
+                  className="absolute left-0 top-full mt-1 h-1 w-full origin-left sm:bottom-1 sm:top-auto sm:mt-0"
+                  style={{ background: 'var(--color-accent-gradient)' }}
+                  aria-hidden="true"
+                />
+              </span>
+            </h1>
+            <p
+              className="mx-auto mb-6 max-w-2xl text-base drop-shadow-lg sm:mb-8 sm:text-lg md:text-xl"
+              style={{ color: 'var(--color-text)' }}
+            >
+              Machine learning, open source, national hackathons, and campus leadership
+            </p>
+            <PageHeroCta
+              primary={{
+                label: 'View all',
+                href: '#achievements',
+                onClick: (event) => {
+                  event.preventDefault();
+                  document.getElementById('achievements')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                },
+              }}
+            />
+          </motion.div>
+        </div>
       </section>
 
       <section
@@ -178,6 +231,7 @@ export default function AchievementsPage() {
           {evidence.map((item, index) => (
             <div
               key={item.label}
+              data-evidence-item
               className={`min-w-0 px-4 py-6 sm:px-6 sm:py-8 ${
                 index % 2 === 0 ? 'border-r' : ''
               } ${index < 2 ? 'border-b lg:border-b-0' : ''} ${index === 1 ? 'lg:border-r' : ''} ${
@@ -211,11 +265,16 @@ export default function AchievementsPage() {
               const date = award ? item.year : item.date;
               const organization = award ? item.event : item.organization;
               const link = award ? undefined : item.link;
+              const hasLogo = Boolean(item.logo);
 
               return (
                 <article
                   key={`${award ? 'award' : 'achievement'}-${item.id}`}
-                  className="grid gap-4 border-t py-6 sm:grid-cols-[7rem_minmax(0,1fr)_3.5rem] sm:items-start lg:grid-cols-[8rem_minmax(16rem,0.7fr)_minmax(18rem,1fr)_3.5rem] lg:gap-8"
+                  className={`grid gap-4 border-t py-6 sm:items-start lg:gap-8 ${
+                    hasLogo
+                      ? 'sm:grid-cols-[7rem_minmax(0,1fr)_3.5rem] lg:grid-cols-[8rem_minmax(16rem,0.7fr)_minmax(18rem,1fr)_3.5rem]'
+                      : 'sm:grid-cols-[7rem_minmax(0,1fr)] lg:grid-cols-[8rem_minmax(16rem,0.7fr)_minmax(18rem,1fr)]'
+                  }`}
                   style={{ borderColor: 'var(--color-border)' }}
                 >
                   <p className="text-xs font-medium sm:pt-1" style={{ color: 'var(--color-text-muted)' }}>
@@ -234,7 +293,11 @@ export default function AchievementsPage() {
                       </p>
                     )}
                   </div>
-                  <div className="min-w-0 sm:col-span-2 sm:col-start-2 lg:col-span-1 lg:col-start-auto">
+                  <div
+                    className={`min-w-0 sm:col-start-2 lg:col-span-1 lg:col-start-auto ${
+                      hasLogo ? 'sm:col-span-2' : ''
+                    }`}
+                  >
                     <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
                       {item.description}
                     </p>
@@ -244,18 +307,11 @@ export default function AchievementsPage() {
                       </div>
                     )}
                   </div>
-                  <div
-                    className="relative row-start-1 h-12 w-12 justify-self-end overflow-hidden border sm:col-start-3 lg:col-start-4"
-                    style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-surface)' }}
-                  >
-                    <AchievementImage
-                      src={item.image}
-                      alt={`${title} mark`}
-                      category={award ? 'Hackathon' : item.category}
-                      objectFit="contain"
-                      sizes="48px"
-                    />
-                  </div>
+                  <IdentityLogo
+                    logo={item.logo}
+                    label={organization || title}
+                    className="row-start-1 justify-self-end sm:col-start-3 lg:col-start-4"
+                  />
                 </article>
               );
             })}
@@ -282,23 +338,14 @@ export default function AchievementsPage() {
                     <article
                       key={award.id}
                       data-competition
-                      className={`grid min-w-0 grid-cols-[3rem_minmax(0,1fr)] gap-4 border-b py-5 md:px-5 ${
+                      className={`grid min-w-0 border-b py-5 md:px-5 ${
+                        award.logo ? 'grid-cols-[3rem_minmax(0,1fr)] gap-4' : 'grid-cols-1'
+                      } ${
                         index % 2 === 0 ? 'md:border-r' : ''
                       }`}
                       style={{ borderColor: 'var(--color-border)' }}
                     >
-                      <div
-                        className="relative h-12 w-12 overflow-hidden border"
-                        style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-bg-start)' }}
-                      >
-                        <AchievementImage
-                          src={award.image}
-                          alt={`${award.event} mark`}
-                          category="Hackathon"
-                          objectFit="contain"
-                          sizes="48px"
-                        />
-                      </div>
+                      <IdentityLogo logo={award.logo} label={award.event} />
                       <div className="min-w-0">
                         <div className="mb-1 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
                           <p className="text-xs font-semibold uppercase" style={{ color: 'var(--color-accent)' }}>
@@ -349,20 +396,29 @@ export default function AchievementsPage() {
                     style={{ backgroundColor: 'var(--color-accent)' }}
                     aria-hidden="true"
                   />
-                  <p className="mb-1 text-xs font-semibold uppercase" style={{ color: 'var(--color-accent)' }}>
-                    {item.category}
-                  </p>
-                  <h3 className="text-sm font-semibold sm:text-base" style={{ color: 'var(--color-text)' }}>
-                    {item.title}
-                  </h3>
-                  {item.organization && (
-                    <p className="mt-1 text-xs" style={{ color: 'var(--color-text-muted)' }}>
-                      {item.organization}
-                    </p>
-                  )}
-                  <p className="mt-2 text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
-                    {item.description}
-                  </p>
+                  <div className="flex items-start gap-4">
+                    <IdentityLogo logo={item.logo} label={item.organization || item.title} />
+                    <div className="min-w-0 flex-1">
+                      <p className="mb-1 text-xs font-semibold uppercase" style={{ color: 'var(--color-accent)' }}>
+                        {item.category}
+                      </p>
+                      <h3
+                        data-leadership-title
+                        className="text-sm font-semibold sm:text-base"
+                        style={{ color: 'var(--color-text)' }}
+                      >
+                        {item.title}
+                      </h3>
+                      {item.organization && (
+                        <p className="mt-1 text-xs" style={{ color: 'var(--color-text-muted)' }}>
+                          {item.organization}
+                        </p>
+                      )}
+                      <p className="mt-2 text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 {item.link && (
                   <div className="sm:pt-1">

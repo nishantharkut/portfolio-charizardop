@@ -5,9 +5,9 @@
       "position": "Software Engineering Intern",
       "company": "QuickIntell",
       "year": "2025",
-      "duration": "Aug. 2025 - Present",
-      "months": "1+ year",
-      "description": "I work on a healthcare revenue-cycle platform that converts EOB documents into X12 835 ERA files and gives operations teams tools to upload, review, and correct data.",
+      "duration": "Aug. 2025 - Aug. 2026",
+      "months": "1 year",
+      "description": "I worked on a healthcare revenue-cycle platform that converted EOB documents into X12 835 ERA files and gave operations teams tools to upload, review, and correct data.",
       "responsibilities": [
         "Wrote 19 payer-specific Python parsers, raising field-extraction accuracy from approximately 55% to 95% and expanding support from 44 to 71 payer formats",
         "Corrected X12 835 output across 44 ERA generators by deriving missing payment fields and reconciling claim and service-line totals",
