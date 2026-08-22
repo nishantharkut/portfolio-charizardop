@@ -192,6 +192,7 @@
       "issuer": "Udemy",
       "date": "Oct 2025",
       "credentialId": "UC-4967f38f-8805-4583-8568-a03d1f445d36",
+      "credentialUrl": "https://www.udemy.com/certificate/UC-4967f38f-8805-4583-8568-a03d1f445d36/",
       "image": "/certifications/udemy.svg",
       "skills": ["JavaScript", "React", "Node.js", "MongoDB"]
     },
@@ -207,22 +208,26 @@
         {
           "name": "Tools of the Trade: Linux and SQL",
           "date": "Jun 2025",
-          "credentialId": "LVIJ6Q8KMVUP"
+          "credentialId": "LVIJ6Q8KMVUP",
+          "credentialUrl": "https://www.coursera.org/account/accomplishments/verify/LVIJ6Q8KMVUP"
         },
         {
           "name": "Connect and Protect: Networks and Network Security",
           "date": "Jun 2025",
-          "credentialId": "MM6WATXALSHY"
+          "credentialId": "MM6WATXALSHY",
+          "credentialUrl": "https://www.coursera.org/account/accomplishments/verify/MM6WATXALSHY"
         },
         {
           "name": "Play It Safe: Manage Security Risks",
           "date": "May 2025",
-          "credentialId": "CZ9N52QVEH0Z"
+          "credentialId": "CZ9N52QVEH0Z",
+          "credentialUrl": "https://www.coursera.org/account/accomplishments/verify/CZ9N52QVEH0Z"
         },
         {
           "name": "Foundations of Cybersecurity",
           "date": "May 2025",
-          "credentialId": "9SNPB102F2S6"
+          "credentialId": "9SNPB102F2S6",
+          "credentialUrl": "https://www.coursera.org/account/accomplishments/verify/9SNPB102F2S6"
         }
       ]
     },

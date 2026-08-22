@@ -46,14 +46,23 @@ export interface Achievement {
   featured?: boolean;
 }
 
+export interface CertificationCourse {
+  name: string;
+  date: string;
+  credentialId: string;
+  credentialUrl?: string;
+}
+
 export interface Certification {
   id: number;
   name: string;
   issuer: string;
   date: string;
   credentialId?: string;
+  credentialUrl?: string;
   image: string;
   skills: string[];
+  courses?: CertificationCourse[];
 }
 
 export interface Award {
