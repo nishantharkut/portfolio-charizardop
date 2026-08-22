@@ -5,7 +5,8 @@ import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowTopRightOnSquareIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import type { IconType } from 'react-icons';
-import { SiAdobe, SiAmazon, SiFlipkart, SiGithub, SiHp, SiIeee, SiOdoo } from 'react-icons/si';
+import { FcGoogle } from 'react-icons/fc';
+import { SiAdobe, SiAmazon, SiFlipkart, SiGithub, SiIeee, SiOdoo } from 'react-icons/si';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import PixelBlast from '../components/ui/PixelBlast';
@@ -32,16 +33,25 @@ const brandLogos: Record<string, IconType> = {
   amazon: SiAmazon,
   flipkart: SiFlipkart,
   github: SiGithub,
-  hp: SiHp,
   ieee: SiIeee,
   odoo: SiOdoo,
 };
+
+const coverCropLogos = new Set([
+  '/achievements/aurora.png',
+  '/achievements/iaeng.png',
+  '/achievements/mood-indigo.png',
+]);
 
 const isAward = (item: Milestone): item is Award => 'event' in item;
 
 function CertLogo({ src, name, issuer }: { src: string; name: string; issuer: string }) {
   const [error, setError] = useState(false);
   const initial = issuer.trim().charAt(0) || 'C';
+
+  if (issuer === 'Google') {
+    return <FcGoogle data-cert-brand="google" className="h-7 w-7" aria-label="Google logo" />;
+  }
 
   if (!src || error) {
     return (
@@ -67,10 +77,13 @@ function IdentityLogo({ logo, label, className = '' }: { logo?: string; label: s
   if (!logo) return null;
 
   const BrandLogo = brandLogos[logo];
+  const logoFit = coverCropLogos.has(logo) ? 'cover' : 'contain';
 
   return (
     <div
       data-identity-logo
+      data-logo-fit={logoFit}
+      data-logo-source={logo}
       className={`relative flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden border ${className}`}
       style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-bg-start)' }}
       title={label}
@@ -78,7 +91,13 @@ function IdentityLogo({ logo, label, className = '' }: { logo?: string; label: s
       {BrandLogo ? (
         <BrandLogo className="h-7 w-7" style={{ color: 'var(--color-text)' }} aria-label={`${label} logo`} />
       ) : (
-        <Image src={logo} alt={`${label} logo`} fill className="object-contain p-1.5" sizes="48px" />
+        <Image
+          src={logo}
+          alt={`${label} logo`}
+          fill
+          className={logoFit === 'cover' ? 'object-cover' : 'object-contain p-1.5'}
+          sizes="48px"
+        />
       )}
     </div>
   );
@@ -447,7 +466,7 @@ export default function AchievementsPage() {
                 style={{ borderColor: 'var(--color-border)' }}
               >
                 <div
-                  className="relative h-12 w-12 overflow-hidden border"
+                  className="relative flex h-12 w-12 items-center justify-center overflow-hidden border"
                   style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-bg-start)' }}
                 >
                   <CertLogo src={certification.image} name={certification.name} issuer={certification.issuer} />

@@ -32,6 +32,27 @@ try {
         evidenceTop: evidence ? evidence.getBoundingClientRect().top + window.scrollY : 0,
         evidenceCount: document.querySelectorAll('[data-evidence-item]').length,
         identityLogos: document.querySelectorAll('[data-identity-logo]').length,
+        identityLogoSources: Array.from(document.querySelectorAll('[data-identity-logo]')).map(
+          (node) => node.getAttribute('data-logo-source'),
+        ),
+        coverLogoSources: Array.from(document.querySelectorAll('[data-logo-fit="cover"]')).map(
+          (node) => node.getAttribute('data-logo-source'),
+        ),
+        certificationBrands: Array.from(document.querySelectorAll('[data-cert-brand]')).map(
+          (node) => node.getAttribute('data-cert-brand'),
+        ),
+        googleLogoCenterOffset: (() => {
+          const logo = document.querySelector('[data-cert-brand="google"]');
+          const wrapper = logo?.parentElement;
+          const logoRect = logo?.getBoundingClientRect();
+          const wrapperRect = wrapper?.getBoundingClientRect();
+          if (!logoRect || !wrapperRect) return null;
+
+          return {
+            x: Math.abs(logoRect.left + logoRect.width / 2 - (wrapperRect.left + wrapperRect.width / 2)),
+            y: Math.abs(logoRect.top + logoRect.height / 2 - (wrapperRect.top + wrapperRect.height / 2)),
+          };
+        })(),
         leadershipTitles: Array.from(document.querySelectorAll('[data-leadership-title]')).map(
           (node) => node.textContent?.trim() ?? '',
         ),
@@ -87,8 +108,50 @@ try {
     if (result.leadershipTitles.join('|') !== expectedLeadership.join('|')) {
       throw new Error(`Leadership is not reverse chronological: ${result.leadershipTitles.join(' | ')}`);
     }
-    if (result.identityLogos < 10) {
-      throw new Error(`Expected at least 10 recognised identity marks, found ${result.identityLogos}`);
+    if (result.identityLogos < 29) {
+      throw new Error(`Expected at least 29 recognised identity marks, found ${result.identityLogos}`);
+    }
+
+    const requiredLogoSources = [
+      '/assets/logos/economic-times.jpg',
+      '/assets/logos/hpcl.png',
+      '/assets/logos/iiitdm-jabalpur.png',
+      '/assets/logos/iit-patna.png',
+      '/assets/logos/geek-room.png',
+      '/assets/logos/nit-delhi.png',
+      '/assets/logos/chandigarh-university.png',
+      '/assets/logos/hacknovate.png',
+    ];
+    for (const source of requiredLogoSources) {
+      if (!result.identityLogoSources.includes(source)) {
+        throw new Error(`Missing verified identity mark ${source} at ${viewport.width}px`);
+      }
+    }
+
+    const requiredCoverCrops = [
+      '/achievements/iaeng.png',
+      '/achievements/aurora.png',
+      '/achievements/mood-indigo.png',
+    ];
+    for (const source of requiredCoverCrops) {
+      if (!result.coverLogoSources.includes(source)) {
+        throw new Error(`Missing smart crop for ${source} at ${viewport.width}px`);
+      }
+    }
+    if (!result.certificationBrands.includes('google')) {
+      throw new Error(`Correct Google brand mark is missing at ${viewport.width}px`);
+    }
+    if (
+      !result.googleLogoCenterOffset ||
+      result.googleLogoCenterOffset.x > 1 ||
+      result.googleLogoCenterOffset.y > 1
+    ) {
+      throw new Error(
+        `Google brand mark is not centered at ${viewport.width}px: ${JSON.stringify(result.googleLogoCenterOffset)}`,
+      );
+    }
+    if (!result.pageText.includes('Hindustan Petroleum Power Lab 2.0')) {
+      throw new Error(`Hindustan Petroleum is not identified correctly at ${viewport.width}px`);
     }
   }
 

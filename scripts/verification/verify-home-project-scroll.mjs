@@ -61,6 +61,10 @@ try {
   await page.goto(baseUrl, { waitUntil: 'domcontentloaded' });
   await page.waitForSelector('.projects-section .project-box:last-child');
   await settle(page);
+  await page.waitForFunction(
+    () => document.querySelector('.projects-section')?.parentElement?.classList.contains('pin-spacer'),
+    { timeout: 10_000 },
+  );
 
   await page.setViewport({ width: 1920, height: 1000, deviceScaleFactor: 1 });
   await settle(page);

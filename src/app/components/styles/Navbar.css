@@ -556,20 +556,10 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Slightly smaller float buttons on mobile so they don't cover content */
+/* The mobile menu already exposes both actions without covering page content. */
 @media (max-width: 1023px) {
   .navbar-float-actions {
-    bottom: 20px;
-    right: 16px;
-    gap: 8px;
-  }
-  .navbar-float-btn {
-    width: 40px;
-    height: 40px;
-  }
-  .navbar-float-icon {
-    width: 18px;
-    height: 18px;
+    display: none;
   }
 }
 

@@ -267,7 +267,7 @@
       "year": "2026",
       "description": "Advanced to the semifinal round of the Economic Times GenAI Hackathon 2026.",
       "image": "/awards/et-genai.png",
-      "logo": "/assets/logos/economic-times.svg",
+      "logo": "/assets/logos/economic-times.jpg",
       "sortDate": "2026"
     },
     {
@@ -289,6 +289,7 @@
       "year": "2026",
       "description": "Reached the final round of HackByte 4.0 in April 2026.",
       "image": "/awards/hackbyte.png",
+      "logo": "/assets/logos/iiitdm-jabalpur.png",
       "sortDate": "2026-04"
     },
     {
@@ -299,17 +300,18 @@
       "year": "2026",
       "description": "Reached the final round of Frontend Odyssey in March 2026.",
       "image": "/awards/frontend-odyssey.png",
+      "logo": "/assets/logos/iit-patna.png",
       "sortDate": "2026-03"
     },
     {
       "id": 11,
-      "title": "Top 25 Team, HP Power Lab 2.0",
-      "event": "HP Power Lab 2.0",
+      "title": "Top 25 Team, Hindustan Petroleum Power Lab 2.0",
+      "event": "Hindustan Petroleum Power Lab 2.0",
       "position": "Top 25",
       "year": "2025",
       "description": "Finished among the Top 25 teams in HP Power Lab 2.0.",
       "image": "/awards/hp-power-lab.png",
-      "logo": "hp",
+      "logo": "/assets/logos/hpcl.png",
       "sortDate": "2025"
     },
     {
@@ -319,7 +321,8 @@
       "position": "Finalist",
       "year": "2025",
       "description": "Reached the final round of Code Cubicle 5.0 in October 2025.",
-      "image": "/awards/code-cubicle.png"
+      "image": "/awards/code-cubicle.png",
+      "logo": "/assets/logos/geek-room.png"
     },
     {
       "id": 13,
@@ -328,7 +331,8 @@
       "position": "Finalist",
       "year": "2025",
       "description": "Reached the final round of Code Slayer 2k25 in October 2025.",
-      "image": "/awards/code-slayer.png"
+      "image": "/awards/code-slayer.png",
+      "logo": "/assets/logos/nit-delhi.png"
     },
     {
       "id": 14,
@@ -337,7 +341,8 @@
       "position": "Finalist",
       "year": "2025",
       "description": "Reached the final round of HackWithUttarPradesh '25.",
-      "image": "/awards/hackwithup.png"
+      "image": "/awards/hackwithup.png",
+      "logo": "/assets/logos/chandigarh-university.png"
     },
     {
       "id": 3,
@@ -377,7 +382,8 @@
       "position": "Winner",
       "year": "2025",
       "description": "Won the Agent.AI track with the team behind Hogwarts OS.",
-      "image": "/awards/hacknovate-preview.png"
+      "image": "/awards/hacknovate-preview.png",
+      "logo": "/assets/logos/hacknovate.png"
     },
     {
       "id": 16,

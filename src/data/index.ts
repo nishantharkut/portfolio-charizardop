@@ -106,6 +106,7 @@ export interface ExperienceItem {
   id: number;
   position: string;
   company: string;
+  website?: string;
   year: string;
   duration: string;
   months?: string;
@@ -114,6 +115,17 @@ export interface ExperienceItem {
   technologies: string[];
   achievements: string[];
   logo?: string;
+  logoDark?: string;
+}
+
+export interface OpenSourceContribution {
+  organization: string;
+  logo: string;
+  repository: string;
+  mergedPullRequests: number;
+  evidence: string;
+  summary: string;
+  url: string;
 }
 
 export interface CareerHighlight {
@@ -246,6 +258,10 @@ export const getTimeline = (): TimelineItem[] => {
 
 export const getExperienceData = (): ExperienceItem[] => {
   return experienceData.experienceData;
+};
+
+export const getOpenSourceContributions = (): OpenSourceContribution[] => {
+  return experienceData.openSourceContributions;
 };
 
 export const getCoreSkills = (): string[] => {

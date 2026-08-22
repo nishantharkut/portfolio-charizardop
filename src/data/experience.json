@@ -4,7 +4,8 @@
       "id": 1,
       "position": "Software Engineering Intern",
       "company": "QuickIntell",
-      "year": "2025",
+      "website": "https://quickintell.com/",
+      "year": "2025-26",
       "duration": "Aug. 2025 - Aug. 2026",
       "months": "1 year",
       "description": "I worked on a healthcare revenue-cycle platform that converted EOB documents into X12 835 ERA files and gave operations teams tools to upload, review, and correct data.",
@@ -15,7 +16,7 @@
         "Delivered more than 40 Go, JavaScript, and TypeScript product and security changes through five stakeholder review rounds",
         "Documented 23 reproducible defects across at least five healthcare workflows with severity, impact, and reproduction steps"
       ],
-      "technologies": ["Python", "Go", "TypeScript", "React", "AWS"],
+      "technologies": ["Python", "Go", "TypeScript", "React", "PostgreSQL", "AWS"],
       "achievements": [
         "Added 19 payer-specific parsers, raising field-extraction accuracy from approximately 55% to 95% and expanding support from 44 to 71 payer formats",
         "Corrected X12 835 output across 44 ERA generators, with 108 relevant tests passing and zero regressions",
@@ -23,12 +24,13 @@
         "Shipped 40+ Go, JavaScript, and TypeScript product and security changes through five review rounds, including an 8-KPI React dashboard, bulk operations, RBAC, and signed-file access",
         "Recorded 23 reproducible defects across 5+ healthcare workflows for engineering and product review"
       ],
-      "logo": "/logos/blue-cube.svg"
+      "logo": "/assets/logos/quickintell.png"
     },
     {
       "id": 2,
       "position": "UI/UX and Graphic Design Intern",
       "company": "Cook N Klean",
+      "website": "https://www.cooknklean.com/",
       "year": "2024",
       "duration": "Apr. 2024 - Jun. 2024",
       "months": "3 months",
@@ -45,7 +47,37 @@
         "Created 10+ UI screens and reusable Figma components for the product",
         "Worked directly with the founding team and revised designs from stakeholder feedback"
       ],
-      "logo": "/logos/brane.svg"
+      "logo": "/assets/logos/cook-n-klean-light.png",
+      "logoDark": "/assets/logos/cook-n-klean-dark.svg"
+    }
+  ],
+  "openSourceContributions": [
+    {
+      "organization": "Learning Unlimited",
+      "logo": "/assets/logos/learning-unlimited.png",
+      "repository": "learning-unlimited/ESP-Website",
+      "mergedPullRequests": 9,
+      "evidence": "9 merged pull requests across 38 unique files",
+      "summary": "Fixed autoscheduler swap validation with four regression tests, added CSRF protection and keyboard accessibility, and completed Django maintenance updates.",
+      "url": "https://github.com/learning-unlimited/ESP-Website/pulls?q=is%3Apr+is%3Amerged+author%3Anishantharkut"
+    },
+    {
+      "organization": "Kiwix",
+      "logo": "/assets/logos/kiwix.png",
+      "repository": "openzim/mwoffliner",
+      "mergedPullRequests": 5,
+      "evidence": "5 merged pull requests",
+      "summary": "Preserved inline data-URL images, removed unused dependencies, replaced loose equality checks, and cleaned production logging and test code.",
+      "url": "https://github.com/openzim/mwoffliner/pulls?q=is%3Apr+is%3Amerged+author%3Anishantharkut"
+    },
+    {
+      "organization": "Palisadoes Foundation",
+      "logo": "/assets/logos/palisadoes-foundation.png",
+      "repository": "PalisadoesFoundation/talawa-admin",
+      "mergedPullRequests": 2,
+      "evidence": "2 merged, maintainer-reviewed pull requests",
+      "summary": "Extracted React selection controls from ActionItemModal in two reviewed refactors that reduced component responsibility without changing behaviour.",
+      "url": "https://github.com/PalisadoesFoundation/talawa-admin/pulls?q=is%3Apr+is%3Amerged+author%3Anishantharkut"
     }
   ],
   "coreSkills": [
