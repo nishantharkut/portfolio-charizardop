@@ -1,260 +1,94 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { gsap, ScrollTrigger } from "@/utils/gsap";
-import Link from "next/link";
-import { FaRocket, FaStar, FaUsers, FaBolt } from 'react-icons/fa';
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
-import ScrollVelocity from "../components/ui/ScrollVelocity";
-import SplashCursorWrapper from "../components/ui/SplashCursorWrapper";
-import { 
-  getExperienceData, 
-  getCoreSkills, 
-  getCareerHighlights, 
-  getTechnologyEvolution
-} from '../../data';
 import PixelBlast from "../components/ui/PixelBlast";
 import { PageHeroCta } from "../components/ui/PageHeroCta";
-// Lazy load FaultyTerminal with proper loading state
-import { LazyFaultyTerminal } from '../../components/lazy/LazyBoundaries';
-import CodingStats from "../components/sections/CodingStats";
-import "../components/styles/Experience.css";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
-// Icon mapping
-const iconMap = {
-  FaRocket,
-  FaStar,
-  FaUsers,
-  FaBolt
-};
+import { getExperienceData, getOpenSourceContributions } from "../../data";
+import ExperienceTimeline from "./ExperienceTimeline";
+import OpenSourceExperience from "./OpenSourceExperience";
 
 export default function ExperiencePage() {
   const experienceData = getExperienceData();
-  const skills = getCoreSkills();
-  const highlights = getCareerHighlights();
-  const technologyEvolution = getTechnologyEvolution();
-  const [mounted, setMounted] = useState(false);
+  const openSourceContributions = getOpenSourceContributions();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const sparkRef = useRef<HTMLDivElement>(null);
-  const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const isMobile = window.innerWidth <= 768;
-
-      if (isMobile) {
-        gsap.fromTo(
-          timelineRef.current,
-          { height: "0%" },
-          {
-            height: "calc(100% - 32px)",
-            duration: 1.2,
-            ease: "power1.inOut",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 80%",
-              end: "bottom 20%",
-              scrub: 1,
-              refreshPriority: 1
-            },
-          }
-        );
-        gsap.fromTo(
-          sparkRef.current,
-          { top: "0%", scale: 0.8, opacity: 0.5 },
-          {
-            top: "calc(100% - 16px)",
-            scale: 1.1,
-            opacity: 1,
-            duration: 1.2,
-            ease: "none",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 80%",
-              end: "bottom 20%",
-              scrub: 0.7,
-              refreshPriority: 1
-            },
-          }
-        );
-      } else {
-        gsap.fromTo(
-          timelineRef.current,
-          { height: "0%" },
-          {
-            height: "100%",
-            duration: 1.5,
-            ease: "power1.inOut",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 70%",
-              end: "bottom 30%",
-              scrub: 1,
-              refreshPriority: 1
-            },
-          }
-        );
-        gsap.fromTo(
-          sparkRef.current,
-          { top: "0%", scale: 0.8, opacity: 0.5 },
-          {
-            top: "100%",
-            scale: 1,
-            opacity: 1,
-            duration: 1.5,
-            ease: "none",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 70%",
-              end: "bottom 30%",
-              scrub: 0.5,
-              refreshPriority: 1
-            },
-          }
-        );
-      }
-
-      itemsRef.current.forEach((item, index) => {
-        if (item) {
-          gsap.fromTo(
-            item,
-            { opacity: 0, y: 20 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.6,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: item,
-                start: "top 85%",
-                end: "bottom 15%",
-                toggleActions: "play none none reverse",
-                refreshPriority: 1,
-                invalidateOnRefresh: true
-              },
-            }
-          );
-        }
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  // Smooth scroll to experience timeline section
-  const scrollToExperience = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const experienceSection = document.getElementById('experience-timeline');
-    if (experienceSection) {
-      experienceSection.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
+  const scrollToExperience = (event: React.MouseEvent) => {
+    event.preventDefault();
+    document.getElementById("experience-timeline")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
   return (
-    <main className="relative w-full min-h-screen overflow-x-hidden" style={{ color: 'var(--color-text)' }}>
-      {/* <SplashCursor SPLAT_RADIUS={0.05} /> */}
-      <SplashCursorWrapper SPLAT_RADIUS={0.025} />
+    <main className="relative min-h-screen w-full overflow-x-hidden" style={{ color: "var(--color-text)" }}>
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden pt-16 md:pt-0">
-        {/* Background */}
+      <section className="relative flex h-screen items-center justify-center overflow-hidden pt-16 md:pt-0">
         <div className="absolute inset-0 z-0">
           <PixelBlast
-              variant="circle"
-              pixelSize={2}
-              color="#c96f2e"
-              patternScale={7}
-              patternDensity={1.2}
-              pixelSizeJitter={1.6}
-              enableRipples
-              rippleSpeed={0.4}
-              rippleThickness={0.12}
-              rippleIntensityScale={1.5}
-              // liquid
-              // liquidStrength={0.12}
-              // liquidRadius={1.2}
-              // liquidWobbleSpeed={5}
-              speed={0.6}
-              edgeFade={0.25}
-              transparent
-            />
-          {/* <LazyFaultyTerminal
-            scale={2}
-            gridMul={[3, 2]}
-            digitSize={1.2}
-            timeScale={0.5}
-            scanlineIntensity={0.3}
-            glitchAmount={0.8}
-            flickerAmount={0.6}
-            noiseAmp={0.9}
-            chromaticAberration={1.5}
-            curvature={0.1}
-            tint="#c96f2e"
-            mouseReact={true}
-            mouseStrength={0.3}
-            brightness={0.6}
-          /> */}
+            variant="circle"
+            pixelSize={2}
+            color="#c96f2e"
+            patternScale={7}
+            patternDensity={1.2}
+            pixelSizeJitter={1.6}
+            enableRipples
+            rippleSpeed={0.4}
+            rippleThickness={0.12}
+            rippleIntensityScale={1.5}
+            speed={0.6}
+            edgeFade={0.25}
+            transparent
+          />
         </div>
 
-        <div className="relative z-10 text-center px-4">
+        <div className="relative z-10 px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            {/* Clean Title */}
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 drop-shadow-2xl leading-tight"
-              style={{ color: 'var(--color-text)' }}
+              className="mb-4 text-2xl font-bold leading-tight drop-shadow-2xl sm:mb-6 sm:text-4xl md:text-6xl lg:text-7xl"
+              style={{ color: "var(--color-text)" }}
             >
               Professional
               <br />
               <span className="relative inline-block sm:inline">
-                <span className="relative z-10" style={{ color: 'var(--color-accent)' }}>Experience</span>
-                <motion.div
+                <span className="relative z-10" style={{ color: "var(--color-accent)" }}>
+                  Experience
+                </span>
+                <motion.span
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 1.2 }}
-                  className="absolute left-0 w-full h-1 origin-left top-full mt-1 sm:top-auto sm:mt-0 sm:bottom-1"
-                  style={{ background: 'var(--color-accent-gradient)' }}
+                  className="absolute left-0 top-full mt-1 h-1 w-full origin-left sm:bottom-1 sm:top-auto sm:mt-0"
+                  style={{ background: "var(--color-accent-gradient)" }}
+                  aria-hidden="true"
                 />
               </span>
             </motion.h1>
-            
-            {/* Simple Description */}
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-6 sm:mb-8 drop-shadow-lg"
-              style={{ color: 'var(--color-text)' }}
+              className="mx-auto mb-6 max-w-2xl text-base drop-shadow-lg sm:mb-8 sm:text-lg md:text-xl"
+              style={{ color: "var(--color-text)" }}
             >
-              My work experience so far — from <span className="font-semibold" style={{ color: 'var(--color-accent)' }}>design internships</span> to{' '}
-              <span className="font-semibold" style={{ color: 'var(--color-accent)' }}>software engineering</span>
+              Work across <span className="font-semibold" style={{ color: "var(--color-accent)" }}>software engineering</span>, product QA, and{" "}
+              <span className="font-semibold" style={{ color: "var(--color-accent)" }}>design</span>
             </motion.p>
-            
+
             <PageHeroCta
               primary={{
-                label: 'View experience',
-                href: '#experience-timeline',
+                label: "View experience",
+                href: "#experience-timeline",
                 onClick: scrollToExperience,
               }}
             />
@@ -262,548 +96,9 @@ export default function ExperiencePage() {
         </div>
       </section>
 
-      {/* Experience Timeline — full content (duration, technologies, achievements) */}
-      <section
-        ref={sectionRef}
-        className="relative z-10 w-full py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-12"
-        id="experience-timeline"
-      >
-        <div className="max-w-6xl mx-auto">
-          {/* Title */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12 sm:mb-16 md:mb-20"
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4" style={{ color: "var(--color-text)" }}>
-              Work <span className="text-orange-500">Experience</span>
-            </h2>
-            <p className="text-base sm:text-lg max-w-2xl mx-auto px-4" style={{ color: "var(--color-text-secondary)" }}>
-              Where I&apos;ve worked and what I&apos;ve built
-            </p>
-          </motion.div>
+      <ExperienceTimeline items={experienceData} />
+      <OpenSourceExperience contributions={openSourceContributions} />
 
-          {/* Mobile Experience Cards */}
-          <div className="block md:hidden">
-            <div className="space-y-8 pt-4">
-              {experienceData.map((item, index) => (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-10%" }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="w-full scroll-mt-20"
-                >
-                  <div
-                    className="relative w-full neubrutalism-card group min-h-[420px] sm:min-h-[460px] flex flex-col"
-                    style={{
-                      backgroundColor: "var(--color-surface)",
-                      borderColor: "var(--color-accent)",
-                    }}
-                  >
-                    <div className="p-5 relative overflow-hidden flex-1 flex flex-col">
-                      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      <div className="relative z-10 space-y-4">
-                        <div className="flex justify-between items-start mb-3">
-                          <span className="text-xl font-bold tracking-tight text-orange-500">{item.year}</span>
-                          <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-orange-500 rounded-sm" />
-                            <p className="text-xs font-bold tracking-wide opacity-90 uppercase" style={{ color: "var(--color-text-secondary)" }}>
-                              {item.duration}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="space-y-2 mb-4">
-                          <h3 className="text-lg font-bold leading-tight group-hover:text-orange-300 transition-colors duration-300 uppercase tracking-wide" style={{ color: "var(--color-text)" }}>
-                            {item.position}
-                          </h3>
-                          <div className="flex items-center gap-2">
-                            <div className="w-5 h-5 border border-orange-500/60 rounded-md bg-orange-500/30 flex items-center justify-center flex-shrink-0">
-                              <div className="w-2 h-2 bg-orange-500 rounded-sm" />
-                            </div>
-                            <h4 className="text-base font-bold bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent uppercase tracking-wide">
-                              {item.company}
-                            </h4>
-                          </div>
-                        </div>
-                        <div className="mb-4">
-                          <p className="text-sm leading-relaxed group-hover:text-opacity-95 transition-all duration-300" style={{ color: "var(--color-text-secondary)" }}>
-                            {item.description}
-                          </p>
-                        </div>
-                        <div className="mb-4">
-                          <div className="mb-2">
-                            <h5 className="font-bold text-xs uppercase tracking-[0.2em] opacity-90 flex items-center gap-2" style={{ color: "var(--color-text)" }}>
-                              <span className="w-2 h-2 bg-orange-500 rounded-sm" />
-                              Technologies Used
-                            </h5>
-                          </div>
-                          <div className="flex flex-wrap gap-2">
-                            {item.technologies.map((tech, i) => (
-                              <motion.span
-                                key={i}
-                                className="px-2 py-1 border border-orange-500/70 rounded-lg bg-orange-500/20 text-orange-300 text-xs font-bold hover:bg-orange-500 hover:text-black transition-all duration-300 cursor-default shadow-[var(--shadow-neubrutalism)] hover:shadow-[var(--shadow-neubrutalism-hover-small)] hover:translate-x-[2px] hover:translate-y-[2px] uppercase tracking-wide"
-                                whileHover={{ scale: 1.05, y: -2 }}
-                                whileTap={{ scale: 0.95 }}
-                                transition={{ duration: 0.2 }}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                              >
-                                {tech}
-                              </motion.span>
-                            ))}
-                          </div>
-                        </div>
-                        <div>
-                          <div className="mb-2">
-                            <h5 className="font-bold text-xs uppercase tracking-[0.2em] opacity-90 flex items-center gap-2" style={{ color: "var(--color-text)" }}>
-                              <span className="w-2 h-2 bg-orange-500 rounded-sm" />
-                              Key Achievements
-                            </h5>
-                          </div>
-                          <div className="space-y-2">
-                            {item.achievements.map((achievement, i) => (
-                              <motion.div
-                                key={i}
-                                className="flex items-start gap-2 text-sm"
-                                initial={{ opacity: 0, x: -20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: i * 0.1 }}
-                              >
-                                <div className="w-2 h-2 bg-orange-500 rounded-sm mt-1 flex-shrink-0" />
-                                <span className="font-medium" style={{ color: "var(--color-text-secondary)" }}>{achievement}</span>
-                              </motion.div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* Desktop Timeline */}
-          <div className="hidden md:block relative">
-            <div
-              ref={timelineRef}
-              className="absolute left-1/2 -translate-x-1/2 w-[2px] h-full bg-gradient-to-b from-[#ff9a1c] to-transparent"
-            />
-            <div
-              ref={sparkRef}
-              className="absolute left-1/2 -translate-x-1/2 w-3 h-3 z-10 sparkle-dot"
-              style={{
-                background: "#ff9a1c",
-                borderRadius: "50%",
-                filter: "blur(1px)",
-                boxShadow: "0 0 8px 2px rgba(255, 154, 28, 0.8), 0 0 12px 5px rgba(255, 140, 64, 0.6)",
-              }}
-            />
-            <div className="relative">
-              {experienceData.map((item, index) => (
-                <div
-                  key={item.id}
-                  ref={(el) => { itemsRef.current[index] = el; }}
-                  className={`mb-8 sm:mb-10 md:mb-12 relative pl-14 sm:pl-12 md:pl-0 ${
-                    index % 2 === 0 ? "md:text-right md:pr-[calc(50%+40px)]" : "md:text-left md:pl-[calc(50%+40px)]"
-                  }`}
-                >
-                  <div
-                    className="absolute left-4 sm:left-3 md:left-1/2 md:-translate-x-1/2 w-3 sm:w-4 h-3 sm:h-4 bg-orange-500 rounded-full border-2 z-10 shadow-lg"
-                    style={{ borderColor: "var(--color-bg-start)" }}
-                  />
-                  <div
-                    className="relative w-full neubrutalism-card group min-h-[420px] sm:min-h-[460px] lg:min-h-[500px] flex flex-col"
-                    style={{
-                      backgroundColor: "var(--color-surface)",
-                      borderColor: "var(--color-accent)",
-                    }}
-                  >
-                    <div className="p-5 relative overflow-hidden flex-1 flex flex-col">
-                      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      <div className="relative z-10 space-y-4">
-                        <div className={`flex items-start ${index % 2 === 0 ? "md:justify-between md:flex-row-reverse" : "md:justify-between"} gap-4 mb-4`}>
-                          <span className="text-xl font-bold tracking-tight text-orange-500">{item.year}</span>
-                          <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-orange-500 rounded-sm" />
-                            <p className="text-xs font-bold tracking-wide opacity-90 uppercase" style={{ color: "var(--color-text-secondary)" }}>
-                              {item.duration}
-                            </p>
-                          </div>
-                        </div>
-                        <div className={`space-y-2 mb-4 ${index % 2 === 0 ? "md:text-right" : "md:text-left"}`}>
-                          <h3 className="text-lg font-bold leading-tight group-hover:text-orange-300 transition-colors duration-300 uppercase tracking-wide" style={{ color: "var(--color-text)" }}>
-                            {item.position}
-                          </h3>
-                          <div className={`flex items-center gap-2 ${index % 2 === 0 ? "md:justify-end" : "md:justify-start"}`}>
-                            <div className="w-5 h-5 border border-orange-500/60 rounded-md bg-orange-500/30 flex items-center justify-center flex-shrink-0">
-                              <div className="w-2 h-2 bg-orange-500 rounded-sm" />
-                            </div>
-                            <h4 className="text-base font-bold bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent uppercase tracking-wide">
-                              {item.company}
-                            </h4>
-                          </div>
-                        </div>
-                        <div className={`mb-4 ${index % 2 === 0 ? "md:text-right" : "md:text-left"}`}>
-                          <div className="relative">
-                            <div className={`absolute top-0 ${index % 2 === 0 ? "right-0" : "left-0"} w-6 h-0.5 bg-orange-500`} />
-                            <p className="text-sm leading-relaxed pt-3 group-hover:text-opacity-95 transition-all duration-300 font-medium" style={{ color: "var(--color-text-secondary)" }}>
-                              {item.description}
-                            </p>
-                          </div>
-                        </div>
-                        <div className={`mb-4 ${index % 2 === 0 ? "md:text-right" : "md:text-left"}`}>
-                          <div className="mb-2">
-                            <h5 className={`font-bold text-xs uppercase tracking-[0.2em] opacity-90 flex items-center gap-2 ${index % 2 === 0 ? "md:justify-end" : "md:justify-start"}`} style={{ color: "var(--color-text)" }}>
-                              <span className="w-2 h-2 bg-orange-500 rounded-sm" />
-                              Technologies Used
-                            </h5>
-                          </div>
-                          <div className={`flex flex-wrap gap-2 ${index % 2 === 0 ? "md:justify-end" : "md:justify-start"}`}>
-                            {item.technologies.map((tech, i) => (
-                              <motion.span
-                                key={i}
-                                className="px-2 py-1 border border-orange-500/70 rounded-lg bg-orange-500/20 text-orange-300 text-xs font-bold hover:bg-orange-500 hover:text-black transition-all duration-300 cursor-default shadow-[var(--shadow-neubrutalism)] hover:shadow-[var(--shadow-neubrutalism-hover-small)] hover:translate-x-[2px] hover:translate-y-[2px] uppercase tracking-wide"
-                                whileHover={{ scale: 1.05, y: -2 }}
-                                whileTap={{ scale: 0.95 }}
-                                transition={{ duration: 0.2 }}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                              >
-                                {tech}
-                              </motion.span>
-                            ))}
-                          </div>
-                        </div>
-                        <div className={index % 2 === 0 ? "md:text-right" : "md:text-left"}>
-                          <div className="mb-2">
-                            <h5 className={`font-bold text-xs uppercase tracking-[0.2em] opacity-90 flex items-center gap-2 ${index % 2 === 0 ? "md:justify-end" : "md:justify-start"}`} style={{ color: "var(--color-text)" }}>
-                              <span className="w-2 h-2 bg-orange-500 rounded-sm" />
-                              Key Achievements
-                            </h5>
-                          </div>
-                          <div className="space-y-2">
-                            {item.achievements.map((achievement, i) => (
-                              <motion.div
-                                key={i}
-                                className={`flex items-start gap-2 group/achievement p-1.5 hover:bg-orange-500/5 rounded transition-all duration-300 ${index % 2 === 0 ? "md:flex-row-reverse md:text-right" : ""}`}
-                                initial={{ opacity: 0, x: index % 2 === 0 ? 30 : -30 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: i * 0.1 }}
-                                whileHover={{ scale: 1.01 }}
-                              >
-                                <motion.div
-                                  className="flex-shrink-0 w-2 h-2 bg-orange-500 rounded-sm mt-1 shadow-sm group-hover/achievement:shadow-md group-hover/achievement:shadow-orange-500/40 transition-all duration-300"
-                                  whileHover={{ scale: 1.3, boxShadow: "0 0 15px rgba(201, 111, 46, 0.5)" }}
-                                  transition={{ duration: 0.2 }}
-                                />
-                                <span className="text-sm leading-relaxed group-hover/achievement:text-opacity-100 transition-all duration-300 font-medium" style={{ color: "var(--color-text-secondary)" }}>
-                                  {achievement}
-                                </span>
-                              </motion.div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Additional Skills Section */}
-      <section className="relative z-10 py-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8" style={{ color: 'var(--color-text)' }}>
-              Core <span className="text-orange-500">Competencies</span>
-            </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-              {skills.map((skill, index) => (
-                <motion.div
-                  key={skill}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  className="h-full"
-                >
-                  {/* Neubrutalism Skills Card */}
-                  <div className="relative w-full h-[80px] neubrutalism-button flex items-center justify-center"
-                    style={{
-                      backgroundColor: 'var(--color-surface)',
-                      borderColor: 'var(--color-accent)',
-                    }}
-                  >
-                    <span className="font-bold text-xs sm:text-sm uppercase tracking-wide text-center px-2" style={{ color: 'var(--color-text)' }}>
-                      {skill}
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Career Highlights Section */}
-      {/* <section className="relative z-10 py-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>
-              Career <span className="text-orange-500">Highlights</span>
-            </h2>
-            <p className="text-base sm:text-lg max-w-2xl mx-auto px-4" style={{ color: 'var(--color-text-secondary)' }}>
-              Key metrics and achievements throughout my professional journey
-            </p>
-          </motion.div> */}
-
-          {/* Mobile View - Simple Grid */}
-          {/* <div className="block md:hidden">
-            <div className="grid grid-cols-1 gap-6">
-              {highlights.map((stat, index) => {
-                const IconComponent = iconMap[stat.icon as keyof typeof iconMap];
-                return (
-                  <motion.div
-                    key={stat.label}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    whileHover={{ scale: 1.02 }}
-                    className="h-full"
-                  > */}
-                    {/* Neubrutalism Career Highlights Card - Mobile */}
-                    {/* <div className="relative w-full h-[260px] neubrutalism-card"
-                      style={{
-                        backgroundColor: 'var(--color-surface)',
-                        borderColor: 'var(--color-accent)',
-                      }}
-                    >
-                      <div className="flex flex-col items-center justify-center h-full p-6 space-y-4">
-                        <div className="text-4xl text-orange-500">
-                          {IconComponent && <IconComponent />}
-                        </div>
-                        <div className="text-4xl font-black bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
-                          {stat.number}
-                        </div>
-                        <h3 className="font-black text-lg text-center uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
-                          {stat.label}
-                        </h3>
-                        <p className="text-sm leading-relaxed text-center line-clamp-3" style={{ color: 'var(--color-text-secondary)' }}>
-                          {stat.description}
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div> */}
-
-          {/* Desktop/Tablet View */}
-          {/* <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {highlights.map((stat, index) => {
-              const IconComponent = iconMap[stat.icon as keyof typeof iconMap];
-              return (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="h-full"
-                > */}
-                  {/* Neubrutalism Career Highlights Card - Desktop */}
-                  {/* <div className="relative w-full h-[280px] neubrutalism-card"
-                    style={{
-                      backgroundColor: 'var(--color-surface)',
-                      borderColor: 'var(--color-accent)',
-                    }}
-                  >
-                    <div className="flex flex-col items-center justify-center h-full p-4 lg:p-6 space-y-3">
-                      <div className="text-2xl lg:text-3xl text-orange-500">
-                        {IconComponent && <IconComponent />}
-                      </div>
-                      <div className="text-2xl lg:text-3xl xl:text-4xl font-black bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
-                        {stat.number}
-                      </div>
-                      <h3 className="font-black text-sm lg:text-base text-center uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
-                        {stat.label}
-                      </h3>
-                      <p className="text-xs lg:text-sm leading-relaxed text-center line-clamp-4" style={{ color: 'var(--color-text-secondary)' }}>
-                        {stat.description}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section> */}
-
-      {/* Technologies Evolution Section */}
-      {/* <section className="relative z-10 py-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>
-              Technology <span className="text-orange-500">Evolution</span>
-            </h2>
-            <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--color-text-secondary)' }}>
-              How my technical stack has evolved throughout my career
-            </p>
-          </motion.div>
-
-          <div className="space-y-8">
-            {technologyEvolution.map((era, index) => (
-              <motion.div
-                key={era.period}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                className="h-full"
-              >
-                <div className="relative w-full min-h-[280px] neubrutalism-card"
-                  style={{
-                    backgroundColor: 'var(--color-surface)',
-                    borderColor: 'var(--color-accent)',
-                  }}
-                >
-                  <div className="flex flex-col md:flex-row gap-4 lg:gap-6 p-4 sm:p-6 lg:p-8 h-full">
-                    <div className="md:w-1/3 flex flex-col justify-start">
-                      <div className={`inline-block px-3 py-2 rounded-none border-2 border-black bg-gradient-to-r from-orange-400 to-orange-600 text-black text-xs sm:text-sm font-black mb-3 lg:mb-4 shadow-[var(--shadow-neubrutalism)] uppercase tracking-wide`}>
-                        {era.period}
-                      </div>
-                      <h3 className="text-xl sm:text-2xl font-black mb-2 lg:mb-3 uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
-                        {era.title}
-                      </h3>
-                      <p className="text-sm sm:text-base leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
-                        {era.description}
-                      </p>
-                    </div>
-                    <div className="md:w-2/3 flex flex-col justify-start">
-                      <h4 className="font-black mb-3 lg:mb-4 text-xs sm:text-sm uppercase tracking-wider" style={{ color: 'var(--color-text)' }}>
-                        Key Technologies
-                      </h4>
-                      <div className="flex flex-wrap gap-2 sm:gap-3">
-                        {era.technologies.map((tech, i) => (
-                          <motion.span
-                            key={tech}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.3, delay: 0.6 + i * 0.05 }}
-                            className="px-3 py-1.5 sm:px-4 sm:py-2 border-2 border-orange-500 bg-orange-500/20 text-orange-500 text-xs sm:text-sm font-black hover:bg-orange-500 hover:text-black transition-all duration-300 shadow-[var(--shadow-neubrutalism)] hover:shadow-[var(--shadow-neubrutalism-hover-small)] hover:translate-x-[2px] hover:translate-y-[2px] uppercase tracking-wide"
-                          >
-                            {tech}
-                          </motion.span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section> */}
-
-      {/* Coding Stats Section */}
-      <CodingStats showTitle={true} />
-
-      {/* Call to Action */}
-      <section className="relative z-10 py-16 sm:py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6" style={{ color: 'var(--color-text)' }}>
-              Want to <span className="text-orange-500">Work Together?</span>
-            </h2>
-            <p className="text-base sm:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto px-4" style={{ color: 'var(--color-text-secondary)' }}>
-              I&apos;m open to internships, freelance work, and collaborations
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4">
-              <Link 
-                href="/projects"
-                className="px-6 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center gap-2 text-sm w-fit"
-                style={{ 
-                  backgroundColor: 'var(--color-surface)',
-                  borderColor: 'var(--color-accent)',
-                  color: 'var(--color-text)'
-                }}
-              >
-                View My Projects
-              </Link>
-              <Link 
-                href="/about"
-                className="px-6 py-3 neubrutalism-button font-black uppercase tracking-wide text-center inline-flex items-center gap-2 text-sm w-fit"
-                style={{
-                  borderColor: 'var(--color-accent)',
-                  backgroundColor: 'var(--color-accent)',
-                  color: 'var(--color-button-text)'
-                }}
-              >
-                Get In Touch
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      <style jsx>{`
-        @keyframes sparkle {
-          0% {
-            opacity: 0.6;
-            transform: translate(-50%, 0) scale(0.8);
-            box-shadow: 0 0 5px 2px rgba(255, 154, 28, 0.5), 0 0 8px 4px rgba(255, 140, 64, 0.4);
-          }
-          100% {
-            opacity: 1;
-            transform: translate(-50%, 0) scale(1.2);
-            box-shadow: 0 0 10px 4px rgba(255, 154, 28, 0.8), 0 0 20px 6px rgba(255, 140, 64, 0.6),
-                        0 0 30px 10px rgba(255, 140, 64, 0.2);
-          }
-        }
-        .sparkle-dot {
-          animation: sparkle 0.6s ease-out infinite alternate;
-        }
-      `}</style>
-      
       <Footer />
     </main>
   );

@@ -11,6 +11,7 @@ import { performanceManager } from '@/utils/performance';
 
 const Projects = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const handleProjectClick = (project: Project) => setSelectedProject(project);
@@ -29,42 +30,75 @@ const Projects = () => {
 
   // GSAP horizontal scroll — matches moncy.dev Work section
   useEffect(() => {
-    if (!sectionRef.current) return;
+    const section = sectionRef.current;
+    const track = trackRef.current;
+    if (!section || !track) return;
 
-    let translateX = 0;
+    const media = gsap.matchMedia();
+    const context = gsap.context(() => {
+      media.add('(min-width: 769px)', () => {
+        const boxes = Array.from(track.querySelectorAll<HTMLElement>('.project-box'));
 
-    function setTranslateX() {
-      const boxes = sectionRef.current!.getElementsByClassName('project-box');
-      const container = sectionRef.current!.querySelector('.project-container');
-      if (!boxes.length || !container) return;
-      const rectLeft = container.getBoundingClientRect().left;
-      const rect = boxes[0].getBoundingClientRect();
-      const parentWidth = boxes[0].parentElement!.getBoundingClientRect().width;
-      const padding = parseInt(window.getComputedStyle(boxes[0]).padding) / 2;
-      translateX = rect.width * boxes.length - (rectLeft + parentWidth) + padding;
-    }
+        const getDistance = () => {
+          const lastBox = boxes.at(-1);
+          if (!lastBox) return 0;
 
-    setTranslateX();
+          let trackLeft = 0;
+          let offsetNode: HTMLElement | null = track;
+          while (offsetNode) {
+            trackLeft += offsetNode.offsetLeft;
+            offsetNode = offsetNode.offsetParent as HTMLElement | null;
+          }
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: `+=${translateX}`,
-        scrub: true,
-        pin: true,
-        id: 'work',
-      },
-    });
+          const lastRightWithoutTransform = trackLeft + lastBox.offsetLeft + lastBox.offsetWidth;
+          return Math.max(0, lastRightWithoutTransform - window.innerWidth);
+        };
 
-    tl.to('.project-flex', {
-      x: -translateX,
-      ease: 'none',
-    });
+        const tween = gsap.to(track, {
+          x: () => -getDistance(),
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: () => `+=${getDistance()}`,
+            scrub: true,
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+            id: 'work',
+          },
+        });
+
+        let refreshFrame = 0;
+        let disposed = false;
+        const refresh = () => {
+          cancelAnimationFrame(refreshFrame);
+          refreshFrame = requestAnimationFrame(() => ScrollTrigger.refresh());
+        };
+        const observer = new ResizeObserver(refresh);
+        observer.observe(track);
+
+        const pendingImages = Array.from(track.querySelectorAll('img')).filter((image) => !image.complete);
+        pendingImages.forEach((image) => image.addEventListener('load', refresh, { once: true }));
+        document.fonts.ready.then(() => {
+          if (!disposed) refresh();
+        });
+
+        return () => {
+          disposed = true;
+          cancelAnimationFrame(refreshFrame);
+          observer.disconnect();
+          pendingImages.forEach((image) => image.removeEventListener('load', refresh));
+          tween.scrollTrigger?.kill();
+          tween.kill();
+        };
+      });
+    }, section);
 
     return () => {
-      tl.kill();
-      ScrollTrigger.getById('work')?.kill();
+      media.revert();
+      context.revert();
     };
   }, []);
 
@@ -85,7 +119,7 @@ const Projects = () => {
         <h2 className="section-heading">
           My Work
         </h2>
-        <div className="project-flex">
+        <div className="project-flex" ref={trackRef}>
           {projects.map((project, index) => (
             <div
               className="project-box"

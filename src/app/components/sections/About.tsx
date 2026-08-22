@@ -5,9 +5,9 @@ import Link from "next/link";
 
 const details = [
   { label: "Location", value: "India" },
-  { label: "Focus", value: "Web dev, performance, security" },
-  { label: "Education", value: "B.Tech in IT, IIIT Gwalior" },
-  { label: "Currently", value: "Open to opportunities" },
+  { label: "Focus", value: "Backend, full-stack, applied ML, AWS" },
+  { label: "Education", value: "Integrated IT dual degree, IIIT Gwalior" },
+  { label: "Currently", value: "Software Engineering Intern at QuickIntell" },
 ];
 
 export default function About() {
@@ -37,10 +37,10 @@ export default function About() {
               className="text-base sm:text-lg md:text-xl leading-relaxed mb-8"
               style={{ color: "var(--color-text-muted)" }}
             >
-              I build things for the web. Most of my time goes into writing
-              code, debugging issues in production, and crafting interfaces
-              that people enjoy using. I care about performance, clean code,
-              and shipping work that delivers.
+              I work across Python document processing, Go services, and
+              React and TypeScript product features at QuickIntell. Outside
+              work, I build cloud-backed products and run applied ML research
+              on edge systems and respiratory audio.
             </p>
 
             {/* Detail rows */}

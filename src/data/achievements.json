@@ -2,212 +2,421 @@
   "achievements": [
     {
       "id": 1,
-      "title": "ODOO India Hackathon 2025 - Top 10",
-      "category": "Hackathon",
-      "description": "Top 10 out of 10,000+ teams at the ODOO India Hackathon 2025. Built a travel itinerary app.",
-      "details": "Competed in the ODOO India Hackathon 2025 and placed in the top 10 out of 10,000+ participants. Built a travel itinerary application that was evaluated on technical implementation and product viability.",
-      "date": "2025",
-      "organization": "ODOO",
+      "title": "Selected for Amazon ML Summer School 2026",
+      "category": "Machine Learning",
+      "description": "Selected among 3,000 students from 134,421 applicants nationwide.",
+      "details": "Amazon selected 3,000 students from 134,421 applicants for its 2026 machine-learning program.",
+      "date": "2026",
+      "organization": "Amazon",
       "link": "",
-      "image": "/awards/Odoo.webp",
-      "badge": "🏆",
-      "impact": [
-        "Top 10 out of 10,000+ participants nationwide",
-        "Built a travel itinerary app judged on technical execution and product viability",
-        "Competed at national level against experienced teams"
-      ],
+      "image": "/achievements/amazon-mlss.png",
+      "logo": "amazon",
+      "sortDate": "2026",
+      "badge": "3,000 / 134,421",
+      "impact": ["Chosen among 3,000 students from 134,421 applicants"],
       "featured": true
     },
     {
       "id": 2,
-      "title": "Winner - Hacknovate 6.0 Hackathon'25",
-      "category": "Hackathon",
-      "description": "Won first place in Agent.AI Track at Hacknovate 6.0 organized by ABES-IT, Ghaziabad, securing $200 prize for building Hogwarts OS.",
-      "details": "Won first place in the Agent.AI track at Hacknovate 6.0, organized by ABES-IT Ghaziabad. Built Hogwarts OS, a Harry Potter-themed Linux distribution featuring spell-based terminal commands, an AI-powered assistant, and gamification.",
-      "date": "2025",
-      "organization": "ABES-IT, Ghaziabad",
-      "image": "/awards/hackonovate.webp",
-      "badge": "🥇",
+      "title": "16 Merged Open-Source Pull Requests",
+      "category": "Open Source",
+      "description": "Contributed upstream fixes to Learning Unlimited, Kiwix, and the Palisadoes Foundation.",
+      "details": "Merged 9 Learning Unlimited pull requests touching 38 files, 5 Kiwix contributions, and 2 maintainer-reviewed Palisadoes changes. The work covered Django upgrades, accessibility, CSRF protection, TypeScript bug fixes, tests, and React refactoring.",
+      "date": "2026",
+      "organization": "Learning Unlimited, Kiwix, Palisadoes Foundation",
+      "link": "https://github.com/nishantharkut",
+      "image": "/achievements/open-source.png",
+      "logo": "github",
+      "sortDate": "2026",
+      "badge": "16 merged PRs",
       "impact": [
-        "Won $200 cash prize in the Agent.AI track",
-        "Built Hogwarts OS - a Harry Potter-themed Linux distribution with AI assistant",
-        "Finished first among competing teams at ABES-IT, Ghaziabad"
-      ]
-    },
-    {
-      "id": 3,
-      "title": "Winner - Winter Project 2024",
-      "category": "UI/UX Design",
-      "description": "Won first place in the UI/UX category at Winter Project 2024, organized by AASF at IIIT Gwalior.",
-      "details": "Won first place in the UI/UX category at Winter Project 2024, organized by AASF at IIIT Gwalior.",
-      "date": "2024",
-      "organization": "AASF, IIIT Gwalior",
-      "image": "/awards/WinterProject.webp",
-      "badge": "🎨",
-      "impact": [
-        "Won first place in UI/UX category at AASF, IIIT Gwalior",
-        "Judged on design quality, usability, and presentation"
-      ]
-    },
-    {
-      "id": 4,
-      "title": "Winner - Aakriti Competition 2024",
-      "category": "Graphic Design",
-      "description": "Won first place in the graphic design category at Aakriti 2024, organized by AASF at IIIT Gwalior.",
-      "details": "Won first place in the graphic design category at Aakriti Competition 2024, organized by AASF at IIIT Gwalior.",
-      "date": "2024",
-      "organization": "AASF, IIIT Gwalior",
-      "image": "/awards/Aakrtiti.webp",
-      "badge": "�",
-      "impact": [
-        "Won first place in graphic design category at AASF, IIIT Gwalior",
-        "Judged on creativity, visual communication, and technical skill"
+        "9 Learning Unlimited pull requests across 38 files",
+        "5 Kiwix and 2 Palisadoes pull requests merged upstream"
       ]
     },
     {
       "id": 5,
-      "title": "Executive Member - SAC Sports'23",
+      "title": "Executive, SAC Sports",
       "category": "Leadership",
-      "description": "Only first-year student picked as an executive member of SAC Sports at IIIT Gwalior. Helped run Sports Day, marathons, and team selections.",
-      "details": "Selected as the only first-year executive member of SAC Sports at IIIT Gwalior. Organized Sports Day, marathons, and handled team selections for Inter-IIIT Meet 24.",
-      "date": "2023",
+      "description": "Selected as the only first-year Sports Executive and helped run Sports Day, marathons, and team selections.",
+      "details": "Supported Sports Day, campus marathons, and team selection for the Inter-IIIT sports meet during the 2023-24 term.",
+      "date": "Nov 2023 - Apr 2024",
       "organization": "IIIT Gwalior",
-      "image": "/achievements/opensource.jpg",
-      "badge": "⚽",
+      "link": "",
+      "image": "/achievements/iiitm-sac.png",
+      "logo": "/assets/logos/iiitm.png",
+      "sortDate": "2023-11",
+      "badge": "Sports Executive",
       "impact": [
-        "Only first-year student selected for executive role",
-        "Organized Sports Day, marathons, and team selections for Inter-IIIT Meet 24"
+        "Only first-year student selected for the executive role",
+        "Supported sports events and Inter-IIIT team selection"
       ]
     },
     {
       "id": 6,
-      "title": "Executive Member - SAC Welfare'24",
+      "title": "Joint Secretary, SAC Welfare",
       "category": "Community Service",
-      "description": "Executive member at SAC Welfare, IIIT Gwalior. Organized events like Hindi Divas and Environment Day, handled logistics for 100+ people, and designed promotional materials.",
-      "details": "Served as executive member of SAC Welfare at IIIT Gwalior. Organized events including Hindi Divas, Environment Day, and Yoga Day. Managed events with 100+ participants and designed promotional materials.",
-      "date": "2024",
+      "description": "Helped organise Hindi Day, Environment Day, and Yoga Day activities, including logistics for events with more than 100 participants.",
+      "details": "Managed participant logistics and promotional material during the Welfare Cell term.",
+      "date": "Apr 2024 - Aug 2024",
       "organization": "IIIT Gwalior",
-      "image": "/achievements/client-satisfaction.jpg",
-      "badge": "🤝",
+      "link": "",
+      "image": "/achievements/iiitm-sac.png",
+      "logo": "/assets/logos/iiitm.png",
+      "sortDate": "2024-04",
+      "badge": "Joint Secretary",
       "impact": [
-        "Organized Hindi Divas, Environment Day, and Yoga Day events",
-        "Coordinated logistics for 100+ participant events",
-        "Designed promotional posters and materials"
+        "Coordinated logistics for events with 100+ participants",
+        "Created promotional material for campus welfare activities"
       ]
     },
     {
       "id": 7,
-      "title": "Executive & Tech Lead - E-Cell IIIT Gwalior",
-      "category": "Technology Leadership",
-      "description": "Executive member and Tech Lead at E-Cell, IIIT Gwalior. Created social media content and handled tech initiatives for the club.",
-      "details": "Served as executive member and Tech Lead at E-Cell, IIIT Gwalior. Created content for social media platforms and handled tech-related initiatives for the club.",
-      "date": "2024",
-      "organization": "IIIT Gwalior",
-      "image": "/achievements/innovation.jpg",
-      "badge": "💡",
+      "title": "Design Team Lead, Entrepreneurship Cell",
+      "category": "Design Leadership",
+      "description": "Produced social-media posts and edited campaign videos for the institute's Entrepreneurship Cell.",
+      "details": "Led the design team for E-Cell communication across its social channels from October 2023 to January 2025.",
+      "date": "Oct 2023 - Jan 2025",
+      "organization": "E-Cell, IIIT Gwalior",
+      "link": "https://in.linkedin.com/company/e-cell-iiit-gwalior",
+      "image": "/achievements/ecell.png",
+      "logo": "/assets/logos/ecell.png",
+      "sortDate": "2023-10",
+      "badge": "Design Team Lead",
       "impact": [
-        "Created social media content for Instagram and LinkedIn",
-        "Handled tech initiatives as Tech Lead"
+        "Designed social-media posts for club campaigns",
+        "Edited campaign and event videos"
       ]
     },
     {
       "id": 8,
-      "title": "Operations Team Member - Rotary Club",
+      "title": "Operations Manager, Rotaract Club",
       "category": "Community Leadership",
-      "description": "Operations team member at Rotary Club, IIIT Gwalior. Helped manage club events and designed some of their digital platforms.",
-      "details": "Served as operations team member at Rotary Club, IIIT Gwalior. Managed club events and designed digital platforms for the organization.",
-      "date": "2024",
-      "organization": "Rotary Club, IIIT Gwalior",
-      "image": "/achievements/leadership.jpg",
-      "badge": "🌟",
+      "description": "Served as Operations Manager for the Rotaract Club of IIIT Gwalior.",
+      "details": "Held the Operations Manager role from December 2023 to March 2025.",
+      "date": "Dec 2023 - Mar 2025",
+      "organization": "Rotaract Club of IIIT Gwalior",
+      "link": "https://in.linkedin.com/company/rotaract-club-abv-iiitm",
+      "image": "/achievements/rotaract.png",
+      "logo": "/assets/logos/rotaract.png",
+      "sortDate": "2023-12",
+      "badge": "Operations Manager",
       "impact": [
-        "Managed club events and logistics",
-        "Designed digital platforms for the organization"
+        "Served for 16 months in the club's operations team"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Social Media Volunteer, Aurora",
+      "category": "Arts and Culture",
+      "description": "Supported social-media work for Aurora, IIIT Gwalior's cultural festival.",
+      "details": "Volunteered with Aurora's social-media team from October 2023 to March 2024.",
+      "date": "Oct 2023 - Mar 2024",
+      "organization": "Aurora, IIIT Gwalior",
+      "link": "https://x.com/IiitmAurora",
+      "image": "/achievements/aurora.png",
+      "logo": "/achievements/aurora.png",
+      "sortDate": "2023-10",
+      "badge": "Social Media Volunteer",
+      "impact": [
+        "Completed a six-month social-media volunteering term"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Alumni Meet '24 Representative",
+      "category": "Campus Leadership",
+      "description": "Represented the institute team supporting Alumni Meet '24.",
+      "details": "Served as an Alumni Meet '24 Representative from December 2023 to January 2024.",
+      "date": "Dec 2023 - Jan 2024",
+      "organization": "IIIT Gwalior",
+      "link": "",
+      "image": "/achievements/iiitm-sac.png",
+      "logo": "/assets/logos/iiitm.png",
+      "sortDate": "2023-12",
+      "badge": "Representative",
+      "impact": [
+        "Supported the institute's 2024 alumni meet"
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Squad Leader, Mood Indigo",
+      "category": "Arts and Culture",
+      "description": "Served as a squad leader for Mood Indigo, IIT Bombay's cultural festival.",
+      "details": "Completed a three-month squad-leader term from October to December 2023.",
+      "date": "Oct 2023 - Dec 2023",
+      "organization": "Mood Indigo, IIT Bombay",
+      "link": "https://linktr.ee/iitbombay.moodi",
+      "image": "/achievements/mood-indigo.png",
+      "logo": "/achievements/mood-indigo.png",
+      "sortDate": "2023-10",
+      "badge": "Squad Leader",
+      "impact": [
+        "Received a contingent leader certificate"
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Member, IAENG",
+      "category": "Professional Membership",
+      "description": "Member of the International Association of Engineers since November 2023.",
+      "details": "Maintains an active IAENG membership alongside academic and engineering work.",
+      "date": "Nov 2023 - Present",
+      "organization": "International Association of Engineers",
+      "link": "https://www.iaeng.org/",
+      "image": "/achievements/iaeng.png",
+      "logo": "/achievements/iaeng.png",
+      "sortDate": "2023-11",
+      "badge": "Member",
+      "impact": [
+        "Professional membership held since November 2023"
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Operations Team Lead, Hindi Pakhwada '23",
+      "category": "Campus Operations",
+      "description": "Led event operations for the institute's Hindi Pakhwada '23 programme.",
+      "details": "Served as Operations Team Lead for the September 2023 campus programme.",
+      "date": "Sep 2023",
+      "organization": "IIIT Gwalior",
+      "link": "",
+      "image": "/achievements/iiitm-sac.png",
+      "logo": "/assets/logos/iiitm.png",
+      "sortDate": "2023-09",
+      "badge": "Operations Team Lead",
+      "impact": [
+        "Led the event's operations team"
       ]
     }
   ],
   "certifications": [
     {
       "id": 1,
-      "name": "Postman API Fundamentals Student Expert",
-      "issuer": "Postman",
-      "date": "2024",
-      "credentialId": "PSE-2024-001",
-      "image": "/certifications/aws.png",
-      "skills": [
-        "API Testing",
-        "REST APIs",
-        "API Documentation",
-        "HTTP Methods"
-      ]
+      "name": "The Complete Full-Stack Web Development Bootcamp",
+      "issuer": "Udemy",
+      "date": "Oct 2025",
+      "credentialId": "UC-4967f38f-8805-4583-8568-a03d1f445d36",
+      "credentialUrl": "https://www.udemy.com/certificate/UC-4967f38f-8805-4583-8568-a03d1f445d36/",
+      "image": "/certifications/udemy.svg",
+      "skills": ["JavaScript", "React", "Node.js", "MongoDB"]
     },
     {
-      "id": 2,
-      "name": "McKinsey.org Forward Program",
-      "issuer": "McKinsey & Company",
-      "date": "2024",
-      "credentialId": "MCK-FWD-2024",
-      "image": "/certifications/gcp.png",
-      "skills": [
-        "Leadership",
-        "Strategic Thinking",
-        "Problem Solving",
-        "Professional Development"
+      "id": 4,
+      "name": "Google Cybersecurity coursework (4 certificates)",
+      "issuer": "Google",
+      "date": "May - Jun 2025",
+      "credentialId": "4 course credentials",
+      "image": "/certifications/google.svg",
+      "skills": ["Linux", "SQL", "Computer Networks", "Network Security", "Security Risk Management", "Cybersecurity"],
+      "courses": [
+        {
+          "name": "Tools of the Trade: Linux and SQL",
+          "date": "Jun 2025",
+          "credentialId": "LVIJ6Q8KMVUP",
+          "credentialUrl": "https://www.coursera.org/account/accomplishments/verify/LVIJ6Q8KMVUP"
+        },
+        {
+          "name": "Connect and Protect: Networks and Network Security",
+          "date": "Jun 2025",
+          "credentialId": "MM6WATXALSHY",
+          "credentialUrl": "https://www.coursera.org/account/accomplishments/verify/MM6WATXALSHY"
+        },
+        {
+          "name": "Play It Safe: Manage Security Risks",
+          "date": "May 2025",
+          "credentialId": "CZ9N52QVEH0Z",
+          "credentialUrl": "https://www.coursera.org/account/accomplishments/verify/CZ9N52QVEH0Z"
+        },
+        {
+          "name": "Foundations of Cybersecurity",
+          "date": "May 2025",
+          "credentialId": "9SNPB102F2S6",
+          "credentialUrl": "https://www.coursera.org/account/accomplishments/verify/9SNPB102F2S6"
+        }
       ]
     },
     {
       "id": 3,
-      "name": "Complete 2024 Web Development Bootcamp",
-      "issuer": "Dr. Angela Yu - Udemy",
-      "date": "2024",
-      "credentialId": "WEB-2024-COMPLETE",
-      "image": "/certifications/ceh.png",
-      "skills": [
-        "Full Stack Development",
-        "React",
-        "Node.js",
-        "MongoDB",
-        "JavaScript",
-        "HTML/CSS"
-      ]
+      "name": "Postman API Fundamentals Student Expert",
+      "issuer": "Postman",
+      "date": "Aug 2024",
+      "credentialId": "66ccecf40ea2cf5db674684a",
+      "image": "/certifications/postman.svg",
+      "skills": ["API Testing", "REST APIs", "API Documentation", "HTTP"]
     }
   ],
   "awards": [
     {
       "id": 1,
-      "title": "Top 10 Finalist - ODOO India Hackathon",
-      "event": "ODOO India Hackathon 2025",
-      "position": "Top 10",
-      "year": "2025",
-      "description": "Top 10 out of 10,000+ teams for building a travel itinerary app",
-      "image": "/awards/creative-tech.jpg"
+      "title": "Grand Finalist, HackOn with Amazon 6.0",
+      "event": "HackOn with Amazon 6.0",
+      "position": "Top 25",
+      "year": "2026",
+      "description": "Reached the Grand Finale as a Top 25 team from 70,261 registrations.",
+      "image": "/awards/hackon-amazon.png",
+      "logo": "amazon",
+      "sortDate": "2026"
     },
     {
       "id": 2,
+      "title": "Semifinalist, ET GenAI Hackathon",
+      "event": "Economic Times GenAI Hackathon",
+      "position": "Semifinalist",
+      "year": "2026",
+      "description": "Advanced to the semifinal round of the Economic Times GenAI Hackathon 2026.",
+      "image": "/awards/et-genai.png",
+      "logo": "/assets/logos/economic-times.jpg",
+      "sortDate": "2026"
+    },
+    {
+      "id": 8,
+      "title": "Finalist, Frontend Arena",
+      "event": "Frontend Arena, IEEE",
+      "position": "Finalist",
+      "year": "2026",
+      "description": "Reached the final round of Frontend Arena in April 2026.",
+      "image": "/awards/frontend-arena.png",
+      "logo": "ieee",
+      "sortDate": "2026-04"
+    },
+    {
+      "id": 9,
+      "title": "Finalist, HackByte 4.0",
+      "event": "HackByte 4.0, IIITDM Jabalpur",
+      "position": "Finalist",
+      "year": "2026",
+      "description": "Reached the final round of HackByte 4.0 in April 2026.",
+      "image": "/awards/hackbyte.png",
+      "logo": "/assets/logos/iiitdm-jabalpur.png",
+      "sortDate": "2026-04"
+    },
+    {
+      "id": 10,
+      "title": "Finalist, Frontend Odyssey",
+      "event": "Frontend Odyssey, IIT Patna",
+      "position": "Finalist",
+      "year": "2026",
+      "description": "Reached the final round of Frontend Odyssey in March 2026.",
+      "image": "/awards/frontend-odyssey.png",
+      "logo": "/assets/logos/iit-patna.png",
+      "sortDate": "2026-03"
+    },
+    {
+      "id": 11,
+      "title": "Top 25 Team, Hindustan Petroleum Power Lab 2.0",
+      "event": "Hindustan Petroleum Power Lab 2.0",
+      "position": "Top 25",
+      "year": "2025",
+      "description": "Finished among the Top 25 teams in HP Power Lab 2.0.",
+      "image": "/awards/hp-power-lab.png",
+      "logo": "/assets/logos/hpcl.png",
+      "sortDate": "2025"
+    },
+    {
+      "id": 12,
+      "title": "Finalist, Code Cubicle 5.0",
+      "event": "Code Cubicle 5.0, Geek Room",
+      "position": "Finalist",
+      "year": "2025",
+      "description": "Reached the final round of Code Cubicle 5.0 in October 2025.",
+      "image": "/awards/code-cubicle.png",
+      "logo": "/assets/logos/geek-room.png"
+    },
+    {
+      "id": 13,
+      "title": "Finalist, Code Slayer 2k25",
+      "event": "Code Slayer 2k25, NIT Delhi",
+      "position": "Finalist",
+      "year": "2025",
+      "description": "Reached the final round of Code Slayer 2k25 in October 2025.",
+      "image": "/awards/code-slayer.png",
+      "logo": "/assets/logos/nit-delhi.png"
+    },
+    {
+      "id": 14,
+      "title": "Finalist, HackWithUttarPradesh '25",
+      "event": "HackWithUttarPradesh '25, Chandigarh University",
+      "position": "Finalist",
+      "year": "2025",
+      "description": "Reached the final round of HackWithUttarPradesh '25.",
+      "image": "/awards/hackwithup.png",
+      "logo": "/assets/logos/chandigarh-university.png"
+    },
+    {
+      "id": 3,
+      "title": "Semifinalist, Flipkart GRID 7.0",
+      "event": "Flipkart GRID 7.0",
+      "position": "Semifinalist",
+      "year": "2025",
+      "description": "Advanced to the semifinal round of Flipkart GRID 7.0.",
+      "image": "/awards/flipkart-grid.png",
+      "logo": "flipkart",
+      "sortDate": "2025"
+    },
+    {
+      "id": 4,
+      "title": "Finalist, Odoo India Hackathon",
+      "event": "Odoo India Hackathon 2025",
+      "position": "Finalist",
+      "year": "2025",
+      "description": "Reached the finalist round at the Odoo India Hackathon 2025.",
+      "image": "/awards/odoo-preview.png",
+      "logo": "odoo",
+      "sortDate": "2025"
+    },
+    {
+      "id": 15,
+      "title": "Finalist, HackWithGujarat '25",
+      "event": "HackWithGujarat '25",
+      "position": "Finalist",
+      "year": "2025",
+      "description": "Reached the final round with the team behind W3nity.",
+      "image": "/awards/hackwithgujarat.png"
+    },
+    {
+      "id": 5,
       "title": "Agent.AI Track Winner",
       "event": "Hacknovate 6.0",
       "position": "Winner",
       "year": "2025",
-      "description": "Won $200 for building Hogwarts OS — a Harry Potter-themed Linux distro with AI assistant",
-      "image": "/awards/hackonovate.webp"
+      "description": "Won the Agent.AI track with the team behind Hogwarts OS.",
+      "image": "/awards/hacknovate-preview.png",
+      "logo": "/assets/logos/hacknovate.png"
     },
     {
-      "id": 3,
+      "id": 16,
+      "title": "Semifinalist, Adobe India Hackathon",
+      "event": "Adobe India Hackathon 2025",
+      "position": "Semifinalist",
+      "year": "2025",
+      "description": "Advanced to the semifinal round of the Adobe India Hackathon 2025.",
+      "image": "/awards/adobe-india.png",
+      "logo": "adobe",
+      "sortDate": "2025"
+    },
+    {
+      "id": 6,
       "title": "UI/UX Category Winner",
-      "event": "Winter Project 2024",
+      "event": "AASF Winter Project 2024",
       "position": "Winner",
       "year": "2024",
-      "description": "First place in UI/UX category at AASF, IIIT Gwalior",
-      "image": "/awards/WinterProject.webp"
+      "description": "Won the UI/UX category at the AASF Winter Project competition.",
+      "image": "/awards/winterproject-preview.png",
+      "logo": "/assets/logos/iiitm.png",
+      "sortDate": "2024"
     },
     {
-      "id": 4,
-      "title": "Graphic Design Champion",
-      "event": "Aakriti Competition 2024",
+      "id": 7,
+      "title": "Graphic Design Winner",
+      "event": "Aakriti 2024",
       "position": "Winner",
       "year": "2024",
-      "description": "First place in graphic design category at AASF, IIIT Gwalior",
-      "image": "/awards/Aakrtiti.webp"
+      "description": "Won the graphic-design category at Aakriti 2024.",
+      "image": "/awards/aakriti-preview.png",
+      "logo": "/assets/logos/iiitm.png",
+      "sortDate": "2024"
     }
   ]
 }

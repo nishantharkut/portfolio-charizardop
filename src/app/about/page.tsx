@@ -3,25 +3,24 @@ import AboutClient from './AboutClient';
 
 export const metadata: Metadata = {
   title: 'About',
-  description: 'Learn about Nishant Harkut, a 3rd year BTech IT student at IIIT Gwalior. Passionate about full stack development, MERN stack, GenAI, and Agentic AI. Available for software engineering internships.',
+  description: 'About Nishant Harkut, an Information Technology student at IIIT Gwalior and Software Engineering Intern working in backend systems, AWS, applied ML, and open source.',
   keywords: [
     'Nishant Harkut About',
     'IIIT Gwalior Student',
-    'BTech IT Student Profile',
-    'MERN Stack Student Developer',
-    'GenAI Student Developer',
-    'Agentic AI Student',
-    'n8n Automation Student',
-    'Student Technical Skills',
-    'IIIT Gwalior Portfolio',
     'Information Technology Student',
-    'Full Stack Student Developer',
-    'React Student Developer',
-    'Node.js Student Developer'
+    'Software Engineering Intern',
+    'Backend Engineering Student',
+    'Applied Machine Learning',
+    'AWS Student Developer',
+    'Open Source Contributor',
+    'IIIT Gwalior Portfolio',
+    'Full Stack Engineering',
+    'Python Developer',
+    'Go Developer'
   ],
   openGraph: {
     title: 'About Nishant Harkut',
-    description: 'Learn about Nishant Harkut, a 3rd year BTech IT student at IIIT Gwalior specializing in MERN stack, GenAI, and Agentic AI. Available for internships.',
+    description: 'Information Technology student and Software Engineering Intern working across backend systems, full-stack products, AWS, applied ML, and open source.',
     url: 'https://www.nishantharkut.dev/about',
     images: [
       {
@@ -34,8 +33,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Nishant Harkut - IIIT Gwalior BTech Student | MERN Stack Developer', 
-    description: 'Learn about my journey as a BTech IT student at IIIT Gwalior with expertise in MERN stack, GenAI, and Agentic AI development.',
+    title: 'About Nishant Harkut | Software Engineering and Applied ML',
+    description: 'Information Technology student at IIIT Gwalior working in software engineering, AWS, applied ML research, and open source.',
     images: ['/og-image.jpg'],
   },
   alternates: {

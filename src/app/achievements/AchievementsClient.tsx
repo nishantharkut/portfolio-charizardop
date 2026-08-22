@@ -1,497 +1,535 @@
 "use client";
 
-import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useState } from 'react';
 import Image from 'next/image';
+import { motion, useReducedMotion } from 'framer-motion';
+import { ArrowTopRightOnSquareIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import type { IconType } from 'react-icons';
+import { FcGoogle } from 'react-icons/fc';
+import { SiAdobe, SiAmazon, SiFlipkart, SiGithub, SiIeee, SiOdoo } from 'react-icons/si';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
-import StarBorder from '../components/ui/StarBorder';
-import SplashCursorWrapper from '../components/ui/SplashCursorWrapper';
-import { useTheme } from '../../contexts/ThemeContext';
-import { 
-  getAchievements, 
-  getCertifications, 
-  getAwards, 
-  getFeaturedAchievements
-} from '../../data';
 import PixelBlast from '../components/ui/PixelBlast';
-import { AchievementImage } from '../components/ui/AchievementImage';
 import { PageHeroCta } from '../components/ui/PageHeroCta';
-// Lazy load FaultyTerminal with proper loading state
-import { LazyFaultyTerminal } from '../../components/lazy/LazyBoundaries';
+import {
+  getAchievements,
+  getAwards,
+  getCertifications,
+  type Achievement,
+  type Award,
+} from '../../data';
+
+type Milestone = Achievement | Award;
+
+const evidence = [
+  { value: '3,000 / 134,421', label: 'Amazon ML Summer School 2026' },
+  { value: '16', label: 'Merged upstream pull requests' },
+  { value: 'Top 25', label: 'HackOn with Amazon 6.0' },
+  { value: '10+', label: 'Hackathon finalist appearances' },
+];
+
+const brandLogos: Record<string, IconType> = {
+  adobe: SiAdobe,
+  amazon: SiAmazon,
+  flipkart: SiFlipkart,
+  github: SiGithub,
+  ieee: SiIeee,
+  odoo: SiOdoo,
+};
+
+const coverCropLogos = new Set([
+  '/achievements/aurora.png',
+  '/achievements/iaeng.png',
+  '/achievements/mood-indigo.png',
+]);
+
+const isAward = (item: Milestone): item is Award => 'event' in item;
 
 function CertLogo({ src, name, issuer }: { src: string; name: string; issuer: string }) {
-  const [err, setErr] = useState(false);
-  const initial = issuer?.trim() ? issuer.charAt(0) : 'C';
-  if (!src || err) {
+  const [error, setError] = useState(false);
+  const initial = issuer.trim().charAt(0) || 'C';
+
+  if (issuer === 'Google') {
+    return <FcGoogle data-cert-brand="google" className="h-7 w-7" aria-label="Google logo" />;
+  }
+
+  if (!src || error) {
     return (
       <span className="text-lg font-bold" style={{ color: 'var(--color-accent)' }}>
         {initial}
       </span>
     );
   }
+
   return (
     <Image
       src={src}
-      alt={name}
+      alt={`${name} logo`}
       fill
-      className="object-contain p-1"
-      sizes="56px"
-      onError={() => setErr(true)}
+      className="object-contain p-2"
+      sizes="48px"
+      onError={() => setError(true)}
     />
+  );
+}
+
+function IdentityLogo({ logo, label, className = '' }: { logo?: string; label: string; className?: string }) {
+  if (!logo) return null;
+
+  const BrandLogo = brandLogos[logo];
+  const logoFit = coverCropLogos.has(logo) ? 'cover' : 'contain';
+
+  return (
+    <div
+      data-identity-logo
+      data-logo-fit={logoFit}
+      data-logo-source={logo}
+      className={`relative flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden border ${className}`}
+      style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-bg-start)' }}
+      title={label}
+    >
+      {BrandLogo ? (
+        <BrandLogo className="h-7 w-7" style={{ color: 'var(--color-text)' }} aria-label={`${label} logo`} />
+      ) : (
+        <Image
+          src={logo}
+          alt={`${label} logo`}
+          fill
+          className={logoFit === 'cover' ? 'object-cover' : 'object-contain p-1.5'}
+          sizes="48px"
+        />
+      )}
+    </div>
+  );
+}
+
+function ExternalLink({ href, label }: { href: string; label: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-1.5 text-xs font-semibold transition-colors hover:text-[var(--color-accent-hover)]"
+      style={{ color: 'var(--color-accent)' }}
+    >
+      {label}
+      <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5" aria-hidden="true" />
+    </a>
+  );
+}
+
+function SectionHeading({ number, title }: { number: string; title: string }) {
+  return (
+    <div className="mb-8 flex items-baseline gap-4 sm:mb-10">
+      <span className="text-xs font-semibold" style={{ color: 'var(--color-accent)' }}>
+        {number}
+      </span>
+      <h2 className="text-2xl font-semibold sm:text-3xl" style={{ color: 'var(--color-text)' }}>
+        {title}
+      </h2>
+    </div>
   );
 }
 
 export default function AchievementsPage() {
   const achievements = getAchievements();
-  const featuredAchievements = getFeaturedAchievements();
-  const certifications = getCertifications();
   const awards = getAwards();
-  const [particles, setParticles] = useState<Array<{left: number, top: number, delay: number}>>([]);
-  const { theme } = useTheme();
+  const certifications = getCertifications();
+  const reduceMotion = useReducedMotion();
 
-  useEffect(() => {
-    // Generate particle positions on client side only
-    const newParticles = Array.from({ length: 20 }, () => ({
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      delay: Math.random() * 2
-    }));
-    setParticles(newParticles);
-  }, []);
+  const selectedMilestones = [
+    achievements.find((item) => item.id === 1),
+    achievements.find((item) => item.id === 2),
+    awards.find((item) => item.id === 1),
+    awards.find((item) => item.id === 2),
+    awards.find((item) => item.id === 5),
+  ].filter((item): item is Milestone => Boolean(item));
+
+  const leadership = achievements
+    .filter((item) => item.id !== 1 && item.id !== 2)
+    .sort((a, b) => (b.sortDate ?? b.date).localeCompare(a.sortDate ?? a.date));
+  const awardsByYear = [...awards]
+    .sort((a, b) => Number(b.year) - Number(a.year))
+    .reduce<Map<string, Award[]>>((groups, award) => {
+    const current = groups.get(award.year) ?? [];
+    current.push(award);
+    groups.set(award.year, current);
+    return groups;
+    }, new Map());
+
+  const reveal = reduceMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 18 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: '-80px' },
+        transition: { duration: 0.45 },
+      };
 
   return (
-    <main className="relative w-full min-h-screen overflow-x-hidden">
-      <SplashCursorWrapper SPLAT_RADIUS={0.025} />
+    <main
+      className="relative min-h-screen w-full overflow-x-hidden"
+      style={{ backgroundColor: 'var(--color-bg-start)' }}
+    >
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* FaultyTerminal Background - Hero Section Only */}
+      <section
+        data-achievements-hero
+        className="relative flex h-screen items-center justify-center overflow-hidden"
+      >
         <div className="absolute inset-0 z-0">
           <PixelBlast
-    variant="circle"
-    pixelSize={2}
-    color="#c96f2e"
-    patternScale={7}
-    patternDensity={1.2}
-    pixelSizeJitter={1.6}
-    enableRipples
-    rippleSpeed={0.4}
-    rippleThickness={0.12}
-    rippleIntensityScale={1.5}
-    // liquid
-    // liquidStrength={0.12}
-    // liquidRadius={1.2}
-    // liquidWobbleSpeed={5}
-    speed={1}
-    edgeFade={0.25}
-    transparent
-  />
-          {/* <LazyFaultyTerminal
-            scale={2}
-            gridMul={[3, 2]}
-            digitSize={1.2}
-            timeScale={0.5}
-            scanlineIntensity={0.4}
-            glitchAmount={1.2}
-            flickerAmount={0.8}
-            noiseAmp={1.1}
-            chromaticAberration={2}
-            curvature={0.15}
-            tint="#c96f2e"
-            mouseReact={true}
-            mouseStrength={0.3}
-            brightness={typeof window !== 'undefined' && document.documentElement.classList.contains('light') ? 0.3 : 0.7}
-          /> */}
+            variant="circle"
+            pixelSize={2}
+            color="#c96f2e"
+            patternScale={7}
+            patternDensity={1.2}
+            pixelSizeJitter={1.6}
+            enableRipples
+            rippleSpeed={0.4}
+            rippleThickness={0.12}
+            rippleIntensityScale={1.5}
+            speed={0.6}
+            edgeFade={0.25}
+            transparent
+          />
         </div>
-        
-        <div className="relative z-10 text-center px-4">
+
+        <div className="relative z-10 px-4 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: reduceMotion ? 0 : 0.8, delay: reduceMotion ? 0 : 0.2 }}
           >
-            <h1 className="text-2xl sm:text-3xl md:text-6xl lg:text-8xl font-bold mb-4 sm:mb-6 drop-shadow-2xl" style={{ color: 'var(--color-text)' }}>
-              My <span className="relative inline-block sm:inline">
-                <span className="relative z-10" style={{ color: 'var(--color-accent)' }}>Achievements</span>
-                <motion.div
-                  initial={{ scaleX: 0 }}
+            <h1
+              className="mb-4 text-2xl font-bold drop-shadow-2xl sm:mb-6 sm:text-4xl md:text-6xl lg:text-8xl"
+              style={{ color: 'var(--color-text)' }}
+            >
+              My{' '}
+              <span className="relative inline-block sm:inline">
+                <span className="relative z-10" style={{ color: 'var(--color-accent)' }}>
+                  Achievements
+                </span>
+                <motion.span
+                  initial={reduceMotion ? false : { scaleX: 0 }}
                   animate={{ scaleX: 1 }}
-                  transition={{ duration: 1, delay: 1.2 }}
-                  className="absolute left-0 w-full h-1 origin-left top-full mt-1 sm:top-auto sm:mt-0 sm:bottom-1"
+                  transition={{ duration: reduceMotion ? 0 : 1, delay: reduceMotion ? 0 : 1.2 }}
+                  className="absolute left-0 top-full mt-1 h-1 w-full origin-left sm:bottom-1 sm:top-auto sm:mt-0"
                   style={{ background: 'var(--color-accent-gradient)' }}
+                  aria-hidden="true"
                 />
               </span>
             </h1>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mx-auto mb-6 sm:mb-8 drop-shadow-lg" style={{ color: 'var(--color-text-secondary)' }}>
-              Hackathon wins, design awards, and things I&apos;ve been part of in college
+            <p
+              className="mx-auto mb-6 max-w-2xl text-base drop-shadow-lg sm:mb-8 sm:text-lg md:text-xl"
+              style={{ color: 'var(--color-text)' }}
+            >
+              Machine learning, open source, national hackathons, and campus leadership
             </p>
-            
             <PageHeroCta
               primary={{
                 label: 'View all',
                 href: '#achievements',
-                onClick: (e) => {
-                  e.preventDefault();
+                onClick: (event) => {
+                  event.preventDefault();
                   document.getElementById('achievements')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 },
               }}
             />
           </motion.div>
         </div>
-
       </section>
 
-      {/* Featured Achievements */}
-      <section id="achievements" className="relative z-10 py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-8 sm:mb-12 lg:mb-16"
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4" style={{ color: 'var(--color-text)' }}>
-              Major <span style={{ color: 'var(--color-accent)' }}>Achievements</span>
-            </h2>
-            <p className="text-base sm:text-lg max-w-2xl mx-auto px-2" style={{ color: 'var(--color-text-secondary)' }}>
-              Hackathons, competitions, and leadership roles
-            </p>
-          </motion.div>
-
-          {/* Featured — one hero: image-first with overlay (no duplicate cards) */}
-          {featuredAchievements.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="mb-12 sm:mb-16 lg:mb-20"
+      <section
+        id="achievements"
+        data-section="evidence"
+        className="relative z-10 border-y"
+        style={{ borderColor: 'var(--color-border)' }}
+      >
+        <div className="mx-auto grid max-w-6xl grid-cols-2 lg:grid-cols-4">
+          {evidence.map((item, index) => (
+            <div
+              key={item.label}
+              data-evidence-item
+              className={`min-w-0 px-4 py-6 sm:px-6 sm:py-8 ${
+                index % 2 === 0 ? 'border-r' : ''
+              } ${index < 2 ? 'border-b lg:border-b-0' : ''} ${index === 1 ? 'lg:border-r' : ''} ${
+                index === 2 ? 'lg:border-r' : ''
+              }`}
+              style={{ borderColor: 'var(--color-border)' }}
             >
-              <div className="relative rounded-xl overflow-hidden border-2 min-h-[320px] sm:min-h-[380px] lg:min-h-[420px]" style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-surface)' }}>
-                <div className="absolute inset-0">
-                  <AchievementImage
-                    src={featuredAchievements[0].image}
-                    alt={featuredAchievements[0].title}
-                    category={featuredAchievements[0].category}
-                    className="transition-transform duration-500 hover:scale-[1.02]"
-                    sizes="(max-width: 1024px) 100vw, 1200px"
-                    priority
-                  />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6 lg:p-8 text-left">
-                  <span className="inline-block text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--color-accent)' }}>
-                    {featuredAchievements[0].category}
-                  </span>
-                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-2 text-white">
-                    {featuredAchievements[0].title}
-                  </h3>
-                  <p className="text-sm sm:text-base text-white/90 max-w-2xl mb-4 line-clamp-2">
-                    {featuredAchievements[0].description}
-                  </p>
-                  <div className="flex flex-wrap items-center gap-3 text-sm">
-                    <span className="text-white/80">{featuredAchievements[0].organization}</span>
-                    <span className="text-white/60">·</span>
-                    <span style={{ color: 'var(--color-accent)' }}>{featuredAchievements[0].date}</span>
-                  </div>
-                  {featuredAchievements[0].link && (
-                    <a
-                      href={featuredAchievements[0].link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-lg text-sm font-medium border transition-colors"
-                      style={{ backgroundColor: 'var(--color-accent)', color: 'var(--color-button-text)', borderColor: 'var(--color-accent)' }}
-                    >
-                      View details
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                    </a>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          )}
-
-          {/* All Achievements — bento-style, type-based cards; image when present, graceful fallback */}
-          <div className="space-y-4 sm:space-y-6 lg:space-y-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-center"
-            >
-              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2" style={{ color: 'var(--color-text)' }}>
-                All <span style={{ color: 'var(--color-accent)' }}>Achievements</span>
-              </h3>
-              <p className="text-sm sm:text-base px-2" style={{ color: 'var(--color-text-secondary)' }}>
-                Clubs, roles, and other activities
+              <p className="mb-1 text-xl font-semibold sm:text-2xl" style={{ color: 'var(--color-text)' }}>
+                {item.value}
               </p>
-            </motion.div>
+              <p className="text-xs leading-relaxed sm:text-sm" style={{ color: 'var(--color-text-muted)' }}>
+                {item.label}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 auto-rows-fr">
-              {achievements.filter(a => !a.featured).map((achievement, index) => {
-                const isHackathon = /hackathon/i.test(achievement.category);
-                const isDesign = /design|graphic|ui\/ux/i.test(achievement.category);
-                const isLeadership = /leadership|community|welfare/i.test(achievement.category);
-                const spanClass = isHackathon ? 'lg:col-span-2' : isDesign ? '' : '';
-                return (
-                  <motion.div
-                    key={achievement.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.06 }}
-                    className={`${spanClass} min-h-0 flex`}
+      <motion.section
+        {...reveal}
+        data-section="milestones"
+        className="relative z-10 px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
+      >
+        <div className="mx-auto max-w-6xl">
+          <SectionHeading number="01" title="Selected milestones" />
+          <div className="border-b" style={{ borderColor: 'var(--color-border)' }}>
+            {selectedMilestones.map((item) => {
+              const award = isAward(item);
+              const title = award ? item.event : item.title;
+              const result = award ? item.position : item.badge ?? item.category;
+              const date = award ? item.year : item.date;
+              const organization = award ? item.event : item.organization;
+              const link = award ? undefined : item.link;
+              const hasLogo = Boolean(item.logo);
+
+              return (
+                <article
+                  key={`${award ? 'award' : 'achievement'}-${item.id}`}
+                  className={`grid gap-4 border-t py-6 sm:items-start lg:gap-8 ${
+                    hasLogo
+                      ? 'sm:grid-cols-[7rem_minmax(0,1fr)_3.5rem] lg:grid-cols-[8rem_minmax(16rem,0.7fr)_minmax(18rem,1fr)_3.5rem]'
+                      : 'sm:grid-cols-[7rem_minmax(0,1fr)] lg:grid-cols-[8rem_minmax(16rem,0.7fr)_minmax(18rem,1fr)]'
+                  }`}
+                  style={{ borderColor: 'var(--color-border)' }}
+                >
+                  <p className="text-xs font-medium sm:pt-1" style={{ color: 'var(--color-text-muted)' }}>
+                    {date}
+                  </p>
+                  <div className="min-w-0">
+                    <p className="mb-1 text-xs font-semibold uppercase" style={{ color: 'var(--color-accent)' }}>
+                      {result}
+                    </p>
+                    <h3 className="text-base font-semibold sm:text-lg" style={{ color: 'var(--color-text)' }}>
+                      {title}
+                    </h3>
+                    {organization && organization !== title && (
+                      <p className="mt-1 text-xs" style={{ color: 'var(--color-text-muted)' }}>
+                        {organization}
+                      </p>
+                    )}
+                  </div>
+                  <div
+                    className={`min-w-0 sm:col-start-2 lg:col-span-1 lg:col-start-auto ${
+                      hasLogo ? 'sm:col-span-2' : ''
+                    }`}
                   >
-                    <div
-                      className="relative w-full rounded-xl border-2 overflow-hidden flex flex-col min-h-[280px]"
-                      style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-surface)' }}
-                    >
-                      {/* Image or fallback — prominent for design, smaller for others */}
-                      <div className={`relative w-full overflow-hidden ${isDesign ? 'aspect-[4/3]' : 'aspect-[2/1] sm:aspect-[16/7]'}`}>
-                        <AchievementImage
-                          src={achievement.image}
-                          alt={achievement.title}
-                          category={achievement.category}
-                          className="transition-transform duration-300 hover:scale-[1.03]"
-                          sizes={isHackathon ? '(max-width: 1024px) 100vw, 66vw' : '(max-width: 1024px) 100vw, 33vw'}
-                        />
+                    <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
+                      {item.description}
+                    </p>
+                    {link && (
+                      <div className="mt-3">
+                        <ExternalLink href={link} label="View source" />
                       </div>
-                      <div className="p-4 sm:p-5 flex flex-col flex-1 min-h-0">
-                        <div className="flex items-start justify-between gap-2 mb-2">
-                          <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--color-accent)' }}>
-                            {achievement.category}
-                          </span>
-                          <span className="text-xs font-medium shrink-0" style={{ color: 'var(--color-text-muted)' }}>
-                            {achievement.date}
+                    )}
+                  </div>
+                  <IdentityLogo
+                    logo={item.logo}
+                    label={organization || title}
+                    className="row-start-1 justify-self-end sm:col-start-3 lg:col-start-4"
+                  />
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </motion.section>
+
+      <motion.section
+        {...reveal}
+        data-section="competitions"
+        className="relative z-10 border-y px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
+        style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-surface)' }}
+      >
+        <div className="mx-auto max-w-6xl">
+          <SectionHeading number="02" title="Competition record" />
+          <div className="space-y-10">
+            {Array.from(awardsByYear.entries()).map(([year, yearAwards]) => (
+              <div key={year} className="grid gap-4 lg:grid-cols-[5rem_minmax(0,1fr)] lg:gap-8">
+                <p className="text-sm font-semibold" style={{ color: 'var(--color-accent)' }}>
+                  {year}
+                </p>
+                <div className="grid border-t md:grid-cols-2" style={{ borderColor: 'var(--color-border)' }}>
+                  {yearAwards.map((award, index) => (
+                    <article
+                      key={award.id}
+                      data-competition
+                      className={`grid min-w-0 border-b py-5 md:px-5 ${
+                        award.logo ? 'grid-cols-[3rem_minmax(0,1fr)] gap-4' : 'grid-cols-1'
+                      } ${
+                        index % 2 === 0 ? 'md:border-r' : ''
+                      }`}
+                      style={{ borderColor: 'var(--color-border)' }}
+                    >
+                      <IdentityLogo logo={award.logo} label={award.event} />
+                      <div className="min-w-0">
+                        <div className="mb-1 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                          <p className="text-xs font-semibold uppercase" style={{ color: 'var(--color-accent)' }}>
+                            {award.position}
+                          </p>
+                          <span className="text-xs" style={{ color: 'var(--color-text-muted)' }}>
+                            {award.year}
                           </span>
                         </div>
-                        <h3 className="text-base sm:text-lg font-bold leading-tight mb-2" style={{ color: 'var(--color-text)' }}>
-                          {achievement.title}
+                        <h3 className="text-sm font-semibold leading-snug sm:text-base" style={{ color: 'var(--color-text)' }}>
+                          {award.event}
                         </h3>
-                        <p className="text-sm leading-relaxed line-clamp-2 flex-1" style={{ color: 'var(--color-text-secondary)' }}>
-                          {achievement.description}
-                        </p>
-                        {achievement.organization && (
-                          <p className="text-xs mt-2" style={{ color: 'var(--color-text-muted)' }}>
-                            {achievement.organization}
+                        {(award.id === 1 || award.id === 5 || award.id === 15) && (
+                          <p className="mt-2 text-xs leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>
+                            {award.description}
                           </p>
                         )}
-                        {isHackathon && achievement.impact.length > 0 && (
-                          <ul className="mt-3 space-y-1">
-                            {achievement.impact.slice(0, 2).map((impact, i) => (
-                              <li key={i} className="flex items-start gap-2 text-xs" style={{ color: 'var(--color-text-secondary)' }}>
-                                <span className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style={{ backgroundColor: 'var(--color-accent)' }} />
-                                <span>{impact}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        )}
                       </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* Certifications — compact badge strip: logo/initial + name + issuer + link */}
-      <section className="relative z-10 py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-8 sm:mb-12"
-          >
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4" style={{ color: 'var(--color-text)' }}>
-              Professional <span style={{ color: 'var(--color-accent)' }}>Certifications</span>
-            </h2>
-            <p className="text-sm sm:text-base lg:text-lg px-2 max-w-3xl mx-auto" style={{ color: 'var(--color-text-secondary)' }}>
-              Courses and certifications I&apos;ve completed
-            </p>
-          </motion.div>
-
-          <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
-            {certifications.map((cert, index) => (
-              <motion.div
-                key={cert.id}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.08 }}
-                className="flex items-center gap-4 p-4 rounded-xl border-2 min-w-[280px] sm:min-w-0 sm:flex-1 sm:max-w-[360px]"
-                style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-surface)' }}
+      <motion.section
+        {...reveal}
+        data-section="leadership"
+        className="relative z-10 px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
+      >
+        <div className="mx-auto max-w-6xl">
+          <SectionHeading number="03" title="Leadership and campus work" />
+          <div className="border-b" style={{ borderColor: 'var(--color-border)' }}>
+            {leadership.map((item) => (
+              <article
+                key={item.id}
+                className="grid gap-3 border-t py-5 sm:grid-cols-[10rem_minmax(0,1fr)_auto] sm:gap-6"
+                style={{ borderColor: 'var(--color-border)' }}
               >
-                <div className="relative w-14 h-14 rounded-lg flex-shrink-0 overflow-hidden flex items-center justify-center" style={{ backgroundColor: 'var(--color-surface-elevated)' }}>
-                  <CertLogo src={cert.image} name={cert.name} issuer={cert.issuer} />
+                <p className="text-xs font-medium sm:pt-1" style={{ color: 'var(--color-text-muted)' }}>
+                  {item.date}
+                </p>
+                <div className="relative min-w-0 border-l pl-5" style={{ borderColor: 'var(--color-border)' }}>
+                  <span
+                    className="absolute -left-[4.5px] top-1.5 h-2 w-2 rounded-full"
+                    style={{ backgroundColor: 'var(--color-accent)' }}
+                    aria-hidden="true"
+                  />
+                  <div className="flex items-start gap-4">
+                    <IdentityLogo logo={item.logo} label={item.organization || item.title} />
+                    <div className="min-w-0 flex-1">
+                      <p className="mb-1 text-xs font-semibold uppercase" style={{ color: 'var(--color-accent)' }}>
+                        {item.category}
+                      </p>
+                      <h3
+                        data-leadership-title
+                        className="text-sm font-semibold sm:text-base"
+                        style={{ color: 'var(--color-text)' }}
+                      >
+                        {item.title}
+                      </h3>
+                      {item.organization && (
+                        <p className="mt-1 text-xs" style={{ color: 'var(--color-text-muted)' }}>
+                          {item.organization}
+                        </p>
+                      )}
+                      <p className="mt-2 text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-sm font-bold leading-tight mb-0.5" style={{ color: 'var(--color-text)' }}>
-                    {cert.name}
-                  </h3>
-                  <p className="text-xs mb-2" style={{ color: 'var(--color-text-muted)' }}>
-                    {cert.issuer}
-                  </p>
-                  <span className="text-xs font-medium" style={{ color: 'var(--color-accent)' }}>
-                    {cert.date}
-                    {cert.credentialId && ` · ${cert.credentialId}`}
-                  </span>
-                </div>
-                <a
-                  href="#"
-                  className="text-xs font-semibold shrink-0 px-3 py-1.5 rounded-md border transition-colors"
-                  style={{ color: 'var(--color-accent)', borderColor: 'var(--color-accent)' }}
+                {item.link && (
+                  <div className="sm:pt-1">
+                    <ExternalLink href={item.link} label="Open" />
+                  </div>
+                )}
+              </article>
+            ))}
+          </div>
+        </div>
+      </motion.section>
+
+      <motion.section
+        {...reveal}
+        data-section="credentials"
+        className="relative z-10 border-y px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
+        style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-surface)' }}
+      >
+        <div className="mx-auto max-w-6xl">
+          <SectionHeading number="04" title="Credentials" />
+          <div className="border-b" style={{ borderColor: 'var(--color-border)' }}>
+            {certifications.map((certification) => (
+              <article
+                key={certification.id}
+                className="grid gap-4 border-t py-6 sm:grid-cols-[3rem_minmax(0,1fr)_auto] sm:gap-6"
+                style={{ borderColor: 'var(--color-border)' }}
+              >
+                <div
+                  className="relative flex h-12 w-12 items-center justify-center overflow-hidden border"
+                  style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-bg-start)' }}
                 >
-                  View credential
-                </a>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Awards — trophy cards: image when present, position + event + year prominent */}
-      <section className="relative z-10 py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-8 sm:mb-12 lg:mb-16"
-          >
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4" style={{ color: 'var(--color-text)' }}>
-              Awards & <span style={{ color: 'var(--color-accent)' }}>Recognition</span>
-            </h2>
-            <p className="text-sm sm:text-base lg:text-lg px-2" style={{ color: 'var(--color-text-secondary)' }}>
-              Competition wins and recognitions
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-            {awards.map((award, index) => (
-              <motion.div
-                key={award.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.08 }}
-                className="flex"
-              >
-                <div className="relative w-full rounded-xl border-2 overflow-hidden flex flex-col min-h-0" style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-surface)' }}>
-                  <div className="relative w-full aspect-[16/10] flex items-center justify-center overflow-hidden" style={{ backgroundColor: 'var(--color-surface-elevated)' }}>
-                    <AchievementImage
-                      src={award.image}
-                      alt={award.title}
-                      category="Hackathon"
-                      objectFit="cover"
-                      className="transition-transform duration-300 hover:scale-[1.03]"
-                      sizes="(max-width: 640px) 100vw, 50vw"
-                    />
-                    <div className="absolute top-3 right-3 flex items-center gap-2">
-                      <span className="px-2 py-1 text-xs font-bold rounded" style={{ backgroundColor: 'var(--color-accent)', color: 'var(--color-button-text)' }}>
-                        {award.position}
-                      </span>
-                      <span className="text-xs font-medium px-2 py-1 rounded border" style={{ color: 'var(--color-text)', borderColor: 'var(--color-border)' }}>
-                        {award.year}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="p-4 sm:p-5 flex flex-col flex-1 min-h-0">
-                    <h3 className="text-base sm:text-lg font-bold leading-tight mb-1" style={{ color: 'var(--color-text)' }}>
-                      {award.title}
-                    </h3>
-                    <p className="text-sm font-semibold mb-2" style={{ color: 'var(--color-accent)' }}>
-                      {award.event}
-                    </p>
-                    <p className="text-sm leading-relaxed line-clamp-2" style={{ color: 'var(--color-text-secondary)' }}>
-                      {award.description}
-                    </p>
-                  </div>
+                  <CertLogo src={certification.image} name={certification.name} issuer={certification.issuer} />
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+                <div className="min-w-0">
+                  <p className="mb-1 text-xs font-semibold uppercase" style={{ color: 'var(--color-accent)' }}>
+                    {certification.issuer}
+                  </p>
+                  <h3 className="text-sm font-semibold sm:text-base" style={{ color: 'var(--color-text)' }}>
+                    {certification.name}
+                  </h3>
+                  <p className="mt-1 text-xs" style={{ color: 'var(--color-text-muted)' }}>
+                    {certification.date}
+                    {certification.credentialId && ` · ${certification.credentialId}`}
+                  </p>
 
-      {/* Stats Section */}
-      {/* <section className="relative z-10 py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-6 sm:mb-8 lg:mb-12"
-          >
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4" style={{ color: 'var(--color-text)' }}>
-              Career <span style={{ color: 'var(--color-accent)' }}>Highlights</span>
-            </h2>
-            <p className="text-sm sm:text-base px-2" style={{ color: 'var(--color-text-secondary)' }}>
-              Key metrics that define my professional journey
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
-            {[
-              { number: "20+", label: "Projects Completed", description: "Successfully delivered across various industries" },
-              { number: "98%", label: "Client Satisfaction", description: "Consistent high-quality delivery and service" },
-              { number: "50+", label: "Open Source Contributions", description: "Active community participation and sharing" },
-              { number: "6", label: "Industry Awards", description: "Recognition for innovation and excellence" }
-            ].map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="h-full"
-              > */}
-                {/* Mobile-Optimized Stats Card */}
-                {/* <div className="relative w-full h-[160px] sm:h-[180px] lg:h-[200px] neubrutalism-card flex flex-col"
-                  style={{
-                    backgroundColor: 'var(--color-surface)',
-                  }}
-                > */}
-                  {/* Number Section - Better mobile sizing */}
-                  {/* <div className="p-2 sm:p-3 border-b-4 border-black min-h-[50px] sm:min-h-[60px] lg:min-h-[70px] flex items-center justify-center flex-shrink-0">
-                    <div className="text-xl sm:text-2xl lg:text-3xl font-black text-orange-400 transition-transform duration-300 group-hover:scale-110 uppercase tracking-wider">
-                      {stat.number}
-                    </div>
-                  </div> */}
-                  
-                  {/* Content Section - Better mobile spacing */}
-                  {/* <div className="p-2 sm:p-3 flex-1 flex flex-col justify-center text-center overflow-hidden"> */}
-                    {/* Label - Better mobile typography */}
-                    {/* <div className="mb-1 sm:mb-2">
-                      <p className="text-xs sm:text-sm lg:text-base font-black uppercase tracking-wide leading-tight" style={{ color: 'var(--color-text)' }}>
-                        {stat.label}
-                      </p>
-                    </div> */}
-                    
-                    {/* Description - Mobile responsive */}
-                    {/* <div className="flex-1 flex items-center min-h-0">
-                      <p className="text-xs sm:text-sm leading-tight font-medium line-clamp-2 overflow-hidden" style={{ color: 'var(--color-text-secondary)' }}>
-                        {stat.description}
-                      </p>
-                    </div>
-                  </div>
+                  {certification.courses && certification.courses.length > 0 && (
+                    <details className="group mt-4 border-t pt-3" style={{ borderColor: 'var(--color-border)' }}>
+                      <summary
+                        className="flex cursor-pointer list-none items-center gap-2 text-xs font-semibold"
+                        style={{ color: 'var(--color-text)' }}
+                      >
+                        <ChevronDownIcon
+                          className="h-4 w-4 transition-transform group-open:rotate-180"
+                          aria-hidden="true"
+                        />
+                        Show four course credentials
+                      </summary>
+                      <div className="mt-3 divide-y" style={{ borderColor: 'var(--color-border)' }}>
+                        {certification.courses.map((course) => (
+                          <div
+                            key={course.credentialId}
+                            className="flex flex-col gap-2 py-3 sm:flex-row sm:items-start sm:justify-between"
+                            style={{ borderColor: 'var(--color-border)' }}
+                          >
+                            <div className="min-w-0">
+                              <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+                                {course.name}
+                              </p>
+                              <p className="mt-1 text-xs" style={{ color: 'var(--color-text-muted)' }}>
+                                {course.date} · {course.credentialId}
+                              </p>
+                            </div>
+                            {course.credentialUrl && (
+                              <ExternalLink href={course.credentialUrl} label="Verify" />
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </details>
+                  )}
                 </div>
-              </motion.div>
+                {certification.credentialUrl && (
+                  <div>
+                    <ExternalLink href={certification.credentialUrl} label="Verify" />
+                  </div>
+                )}
+              </article>
             ))}
           </div>
         </div>
-      </section>
-       */}
+      </motion.section>
+
       <Footer />
     </main>
   );

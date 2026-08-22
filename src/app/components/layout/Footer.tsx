@@ -1,11 +1,11 @@
 "use client";
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import React, { useState } from 'react';
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram } from 'react-icons/fa';
 import { HiMail } from 'react-icons/hi';
 import { getFooterNavigationSections, getSocialLinks } from '../../../data';
-import { useTheme } from '../../../contexts/ThemeContext';
 import Logo from '../ui/Logo';
 
 // Icon mapping for social links
@@ -15,6 +15,37 @@ const socialIconMap = {
   FaTwitter,
   FaInstagram
 };
+
+const charizardArt = String.raw`
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠖⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡤⢤⡀⠀⠀⠀⠀⢸⠀⢱⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠳⡀⠈⠢⡀⠀⠀⢀⠀⠈⡄⠀⠀⠀⠀⠀⠀⠀⠀⡔⠦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡤⠊⡹⠀⠀⠘⢄⠀⠈⠲⢖⠈⠀⠀⠱⡀⠀⠀⠀⠀⠀⠀⠀⠙⣄⠈⠢⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠖⠁⢠⠞⠀⠀⠀⠀⠘⡄⠀⠀⠀⠀⠀⠀⠀⢱⠀⠀⠀⠀⠀⠀⠀⠀⠈⡆⠀⠀⠉⠑⠢⢄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⡠⠚⠁⠀⠀⠀⡇⠀⠀⠀⠀⠀⢀⠇⠀⡤⡀⠀⠀⠀⢀⣼⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⢠⣾⣿⣷⣶⣤⣄⣉⠑⣄⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢀⠞⢁⣴⣾⣿⣿⡆⢇⠀⠀⠀⠀⠀⠸⡀⠀⠂⠿⢦⡰⠀⠀⠋⡄⠀⠀⠀⠀⠀⠀⠀⢰⠁⣿⣿⣿⣿⣿⣿⣿⣿⣷⣌⢆⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⡴⢁⣴⣿⣿⣿⣿⣿⣿⡘⡄⠀⠀⠀⠀⠀⠱⣔⠤⡀⠀⠀⠀⠀⠀⠈⡆⠀⠀⠀⠀⠀⠀⡜⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣮⢣⠀⠀⠀⠀⠀
+⠀⠀⠀⡼⢠⣾⣿⣿⣿⣿⣿⣿⣿⣧⡘⢆⠀⠀⠀⠀⠀⢃⠑⢌⣦⠀⠩⠉⠀⡜⠀⠀⠀⠀⠀⠀⢠⠃⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⣣⡀⠀⠀⠀
+⠀⠀⢰⢃⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠱⡀⠀⠀⠀⢸⠀⠀⠓⠭⡭⠙⠋⠀⠀⠀⠀⠀⠀⠀⡜⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡱⡄⠀⠀
+⠀⠀⡏⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⢃⠀⠀⠀⢸⠀⠀⠀⠀⢰⠀⠀⠀⠀⠀⠀⠀⢀⠜⢁⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠘⣆⠀
+⠀⢸⢱⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡘⣆⠀⠀⡆⠀⠀⠀⠀⠘⡄⠀⠀⠀⠀⡠⠖⣡⣾⠁⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⢸⠀
+⠀⡏⣾⣿⣿⣿⣿⡿⡛⢟⢿⣿⣿⣿⣿⣿⣿⣧⡈⢦⣠⠃⠀⠀⠀⠀⠀⢱⣀⠤⠒⢉⣾⡉⠻⠋⠈⢘⢿⣿⣿⣿⣿⠿⣿⣿⠏⠉⠻⢿⣿⣿⣿⣿⡘⡆
+⢰⡇⣿⣿⠟⠁⢸⣠⠂⡄⣃⠜⣿⣿⠿⠿⣿⣿⡿⠦⡎⠀⠀⠀⠀⠀⠒⠉⠉⠑⣴⣿⣿⣎⠁⠠⠂⠮⢔⣿⡿⠉⠁⠀⠹⡛⢀⣀⡠⠀⠙⢿⣿⣿⡇⡇
+⠘⡇⠏⠀⠀⠀⡾⠤⡀⠑⠒⠈⠣⣀⣀⡀⠤⠋⢀⡜⣀⣠⣤⣀⠀⠀⠀⠀⠀⠀⠙⢿⡟⠉⡃⠈⢀⠴⣿⣿⣀⡀⠀⠀⠀⠈⡈⠊⠀⠀⠀⠀⠙⢿⡇⡇
+⠀⠿⠀⠀⠀⠀⠈⠀⠉⠙⠓⢤⣀⠀⠁⣀⡠⢔⡿⠊⠀⠀⠀⠀⠙⢦⡀⠀⠐⠢⢄⡀⠁⡲⠃⠀⡜⠀⠹⠟⠻⣿⣰⡐⣄⠎⠀⠀⠀⠀⠀⠀⠀⠀⢣⡇
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠁⠀⡜⠀⠀⠀⠀⠀⠀⠀⠀⠱⡀⠀⠀⠀⠙⢦⣀⢀⡴⠁⠀⠀⠀⠀⠉⠁⢱⠈⢆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢱⠀⠀⠀⠀⠈⢏⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠈⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠱⡄⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡜⠀⢹⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠘⣆⠀⠀⠀⠀⠀⠀⣰⠃⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡾⠀⠀⠘⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠁⠀⠀⠀⠀⠀⠀⠸⡄⠀⠀⠀⢀⡴⠁⠀⠀⢀⠇⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢧⠀⠀⠀⠘⢆⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⣧⣠⠤⠖⠋⠀⠀⠀⠀⡸⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠢⡀⠀⠀⠀⠳⢄⠀⠀⠀⠀⠀⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⡏⠀⠀⠀⠀⠀⠀⢀⡴⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡠⠊⠈⠁⠀⠀⠀⡔⠛⠲⣤⣀⣀⣀⠀⠈⢣⡀⠀⠀⠀⠀⠀⢸⠁⠀⠀⠀⢀⡠⢔⠝⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⢈⠤⠒⣀⠀⠀⠀⠀⣀⠟⠀⠀⠀⠑⠢⢄⡀⠀⠀⠈⡗⠂⠀⠀⠀⠙⢦⠤⠒⢊⡡⠚⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠆⠒⣒⡁⠬⠦⠒⠉⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠒⢺⢠⠤⡀⢀⠤⡀⠠⠷⡊⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠣⡀⡱⠧⡀⢰⠓⠤⡁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠀⠈⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+`;
 
 export default function Footer() {
   const navigationSections = getFooterNavigationSections();
@@ -44,7 +75,7 @@ export default function Footer() {
       } else {
         setSubscribeError(data?.error || 'Failed to subscribe');
       }
-    } catch (err) {
+    } catch {
       setSubscribeError('Network error');
     }
     setIsLoading(false);
@@ -71,7 +102,7 @@ export default function Footer() {
         </div>
 
         <div className="max-w-7xl mx-auto relative z-10 py-12 px-6 sm:px-8 lg:px-12">
-          <div className="flex flex-col lg:flex-row items-start justify-between gap-12 lg:gap-20">
+          <div className="grid items-start gap-10 lg:grid-cols-[20rem_minmax(0,1fr)] xl:grid-cols-[20rem_18rem_minmax(0,1fr)] xl:gap-12">
             
             {/* Contact Section */}
             <div className="flex-shrink-0 w-full lg:w-auto">
@@ -143,66 +174,65 @@ export default function Footer() {
               </motion.div>
             </div>
 
-            {/* Navigation Sections */}
-            <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 flex-1 w-full">
+            <nav data-footer-navigation aria-label="Footer navigation" className="w-full">
               {navigationSections.map((section, idx) => (
-                <div key={idx} className="flex-1">
-                  <div className="block lg:hidden">
-                    <details>
-                      <summary className="text-base font-bold cursor-pointer mb-2" style={{ color: 'var(--color-text)' }}>
-                        {section.title}
-                      </summary>
-                      <ul className="space-y-2 pl-2">
-                        {section.links.map((link, index) => (
-                          <li key={index}>
-                            <a
-                              href={link.href}
-                              className="text-sm font-medium hover:underline block transition-colors"
-                              style={{ color: 'var(--color-text-secondary)' }}
-                              target={link.href.startsWith('http') ? '_blank' : '_self'}
-                              rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                            >
-                              {link.label}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </details>
-                  </div>
+                <motion.div
+                  key={section.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.1 * (idx + 1) }}
+                >
+                  <h4 className="mb-4 text-base font-bold" style={{ color: 'var(--color-text)' }}>
+                    {section.title}
+                  </h4>
+                  <ul className="grid grid-cols-2 gap-x-8 gap-y-3">
+                    {section.links.map((link) => {
+                      const linkClassName = 'block text-sm font-medium transition-colors hover:underline';
+                      const linkStyle = { color: 'var(--color-text-secondary)' };
+                      const isExternal = link.href.startsWith('http');
 
-                  <div className="hidden lg:block">
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: 0.1 * (idx + 1) }}
-                    >
-                      <h4 className="text-base font-bold mb-3" style={{ color: 'var(--color-text)' }}>{section.title}</h4>
-                      <ul className="space-y-2">
-                        {section.links.map((link, index) => (
-                          <li key={index}>
+                      return (
+                        <li key={link.href}>
+                          {isExternal ? (
                             <a
                               href={link.href}
-                              className="text-sm font-medium hover:underline block transition-colors"
-                              style={{ color: 'var(--color-text-secondary)' }}
-                              target={link.href.startsWith('http') ? '_blank' : '_self'}
-                              rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                              className={linkClassName}
+                              style={linkStyle}
+                              target="_blank"
+                              rel="noopener noreferrer"
                             >
                               {link.label}
                             </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </motion.div>
-                  </div>
-                </div>
+                          ) : (
+                            <Link href={link.href} className={linkClassName} style={linkStyle}>
+                              {link.label}
+                            </Link>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </motion.div>
               ))}
-            </div>
+            </nav>
+
+            <pre
+              data-footer-character-art
+              aria-hidden="true"
+              className="pointer-events-none hidden max-w-full select-none self-center justify-self-center overflow-hidden whitespace-pre font-mono text-[8px] leading-none xl:block"
+              style={{ color: 'var(--color-text-muted)', opacity: 0.38 }}
+            >
+              {charizardArt}
+            </pre>
           </div>
         </div>
 
         {/* Large Name Section */}
-        <div className="max-w-7xl mx-auto relative z-10 px-6 sm:px-8 lg:px-12 mt-10">
+        <div
+          className="relative z-10 mx-auto max-w-7xl border-t px-6 pb-5 pt-8 sm:px-8 lg:px-12"
+          style={{ borderColor: 'var(--color-border)' }}
+        >
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -221,8 +251,8 @@ export default function Footer() {
               <p className="text-xs font-bold" style={{ color: 'var(--color-text-muted)' }}>
                 © {new Date().getFullYear()} Nishant. All Rights Reserved
               </p>
-              <a
-                href="#contact"
+              <Link
+                href="/#contact"
                 className="neubrutalism-button px-4 py-2.5 text-xs font-bold rounded-xl inline-block mt-2 text-center"
                 style={{
                   backgroundColor: 'var(--color-accent)',
@@ -231,7 +261,7 @@ export default function Footer() {
                 }}
               >
                 HIRE ME
-              </a>
+              </Link>
             </div>
           </motion.div>
         </div>

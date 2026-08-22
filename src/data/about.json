@@ -1,8 +1,8 @@
 {
   "hero": {
-    "badge": "Student Developer",
+    "badge": "Software Engineering Intern",
     "title": "About",
-    "subtitle": "B.Tech IT + MBA at IIIT Gwalior. I build full-stack products and currently work as a Software Engineer intern at QuickIntell.",
+    "subtitle": "Pre-final-year Information Technology student at IIIT Gwalior, graduating in May 2028. At QuickIntell, I work on healthcare document processing, X12 835 generation, product features, and production debugging.",
     "profileImage": "/nishant-image.webp",
     "profileAlt": "Nishant Harkut",
     "profileCaption": "Nishant Harkut"
@@ -11,33 +11,39 @@
     {
       "title": "Background",
       "content": [
-        "I'm Nishant Harkut. I'm in my third year of a B. Tech IT Undergraduate studies at IIIT Gwalior. I started with UI/UX and graphic design — won some college design competitions and did a design internship. That led me into wanting to build the things I was designing, not just mock them up."
+        "I'm Nishant Harkut, a pre-final-year student in the Integrated Post Graduate Information Technology program at Indian Institute of Information Technology, Gwalior. I began with UI/UX and graphic design, then moved into engineering because I wanted to build and test the products I had been designing."
       ]
     },
     {
-      "title": "Design to dev",
+      "title": "Current work",
       "content": [
-        "I switched focus to development and started shipping full-stack projects: a Web3 collaboration platform, an AI travel planner, a career-coaching SaaS. I've competed in hackathons — top 10 at ODOO India (out of 10,000+ teams) and first place at Hacknovate 6.0.",
-        "I'm currently interning at QuickIntell as a Software Engineer: OCR pipelines, backend services, and AI integrations for their healthcare RCM product. I use React, Next.js, Node.js, Python, PostgreSQL, and sometimes Three.js and GSAP when the project needs it."
+        "At QuickIntell, I work on a healthcare revenue-cycle platform using Python, Go, React, TypeScript, and AWS. My work includes payer-specific EOB parsers, X12 835 ERA generation, upload and review flows, security fixes, debugging, QA, and code review.",
+        "The work has taken me from diagnosing an Amazon Bedrock production failure to correcting ERA output across 44 generators and delivering more than 40 product and security changes through five review rounds."
       ]
     },
     {
-      "title": "Security",
+      "title": "Projects and research",
       "content": [
-        "I'm learning web application security in parallel — OWASP basics, auth, API security. Not my main focus, but I'd rather build things knowing how they can break."
+        "I built PocketBuddy end to end across a Kotlin Android connector, FastAPI services, a React interface, and an asynchronous AWS ingestion path. My current research projects, TinyRF-KD and Covid-RARS, examine tiny edge intrusion detection and reliability under temporal and cross-dataset shift. Both repositories are public, and the papers are still being written."
+      ]
+    },
+    {
+      "title": "Open source",
+      "content": [
+        "I have 16 merged upstream pull requests across Learning Unlimited, Kiwix, and the Palisadoes Foundation. The work includes Django maintenance and accessibility fixes, a TypeScript data-URL bug fix with tests, and React component refactoring based on maintainer review."
       ]
     },
     {
       "title": "Off the keyboard",
       "content": [
-        "Basketball, gym, AI music experiments. I still do graphic design and photography, and I play BGMI when I want to switch off."
+        "I play basketball, train at the gym, experiment with music, and still make time for graphic design and photography."
       ]
     }
   ],
   "stats": [
     { "number": "1+", "label": "Years Experience" },
-    { "number": "5+", "label": "Projects Made" },
-    { "number": "50+", "label": "Stars" }
+    { "number": "16", "label": "Merged Upstream PRs" },
+    { "number": "10+", "label": "Finals / Semifinals" }
   ],
   "resume": {
     "fileName": "Nishant_Harkut_Resume.pdf",

@@ -7,7 +7,6 @@ import Image from 'next/image';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { getProjects, type Project } from '../../data';
-import SplashCursorWrapper from '../components/ui/SplashCursorWrapper';
 import PixelBlast from '../components/ui/PixelBlast';
 import { PageHeroCta } from '../components/ui/PageHeroCta';
 // Lazy load components with proper error boundaries
@@ -153,7 +152,6 @@ export default function ProjectsPage() {
 
   return (
     <main className="relative w-full min-h-screen overflow-x-hidden">
-      <SplashCursorWrapper SPLAT_RADIUS={0.05} />
       <Navbar />
       
       {/* Hero Section with FaultyTerminal Background */}
@@ -216,7 +214,7 @@ export default function ProjectsPage() {
               </span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-6 sm:mb-8 drop-shadow-lg" style={{ color: 'var(--color-text)' }}>
-              Things I&apos;ve built — web apps, hackathon projects, and side projects
+              Products and research across backend systems, AWS, applied ML, and developer tooling
             </p>
             
             <PageHeroCta

@@ -41,9 +41,18 @@ export interface Achievement {
   organization?: string;
   link?: string;
   image: string;
+  logo?: string;
+  sortDate?: string;
   badge?: string;
   impact: string[];
   featured?: boolean;
+}
+
+export interface CertificationCourse {
+  name: string;
+  date: string;
+  credentialId: string;
+  credentialUrl?: string;
 }
 
 export interface Certification {
@@ -52,8 +61,10 @@ export interface Certification {
   issuer: string;
   date: string;
   credentialId?: string;
+  credentialUrl?: string;
   image: string;
   skills: string[];
+  courses?: CertificationCourse[];
 }
 
 export interface Award {
@@ -64,6 +75,8 @@ export interface Award {
   year: string;
   description: string;
   image: string;
+  logo?: string;
+  sortDate?: string;
 }
 
 export interface Skill {
@@ -93,6 +106,7 @@ export interface ExperienceItem {
   id: number;
   position: string;
   company: string;
+  website?: string;
   year: string;
   duration: string;
   months?: string;
@@ -101,6 +115,17 @@ export interface ExperienceItem {
   technologies: string[];
   achievements: string[];
   logo?: string;
+  logoDark?: string;
+}
+
+export interface OpenSourceContribution {
+  organization: string;
+  logo: string;
+  repository: string;
+  mergedPullRequests: number;
+  evidence: string;
+  summary: string;
+  url: string;
 }
 
 export interface CareerHighlight {
@@ -233,6 +258,10 @@ export const getTimeline = (): TimelineItem[] => {
 
 export const getExperienceData = (): ExperienceItem[] => {
   return experienceData.experienceData;
+};
+
+export const getOpenSourceContributions = (): OpenSourceContribution[] => {
+  return experienceData.openSourceContributions;
 };
 
 export const getCoreSkills = (): string[] => {

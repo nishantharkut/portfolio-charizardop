@@ -12,21 +12,13 @@
       {
         "title": "NAVIGATE",
         "links": [
-          { "label": "About", "href": "#about" },
-          { "label": "Experience", "href": "#experience" },
-          { "label": "Skills", "href": "#skills" },
-          { "label": "Projects", "href": "#projects" },
-          { "label": "Contact", "href": "#contact" }
-        ]
-      },
-      {
-        "title": "CONNECT",
-        "links": [
-          { "label": "GitHub", "href": "https://github.com/nishantharkut" },
-          { "label": "LeetCode", "href": "https://leetcode.com/u/nishant_harkut/" },
-          { "label": "Codeforces", "href": "https://codeforces.com/profile/fiery_charizard" },
-          { "label": "CodeChef", "href": "https://codechef.com/users/nishantharkut" },
-          { "label": "Devfolio", "href": "https://devfolio.co/@CharizardOP" }
+          { "label": "Home", "href": "/" },
+          { "label": "About", "href": "/about" },
+          { "label": "Experience", "href": "/experience" },
+          { "label": "Skills", "href": "/#skills" },
+          { "label": "Projects", "href": "/projects" },
+          { "label": "Achievements", "href": "/achievements" },
+          { "label": "Contact", "href": "/#contact" }
         ]
       }
     ],
