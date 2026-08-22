@@ -6,6 +6,8 @@ Improve recognition and chronology on the achievements page without replacing th
 
 ## Scope
 
+- Restore the full-height `My Achievements` hero used before the ledger redesign so it matches the Projects and Experience page pattern.
+- Keep the four-item evidence strip, place it after the full-height hero, and replace the removed council statistic with the verified `10+` hackathon-finals record.
 - Add compact logos only to entries with a clear organisation or event identity.
 - Use existing verified local assets where they are suitable at small sizes.
 - Keep logo frames consistent at 40 to 48 pixels and use `object-contain` so marks are not cropped.
@@ -15,6 +17,8 @@ Improve recognition and chronology on the achievements page without replacing th
 - Present dated entries in reverse chronological order.
 
 ## Layout
+
+The hero uses the shared full-screen page composition: centred title, accent underline, concise supporting line, and the standard page CTA over `PixelBlast`. The evidence strip begins after the hero and is not part of the first viewport.
 
 Selected milestones retain their current four-column desktop ledger. The existing rightmost mark is treated as an identity logo, not a thumbnail. Competition entries retain their compact two-column grid, with a small event or organiser mark at the start of each row. Leadership entries gain the same compact mark at the end of the row only when an organisation logo is available.
 
@@ -35,6 +39,7 @@ The achievement data remains the source of truth for image paths and dates. Sort
 ## Verification
 
 - Assert the removed Student Activity Council overall-head entry and `3 roles` statistic are absent.
+- Assert the hero occupies the first viewport and the four-item evidence strip starts below it.
 - Assert section entries render in reverse chronological order.
 - Check that entries with recognised assets render a logo and entries without one do not reserve blank space.
 - Inspect desktop and mobile screenshots for alignment, cropping, overflow and text wrapping.
