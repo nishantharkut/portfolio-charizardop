@@ -46,12 +46,21 @@ The `NAVIGATE` section contains only valid cross-page destinations:
 
 Internal links open in the current tab. External social links continue to open in a new tab.
 
+### Footer visual refinement
+
+Rebalance the space left by the removed `CONNECT` column without adding another content category. The upper desktop area uses the existing contact block on the left and a wider navigation region on the right. `NAVIGATE` links use a compact two-column grid instead of a narrow vertical list.
+
+Add one original, compact Charizard-inspired character-art watermark to the otherwise empty desktop area. It is decorative rather than interactive, uses a monospace font and an existing muted colour at low opacity, stays behind the content layer, and is clipped within the footer. The treatment is inspired by character-art references rather than copied from a third-party artwork.
+
+The lower band retains the large `NISHANT` wordmark, availability message, `HIRE ME` action, logo, and social icons. Thin rules and deliberate alignment provide hierarchy without introducing cards, extra copy, gradients, animations, or new colours.
+
 ## Responsive Behavior
 
 - No horizontal overflow at 390, 768, or 1440 pixels.
 - Date, title, company, technologies, and bullets remain readable without clipping.
 - The Experience ledger uses one markup path at every viewport.
-- Footer navigation remains usable through the existing mobile disclosure and desktop list patterns.
+- Footer navigation remains visible as a compact two-column link grid on mobile rather than collapsing into a disclosure.
+- The large character artwork is desktop-only. Mobile retains a clean text hierarchy without decorative overflow.
 
 ## Verification
 
@@ -59,6 +68,7 @@ Internal links open in the current tab. External social links continue to open i
 - Assert QuickIntell displays the corrected dates and past-tense overview.
 - Assert the removed Experience sections are absent.
 - Assert the footer has no `CONNECT` heading and every navigation link resolves to the approved destination.
+- Assert the character artwork is hidden below the desktop breakpoint and does not create overflow.
 - Inspect desktop and mobile screenshots.
 - Run the Experience/Footer browser contract, type checking, and production build.
 
