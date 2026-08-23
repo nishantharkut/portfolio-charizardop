@@ -4,10 +4,41 @@ const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
 const executablePath =
   process.env.CHROME_PATH || 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const browser = await puppeteer.launch({ headless: true, executablePath });
+const githubChartImage = '<svg xmlns="http://www.w3.org/2000/svg" width="555" height="100" />';
+
+async function stabilizeExternalMedia(page) {
+  await page.setRequestInterception(true);
+  page.on('request', async (request) => {
+    if (new URL(request.url()).hostname === 'ghchart.rshah.org') {
+      await request.respond({ body: githubChartImage, contentType: 'image/svg+xml', status: 200 });
+      return;
+    }
+    await request.continue();
+  });
+}
 
 async function settle(page) {
-  await page.evaluate(() => {
+  await page.waitForSelector('[data-github-chart-shell]', { timeout: 10_000 });
+  await page.evaluate(async () => {
+    await document.fonts.ready;
     document.documentElement.style.scrollBehavior = 'auto';
+    const chartImage = document.querySelector('[data-github-chart-image]');
+    if (chartImage instanceof HTMLImageElement) {
+      chartImage.loading = 'eager';
+      const source = new URL(chartImage.src);
+      source.searchParams.set('layout-verification', '1');
+      chartImage.src = source.toString();
+    }
+    document.querySelector('[data-github-chart-shell]')?.scrollIntoView({ block: 'center' });
+  });
+  await page
+    .waitForFunction(
+      () => document.querySelector('[data-github-chart-shell]')?.getAttribute('data-chart-state') === 'loaded',
+      { timeout: 5_000 },
+    );
+  await page.evaluate(() => {
+    window.scrollTo(0, 0);
+    window.dispatchEvent(new Event('resize'));
   });
   await new Promise((resolve) => setTimeout(resolve, 1800));
 }
@@ -68,6 +99,7 @@ async function readDesktopBoundary(page) {
 
 try {
   const page = await browser.newPage();
+  await stabilizeExternalMedia(page);
   await page.setViewport({ width: 1280, height: 800, deviceScaleFactor: 1 });
   await page.goto(baseUrl, { waitUntil: 'domcontentloaded' });
   await page.waitForSelector('.projects-section .project-box:last-child');
@@ -103,6 +135,7 @@ try {
   const mobileWidth = Number.parseInt(process.env.MOBILE_WIDTH || '390', 10);
   const mobileHeight = Number.parseInt(process.env.MOBILE_HEIGHT || '844', 10);
   const mobile = await browser.newPage();
+  await stabilizeExternalMedia(mobile);
   await mobile.setViewport({ width: mobileWidth, height: mobileHeight, deviceScaleFactor: 1 });
   await mobile.goto(baseUrl, { waitUntil: 'domcontentloaded' });
   await mobile.waitForSelector('.projects-section .project-flex');
