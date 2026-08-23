@@ -52,13 +52,12 @@ function ProjectCard({ project }: { project: Project }) {
           </h3>
         </div>
         {/* Description */}
-        <div className="mb-2 flex items-start min-h-[60px] max-h-[60px]">
+        <div className="mb-2 flex items-start min-h-[60px] max-h-[60px] overflow-hidden">
           <p
-            className="text-sm leading-relaxed font-medium w-full"
+            className="text-sm leading-[1.4] font-medium w-full line-clamp-3"
             style={{
               color: 'var(--color-text-secondary)',
-              overflow: 'hidden',
-              display: 'block'
+              overflow: 'hidden'
             }}
           >
             {descToShow}
@@ -79,7 +78,7 @@ function ProjectCard({ project }: { project: Project }) {
           )}
         </div>
         {/* Action Buttons */}
-        <div className="mt-auto flex gap-3 h-[38px]">
+        <div className="mt-auto flex gap-3 h-[38px] pr-12 lg:pr-0">
           <button className="neubrutalism-button flex-1 bg-orange-400 text-black text-xs sm:text-sm uppercase tracking-wide overflow-hidden">
             <span className="truncate">VIEW DETAILS</span>
           </button>
