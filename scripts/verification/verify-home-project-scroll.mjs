@@ -24,30 +24,41 @@ async function readDesktopBoundary(page) {
       return null;
     }
 
-    const waitForTravel = async (minimumTravel) => {
-      const deadline = performance.now() + 1500;
+    const waitForTravel = async (minimumTravel, targetY) => {
+      const deadline = performance.now() + 3000;
       while (performance.now() < deadline) {
         const matrix = new DOMMatrixReadOnly(getComputedStyle(track).transform);
-        if (Math.abs(matrix.m41) >= minimumTravel) return;
+        if (Math.abs(matrix.m41) >= minimumTravel) return true;
+        window.scrollTo(0, targetY);
         await new Promise((resolve) => setTimeout(resolve, 25));
       }
+      return false;
     };
+
+    const initialSpacerTop = spacer.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo(0, Math.max(0, initialSpacerTop - window.innerHeight));
+    window.dispatchEvent(new Event('resize'));
+    await new Promise((resolve) => setTimeout(resolve, 750));
 
     const spacerTop = spacer.getBoundingClientRect().top + window.scrollY;
     const pinDistance = Number.parseFloat(getComputedStyle(spacer).paddingBottom) || 0;
-    window.scrollTo(0, spacerTop + Math.max(0, pinDistance - 1));
-    await waitForTravel(Math.max(0, pinDistance - 3));
+    const beforeEndY = spacerTop + Math.max(0, pinDistance - 1);
+    window.scrollTo(0, beforeEndY);
+    const reachedBeforeEnd = await waitForTravel(Math.max(0, pinDistance - 3), beforeEndY);
 
     const sectionRect = section.getBoundingClientRect();
     const contactRect = contact.getBoundingClientRect();
-    window.scrollTo(0, spacerTop + pinDistance);
-    await waitForTravel(Math.max(0, pinDistance - 1));
+    const endY = spacerTop + pinDistance;
+    window.scrollTo(0, endY);
+    const reachedEnd = await waitForTravel(Math.max(0, pinDistance - 1), endY);
     const lastRectAtEnd = lastCard.getBoundingClientRect();
 
     return {
       contactTopBeforeEnd: contactRect.top,
       lastRightAtEnd: lastRectAtEnd.right,
       pinDistance,
+      reachedBeforeEnd,
+      reachedEnd,
       sectionTopBeforeEnd: sectionRect.top,
       viewportHeight: window.innerHeight,
       viewportWidth: window.innerWidth,
@@ -71,6 +82,9 @@ try {
 
   const desktop = await readDesktopBoundary(page);
   if (!desktop) throw new Error('Desktop project pin geometry was unavailable');
+  if (!desktop.reachedBeforeEnd || !desktop.reachedEnd) {
+    throw new Error(`Desktop project track did not reach its expected travel: ${JSON.stringify(desktop)}`);
+  }
 
   if (Math.abs(desktop.sectionTopBeforeEnd) > 2) {
     throw new Error(`Project section was not pinned before its end: top=${desktop.sectionTopBeforeEnd}`);
@@ -82,46 +96,72 @@ try {
   }
   if (desktop.lastRightAtEnd > desktop.viewportWidth + 2) {
     throw new Error(
-      `Final project panel remained ${Math.round(desktop.lastRightAtEnd - desktop.viewportWidth)}px outside the viewport after resize`,
+      `Final project panel remained ${Math.round(desktop.lastRightAtEnd - desktop.viewportWidth)}px outside the viewport after resize: ${JSON.stringify(desktop)}`,
     );
   }
 
+  const mobileWidth = Number.parseInt(process.env.MOBILE_WIDTH || '390', 10);
+  const mobileHeight = Number.parseInt(process.env.MOBILE_HEIGHT || '844', 10);
   const mobile = await browser.newPage();
-  await mobile.setViewport({ width: 390, height: 844, deviceScaleFactor: 1 });
+  await mobile.setViewport({ width: mobileWidth, height: mobileHeight, deviceScaleFactor: 1 });
   await mobile.goto(baseUrl, { waitUntil: 'domcontentloaded' });
   await mobile.waitForSelector('.projects-section .project-flex');
   await settle(mobile);
 
-  const mobileState = await mobile.evaluate(async () => {
+  await mobile.waitForFunction(
+    () => document.querySelector('.projects-section')?.parentElement?.classList.contains('pin-spacer'),
+    { timeout: 10_000 },
+  );
+
+  const mobileBoundary = await readDesktopBoundary(mobile);
+  if (!mobileBoundary) throw new Error('Mobile project pin geometry was unavailable');
+  if (!mobileBoundary.reachedBeforeEnd || !mobileBoundary.reachedEnd) {
+    throw new Error(`Mobile project track did not reach its expected travel: ${JSON.stringify(mobileBoundary)}`);
+  }
+
+  const mobileState = await mobile.evaluate(() => {
     const section = document.querySelector('.projects-section');
     const track = document.querySelector('.project-flex');
-    const cards = track ? Array.from(track.querySelectorAll('.project-box')) : [];
-    if (track) {
-      track.scrollLeft = track.scrollWidth;
-      await new Promise((resolve) => setTimeout(resolve, 150));
-    }
-    const trackRect = track?.getBoundingClientRect();
-    const finalRect = cards.at(-1)?.getBoundingClientRect();
+    const actions = document.querySelector('.navbar-float-actions');
+    const buttons = actions ? Array.from(actions.querySelectorAll('.navbar-float-btn')) : [];
+    const actionStyle = actions ? getComputedStyle(actions) : null;
     return {
       hasPinSpacer: Boolean(section?.parentElement?.classList.contains('pin-spacer')),
       overflowX: track ? getComputedStyle(track).overflowX : '',
-      scrollable: track ? track.scrollWidth > track.clientWidth : false,
-      cardsFitViewport: track ? cards.every((card) => card.getBoundingClientRect().width <= track.clientWidth + 1) : false,
-      finalCardContained: Boolean(
-        trackRect && finalRect && finalRect.left >= trackRect.left - 1 && finalRect.right <= trackRect.right + 1,
-      ),
+      actionsDisplay: actionStyle?.display || '',
+      actionBottom: actionStyle?.bottom || '',
+      actionRight: actionStyle?.right || '',
+      buttonCount: buttons.length,
+      buttonsVisible: buttons.every((button) => {
+        const rect = button.getBoundingClientRect();
+        const style = getComputedStyle(button);
+        return style.display !== 'none' && rect.width >= 40 && rect.height >= 40;
+      }),
     };
   });
 
-  if (mobileState.hasPinSpacer) throw new Error('Mobile projects still use a pinned ScrollTrigger');
-  if (!mobileState.scrollable || !['auto', 'scroll'].includes(mobileState.overflowX)) {
-    throw new Error(`Mobile project track is not natively scrollable: ${JSON.stringify(mobileState)}`);
+  if (!mobileState.hasPinSpacer) throw new Error('Mobile projects do not use a pinned ScrollTrigger');
+  if (['auto', 'scroll'].includes(mobileState.overflowX)) {
+    throw new Error(`Mobile project track still uses native horizontal scrolling: ${JSON.stringify(mobileState)}`);
   }
-  if (!mobileState.cardsFitViewport || !mobileState.finalCardContained) {
-    throw new Error(`Mobile project cards are clipped by the scroll viewport: ${JSON.stringify(mobileState)}`);
+  if (Math.abs(mobileBoundary.sectionTopBeforeEnd) > 2) {
+    throw new Error(`Mobile project section was not pinned before its end: top=${mobileBoundary.sectionTopBeforeEnd}`);
+  }
+  if (mobileBoundary.contactTopBeforeEnd < mobileBoundary.viewportHeight - 2) {
+    throw new Error(
+      `Contact entered the active mobile project viewport: top=${mobileBoundary.contactTopBeforeEnd}, viewport=${mobileBoundary.viewportHeight}`,
+    );
+  }
+  if (mobileBoundary.lastRightAtEnd > mobileBoundary.viewportWidth + 2) {
+    throw new Error(
+      `Final mobile project panel remained ${Math.round(mobileBoundary.lastRightAtEnd - mobileBoundary.viewportWidth)}px outside the viewport`,
+    );
+  }
+  if (mobileState.actionsDisplay === 'none' || mobileState.buttonCount !== 2 || !mobileState.buttonsVisible) {
+    throw new Error(`Mobile floating actions are not both visible and tappable: ${JSON.stringify(mobileState)}`);
   }
 
-  console.log('Homepage project scroll verification passed');
+  console.log(`Homepage project scroll verification passed at ${mobileWidth}x${mobileHeight}`);
 } finally {
   await browser.close();
 }

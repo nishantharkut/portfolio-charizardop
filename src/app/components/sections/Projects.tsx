@@ -36,7 +36,7 @@ const Projects = () => {
 
     const media = gsap.matchMedia();
     const context = gsap.context(() => {
-      media.add('(min-width: 769px)', () => {
+      media.add('(min-width: 0px)', () => {
         const boxes = Array.from(track.querySelectorAll<HTMLElement>('.project-box'));
 
         const getDistance = () => {
