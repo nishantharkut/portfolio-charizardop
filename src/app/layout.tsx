@@ -8,7 +8,6 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { LoadingProvider } from "./contexts/LoadingContext";
 import LoadingWrapper from "./components/ui/LoadingWrapper";
-import ServiceWorkerRegistration from "./components/ServiceWorkerRegistration";
 import TopScrollBar from "./components/ui/TopScrollBar";
 
 const geistSans = Geist({
@@ -232,7 +231,6 @@ export default function RootLayout({
               <TopScrollBar />
               <LoadingProvider>
                 <LoadingWrapper>
-                  <ServiceWorkerRegistration />
                   {children}
                 </LoadingWrapper>
               </LoadingProvider>
