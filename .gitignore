@@ -45,3 +45,6 @@ Portfolio-Website/
 
 # ai tooling
 .ai/
+
+# isolated development worktrees
+/.worktrees/
