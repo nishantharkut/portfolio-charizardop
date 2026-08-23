@@ -9,6 +9,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import { LoadingProvider } from "./contexts/LoadingContext";
 import LoadingWrapper from "./components/ui/LoadingWrapper";
 import TopScrollBar from "./components/ui/TopScrollBar";
+import ServiceWorkerCleanup from "./components/ServiceWorkerCleanup";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -225,6 +226,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${sora.variable} antialiased`}
         suppressHydrationWarning={true}
       >
+        <ServiceWorkerCleanup />
         <ErrorBoundary>
           <PerformanceProvider>
             <ThemeProvider>
