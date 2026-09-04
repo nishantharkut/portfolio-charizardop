@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Achievements - Nishant Harkut',
     description: 'Machine-learning selection, open-source contributions, national hackathon results, certifications, and campus leadership.',
-    url: 'https://www.nishantharkut.dev/achievements',
+    url: 'https://www.nishantharkut.tech/achievements',
     images: [
       {
         url: '/og-image.jpg',

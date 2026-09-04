@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     'Student Portfolio',
     'IIIT Gwalior Portfolio'
   ],
-  authors: [{ name: 'Nishant Harkut', url: 'https://www.nishantharkut.dev' }],
+  authors: [{ name: 'Nishant Harkut', url: 'https://www.nishantharkut.tech' }],
   creator: 'Nishant Harkut',
   publisher: 'Nishant Harkut',
   formatDetection: {
@@ -74,15 +74,15 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://www.nishantharkut.dev'),
+  metadataBase: new URL('https://www.nishantharkut.tech'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     title: 'Nishant Harkut | Software Engineering, Applied ML, AWS',
     description: 'Software Engineering Intern and Information Technology student working across backend systems, full-stack products, AWS, applied ML, and open source.',
-    url: 'https://www.nishantharkut.dev',
-    siteName: 'Nishant.dev',
+    url: 'https://www.nishantharkut.tech',
+    siteName: 'Nishant.tech',
     images: [
       { url: ogImage, width: 1200, height: 630, alt: 'Nishant Harkut software engineering portfolio' },
       { url: siteIcon, width: 72, height: 72, alt: 'Nishant Harkut Logo' },
@@ -130,7 +130,7 @@ export const metadata: Metadata = {
     yandex: 'your-yandex-verification-code', // Optional
     yahoo: 'your-yahoo-verification-code', // Optional
     other: {
-      me: ['nishantharkut@gmail.com', 'https://nishantharkut.com'],
+      me: ['nishantharkut@gmail.com', 'https://www.nishantharkut.tech'],
     },
   },
 };
@@ -178,8 +178,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               "name": "Nishant Harkut",
-              "url": "https://www.nishantharkut.dev",
-              "image": "https://www.nishantharkut.dev/profile-image.jpg",
+              "url": "https://www.nishantharkut.tech",
+              "image": "https://www.nishantharkut.tech/profile-image.jpg",
               "sameAs": [
                 "https://www.linkedin.com/in/nishant-harkut/",
                 "https://github.com/nishantharkut",
@@ -216,7 +216,7 @@ export default function RootLayout({
                 "@type": "PostalAddress",
                 "addressCountry": "India"
               },
-              "email": "contact@nishant.dev",
+              "email": "nhnishantharkut@gmail.com",
               "seeks": "Software Engineering Internship"
             })
           }}

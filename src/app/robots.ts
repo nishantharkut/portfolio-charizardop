@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/private/', '/admin/'],
     },
-    sitemap: 'https://www.nishantharkut.dev/sitemap.xml',
-    host: 'https://www.nishantharkut.dev'
+    sitemap: 'https://www.nishantharkut.tech/sitemap.xml',
+    host: 'https://www.nishantharkut.tech'
   }
 }

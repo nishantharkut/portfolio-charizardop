@@ -3,7 +3,7 @@
 ## ✅ Implemented SEO Features - STUDENT-FOCUSED STRATEGY
 
 ### 1. Enhanced Root Layout Metadata (src/app/layout.tsx)
-- **Domain**: Updated to https://www.nishantharkut.dev
+- **Domain**: Updated to https://www.nishantharkut.tech
 - **Student-focused keywords**: IIIT Gwalior, BTech IT Student, Internship Seeker
 - **Tech skills**: MERN Stack, GenAI, Agentic AI, n8n Automation
 - **Complete Open Graph** and **Twitter Card** setup
@@ -11,7 +11,7 @@
 - **Actual social media links** from your profiles
 
 ### 2. Next.js 13+ SEO Files
-- **sitemap.ts**: Auto-generates XML sitemap for www.nishantharkut.dev
+- **sitemap.ts**: Auto-generates XML sitemap for www.nishantharkut.tech
 - **robots.ts**: Configures crawler access for your domain
 
 ### 3. Page-Specific Metadata - UPDATED FOR STUDENT STATUS
@@ -86,7 +86,7 @@ verification: {
 
 ### 7. Google Search Console Setup
 
-1. **Submit sitemap**: `https://nishantharkut.com/sitemap.xml`
+1. **Submit sitemap**: `https://www.nishantharkut.tech/sitemap.xml`
 2. **Request indexing** for all main pages
 3. **Monitor performance** for "Nishant Harkut" keyword
 4. **Track click-through rates** and impressions

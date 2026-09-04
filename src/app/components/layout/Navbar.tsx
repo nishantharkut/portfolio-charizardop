@@ -66,12 +66,12 @@ export default function Navbar() {
       {/* Gradient fade below navbar */}
       <div className="navbar-fade" aria-hidden="true" />
 
-      {/* Desktop navbar: [logo nishant.dev]   (empty center)   [EXPERIENCE  PROJECTS  MILESTONES] */}
+      {/* Desktop navbar: [logo nishant.tech]   (empty center)   [EXPERIENCE  PROJECTS  MILESTONES] */}
       <header className="navbar navbar-desktop" role="banner">
         <div className="navbar-group navbar-group-left">
           <Link href="/" className="navbar-logo-link" aria-label="Home">
             <Logo width={40} height={40} className="navbar-logo-desktop flex-shrink-0" priority />
-            <span className="navbar-brand">nishant.dev</span>
+            <span className="navbar-brand">nishant.tech</span>
           </Link>
         </div>
         <div className="navbar-group navbar-group-center" />
@@ -98,7 +98,7 @@ export default function Navbar() {
         <div className="navbar-group navbar-group-left">
           <Link href="/" className="navbar-logo-link" aria-label="Home">
             <Logo width={32} height={32} className="navbar-logo-mobile flex-shrink-0" priority />
-            <span className="navbar-brand">nishant.dev</span>
+            <span className="navbar-brand">nishant.tech</span>
           </Link>
         </div>
         <button
@@ -126,7 +126,7 @@ export default function Navbar() {
           <header className="navbar-overlay-header">
             <Link href="/" className="navbar-overlay-brand" onClick={closeMobileMenu}>
               <Logo width={32} height={32} className="navbar-logo-mobile flex-shrink-0" priority />
-              <span>nishant.dev</span>
+              <span>nishant.tech</span>
             </Link>
             <div className="navbar-overlay-actions">
               <button type="button" onClick={toggleTheme} aria-label="Toggle theme" className="navbar-overlay-close">

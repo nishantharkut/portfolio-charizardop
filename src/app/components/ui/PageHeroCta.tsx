@@ -71,7 +71,7 @@ export function PageHeroCta({ backHref = '/', primary, signature = true, classNa
 
       {signature && (
         <p className="text-[10px] sm:text-xs tracking-widest uppercase" style={{ color: 'var(--color-text-muted)' }}>
-          <span style={{ color: 'var(--color-accent)' }}>nishant</span>.dev
+          <span style={{ color: 'var(--color-accent)' }}>nishant</span>.tech
         </p>
       )}
     </div>

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Projects - Nishant Harkut',
     description: 'Backend systems, full-stack products, AWS applications, applied ML research, and developer tooling by Nishant Harkut.',
-    url: 'https://www.nishantharkut.dev/projects',
+    url: 'https://www.nishantharkut.tech/projects',
     images: [
       {
         url: '/og-image.jpg',

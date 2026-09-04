@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'About Nishant Harkut',
     description: 'Information Technology student and Software Engineering Intern working across backend systems, full-stack products, AWS, applied ML, and open source.',
-    url: 'https://www.nishantharkut.dev/about',
+    url: 'https://www.nishantharkut.tech/about',
     images: [
       {
         url: '/og-image.jpg',
