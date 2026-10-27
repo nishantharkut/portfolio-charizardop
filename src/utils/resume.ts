@@ -3,8 +3,8 @@ import aboutData from '../data/about.json';
 export interface ResumeInfo {
   fileName: string;
   filePath: string;
-  lastUpdated: string;
-  fileSize: string;
+  lastUpdated?: string;
+  fileSize?: string;
 }
 
 /**
@@ -20,8 +20,16 @@ export const getResumeInfo = (): ResumeInfo | null => {
 export const downloadResume = (): void => {
   const resumeInfo = getResumeInfo();
   
-  if (!resumeInfo) {
-    console.error('Resume information not found in about data');
+  if (!resumeInfo || !resumeInfo.filePath) {
+    if (typeof window !== 'undefined') {
+      window.location.href = 'mailto:nhnishantharkut@gmail.com?subject=Resume%20Request%20-%20Nishant%20Harkut';
+    }
+    return;
+  }
+
+  const isExternal = resumeInfo.filePath.startsWith('http://') || resumeInfo.filePath.startsWith('https://');
+  if (isExternal) {
+    window.open(resumeInfo.filePath, '_blank', 'noopener,noreferrer');
     return;
   }
   

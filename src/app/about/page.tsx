@@ -2,26 +2,32 @@ import { Metadata } from 'next';
 import AboutClient from './AboutClient';
 
 export const metadata: Metadata = {
-  title: 'About',
-  description: 'About Nishant Harkut, an Information Technology student at IIIT Gwalior and Software Engineering Intern working in backend systems, AWS, applied ML, and open source.',
+  title: 'About | Nishant Harkut | Software Engineer & IIIT Gwalior Student',
+  description: 'Background, education, and skills of Nishant Harkut: IT student at IIIT Gwalior based in Surat, Gujarat. Software Engineer with 1 year production experience at QuickIntell, open-source contributor, and TinyML researcher. Seeking Summer 2027 internships and Full-Time 2028 roles (Jan-July 2028).',
   keywords: [
-    'Nishant Harkut About',
-    'IIIT Gwalior Student',
-    'Information Technology Student',
-    'Software Engineering Intern',
-    'Backend Engineering Student',
-    'Applied Machine Learning',
-    'AWS Student Developer',
-    'Open Source Contributor',
-    'IIIT Gwalior Portfolio',
-    'Full Stack Engineering',
-    'Python Developer',
-    'Go Developer'
+    'About Nishant Harkut',
+    'Nishant Harkut IIIT Gwalior',
+    'Nishant Harkut Surat',
+    'Nishant Harkut Gujarat',
+    'Surat Software Developer',
+    'IIIT Gwalior Student Profile',
+    'IIIT Gwalior Software Engineer',
+    'IIIT Gwalior SDE Intern 2027',
+    'Summer 2027 Intern SDE',
+    'Full Time Software Engineer 2028',
+    'Jan July 2028 Internship',
+    'Software Engineer Bio',
+    'Backend Engineer Student',
+    'QuickIntell Software Engineer Intern',
+    'Applied Machine Learning Student',
+    'Open Source Contributor Kiwix',
+    'Python Go TypeScript Developer',
+    'SDE Intern Candidate India'
   ],
   openGraph: {
-    title: 'About Nishant Harkut',
-    description: 'Information Technology student and Software Engineering Intern working across backend systems, full-stack products, AWS, applied ML, and open source.',
-    url: 'https://www.nishantharkut.dev/about',
+    title: 'About Nishant Harkut | Software Engineer & IIIT Gwalior Student',
+    description: 'IT student at IIIT Gwalior, based in Surat, Gujarat. Seeking Summer 2027 Software Engineering Internships and Full-Time 2028 roles (Jan-July 2028). 1 year production engineering experience at QuickIntell.',
+    url: 'https://www.nishantharkut.tech/about',
     images: [
       {
         url: '/og-image.jpg',
@@ -33,8 +39,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Nishant Harkut | Software Engineering and Applied ML',
-    description: 'Information Technology student at IIIT Gwalior working in software engineering, AWS, applied ML research, and open source.',
+    title: 'About Nishant Harkut | Software Engineer & IIIT Gwalior Student',
+    description: 'IT student at IIIT Gwalior, based in Surat, Gujarat. Seeking Summer 2027 Software Engineering Internships and Full-Time 2028 roles (Jan-July 2028). 1 year production engineering experience at QuickIntell.',
     images: ['/og-image.jpg'],
   },
   alternates: {
