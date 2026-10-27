@@ -20,18 +20,21 @@ export default function RetroDragonLoader({
   onComplete,
   show,
   dragonImageSrc: _dragonImageSrc = null,
-  fallbackTimeoutMs = 10000,
+  fallbackTimeoutMs,
 }: RetroDragonLoaderProps) {
   const [isReturningVisitor, setIsReturningVisitor] = useState(false);
   const [videoEnded, setVideoEnded] = useState(false);
   const [progress, setProgress] = useState(0);
   const [canSkip, setCanSkip] = useState(false);
 
-  const rafRef = useRef<number | null>(null);
-  const startTimeRef = useRef<number | null>(null);
-  const fallbackTimeoutRef = useRef<number | null>(null);
   const completedRef = useRef(false);
   const videoElRef = useRef<HTMLVideoElement | null>(null);
+
+  // Keep a stable ref to onComplete so re-renders never clear timers
+  const onCompleteRef = useRef(onComplete);
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   useEffect(() => {
     try {
@@ -45,9 +48,9 @@ export default function RetroDragonLoader({
   const callCompleteOnce = useCallback(() => {
     if (!completedRef.current) {
       completedRef.current = true;
-      onComplete();
+      onCompleteRef.current();
     }
-  }, [onComplete]);
+  }, []);
 
   const handleSkip = useCallback(() => {
     if (videoElRef.current) {
@@ -61,10 +64,10 @@ export default function RetroDragonLoader({
     callCompleteOnce();
   }, [callCompleteOnce]);
 
-  // Allow skipping after 1.5s of playback via button or Escape key
+  // Allow skipping after 1.0s of playback via button or Escape key
   useEffect(() => {
     if (!show) return;
-    const timer = setTimeout(() => setCanSkip(true), 1500);
+    const timer = setTimeout(() => setCanSkip(true), 1000);
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         handleSkip();
@@ -82,71 +85,47 @@ export default function RetroDragonLoader({
       ? "/videos/Lazy Loader - starter 1.mp4"
       : null;
 
+  // Explicitly trigger play on mount to satisfy browser autoplay policies
   useEffect(() => {
-    const cleanupAnimation = () => {
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
-        rafRef.current = null;
-      }
-      startTimeRef.current = null;
-    };
+    const video = videoElRef.current;
+    if (!video || !videoSrc) return;
 
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch((err) => {
+        console.warn("Video autoplay prevented by browser:", err);
+      });
+    }
+  }, [videoSrc]);
+
+  // Guaranteed fallback timer: NEVER gets reset by re-renders
+  useEffect(() => {
     if (!show) {
       setProgress(0);
       setVideoEnded(false);
       completedRef.current = false;
-      if (fallbackTimeoutRef.current) {
-        clearTimeout(fallbackTimeoutRef.current);
-        fallbackTimeoutRef.current = null;
-      }
-      cleanupAnimation();
       return;
     }
 
-    // Safety fallback timeout in case video stalls or decoding fails
-    if (fallbackTimeoutRef.current) {
-      clearTimeout(fallbackTimeoutRef.current);
-      fallbackTimeoutRef.current = null;
-    }
-    fallbackTimeoutRef.current = window.setTimeout(() => {
+    // Max wait time: 8.0 seconds for starter (video is 7.44s), 1.5s for casual
+    const maxWait = fallbackTimeoutMs || (type === "starter" && !isReturningVisitor ? 8000 : 1500);
+    const timer = setTimeout(() => {
       setProgress(100);
       callCompleteOnce();
-    }, fallbackTimeoutMs);
+    }, maxWait);
 
-    // If there is no video (e.g. casual returning visit), run the elapsed timer animation
-    if (!videoSrc) {
-      startTimeRef.current = performance.now();
-      const animate = (now: number) => {
-        if (startTimeRef.current === null) startTimeRef.current = now;
-        const elapsed = now - startTimeRef.current;
-        const raw = Math.min(100, (elapsed / fallbackTimeoutMs) * 100);
-        setProgress((p) => (raw > p ? raw : p));
-        rafRef.current = requestAnimationFrame(animate);
-      };
-      rafRef.current = requestAnimationFrame(animate);
-    }
+    return () => clearTimeout(timer);
+  }, [show, type, isReturningVisitor, fallbackTimeoutMs, callCompleteOnce]);
 
-    return () => {
-      if (fallbackTimeoutRef.current) {
-        clearTimeout(fallbackTimeoutRef.current);
-        fallbackTimeoutRef.current = null;
-      }
-      cleanupAnimation();
-    };
-  }, [show, fallbackTimeoutMs, videoSrc, callCompleteOnce]);
-
+  // When video naturally ends, smoothly advance to 100% and dismiss
   useEffect(() => {
     if (videoEnded) {
-      if (fallbackTimeoutRef.current) {
-        clearTimeout(fallbackTimeoutRef.current);
-        fallbackTimeoutRef.current = null;
-      }
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
-        rafRef.current = null;
-      }
       setProgress(100);
-      const timer = setTimeout(() => callCompleteOnce(), 120);
+      const timer = setTimeout(() => callCompleteOnce(), 100);
       return () => clearTimeout(timer);
     }
   }, [videoEnded, callCompleteOnce]);
@@ -398,7 +377,7 @@ export default function RetroDragonLoader({
         </div>
       </div>
 
-      {/* ── Discreet Neubrutalist Skip Button (Available after 1.5s for busy recruiters) ── */}
+      {/* ── Discreet Neubrutalist Skip Button (Available after 1.0s for busy recruiters) ── */}
       {canSkip && videoSrc && (
         <button
           type="button"

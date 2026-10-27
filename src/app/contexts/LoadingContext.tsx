@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, useRef } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 
 interface LoadingContextType {
   isInitialLoading: boolean;
@@ -27,7 +27,7 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
       sessionStorage.setItem('hasVisited', 'true');
       sessionStorage.setItem('hasCompletedInitialLoad', 'true');
     } catch {
-      // silent — private browsing, quota exceeded, etc.
+      // silent
     }
   };
 
@@ -45,29 +45,32 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
       const hasCompletedLoad = sessionStorage.getItem('hasCompletedInitialLoad');
 
       if (hasVisited && hasCompletedLoad) {
-        // Already seen the full video experience in this session — skip loader entirely
         setIsInitialLoading(false);
         setIsModelLoaded(true);
         setIsVideoComplete(true);
         setHasCompletedInitialLoad(true);
       } else if (hasVisited) {
-        // Returning visitor in same tab — quick casual path
         setIsInitialLoading(true);
         setIsModelLoaded(true);
       }
     } catch {
-      // sessionStorage unavailable — fall through to normal load
+      // ignore
     }
   }, []);
 
-  // ── Dismiss loader when the video is complete (or skipped) ───────────────
-  // The video playback is the master gate on initial visit.
-  // We do not cut the video short when the 3D model loads; we let the video play to 100%.
+  // ── Dismiss loader when the video completes or is skipped ─────────────────
   useEffect(() => {
     if (!isVideoComplete || !isInitialLoading || hasCompletedInitialLoad) return;
-    const timer = setTimeout(dismiss, 120);
+    const timer = setTimeout(dismiss, 100);
     return () => clearTimeout(timer);
   }, [isVideoComplete, isInitialLoading, hasCompletedInitialLoad]);
+
+  // ── Hard Safety Net: NEVER allow the loader to remain past 8.2s under any conditions ──
+  useEffect(() => {
+    if (!isInitialLoading || hasCompletedInitialLoad) return;
+    const timer = setTimeout(dismiss, 8200);
+    return () => clearTimeout(timer);
+  }, [isInitialLoading, hasCompletedInitialLoad]);
 
   // ── Public API ───────────────────────────────────────────────────────────
   const startInitialLoading = () => {

@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useRef, useEffect, useState, useMemo, useCallback } from 'react';
-import { Environment, PerspectiveCamera, OrbitControls, ContactShadows, useGLTF, useAnimations, AdaptiveDpr, PerformanceMonitor } from '@react-three/drei';
+import { PerspectiveCamera, OrbitControls, ContactShadows, useGLTF, useAnimations, AdaptiveDpr, PerformanceMonitor } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import ScrollVelocity from '../ui/ScrollVelocity';
 import ErrorBoundary from '../../../components/ErrorBoundary';
@@ -643,7 +643,12 @@ export default function Hero() {
                 />
               )}
 
-              <Environment preset={capabilities.isLowEnd ? "apartment" : "sunset"} />
+              {/* Local Hemisphere Fill Light - zero external network requests */}
+              <hemisphereLight
+                color="#f5b041"
+                groundColor="#1a0f05"
+                intensity={capabilities.isLowEnd ? 0.6 : 0.8}
+              />
 
               {performanceSettings.enableEffects && (
                 <EffectComposer>
