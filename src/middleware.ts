@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 
-const APEX_HOST = "nishantharkut.dev";
-const CANONICAL_HOST = "www.nishantharkut.dev";
+const APEX_HOST = "nishantharkut.tech";
+const CANONICAL_HOST = "www.nishantharkut.tech";
 
 export function middleware(request: NextRequest) {
   const requestHost = request.headers.get("host")?.split(":", 1)[0].toLowerCase();

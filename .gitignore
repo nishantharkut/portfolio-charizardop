@@ -48,3 +48,7 @@ Portfolio-Website/
 
 # isolated development worktrees
 /.worktrees/
+
+# test artifacts
+/.playwright-cli/
+/output/
