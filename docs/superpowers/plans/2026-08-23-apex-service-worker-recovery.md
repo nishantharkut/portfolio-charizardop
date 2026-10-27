@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Let previously used mobile browsers retire the old apex-origin service worker automatically during an ordinary visit while retaining `www.nishantharkut.dev` as the canonical site.
+**Goal:** Let previously used mobile browsers retire the old apex-origin service worker automatically during an ordinary visit while retaining `www.nishantharkut.tech` as the canonical site.
 
 **Architecture:** Vercel will serve the production project on both custom domains. A Next.js middleware will redirect ordinary apex-origin requests to `www`, but its matcher will exclude `/sw.js` so the retirement worker remains same-origin and updateable. The Vercel domain-level redirect will be removed only after the middleware deployment is live.
 
@@ -20,20 +20,20 @@
 Create a Node.js script that sends requests to the local Next server with explicit `Host` headers and asserts:
 
 ```js
-const apexPage = await request('/', 'nishantharkut.dev');
+const apexPage = await request('/', 'nishantharkut.tech');
 assert.equal(apexPage.status, 307);
-assert.equal(apexPage.location, 'https://www.nishantharkut.dev/');
+assert.equal(apexPage.location, 'https://www.nishantharkut.tech/');
 
-const apexWorker = await request('/sw.js', 'nishantharkut.dev');
+const apexWorker = await request('/sw.js', 'nishantharkut.tech');
 assert.equal(apexWorker.status, 200);
 assert.equal(apexWorker.location, undefined);
 assert.match(apexWorker.body, /LEGACY_CACHE_PREFIX/);
 
-const canonicalPage = await request('/', 'www.nishantharkut.dev');
+const canonicalPage = await request('/', 'www.nishantharkut.tech');
 assert.equal(canonicalPage.status, 200);
 ```
 
-Also verify that `/projects?source=apex` becomes `https://www.nishantharkut.dev/projects?source=apex`.
+Also verify that `/projects?source=apex` becomes `https://www.nishantharkut.tech/projects?source=apex`.
 
 - [ ] **Step 2: Run the test to verify it fails**
 
@@ -52,8 +52,8 @@ Expected: FAIL because the application currently returns `200` for an apex-host 
 ```ts
 import { type NextRequest, NextResponse } from "next/server";
 
-const APEX_HOST = "nishantharkut.dev";
-const CANONICAL_HOST = "www.nishantharkut.dev";
+const APEX_HOST = "nishantharkut.tech";
+const CANONICAL_HOST = "www.nishantharkut.tech";
 
 export function middleware(request: NextRequest) {
   if (request.nextUrl.hostname !== APEX_HOST) return NextResponse.next();
@@ -135,7 +135,7 @@ Run:
 npx --yes vercel@59.5.0 api /v9/projects/prj_D7oGjUOPW1y9tvegDUL6vOaK0hZr/domains
 ```
 
-Expected: `nishantharkut.dev` currently has `"redirect": "www.nishantharkut.dev"`.
+Expected: `nishantharkut.tech` currently has `"redirect": "www.nishantharkut.tech"`.
 
 - [ ] **Step 2: Remove only the apex domain-level redirect**
 
@@ -148,7 +148,7 @@ Send this JSON body through the authenticated Vercel CLI to the update-project-d
 Endpoint:
 
 ```text
-PATCH /v9/projects/prj_D7oGjUOPW1y9tvegDUL6vOaK0hZr/domains/nishantharkut.dev
+PATCH /v9/projects/prj_D7oGjUOPW1y9tvegDUL6vOaK0hZr/domains/nishantharkut.tech
 ```
 
 - [ ] **Step 3: Verify the domain configuration response**
@@ -165,8 +165,8 @@ Expected: the apex domain has `"redirect": null` and remains verified on project
 Run:
 
 ```text
-curl.exe -I https://nishantharkut.dev/sw.js
-curl.exe -I https://www.nishantharkut.dev/sw.js
+curl.exe -I https://nishantharkut.tech/sw.js
+curl.exe -I https://www.nishantharkut.tech/sw.js
 ```
 
 Expected: both return `200 OK`, `Service-Worker-Allowed: /`, and no `Location` header.
@@ -176,15 +176,15 @@ Expected: both return `200 OK`, `Service-Worker-Allowed: /`, and no `Location` h
 Run:
 
 ```text
-curl.exe -I https://nishantharkut.dev/
-curl.exe -I "https://nishantharkut.dev/projects?source=apex"
+curl.exe -I https://nishantharkut.tech/
+curl.exe -I "https://nishantharkut.tech/projects?source=apex"
 ```
 
-Expected: both return `307`; locations use `www.nishantharkut.dev` and preserve the path and query string.
+Expected: both return `307`; locations use `www.nishantharkut.tech` and preserve the path and query string.
 
 - [ ] **Step 3: Run production browser regressions**
 
-Run the service-worker retirement, homepage scroll, and project-card scripts with `BASE_URL=https://www.nishantharkut.dev`.
+Run the service-worker retirement, homepage scroll, and project-card scripts with `BASE_URL=https://www.nishantharkut.tech`.
 
 Expected: each script exits `0`.
 
@@ -202,9 +202,9 @@ Verify that the site has no link or instruction directing visitors to `/refresh`
 Patch the same domain endpoint with:
 
 ```json
-{"redirect": "www.nishantharkut.dev", "redirectStatusCode": 307}
+{"redirect": "www.nishantharkut.tech", "redirectStatusCode": 307}
 ```
 
 - [ ] **Step 2: Recheck the apex root**
 
-Expected: `https://nishantharkut.dev/` returns the original Vercel domain redirect while `www` remains available.
+Expected: `https://nishantharkut.tech/` returns the original Vercel domain redirect while `www` remains available.
