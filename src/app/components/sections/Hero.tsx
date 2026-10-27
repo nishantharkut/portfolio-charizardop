@@ -288,15 +288,40 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
       }
     }
 
-    // Continuous auto-rotation on its axis once in place
+    // Idle animations after entrance (optimized for performance)
     if (hasEntered) {
-      // Smooth continuous 360-degree rotation around its vertical axis
-      const autoRotationSpeed = capabilities.isLowEnd ? 0.003 : 0.005;
-      group.current.rotation.y += autoRotationSpeed;
+      // Reduce mouse interaction sensitivity on low-end devices
+      const mouseThreshold = capabilities.isLowEnd ? 0.05 : 0.02;
+      const mouseInfluence = Math.abs(state.pointer.x) + Math.abs(state.pointer.y);
+
+      if (mouseInfluence > mouseThreshold) {
+        setIdleTime(0);
+        const rotationSpeed = capabilities.isLowEnd ? 0.06 : 0.10; // Increased rotation speed
+        group.current.rotation.y = THREE.MathUtils.lerp(
+          group.current.rotation.y,
+          0.3 + (state.pointer.x * 0.3), // Increased rotation range
+          rotationSpeed
+        );
+      } else {
+        setIdleTime(prev => prev + state.clock.getDelta());
+        if (idleTime > 2) { // Reduced idle time before auto-rotation
+          // Gentle oscillation instead of continuous rotation
+          const oscillationSpeed = capabilities.isLowEnd ? 0.5 : 0.8;
+          const oscillationAmount = 0.3; // How far it oscillates from center
+          const targetRotation = Math.sin(state.clock.elapsedTime * oscillationSpeed) * oscillationAmount;
+          group.current.rotation.y = THREE.MathUtils.lerp(
+            group.current.rotation.y,
+            targetRotation,
+            0.02
+          );
+        }
+      }
 
       // Gentle floating with exact base position
-      const floatAmplitude = capabilities.isLowEnd ? 0.04 : 0.08;
-      const floatSpeed = 1.2;
+      const floatAmplitude = capabilities.isLowEnd ? 0.04 : 0.08; // Reduced amplitude
+      const floatSpeed = 1.2; // Fixed speed
+
+      // Use exact same Y as target position
       const BASE_Y = -1.3;
 
       group.current.position.y = BASE_Y + Math.sin(state.clock.elapsedTime * floatSpeed) * floatAmplitude;
