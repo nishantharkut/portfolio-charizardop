@@ -90,7 +90,7 @@ try {
     if (result.pageText.includes('3 roles')) {
       throw new Error('Stale Student Activity Council role count is still rendered');
     }
-    if (!result.pageText.includes('10+')) {
+    if (!result.pageText.includes('13+')) {
       throw new Error('Verified hackathon finalist count is missing');
     }
 

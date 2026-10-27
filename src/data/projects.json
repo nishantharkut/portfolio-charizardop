@@ -3,9 +3,9 @@
     {
       "id": 1,
       "title": "PocketBuddy",
-      "category": "Student Finance Platform",
-      "shortDescription": "A web and Android product that captures payments, forecasts allowance runway, coordinates shared purchases, and turns food and travel data into decisions.",
-      "fullDescription": "I built PocketBuddy end to end across a Kotlin Android connector, FastAPI and MongoDB services, a React interface, and AWS infrastructure. Deterministic code calculates runway and affordability before Amazon Bedrock writes short guidance from those facts. The product covers transaction capture, statement review, shared purchases, food routines, local travel, and privacy controls.",
+      "category": "Campus Finance Platform",
+      "shortDescription": "A campus finance product that turns phone notifications, statements, and shared purchases into a reviewable budget and runway.",
+      "fullDescription": "PocketBuddy brings capture, review, and decision-making into one system. A Kotlin Android connector and statement imports feed a FastAPI backend, while a React app handles the product workflow. Runway and affordability stay deterministic in backend code, while Bedrock only explains already-computed facts.",
       "techStack": ["Python", "FastAPI", "Kotlin", "React", "TypeScript", "MongoDB", "AWS Bedrock", "Lambda", "SQS", "DynamoDB"],
       "implementation": [
         "Built the complete web and mobile product, including the Kotlin connector, FastAPI services, MongoDB data layer, and React interface",
@@ -22,8 +22,8 @@
       "id": 2,
       "title": "GitLore",
       "category": "Engineering Knowledge Graph",
-      "shortDescription": "A service that turns pull requests, reviews, and repository history into searchable engineering decisions with cited answers and GitHub automation.",
-      "fullDescription": "Built with a four-person team at HackByte 4.0, GitLore converts GitHub pull-request history into a searchable knowledge graph. Engineers can ask why a decision was made, trace a line from blame to its pull request, and receive answers with source citations. The system spans a React web app, a Chrome extension, GitHub webhooks, and a Hono backend with more than 35 endpoints.",
+      "shortDescription": "Turns pull requests, reviews, and repository history into cited answers about why an engineering decision was made.",
+      "fullDescription": "Built with a four-person team at HackByte 4.0. GitLore ingests GitHub history into a searchable decision graph, then exposes it through a React app, Chrome extension, GitHub webhooks, and a Hono API. It can trace a line from blame to the pull request and review discussion behind it.",
       "techStack": ["TypeScript", "Hono", "Node.js", "React", "MongoDB Atlas", "GitHub API", "Zod", "Gemini"],
       "implementation": [
         "Mapped pull-request metadata, discussions, reviews, and webhooks into a searchable decision graph exposed through 35+ backend endpoints",
@@ -39,15 +39,15 @@
     {
       "id": 3,
       "title": "TinyRF-KD",
-      "category": "Edge ML Research",
-      "shortDescription": "An edge intrusion-detection study that compresses a large random-forest teacher into KB-scale neural students, then checks explanations and microcontroller behavior.",
-      "fullDescription": "TinyRF-KD studies whether a strong tabular intrusion-detection teacher can be compressed for constrained hardware without hiding failures in class behavior, explanation agreement, or deployment. The work covers multi-seed evaluation on WSN-DS, SHAP faithfulness, fixed-point C export, and hardware-in-the-loop replay on ESP32-C3 and Arduino R4. The repository is public and the paper is still being written.",
+      "category": "TinyML Intrusion Detection",
+      "shortDescription": "A TinyML intrusion-detection study that compresses neural models for microcontrollers and checks every step from held-out data to fixed-point firmware.",
+      "fullDescription": "TinyRF-KD studies what remains true after compressing an intrusion detector for constrained hardware. The primary WSN-DS study uses exact-feature-group splits, ten seeds, fixed-point gates, and exhaustive replay on ESP32-C3 and Arduino UNO R4 WiFi. The manuscript is in preparation.",
       "techStack": ["Python", "PyTorch", "scikit-learn", "SHAP", "ONNX", "OpenVINO", "C", "ESP32-C3"],
       "implementation": [
-        "Compressed an 85,064 KB random-forest teacher into 4.64 KB and 13.27 KB neural students with 0.920 and 0.934 macro-F1 across 10 seeds",
-        "Measured a 0.047 Spearman correlation between global student and teacher SHAP rankings despite 98.69% and 98.91% student accuracy",
-        "Generated fixed-point C models with 1,348-byte and 3,700-byte parameter footprints",
-        "Replayed 56,200 test vectors on ESP32-C3 and Arduino R4 with 100% agreement against fixed-point reference outputs"
+        "Compressed a 69,893-parameter reference model into 1,189- and 3,397-parameter students with 4.64 and 13.27 KiB FP32 payloads, retaining 0.914-0.933 macro-F1 across 10 WSN-DS seeds.",
+        "Audited 40 model-seed variants for fixed-point conversion. Twenty-six met the numerical gates and matched native C reference outputs across all 56,301 held-out records.",
+        "Replayed three qualified artifacts on ESP32-C3 and Arduino UNO R4 WiFi, matching every prediction and all five logits over the full test set.",
+        "Measured 118-793 microseconds mean compute time across the qualified artifacts."
       ],
       "liveLink": "",
       "githubLink": "https://github.com/nishantharkut/TinyRF-KD",

@@ -204,6 +204,12 @@ export interface AboutData {
     number: string;
     label: string;
   }>;
+  resume?: {
+    fileName: string;
+    filePath: string;
+    fileSize?: string;
+    lastUpdated?: string;
+  };
 }
 
 // Data fetching functions

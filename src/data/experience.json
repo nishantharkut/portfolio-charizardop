@@ -8,44 +8,40 @@
       "year": "2025-26",
       "duration": "Aug. 2025 - Aug. 2026",
       "months": "1 year",
-      "description": "I worked on a healthcare revenue-cycle platform that converted EOB documents into X12 835 ERA files and gave operations teams tools to upload, review, and correct data.",
+      "description": "Worked on a healthcare revenue-cycle platform that converts EOB documents into X12 835 ERA files and gives operations teams upload, review, and correction flows.",
       "responsibilities": [
-        "Wrote 19 payer-specific Python parsers, raising field-extraction accuracy from approximately 55% to 95% and expanding support from 44 to 71 payer formats",
-        "Corrected X12 835 output across 44 ERA generators by deriving missing payment fields and reconciling claim and service-line totals",
-        "Restored production document processing after an Amazon Bedrock model upgrade broke requests at several call sites",
-        "Delivered more than 40 Go, JavaScript, and TypeScript product and security changes through five stakeholder review rounds",
-        "Documented 23 reproducible defects across at least five healthcare workflows with severity, impact, and reproduction steps"
+        "Built payer-specific document parsers and EDI generation pipelines for healthcare revenue-cycle operations",
+        "Developed full-stack product features, dashboard tools, and security controls across React, TypeScript, and Go",
+        "Maintained production model integration, error logging, and regression testing suites"
       ],
       "technologies": ["Python", "Go", "TypeScript", "React", "PostgreSQL", "AWS"],
       "achievements": [
-        "Added 19 payer-specific parsers, raising field-extraction accuracy from approximately 55% to 95% and expanding support from 44 to 71 payer formats",
-        "Corrected X12 835 output across 44 ERA generators, with 108 relevant tests passing and zero regressions",
-        "Restored document processing after a Bedrock model upgrade by removing unsupported parameters, reordering system messages, and adding classification-error logging",
-        "Shipped 40+ Go, JavaScript, and TypeScript product and security changes through five review rounds, including an 8-KPI React dashboard, bulk operations, RBAC, and signed-file access",
-        "Recorded 23 reproducible defects across 5+ healthcare workflows for engineering and product review"
+        "Raised field-extraction accuracy from roughly 55% to 95% on evaluated payer workflows through 19 payer-specific Python parsers, expanding EOB-to-ERA support from 44 to 71 formats.",
+        "Corrected X12 835 output across 44 ERA generators by deriving missing payment fields and reconciling claim and service-line totals. 108 regression tests passed.",
+        "Restored production document processing after an Amazon Bedrock model upgrade by removing unsupported parameters, correcting system-message order, and adding payer-classification error logging.",
+        "Delivered 40+ product and security changes through five stakeholder reviews, including an 8-KPI React dashboard, virtualized tables, bulk actions, organization-scoped RBAC, and signed-file access for PHI."
       ],
       "logo": "/assets/logos/quickintell.png"
     },
     {
       "id": 2,
-      "position": "UI/UX and Graphic Design Intern",
+      "position": "Product Design Engineering Intern",
       "company": "Cook N Klean",
       "website": "https://www.cooknklean.com/",
       "year": "2024",
       "duration": "Apr. 2024 - Jun. 2024",
       "months": "3 months",
-      "description": "I worked with the founding team on product UI and campaign design for a home-services startup.",
+      "description": "Worked with the founding team on product UI and campaign assets for a home-services startup.",
       "responsibilities": [
-        "Designed more than 20 social media creatives and promotional assets",
-        "Created more than 10 UI screens and reusable components in Figma",
-        "Iterated on product and campaign designs with feedback from the founding team",
-        "Prepared final visual assets for product and marketing use"
+        "Designed product UI screens and reusable components in Figma",
+        "Produced campaign and social media visual assets",
+        "Iterated on product and marketing designs with founder feedback"
       ],
       "technologies": ["Figma", "Adobe Photoshop", "Adobe Illustrator"],
       "achievements": [
-        "Designed 20+ social media creatives and promotional assets while keeping the visual identity consistent",
-        "Created 10+ UI screens and reusable Figma components for the product",
-        "Worked directly with the founding team and revised designs from stakeholder feedback"
+        "Created 10+ product screens and reusable Figma components for key user flows.",
+        "Produced 20+ campaign and social assets while keeping the visual system consistent.",
+        "Turned founder feedback into revisions for product and campaign work."
       ],
       "logo": "/assets/logos/cook-n-klean-light.png",
       "logoDark": "/assets/logos/cook-n-klean-dark.svg"
