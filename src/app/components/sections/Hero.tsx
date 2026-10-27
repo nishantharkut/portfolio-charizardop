@@ -121,7 +121,7 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
   const [hasEntered, setHasEntered] = useState(false);
   const [modelReady, setModelReady] = useState(false);
   const [isModelLoaded, setIsModelLoaded] = useState(false);
-  const { gl, size, viewport } = useThree();
+  const { gl, size, viewport, camera } = useThree();
 
   // Note: This component only runs on desktop since mobile uses GIF fallback
   // No mobile detection needed here - this is desktop-only code
@@ -154,6 +154,12 @@ function CharizardModel({ capabilities, performanceSettings, onError, onModelLoa
       if (hasGeometry) {
         if (process.env.NODE_ENV === 'development') {
           console.log('Model loaded with geometry');
+        }
+        try {
+          // Pre-compile shaders in WebGL to eliminate hitch during reveal
+          gl.compile(scene, camera);
+        } catch {
+          // graceful fallback
         }
         setModelReady(true);
         setIsModelLoaded(true);
@@ -362,8 +368,8 @@ export default function Hero() {
   const { shouldLoadModel, isModelVisible, heroRef, isIntersecting } = useIntersectionModelLoading({
     threshold: 0.1,
     rootMargin: '50px 0px',
-    delay: loadingStrategy === 'immediate' ? 500 : 1000,
-    enabled: loadingStrategy !== 'disabled'
+    delay: loadingStrategy === 'immediate' ? 0 : 500,
+    enabled: loadingStrategy !== 'disabled' && !capabilities.isMobile
   });
 
   // Preload model assets

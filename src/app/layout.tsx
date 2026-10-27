@@ -197,8 +197,8 @@ export default function RootLayout({
         <link rel="preload" href="/nishant-image.webp" as="image" fetchPriority="high" />
         <link rel="preload" href={siteIcon} as="image" fetchPriority="high" />
         
-        {/* Defer 3D model loading - load after critical content */}
-        <link rel="preload" href="/models/charizard.glb" as="fetch" crossOrigin="anonymous" fetchPriority="low" />
+        {/* Preload initial loader background video with high priority */}
+        <link rel="preload" href="/videos/Lazy Loader - starter 1.mp4" as="video" type="video/mp4" fetchPriority="high" />
         
         {/* Performance monitoring script */}
         <script src="/performance-monitor.js" defer></script>

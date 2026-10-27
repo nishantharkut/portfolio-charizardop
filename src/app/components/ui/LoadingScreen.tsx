@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 
 interface RetroDragonLoaderProps {
@@ -13,20 +13,19 @@ interface RetroDragonLoaderProps {
 
 /**
  * FractalCoreLoader — faithful port of the reference HTML fractal spinner.
- * All animations live in the injected <style> block (CSS classes + @keyframes).
- * Pseudo-elements are replaced by sibling divs.
- * Background video and all loading-context props are unchanged.
+ * With cinematic full-length background video playback on initial visit.
  */
 export default function RetroDragonLoader({
   type,
   onComplete,
   show,
   dragonImageSrc: _dragonImageSrc = null,
-  fallbackTimeoutMs = 6000,
+  fallbackTimeoutMs = 10000,
 }: RetroDragonLoaderProps) {
   const [isReturningVisitor, setIsReturningVisitor] = useState(false);
   const [videoEnded, setVideoEnded] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [canSkip, setCanSkip] = useState(false);
 
   const rafRef = useRef<number | null>(null);
   const startTimeRef = useRef<number | null>(null);
@@ -35,20 +34,60 @@ export default function RetroDragonLoader({
   const videoElRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    const hasVisited = sessionStorage.getItem("hasVisited");
-    setIsReturningVisitor(!!hasVisited);
+    try {
+      const hasVisited = sessionStorage.getItem("hasVisited");
+      setIsReturningVisitor(!!hasVisited);
+    } catch {
+      setIsReturningVisitor(false);
+    }
   }, []);
 
-  const callCompleteOnce = () => {
+  const callCompleteOnce = useCallback(() => {
     if (!completedRef.current) {
       completedRef.current = true;
       onComplete();
     }
-  };
+  }, [onComplete]);
+
+  const handleSkip = useCallback(() => {
+    if (videoElRef.current) {
+      try {
+        videoElRef.current.pause();
+      } catch {
+        // ignore
+      }
+    }
+    setProgress(100);
+    callCompleteOnce();
+  }, [callCompleteOnce]);
+
+  // Allow skipping after 1.5s of playback via button or Escape key
+  useEffect(() => {
+    if (!show) return;
+    const timer = setTimeout(() => setCanSkip(true), 1500);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        handleSkip();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [show, handleSkip]);
+
+  const videoSrc =
+    type === "starter" && !isReturningVisitor
+      ? "/videos/Lazy Loader - starter 1.mp4"
+      : null;
 
   useEffect(() => {
     const cleanupAnimation = () => {
-      if (rafRef.current) { cancelAnimationFrame(rafRef.current); rafRef.current = null; }
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
       startTimeRef.current = null;
     };
 
@@ -56,38 +95,61 @@ export default function RetroDragonLoader({
       setProgress(0);
       setVideoEnded(false);
       completedRef.current = false;
-      if (fallbackTimeoutRef.current) { clearTimeout(fallbackTimeoutRef.current); fallbackTimeoutRef.current = null; }
+      if (fallbackTimeoutRef.current) {
+        clearTimeout(fallbackTimeoutRef.current);
+        fallbackTimeoutRef.current = null;
+      }
       cleanupAnimation();
       return;
     }
 
-    if (fallbackTimeoutRef.current) { clearTimeout(fallbackTimeoutRef.current); fallbackTimeoutRef.current = null; }
-    fallbackTimeoutRef.current = window.setTimeout(() => { setProgress(100); callCompleteOnce(); }, fallbackTimeoutMs);
+    // Safety fallback timeout in case video stalls or decoding fails
+    if (fallbackTimeoutRef.current) {
+      clearTimeout(fallbackTimeoutRef.current);
+      fallbackTimeoutRef.current = null;
+    }
+    fallbackTimeoutRef.current = window.setTimeout(() => {
+      setProgress(100);
+      callCompleteOnce();
+    }, fallbackTimeoutMs);
 
-    startTimeRef.current = performance.now();
-    const animate = (now: number) => {
-      if (startTimeRef.current === null) startTimeRef.current = now;
-      const elapsed = now - startTimeRef.current;
-      const raw = Math.min(100, (elapsed / fallbackTimeoutMs) * 100);
-      setProgress((p) => (raw > p ? raw : p));
+    // If there is no video (e.g. casual returning visit), run the elapsed timer animation
+    if (!videoSrc) {
+      startTimeRef.current = performance.now();
+      const animate = (now: number) => {
+        if (startTimeRef.current === null) startTimeRef.current = now;
+        const elapsed = now - startTimeRef.current;
+        const raw = Math.min(100, (elapsed / fallbackTimeoutMs) * 100);
+        setProgress((p) => (raw > p ? raw : p));
+        rafRef.current = requestAnimationFrame(animate);
+      };
       rafRef.current = requestAnimationFrame(animate);
-    };
-    rafRef.current = requestAnimationFrame(animate);
+    }
 
     return () => {
-      if (fallbackTimeoutRef.current) { clearTimeout(fallbackTimeoutRef.current); fallbackTimeoutRef.current = null; }
+      if (fallbackTimeoutRef.current) {
+        clearTimeout(fallbackTimeoutRef.current);
+        fallbackTimeoutRef.current = null;
+      }
       cleanupAnimation();
     };
-  }, [show, fallbackTimeoutMs]);
+  }, [show, fallbackTimeoutMs, videoSrc, callCompleteOnce]);
 
   useEffect(() => {
     if (videoEnded) {
-      if (fallbackTimeoutRef.current) { clearTimeout(fallbackTimeoutRef.current); fallbackTimeoutRef.current = null; }
-      if (rafRef.current) { cancelAnimationFrame(rafRef.current); rafRef.current = null; }
+      if (fallbackTimeoutRef.current) {
+        clearTimeout(fallbackTimeoutRef.current);
+        fallbackTimeoutRef.current = null;
+      }
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
       setProgress(100);
-      setTimeout(() => callCompleteOnce(), 120);
+      const timer = setTimeout(() => callCompleteOnce(), 120);
+      return () => clearTimeout(timer);
     }
-  }, [videoEnded]);
+  }, [videoEnded, callCompleteOnce]);
 
   // ── Text cycler ──────────────────────────────────────────────────────────
   const phrases = [
@@ -105,24 +167,28 @@ export default function RetroDragonLoader({
     if (!show) return;
     const interval = setInterval(() => {
       setTextVisible(false);
-      setTimeout(() => { setTextIndex((i) => (i + 1) % phrases.length); setTextVisible(true); }, 400);
+      setTimeout(() => {
+        setTextIndex((i) => (i + 1) % phrases.length);
+        setTextVisible(true);
+      }, 400);
     }, 2500);
     return () => clearInterval(interval);
-  }, [show]);
+  }, [show, phrases.length]);
 
   if (!show) return null;
-
-  const videoSrc =
-    type === "starter" && !isReturningVisitor
-      ? "/videos/Lazy Loader - starter 1.mp4"
-      : null;
 
   return (
     <motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8, ease: [0.65, 0, 0.35, 1] }}
-      style={{ position: "fixed", inset: 0, zIndex: 99999, overflow: "hidden" }}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 99999,
+        overflow: "hidden",
+        backgroundColor: "#060608",
+      }}
     >
       {/* ── Font + all fractal keyframes ─────────────────────────────────── */}
       <style>{`
@@ -220,14 +286,39 @@ export default function RetroDragonLoader({
         </defs>
       </svg>
 
-      {/* ── Background video (unchanged) ─────────────────────────────────── */}
+      {/* ── Background video (plays completely to the end; loop removed) ── */}
       {videoSrc && (
         <video
           ref={(el) => { videoElRef.current = el; }}
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "blur(3px) url(#invertSharpen)", transform: "translateZ(0)" }}
-          autoPlay muted loop playsInline preload="auto"
-          onEnded={() => setVideoEnded(true)}
-          onError={() => { setProgress(100); callCompleteOnce(); }}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            filter: "blur(3px) url(#invertSharpen)",
+            transform: "translateZ(0)",
+            backgroundColor: "#060608",
+          }}
+          autoPlay
+          muted
+          playsInline
+          preload="auto"
+          onTimeUpdate={() => {
+            const el = videoElRef.current;
+            if (el && el.duration) {
+              const currentP = (el.currentTime / el.duration) * 100;
+              setProgress((p) => Math.max(p, Math.min(100, currentP)));
+            }
+          }}
+          onEnded={() => {
+            setProgress(100);
+            setVideoEnded(true);
+          }}
+          onError={() => {
+            setProgress(100);
+            callCompleteOnce();
+          }}
         >
           <source src={videoSrc} type="video/mp4" />
         </video>
@@ -258,9 +349,7 @@ export default function RetroDragonLoader({
               <svg width="0" height="0" style={{ position: "absolute", display: "block", overflow: "visible" }} aria-hidden>
                 <defs>
                   <mask id="fClip">
-                    {/* black background = hide everything */}
                     <polygon points="0,0 100,0 100,100 0,100" fill="black" />
-                    {/* white shapes = reveal the gradient fill through them */}
                     <polygon points="25,25 75,25 50,75" fill="white" />
                     <polygon points="50,25 75,75 25,75" fill="white" />
                     <polygon points="35,35 65,35 50,65" fill="white" />
@@ -294,7 +383,7 @@ export default function RetroDragonLoader({
             {phrases[textIndex]}
           </div>
 
-          {/* Progress bar */}
+          {/* Progress bar (directly bound to video playback progress) */}
           <div style={{ width: 280, height: 6, background: "rgba(252,250,239,0.12)", borderRadius: 10, overflow: "hidden", boxShadow: "inset 0 1px 3px rgba(0,0,0,0.2)" }}>
             <div style={{
               height: "100%",
@@ -308,6 +397,43 @@ export default function RetroDragonLoader({
 
         </div>
       </div>
+
+      {/* ── Discreet Neubrutalist Skip Button (Available after 1.5s for busy recruiters) ── */}
+      {canSkip && videoSrc && (
+        <button
+          type="button"
+          onClick={handleSkip}
+          style={{
+            position: "absolute",
+            bottom: 24,
+            right: 24,
+            zIndex: 30,
+            padding: "8px 16px",
+            fontFamily: "'Press Start 2P', monospace",
+            fontSize: 9,
+            letterSpacing: 1,
+            color: "#FCFAEF",
+            backgroundColor: "rgba(10, 11, 15, 0.8)",
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+            border: "2px solid #F5B041",
+            borderRadius: 8,
+            boxShadow: "3px 3px 0px #D5722E",
+            cursor: "pointer",
+            transition: "all 0.2s ease",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "translate(1px, 1px)";
+            e.currentTarget.style.boxShadow = "1px 1px 0px #D5722E";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "translate(0, 0)";
+            e.currentTarget.style.boxShadow = "3px 3px 0px #D5722E";
+          }}
+        >
+          SKIP INTRO [ESC] ✕
+        </button>
+      )}
     </motion.div>
   );
 }
