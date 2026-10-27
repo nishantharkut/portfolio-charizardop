@@ -1,16 +1,13 @@
 {
   "name": "Nishant Harkut",
-  "tagline": "Software Engineer building backend, full-stack, and applied ML systems on AWS.",
+  "tagline": "I build backend systems, product features, and applied ML projects that works beyond the first demo to first users.",
   "location": "Surat, India",
   "cta": {
-    "primary": { "text": "Connect With Me", "href": "#contact" },
-    "secondary": {
-      "text": "View Resume",
-      "href": "https://drive.google.com/drive/folders/1fSNKk9LIwZCeYhz7645_k0onNmW4o2p4?usp=sharing"
-    }
+    "primary": { "text": "Get in touch", "href": "#contact" },
+    "secondary": { "text": "Projects", "href": "/projects" }
   },
   "announcement": {
-    "text": "Open to 2027 software engineering and applied ML internships",
-    "link": { "text": "Let's collaborate", "href": "#contact" }
+    "text": "Open to Summer 2027 SWE internships & 2028 roles",
+    "link": { "text": "Get in touch", "href": "#contact" }
   }
 }

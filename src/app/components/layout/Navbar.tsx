@@ -66,12 +66,12 @@ export default function Navbar() {
       {/* Gradient fade below navbar */}
       <div className="navbar-fade" aria-hidden="true" />
 
-      {/* Desktop navbar: [logo nishant.dev]   (empty center)   [EXPERIENCE  PROJECTS  MILESTONES] */}
+      {/* Desktop navbar: [logo nishant.tech]   (empty center)   [EXPERIENCE  PROJECTS  MILESTONES] */}
       <header className="navbar navbar-desktop" role="banner">
         <div className="navbar-group navbar-group-left">
           <Link href="/" className="navbar-logo-link" aria-label="Home">
             <Logo width={40} height={40} className="navbar-logo-desktop flex-shrink-0" priority />
-            <span className="navbar-brand">nishant.dev</span>
+            <span className="navbar-brand">nishant.tech</span>
           </Link>
         </div>
         <div className="navbar-group navbar-group-center" />
@@ -98,7 +98,7 @@ export default function Navbar() {
         <div className="navbar-group navbar-group-left">
           <Link href="/" className="navbar-logo-link" aria-label="Home">
             <Logo width={32} height={32} className="navbar-logo-mobile flex-shrink-0" priority />
-            <span className="navbar-brand">nishant.dev</span>
+            <span className="navbar-brand">nishant.tech</span>
           </Link>
         </div>
         <button
@@ -126,7 +126,7 @@ export default function Navbar() {
           <header className="navbar-overlay-header">
             <Link href="/" className="navbar-overlay-brand" onClick={closeMobileMenu}>
               <Logo width={32} height={32} className="navbar-logo-mobile flex-shrink-0" priority />
-              <span>nishant.dev</span>
+              <span>nishant.tech</span>
             </Link>
             <div className="navbar-overlay-actions">
               <button type="button" onClick={toggleTheme} aria-label="Toggle theme" className="navbar-overlay-close">
@@ -163,16 +163,7 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
-            <button
-              type="button"
-              className="navbar-overlay-link navbar-overlay-download"
-              onClick={(e) => {
-                handleDownloadResume(e);
-                closeMobileMenu();
-              }}
-            >
-              RESUME
-            </button>
+            <Link href="/#contact" className="navbar-overlay-link navbar-overlay-download" onClick={closeMobileMenu}>CONTACT</Link>
           </nav>
         </div>
       </div>
@@ -193,9 +184,6 @@ export default function Navbar() {
               <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
             </svg>
           )}
-        </button>
-        <button type="button" onClick={handleDownloadResume} aria-label="Download resume" className="navbar-float-btn">
-          <ArrowDownTrayIcon className="navbar-float-icon" />
         </button>
       </div>
     </>
