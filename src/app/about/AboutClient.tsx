@@ -4,14 +4,83 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
-  FaPalette, 
-  FaRocket, 
-  FaGamepad, 
-  FaRobot, 
-  FaCamera, 
-  FaMusic,
-  FaBasketballBall 
+  FaBasketballBall,
+  FaJava
 } from 'react-icons/fa';
+import type { IconType } from 'react-icons';
+import {
+  SiPython,
+  SiGo,
+  SiTypescript,
+  SiJavascript,
+  SiCplusplus,
+  SiC,
+  SiMysql,
+  SiKotlin,
+  SiGnubash,
+  SiReact,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiExpress,
+  SiHono,
+  SiFastapi,
+  SiTailwindcss,
+  SiPytorch,
+  SiScikitlearn,
+  SiPandas,
+  SiNumpy,
+  SiOnnx,
+  SiIntel,
+  SiMongodb,
+  SiPostgresql,
+  SiAmazondynamodb,
+  SiFirebase,
+  SiSupabase,
+  SiAmazonwebservices,
+  SiAmazon,
+  SiAmazonec2,
+  SiAmazons3,
+  SiAwslambda,
+  SiAmazonapigateway,
+  SiAmazonsqs,
+  SiAmazoncloudwatch,
+  SiGooglecloud,
+  SiDocker,
+  SiLinux,
+  SiGithubactions,
+  SiGit,
+  SiGithub,
+  SiPostman,
+  SiPytest,
+  SiJest,
+  SiVitest,
+  SiOpenapiinitiative,
+  SiOpenid,
+  SiJsonwebtokens
+} from 'react-icons/si';
+import {
+  TbBrain,
+  TbApi,
+  TbWebhook,
+  TbBroadcast,
+  TbChartLine,
+  TbActivity,
+  TbWaveSine,
+  TbGitMerge,
+  TbChecklist,
+  TbComponents,
+  TbShieldLock,
+  TbTerminal2,
+  TbServer,
+  TbDatabase,
+  TbCloudComputing,
+  TbShieldCheck,
+  TbPalette,
+  TbHeadphones,
+  TbCamera,
+  TbDeviceGamepad2
+} from 'react-icons/tb';
+
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -24,27 +93,183 @@ import { PageHeroCta } from '../components/ui/PageHeroCta';
 import { LazyFaultyTerminal } from '../../components/lazy/LazyBoundaries';
 import { 
   getSkills, 
-  getInterests, 
-  getTimeline, 
   getAboutData
 } from '../../data';
 
-// Icon mapping for interests
-const iconMap = {
-  FaPalette,
-  FaRocket,
-  FaGamepad,
-  FaRobot,
-  FaCamera,
-  FaMusic,
-  FaBasketballBall
+// Technology brand icon mapping
+const techIconMap: Record<string, IconType> = {
+  // Languages
+  "Python": SiPython,
+  "Go": SiGo,
+  "TypeScript": SiTypescript,
+  "JavaScript": SiJavascript,
+  "C++": SiCplusplus,
+  "C": SiC,
+  "SQL": SiMysql,
+  "Kotlin": SiKotlin,
+  "Java": FaJava,
+  "Bash": SiGnubash,
+
+  // Frontend & Backend
+  "React": SiReact,
+  "Next.js": SiNextdotjs,
+  "Node.js": SiNodedotjs,
+  "Express.js": SiExpress,
+  "Hono": SiHono,
+  "FastAPI": SiFastapi,
+  "Tailwind CSS": SiTailwindcss,
+  "REST APIs": TbApi,
+  "WebSockets": TbWebhook,
+  "Server-Sent Events": TbBroadcast,
+
+  // Machine Learning & Data
+  "PyTorch": SiPytorch,
+  "scikit-learn": SiScikitlearn,
+  "Pandas": SiPandas,
+  "NumPy": SiNumpy,
+  "XGBoost": TbChartLine,
+  "LightGBM": TbActivity,
+  "CatBoost": TbWaveSine,
+  "SHAP": TbBrain,
+  "openSMILE": TbWaveSine,
+  "ONNX": SiOnnx,
+  "OpenVINO": SiIntel,
+
+  // Databases
+  "MongoDB": SiMongodb,
+  "PostgreSQL": SiPostgresql,
+  "MySQL": SiMysql,
+  "DynamoDB": SiAmazondynamodb,
+  "MongoDB Atlas Vector Search": SiMongodb,
+  "Firebase": SiFirebase,
+  "Supabase": SiSupabase,
+
+  // Cloud & DevOps
+  "AWS": SiAmazonwebservices,
+  "Amazon Bedrock": SiAmazon,
+  "EC2": SiAmazonec2,
+  "S3": SiAmazons3,
+  "Lambda": SiAwslambda,
+  "API Gateway": SiAmazonapigateway,
+  "SQS": SiAmazonsqs,
+  "CloudWatch": SiAmazoncloudwatch,
+  "GCP": SiGooglecloud,
+  "Docker": SiDocker,
+  "Linux": SiLinux,
+  "GitHub Actions": SiGithubactions,
+  "CI/CD": TbGitMerge,
+
+  // Testing, APIs & Security
+  "Git": SiGit,
+  "GitHub": SiGithub,
+  "Postman": SiPostman,
+  "pytest": SiPytest,
+  "Jest": SiJest,
+  "Vitest": SiVitest,
+  "Unit Testing": TbChecklist,
+  "Integration Testing": TbComponents,
+  "OpenAPI": SiOpenapiinitiative,
+  "OAuth 2.0": SiOpenid,
+  "JWT": SiJsonwebtokens,
+  "TLS/HTTPS": TbShieldLock,
 };
+
+// Brand colors on hover
+const techBrandColors: Record<string, string> = {
+  "Python": "#3776AB",
+  "Go": "#00ADD8",
+  "TypeScript": "#3178C6",
+  "JavaScript": "#F7DF1E",
+  "C++": "#00599C",
+  "C": "#A8B9CC",
+  "SQL": "#4479A1",
+  "Kotlin": "#7F52FF",
+  "Java": "#007396",
+  "Bash": "#4EAA25",
+  "React": "#61DAFB",
+  "Next.js": "#000000",
+  "Node.js": "#5FA04E",
+  "Express.js": "#000000",
+  "Hono": "#E36002",
+  "FastAPI": "#009688",
+  "Tailwind CSS": "#06B6D4",
+  "PyTorch": "#EE4C2C",
+  "scikit-learn": "#F7931E",
+  "Pandas": "#150458",
+  "NumPy": "#013243",
+  "ONNX": "#005CED",
+  "OpenVINO": "#0054FF",
+  "MongoDB": "#47A248",
+  "PostgreSQL": "#4169E1",
+  "MySQL": "#4479A1",
+  "DynamoDB": "#4053D6",
+  "Firebase": "#FFCA28",
+  "Supabase": "#3ECF8E",
+  "AWS": "#FF9900",
+  "Docker": "#2496ED",
+  "Linux": "#FCC624",
+  "GitHub Actions": "#2088FF",
+  "Git": "#F05032",
+  "GitHub": "#181717",
+  "Postman": "#FF6C37",
+  "pytest": "#0A9EDC",
+  "Jest": "#C21325",
+  "Vitest": "#6E9F18"
+};
+
+// Category icons for the 6 Stack groups
+const categoryIcons: Record<string, IconType> = {
+  "Languages": TbTerminal2,
+  "Frontend & Backend": TbServer,
+  "Machine Learning & Data": TbBrain,
+  "Databases": TbDatabase,
+  "Cloud & DevOps": TbCloudComputing,
+  "Testing, APIs & Security": TbShieldCheck,
+};
+
+// Concise, authentic interests
+const interestsList = [
+  {
+    title: "Graphic Design",
+    icon: TbPalette,
+    description: "Logos, posters, and design systems",
+    tags: ["UI/UX", "Figma", "Typography"]
+  },
+  {
+    title: "Basketball",
+    icon: FaBasketballBall,
+    description: "Pickup games, court vision, and gym sessions",
+    tags: ["Pickup", "Court Vision", "Endurance"]
+  },
+  {
+    title: "Gaming",
+    icon: TbDeviceGamepad2,
+    description: "BGMI and tactical co-op matches with friends",
+    tags: ["Tactics", "Squad Comms", "Reflexes"]
+  },
+  {
+    title: "AI & ML",
+    icon: TbBrain,
+    description: "Models, evaluation, and applied research preprints",
+    tags: ["TinyML", "arXiv", "Distillation"]
+  },
+  {
+    title: "Photography",
+    icon: TbCamera,
+    description: "Street framing, symmetry, and architectural light",
+    tags: ["Framing", "Symmetry", "Light"]
+  },
+  {
+    title: "Music",
+    icon: TbHeadphones,
+    description: "Listening, acoustics, and experiments",
+    tags: ["Ambient", "Lo-Fi", "Acoustics"]
+  }
+];
 
 export default function AboutClient() {
   const aboutData = getAboutData();
   const skills = getSkills();
-  const interests = getInterests();
-  const timeline = getTimeline();
   const { reloadWithTransition } = usePageReload();
   const { actualTheme } = useTheme();
   const [isMobile, setIsMobile] = useState(false);
@@ -332,114 +557,97 @@ export default function AboutClient() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {skills.map((skill, index) => (
-              <motion.div
-                key={skill.category}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="h-full"
-              >
-                {/* Neubrutalism Skills Card */}
-                <div className="relative w-full min-h-[200px] neubrutalism-card"
-                  style={{
-                    backgroundColor: 'var(--color-surface)',
-                    borderColor: 'var(--color-accent)',
-                  }}
-                >
-                  <div className="p-6 h-full flex flex-col">
-                    <h3 className="text-xl font-black mb-4 uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
-                      {skill.category}
-                    </h3>
+            {skills.map((skill, index) => {
+              const CategoryIcon = categoryIcons[skill.category] || TbTerminal2;
 
-                    {/* Technologies */}
-                    <div className="flex-1">
-                      <div className="flex flex-wrap gap-2">
-                        {skill.technologies.map((tech, i) => (
-                          <span key={i} className="px-2 py-1 border-2 border-orange-500 bg-orange-500/20 text-orange-500 text-xs font-black hover:bg-orange-500 hover:text-black transition-all duration-300 shadow-[var(--shadow-neubrutalism-medium)] hover:shadow-[var(--shadow-neubrutalism-hover-small)] hover:translate-x-[1px] hover:translate-y-[1px] uppercase tracking-wide">
-                            {tech}
-                          </span>
-                        ))}
+              return (
+                <motion.div
+                  key={skill.category}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
+                  className="h-full"
+                >
+                  {/* Neubrutalism Skills Card */}
+                  <div 
+                    className="h-full flex flex-col p-6 neubrutalism-card"
+                    style={{
+                      backgroundColor: 'var(--color-surface)',
+                      borderColor: 'var(--color-accent)',
+                    }}
+                  >
+                    {/* Header */}
+                    <div className="flex items-center gap-3 mb-5 pb-3 border-b-2"
+                      style={{ borderColor: 'var(--color-border)' }}
+                    >
+                      <div 
+                        className="w-9 h-9 rounded-lg border-2 flex items-center justify-center flex-shrink-0"
+                        style={{ 
+                          borderColor: 'var(--color-accent)', 
+                          backgroundColor: 'var(--color-surface-elevated)',
+                          color: 'var(--color-accent)',
+                          boxShadow: '2px 2px 0px 0px var(--shadow-neubrutalism-small)'
+                        }}
+                      >
+                        <CategoryIcon className="w-5 h-5" />
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Journey Timeline */}
-      {/*
-      <section id="journey" className="relative z-10 py-20 px-4">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-5xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>
-              My <span className="text-orange-500">Journey</span>
-            </h2>
-            <p className="text-lg" style={{ color: 'var(--color-text-secondary)' }}>
-              Key milestones in my development as a creative technologist
-            </p>
-          </motion.div>
-
-          <div className="relative">
-            {/* Timeline Line */}
-            {/*
-            <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-[#ff9a1c] to-transparent" />
-
-            {timeline.map((item, index) => (
-              <motion.div
-                key={item.year}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`relative mb-12 ${
-                  index % 2 === 0 
-                    ? 'md:text-right md:pr-[calc(50%+2rem)]' 
-                    : 'md:text-left md:pl-[calc(50%+2rem)]'
-                } pl-12 md:pl-0`}
-              >
-                {/* Timeline Dot */}
-                {/*
-                <div className="absolute left-3 md:left-1/2 md:-translate-x-1/2 w-3 h-3 bg-orange-500 rounded-full border-2" style={{ borderColor: 'var(--color-bg-start)' }} />
-
-                {/* Neubrutalism Timeline Card */}
-                {/*
-                <div className="relative w-full min-h-[160px] neubrutalism-card"
-                  style={{
-                    backgroundColor: 'var(--color-surface)',
-                    borderColor: 'var(--color-accent)',
-                  }}
-                >
-                  <div className="p-6 h-full flex flex-col justify-center">
-                    <div className="flex items-center gap-4 mb-3">
-                      <span className="text-2xl font-black text-orange-500 bg-black px-3 py-1 border-2 border-orange-500 shadow-[var(--shadow-neubrutalism)]">
-                        {item.year}
-                      </span>
-                      <h3 className="text-xl font-black uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
-                        {item.title}
+                      <h3 className="text-lg font-black uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
+                        {skill.category}
                       </h3>
                     </div>
-                    <p className="font-medium" style={{ color: 'var(--color-text-secondary)' }}>
-                      {item.description}
-                    </p>
+
+                    {/* Technologies */}
+                    <div className="flex-1 flex flex-wrap gap-2 content-start">
+                      {skill.technologies.map((tech) => {
+                        const TechIcon = techIconMap[tech];
+                        const brandColor = techBrandColors[tech];
+
+                        return (
+                          <span
+                            key={tech}
+                            className="inline-flex items-center gap-2 px-2.5 py-1.5 rounded-lg border-2 text-xs font-bold transition-all duration-200 cursor-default"
+                            style={{
+                              backgroundColor: 'var(--color-surface-elevated)',
+                              borderColor: 'var(--color-border)',
+                              color: 'var(--color-text)'
+                            }}
+                            onMouseEnter={(e) => {
+                              if (brandColor) {
+                                e.currentTarget.style.borderColor = brandColor;
+                              }
+                              e.currentTarget.style.transform = 'translate(-1px, -1px)';
+                              e.currentTarget.style.boxShadow = '2px 2px 0px 0px var(--shadow-neubrutalism-small)';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.borderColor = 'var(--color-border)';
+                              e.currentTarget.style.transform = 'none';
+                              e.currentTarget.style.boxShadow = 'none';
+                            }}
+                          >
+                            {TechIcon ? (
+                              <TechIcon 
+                                className="w-4 h-4 flex-shrink-0 transition-colors duration-200" 
+                                style={{ color: 'var(--color-accent)' }}
+                              />
+                            ) : (
+                              <span 
+                                className="w-1.5 h-1.5 rounded-full" 
+                                style={{ backgroundColor: 'var(--color-accent)' }} 
+                              />
+                            )}
+                            <span className="tracking-tight">{tech}</span>
+                          </span>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
-      */}
 
       {/* Interests Section */}
       <section className="relative z-10 py-20 px-4">
@@ -460,34 +668,66 @@ export default function AboutClient() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {interests.map((interest, index) => {
-              const IconComponent = iconMap[interest.icon as keyof typeof iconMap];
+            {interestsList.map((interest, index) => {
+              const InterestIcon = interest.icon;
+
               return (
                 <motion.div
                   key={interest.title}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
                   className="h-full"
                 >
                   {/* Neubrutalism Interests Card */}
-                  <div className="relative w-full h-[200px] neubrutalism-card"
+                  <div 
+                    className="h-full flex flex-col justify-between p-6 neubrutalism-card"
                     style={{
                       backgroundColor: 'var(--color-surface)',
                       borderColor: 'var(--color-accent)',
                     }}
                   >
-                    <div className="p-6 h-full flex flex-col items-center justify-center text-center">
-                      <div className="text-4xl mb-4 text-orange-500">
-                        {IconComponent && <IconComponent />}
+                    <div>
+                      {/* Icon */}
+                      <div 
+                        className="w-11 h-11 rounded-lg border-2 flex items-center justify-center mb-4"
+                        style={{ 
+                          borderColor: 'var(--color-accent)', 
+                          backgroundColor: 'var(--color-surface-elevated)',
+                          color: 'var(--color-accent)',
+                          boxShadow: '2px 2px 0px 0px var(--shadow-neubrutalism-small)'
+                        }}
+                      >
+                        <InterestIcon className="w-5 h-5" />
                       </div>
-                      <h3 className="text-lg font-black mb-3 uppercase tracking-wide" style={{ color: 'var(--color-text)' }}>
+
+                      {/* Title */}
+                      <h3 className="text-lg font-black uppercase tracking-wide mb-2" style={{ color: 'var(--color-text)' }}>
                         {interest.title}
                       </h3>
-                      <p className="text-sm font-medium line-clamp-3" style={{ color: 'var(--color-text-secondary)' }}>
+
+                      {/* Description */}
+                      <p className="text-sm font-medium mb-4" style={{ color: 'var(--color-text-secondary)' }}>
                         {interest.description}
                       </p>
+                    </div>
+
+                    {/* Tags */}
+                    <div className="pt-3 border-t flex flex-wrap gap-1.5" style={{ borderColor: 'var(--color-border)' }}>
+                      {interest.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-xs font-semibold px-2 py-0.5 rounded border"
+                          style={{
+                            backgroundColor: 'var(--color-surface-elevated)',
+                            borderColor: 'var(--color-border)',
+                            color: 'var(--color-text-muted)'
+                          }}
+                        >
+                          {tag}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </motion.div>
