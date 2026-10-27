@@ -107,35 +107,36 @@ export function useModelPreloading() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Preload 3D model with low priority to not block critical resources
+    // NEVER preload or download the 64MB model on mobile devices (mobile uses GIF fallback)
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if (isMobile) return;
+
+    // Preload 3D model on desktop in background
     const link = document.createElement('link');
     link.rel = 'preload';
     link.href = '/models/charizard.glb';
     link.as = 'fetch';
     link.crossOrigin = 'anonymous';
-    link.setAttribute('fetchpriority', 'low'); // Low priority to not block critical content
+    link.setAttribute('fetchpriority', 'low');
     
-    // Only add if not already present
     if (!document.querySelector('link[href="/models/charizard.glb"]')) {
       document.head.appendChild(link);
     }
 
-    // Also preload via useGLTF for Three.js cache (non-blocking)
+    // Preload via useGLTF for Three.js cache during the video intro window
     const preloadModel = async () => {
       try {
         const { useGLTF } = await import('@react-three/drei');
         useGLTF.preload('/models/charizard.glb');
-        console.log('3D model preloaded with low priority');
       } catch (error) {
         console.warn('Failed to preload 3D model:', error);
       }
     };
 
-    // Delay preloading to not interfere with critical content
-    setTimeout(preloadModel, 500);
+    // Start preloading promptly so model streams during the 7.44s loader video
+    setTimeout(preloadModel, 100);
 
     return () => {
-      // Cleanup on unmount
       const existingLink = document.querySelector('link[href="/models/charizard.glb"]');
       if (existingLink) {
         existingLink.remove();

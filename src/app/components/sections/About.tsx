@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 const details = [
-  { label: "Location", value: "India" },
-  { label: "Focus", value: "Backend, full-stack, applied ML, AWS" },
-  { label: "Education", value: "Integrated IT dual degree, IIIT Gwalior" },
-  { label: "Currently", value: "Software Engineering Intern at QuickIntell" },
+  { label: "Location", value: "Surat, India" },
+  { label: "Focus", value: "Backend systems, DevOps, testing, applied AI/ML" },
+  { label: "Education", value: "Integrated Dual Degree with B.Tech in Information Technology (Major), IIIT Gwalior" },
+  { label: "Experience", value: "Completed 1-year Software Engineering Internship at QuickIntell" },
 ];
 
 export default function About() {
@@ -37,10 +37,7 @@ export default function About() {
               className="text-base sm:text-lg md:text-xl leading-relaxed mb-8"
               style={{ color: "var(--color-text-muted)" }}
             >
-              I work across Python document processing, Go services, and
-              React and TypeScript product features at QuickIntell. Outside
-              work, I build cloud-backed products and run applied ML research
-              on edge systems and respiratory audio.
+              I completed a one-year software engineering internship at QuickIntell, working on healthcare document processing, product features, testing, and production debugging. Outside that work, I build products end to end, conduct applied ML research on edge security and respiratory audio, and actively contribute to open source and hackathons.
             </p>
 
             {/* Detail rows */}
@@ -106,7 +103,7 @@ export default function About() {
               <img
                 src="/nishant-image.webp"
                 alt="Nishant Harkut"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
                 loading="lazy"
               />
             </div>

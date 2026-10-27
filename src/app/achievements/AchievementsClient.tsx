@@ -25,7 +25,7 @@ const evidence = [
   { value: '3,000 / 134,421', label: 'Amazon ML Summer School 2026' },
   { value: '16', label: 'Merged upstream pull requests' },
   { value: 'Top 25', label: 'HackOn with Amazon 6.0' },
-  { value: '10+', label: 'Hackathon finalist appearances' },
+  { value: '13+', label: 'Hackathon finalist appearances' },
 ];
 
 const brandLogos: Record<string, IconType> = {

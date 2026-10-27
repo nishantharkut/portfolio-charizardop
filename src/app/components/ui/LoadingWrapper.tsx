@@ -3,7 +3,7 @@
 import { useLoading } from '../../contexts/LoadingContext';
 import LoadingScreen from './LoadingScreen';
 import { AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 export default function LoadingWrapper({ children }: { children: React.ReactNode }) {
   const {
@@ -27,10 +27,10 @@ export default function LoadingWrapper({ children }: { children: React.ReactNode
   }, []);
 
   // Returning-visitor fast loader completion
-  const handlePixelLoaderComplete = () => finishInitialLoading();
+  const handlePixelLoaderComplete = useCallback(() => finishInitialLoading(), [finishInitialLoading]);
 
   // Video-end / timeout completion for first-visit starter loader
-  const handleVideoComplete = () => setVideoComplete(true);
+  const handleVideoComplete = useCallback(() => setVideoComplete(true), [setVideoComplete]);
 
   return (
     <>

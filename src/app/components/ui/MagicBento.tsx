@@ -24,35 +24,51 @@ import {
   SiLinkedin, 
   SiCodeforces, 
   SiLeetcode,
-  SiCodechef 
-} from "react-icons/si";
-import LogoLoop from "./LogoLoop";
-import Logo from "./Logo";
-// Import additional icons for more tech stacks
-import { 
+  SiCodechef,
   SiReact, 
   SiNextdotjs, 
   SiTypescript, 
   SiJavascript, 
   SiPython, 
+  SiGo,
+  SiKotlin,
+  SiGnubash,
   SiCplusplus,
   SiMysql,
   SiNodedotjs, 
   SiExpress, 
+  SiFastapi,
+  SiHono,
+  SiTailwindcss,
+  SiPytorch,
+  SiScikitlearn,
   SiMongodb, 
   SiPostgresql, 
+  SiAmazondynamodb,
   SiFirebase,
   SiSupabase,
   SiAmazonwebservices, 
-  SiGit, 
-  SiDocker, 
-  SiLinux, 
-  SiTailwindcss,
-  SiPostman,
-  SiVite,
-  SiJest,
+  SiAmazon,
+  SiAmazonec2,
+  SiAmazons3,
+  SiAwslambda,
+  SiAmazonsqs,
   SiGooglecloud,
+  SiDocker, 
+  SiGithubactions,
+  SiGit, 
+  SiLinux, 
+  SiPostman,
+  SiPytest,
+  SiJest,
+  SiVitest,
+  SiOnnx,
+  SiIntel,
 } from "react-icons/si";
+import { FaJava } from "react-icons/fa";
+import { TbBrain } from "react-icons/tb";
+import LogoLoop from "./LogoLoop";
+import Logo from "./Logo";
 
 export interface BentoCardProps {
   id: string;
@@ -83,12 +99,6 @@ const DEFAULT_SPOTLIGHT_RADIUS = 300;
 const DEFAULT_GLOW_COLOR = "255, 179, 71";
 const MOBILE_BREAKPOINT = 768;
 
-// Simple text-based icon component for concepts without specific icons
-const ConceptIcon: React.FC<{ text: string; className?: string }> = ({ text, className = "w-6 h-6" }) => (
-  <div className={`${className} flex items-center justify-center text-xs font-bold border border-current rounded`}>
-    {text}
-  </div>
-);
 
 // Projects Component - Show only top 2 featured projects (compact for fixed dimensions)
 // Enhanced Minimal About Me Component
@@ -113,15 +123,13 @@ const AboutMeContent: React.FC = () => {
         </div>
       </div>
 
-      {/* Enhanced description - reduced for mobile */}
+      {/* Enhanced description */}
       <div className="flex-1 mb-3">
         <p className="text-xs md:text-sm leading-relaxed transition-colors duration-300" 
           style={{ color: 'var(--color-text-secondary)' }}
           onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-text)'; }}
           onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-text-secondary)'; }}>
-          <span className="hidden md:inline">Pre-final-year IT student at IIIT Gwalior with </span><span className="text-orange-400 font-medium">1+ years</span><span className="hidden md:inline"> at QuickIntell across backend, product, AWS, and ML work.</span>
-<span className="md:hidden"> at QuickIntell in software engineering.</span>
-
+          Pre-final-year IT student at IIIT Gwalior. Completed a year at QuickIntell working on healthcare payments and backend systems.
         </p>
       </div>
 
@@ -186,8 +194,8 @@ const ProjectsContent: React.FC = () => {
     "Signed webhooks and user-triggered draft PRs"
   ],
   3: [
-    "KB-scale students evaluated across 10 seeds",
-    "56,200 hardware replay vectors on two MCUs"
+    "1,189- and 3,397-parameter students across 10 seeds",
+    "56,301 held-out records replayed on two MCUs"
   ]
 };
 
@@ -441,55 +449,55 @@ const ExperienceContent: React.FC = () => {
 const techSkillsData = {
   languages: [
     { icon: <SiPython className="w-6 h-6" />, name: "Python", originalColor: "#3776AB" },
-    { icon: <ConceptIcon text="Go" className="w-6 h-6" />, name: "Go", originalColor: "#00ADD8" },
+    { icon: <SiGo className="w-6 h-6" />, name: "Go", originalColor: "#00ADD8" },
     { icon: <SiTypescript className="w-6 h-6" />, name: "TypeScript", originalColor: "#3178C6" },
     { icon: <SiJavascript className="w-6 h-6" />, name: "JavaScript", originalColor: "#F7DF1E" },
     { icon: <SiCplusplus className="w-6 h-6" />, name: "C/C++", originalColor: "#00599C" },
     { icon: <SiMysql className="w-6 h-6" />, name: "SQL", originalColor: "#4479A1" },
-    { icon: <ConceptIcon text="Kt" className="w-6 h-6" />, name: "Kotlin", originalColor: "#7F52FF" },
-    { icon: <ConceptIcon text="Java" className="w-6 h-6" />, name: "Java", originalColor: "#007396" },
-    { icon: <ConceptIcon text="sh" className="w-6 h-6" />, name: "Bash", originalColor: "#4EAA25" },
+    { icon: <SiKotlin className="w-6 h-6" />, name: "Kotlin", originalColor: "#7F52FF" },
+    { icon: <FaJava className="w-6 h-6" />, name: "Java", originalColor: "#007396" },
+    { icon: <SiGnubash className="w-6 h-6" />, name: "Bash", originalColor: "#4EAA25" },
   ],
   frameworks: [
-    { icon: <ConceptIcon text="API" className="w-6 h-6" />, name: "FastAPI", originalColor: "#009688" },
+    { icon: <SiFastapi className="w-6 h-6" />, name: "FastAPI", originalColor: "#009688" },
     { icon: <SiReact className="w-6 h-6" />, name: "React", originalColor: "#61DAFB" },
     { icon: <SiNextdotjs className="w-6 h-6" />, name: "Next.js", originalColor: "#000000" },
     { icon: <SiNodedotjs className="w-6 h-6" />, name: "Node.js", originalColor: "#339933" },
-    { icon: <ConceptIcon text="H" className="w-6 h-6" />, name: "Hono", originalColor: "#E36002" },
+    { icon: <SiHono className="w-6 h-6" />, name: "Hono", originalColor: "#E36002" },
     { icon: <SiExpress className="w-6 h-6" />, name: "Express.js", originalColor: "#000000" },
     { icon: <SiTailwindcss className="w-6 h-6" />, name: "Tailwind CSS", originalColor: "#06B6D4" },
-    { icon: <ConceptIcon text="PT" className="w-6 h-6" />, name: "PyTorch", originalColor: "#EE4C2C" },
-    { icon: <ConceptIcon text="SK" className="w-6 h-6" />, name: "scikit-learn", originalColor: "#F7931E" },
+    { icon: <SiPytorch className="w-6 h-6" />, name: "PyTorch", originalColor: "#EE4C2C" },
+    { icon: <SiScikitlearn className="w-6 h-6" />, name: "scikit-learn", originalColor: "#F7931E" },
   ],
   databases: [
     { icon: <SiMongodb className="w-6 h-6" />, name: "MongoDB", originalColor: "#47A248" },
     { icon: <SiPostgresql className="w-6 h-6" />, name: "PostgreSQL", originalColor: "#336791" },
     { icon: <SiMysql className="w-6 h-6" />, name: "MySQL", originalColor: "#4479A1" },
-    { icon: <ConceptIcon text="DDB" className="w-6 h-6" />, name: "DynamoDB", originalColor: "#4053D6" },
+    { icon: <SiAmazondynamodb className="w-6 h-6" />, name: "DynamoDB", originalColor: "#4053D6" },
     { icon: <SiFirebase className="w-6 h-6" />, name: "Firebase", originalColor: "#FFCA28" },
     { icon: <SiSupabase className="w-6 h-6" />, name: "Supabase", originalColor: "#3ECF8E" },
   ],
   cloud: [
     { icon: <SiAmazonwebservices className="w-6 h-6" />, name: "AWS", originalColor: "#FF9900" },
-    { icon: <ConceptIcon text="BR" className="w-6 h-6" />, name: "Amazon Bedrock", originalColor: "#FF9900" },
-    { icon: <ConceptIcon text="EC2" className="w-6 h-6" />, name: "Amazon EC2", originalColor: "#FF9900" },
-    { icon: <ConceptIcon text="S3" className="w-6 h-6" />, name: "Amazon S3", originalColor: "#569A31" },
-    { icon: <ConceptIcon text="L" className="w-6 h-6" />, name: "AWS Lambda", originalColor: "#FF9900" },
-    { icon: <ConceptIcon text="SQS" className="w-6 h-6" />, name: "Amazon SQS", originalColor: "#FF4F8B" },
+    { icon: <SiAmazon className="w-6 h-6" />, name: "Amazon Bedrock", originalColor: "#FF9900" },
+    { icon: <SiAmazonec2 className="w-6 h-6" />, name: "Amazon EC2", originalColor: "#FF9900" },
+    { icon: <SiAmazons3 className="w-6 h-6" />, name: "Amazon S3", originalColor: "#569A31" },
+    { icon: <SiAwslambda className="w-6 h-6" />, name: "AWS Lambda", originalColor: "#FF9900" },
+    { icon: <SiAmazonsqs className="w-6 h-6" />, name: "Amazon SQS", originalColor: "#FF4F8B" },
     { icon: <SiGooglecloud className="w-6 h-6" />, name: "Google Cloud", originalColor: "#4285F4" },
     { icon: <SiDocker className="w-6 h-6" />, name: "Docker", originalColor: "#2496ED" },
-    { icon: <SiGithub className="w-6 h-6" />, name: "GitHub Actions", originalColor: "#2088FF" },
+    { icon: <SiGithubactions className="w-6 h-6" />, name: "GitHub Actions", originalColor: "#2088FF" },
   ],
   tools: [
     { icon: <SiGit className="w-6 h-6" />, name: "Git", originalColor: "#F05032" },
     { icon: <SiLinux className="w-6 h-6" />, name: "Linux", originalColor: "#FCC624" },
     { icon: <SiPostman className="w-6 h-6" />, name: "Postman", originalColor: "#FF6C37" },
-    { icon: <ConceptIcon text="py" className="w-6 h-6" />, name: "pytest", originalColor: "#0A9EDC" },
+    { icon: <SiPytest className="w-6 h-6" />, name: "pytest", originalColor: "#0A9EDC" },
     { icon: <SiJest className="w-6 h-6" />, name: "Jest", originalColor: "#C21325" },
-    { icon: <SiVite className="w-6 h-6" />, name: "Vitest", originalColor: "#6E9F18" },
-    { icon: <ConceptIcon text="ONNX" className="w-6 h-6" />, name: "ONNX", originalColor: "#005CED" },
-    { icon: <ConceptIcon text="OV" className="w-6 h-6" />, name: "OpenVINO", originalColor: "#734F96" },
-    { icon: <ConceptIcon text="SHAP" className="w-6 h-6" />, name: "SHAP", originalColor: "#FF7F0E" },
+    { icon: <SiVitest className="w-6 h-6" />, name: "Vitest", originalColor: "#6E9F18" },
+    { icon: <SiOnnx className="w-6 h-6" />, name: "ONNX", originalColor: "#005CED" },
+    { icon: <SiIntel className="w-6 h-6" />, name: "OpenVINO", originalColor: "#0071C5" },
+    { icon: <TbBrain className="w-6 h-6" />, name: "SHAP", originalColor: "#FF7F0E" },
   ],
 };
 
@@ -663,31 +671,31 @@ const socialIcons = [
   { 
     name: "LinkedIn", 
     icon: <SiLinkedin className="w-5 h-5" />, 
-    href: "https://in.linkedin.com/in/nishant-harkut", 
+    href: "https://www.linkedin.com/in/nishant-harkut/", 
     color: "#0077B5" 
   },
   { 
     name: "Codeforces", 
     icon: <SiCodeforces className="w-5 h-5" />, 
-    href: "https://codeforces.com/profile/fiery_charizard",  // Changed from nishantharkut
+    href: "https://codeforces.com/profile/Nishanth2908", 
     color: "#1F8ACB" 
   },
   { 
     name: "LeetCode", 
     icon: <SiLeetcode className="w-5 h-5" />, 
-    href: "https://leetcode.com/u/nishant_harkut/",  // Changed from /nishantharkut
+    href: "https://leetcode.com/u/nishanth14/", 
     color: "#FFA116" 
   },
   { 
     name: "CodeChef", 
     icon: <SiCodechef className="w-5 h-5" />, 
-    href: "https://codechef.com/users/nishantharkut", 
+    href: "https://www.codechef.com/users/nishant_h_27", 
     color: "#5B4638" 
   },
   { 
     name: "More", 
     icon: <EllipsisHorizontalIcon className="w-5 h-5" />, 
-    href: "https://linktr.ee/Nishant.Harkut",  // Changed from "#"
+    href: "https://linktr.ee/Nishant.Harkut", 
     color: "#666",
     isMore: true
   },
@@ -698,7 +706,7 @@ const cardData: BentoCardProps[] = [
   {
     id: "about",
     title: "About Me",
-    description: "Software engineering intern and pre-final-year IT student",
+    description: "Pre-final-year IT student with a year of production engineering experience",
     icon: <UserIcon className="w-5 h-5" />,
     className: "bento-card--about",
     content: <AboutMeContent />,
@@ -706,7 +714,7 @@ const cardData: BentoCardProps[] = [
   {
     id: "skills",
     title: "Top Skills",
-    description: "Python, Go, TypeScript, AWS, ML, and testing",
+    description: "Languages, frameworks, databases, and developer tools",
     icon: <CodeBracketIcon className="w-5 h-5" />,
     className: "bento-card--skills",
     content: <SkillsContent />,
@@ -714,7 +722,7 @@ const cardData: BentoCardProps[] = [
   {
     id: "projects",
     title: "Featured Projects",
-    description: "Backend, cloud, applied ML, and developer tooling",
+    description: "Products, developer tools, and applied ML research",
     icon: <ArrowTopRightOnSquareIcon className="w-5 h-5" />,
     className: "bento-card--projects",
     content: <ProjectsContent />,
@@ -722,7 +730,7 @@ const cardData: BentoCardProps[] = [
   {
     id: "experience",
     title: "Experience",
-    description: "QuickIntell engineering and Cook N Klean design internships",
+    description: "QuickIntell engineering and Cook N Klean product design",
     icon: <BriefcaseIcon className="w-5 h-5" />,
     className: "bento-card--experience",
     content: <ExperienceContent />,
@@ -730,7 +738,7 @@ const cardData: BentoCardProps[] = [
   {
     id: "achievements",
     title: "Achievements",
-    description: "Open source, ML selection, hackathons, and leadership",
+    description: "Competitive programming, open source, hackathons, and campus roles",
     icon: <TrophyIcon className="w-5 h-5" />,
     className: "bento-card--achievements",
     content: <AchievementsContent />,
@@ -1698,19 +1706,6 @@ const MagicBento: React.FC<BentoProps> = ({
                 )}
                 
                 {card.content}
-                
-                {/* Add download icon to About Me card */}
-                {card.id === "about" && (
-                  <div 
-                    className="download-icon"
-                    onClick={(e) => {
-                      handleDownloadResume(e);
-                    }}
-                    title={`Download ${aboutData.resume?.fileName || 'Resume'} (${aboutData.resume?.fileSize || 'PDF'})`}
-                  >
-                    <ArrowDownTrayIcon className="w-4 h-4" />
-                  </div>
-                )}
               </CardComponent>
             );
           })}

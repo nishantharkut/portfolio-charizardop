@@ -163,16 +163,7 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
-            <button
-              type="button"
-              className="navbar-overlay-link navbar-overlay-download"
-              onClick={(e) => {
-                handleDownloadResume(e);
-                closeMobileMenu();
-              }}
-            >
-              RESUME
-            </button>
+            <Link href="/#contact" className="navbar-overlay-link navbar-overlay-download" onClick={closeMobileMenu}>CONTACT</Link>
           </nav>
         </div>
       </div>
@@ -193,9 +184,6 @@ export default function Navbar() {
               <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
             </svg>
           )}
-        </button>
-        <button type="button" onClick={handleDownloadResume} aria-label="Download resume" className="navbar-float-btn">
-          <ArrowDownTrayIcon className="navbar-float-icon" />
         </button>
       </div>
     </>

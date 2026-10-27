@@ -48,7 +48,7 @@ import {
   SiVitest,
   SiLinux,
 } from "react-icons/si";
-import { TbApi, TbWebhook } from "react-icons/tb";
+import { TbApi, TbWebhook, TbBrain } from "react-icons/tb";
 import type { IconType } from "react-icons";
 
 interface TechItem {
@@ -108,6 +108,7 @@ const techGroups: TechGroup[] = [
       { name: "scikit-learn", icon: SiScikitlearn },
       { name: "Pandas", icon: SiPandas },
       { name: "NumPy", icon: SiNumpy },
+      { name: "SHAP", icon: TbBrain },
       { name: "ONNX", icon: SiOnnx },
     ],
   },

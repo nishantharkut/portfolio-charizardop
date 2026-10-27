@@ -1,8 +1,8 @@
 {
   "hero": {
-    "badge": "Software Engineering Intern",
+    "badge": "Pre-final-year IT student",
     "title": "About",
-    "subtitle": "Pre-final-year Information Technology student at IIIT Gwalior, graduating in May 2028. At QuickIntell, I work on healthcare document processing, X12 835 generation, product features, and production debugging.",
+    "subtitle": "Pre-final-year Information Technology student at IIIT Gwalior, graduating in May 2028. I completed a year at QuickIntell working on healthcare document processing, X12 835 generation, product features, testing, and production debugging.",
     "profileImage": "/nishant-image.webp",
     "profileAlt": "Nishant Harkut",
     "profileCaption": "Nishant Harkut"
@@ -11,44 +11,42 @@
     {
       "title": "Background",
       "content": [
-        "I'm Nishant Harkut, a pre-final-year student in the Integrated Post Graduate Information Technology program at Indian Institute of Information Technology, Gwalior. I began with UI/UX and graphic design, then moved into engineering because I wanted to build and test the products I had been designing."
+        "I am Nishant Harkut, a pre-final-year student in the Integrated Dual Degree Information Technology program at IIIT Gwalior. I started with Product Design and UI/UX, then moved into software engineering because I wanted to build and ship the products I was designing to actual users."
       ]
     },
     {
-      "title": "Current work",
+      "title": "QuickIntell",
       "content": [
-        "At QuickIntell, I work on a healthcare revenue-cycle platform using Python, Go, React, TypeScript, and AWS. My work includes payer-specific EOB parsers, X12 835 ERA generation, upload and review flows, security fixes, debugging, QA, and code review.",
-        "The work has taken me from diagnosing an Amazon Bedrock production failure to correcting ERA output across 44 generators and delivering more than 40 product and security changes through five review rounds."
+        "I completed a year on a healthcare revenue-cycle platform that turns EOB documents into X12 835 ERA files and gives operations teams upload, review, and correction flows.",
+        "I wrote 19 payer-specific Python parsers that lifted field extraction from roughly 55% to 95% on evaluated payer workflows, taking support from 44 to 71 formats. I also corrected output across 44 ERA generators and delivered 40+ product and security changes through five review rounds."
       ]
     },
     {
       "title": "Projects and research",
       "content": [
-        "I built PocketBuddy end to end across a Kotlin Android connector, FastAPI services, a React interface, and an asynchronous AWS ingestion path. My current research projects, TinyRF-KD and Covid-RARS, examine tiny edge intrusion detection and reliability under temporal and cross-dataset shift. Both repositories are public, and the papers are still being written."
+        "Outside internships, I build products end to end. PocketBuddy combines a Kotlin Android connector, FastAPI, React, and AWS event processing. I am also working on faculty-supervised research in TinyML security and respiratory-audio reliability."
       ]
     },
     {
       "title": "Open source",
       "content": [
-        "I have 16 merged upstream pull requests across Learning Unlimited, Kiwix, and the Palisadoes Foundation. The work includes Django maintenance and accessibility fixes, a TypeScript data-URL bug fix with tests, and React component refactoring based on maintainer review."
+        "I have 16 merged pull requests across Learning Unlimited, Kiwix, and the Palisadoes Foundation. The work includes regression tests, accessibility fixes, dependency cleanup, and React refactors shaped by maintainer review."
       ]
     },
     {
       "title": "Off the keyboard",
       "content": [
-        "I play basketball, train at the gym, experiment with music, and still make time for graphic design and photography."
+        "I play basketball, train at the gym, experiment with music, and still make some time for graphic design and photography."
       ]
     }
   ],
   "stats": [
-    { "number": "1+", "label": "Years Experience" },
-    { "number": "16", "label": "Merged Upstream PRs" },
-    { "number": "10+", "label": "Finals / Semifinals" }
+    { "number": "1 year", "label": "Software Engineering Experience" },
+    { "number": "16", "label": "Merged Open-Source Pull Requests" },
+    { "number": "13+", "label": "National-Level Hackathon Finals / Semifinals" }
   ],
   "resume": {
     "fileName": "Nishant_Harkut_Resume.pdf",
-    "filePath": "https://drive.google.com/drive/folders/1fSNKk9LIwZCeYhz7645_k0onNmW4o2p4?usp=sharing",
-    "lastUpdated": "2025-03-01",
-    "fileSize": "256 KB"
+    "filePath": ""
   }
 }

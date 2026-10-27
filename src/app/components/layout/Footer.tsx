@@ -82,7 +82,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative overflow-hidden">
+    <footer id="contact" className="relative overflow-hidden">
       {/* Main Footer Section — uses site color scheme */}
       <div
         className="relative border-t rounded-t-2xl overflow-hidden"

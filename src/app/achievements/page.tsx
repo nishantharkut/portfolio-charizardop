@@ -2,20 +2,25 @@ import { Metadata } from 'next';
 import AchievementsClient from './AchievementsClient';
 
 export const metadata: Metadata = {
-  title: 'Achievements',
-  description: 'Nishant Harkut\'s machine-learning selection, open-source contributions, hackathon results, certifications, and campus leadership.',
+  title: 'Achievements | Nishant Harkut | Hackathons, Open Source & CP',
+  description: 'Competitions, awards, and credentials of Nishant Harkut: Amazon ML Summer School 2026, HackOn with Amazon finalist, HackByte 4.0 track winner, 16 merged open-source PRs (Kiwix, Learning Unlimited, Palisadoes), and Competitive Programming ratings.',
   keywords: [
     'Nishant Harkut Achievements',
-    'IIIT Gwalior Awards',
     'Amazon ML Summer School 2026',
     'HackOn with Amazon Finalist',
-    'Open Source Contributor',
-    'Hackathon Winner',
-    'Student Leadership',
-    'IIIT Gwalior Achievements'
+    'HackByte 4.0 Winner',
+    'Open Source Contributor 16 PRs',
+    'Kiwix Open Source Contributor',
+    'Learning Unlimited Contributor',
+    'Palisadoes Foundation Contributor',
+    'Codeforces Nishanth2908',
+    'LeetCode nishanth14',
+    'Devfolio CharizardOP',
+    'IIIT Gwalior Achievements',
+    'Competitive Programming Student'
   ],
   openGraph: {
-    title: 'Achievements - Nishant Harkut',
+    title: 'Achievements | Nishant Harkut | Hackathons, Open Source & CP',
     description: 'Machine-learning selection, open-source contributions, national hackathon results, certifications, and campus leadership.',
     url: 'https://www.nishantharkut.tech/achievements',
     images: [
@@ -29,7 +34,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Achievements - Nishant Harkut | IIIT Gwalior Student',
+    title: 'Achievements | Nishant Harkut | Hackathons, Open Source & CP',
     description: 'Machine-learning selection, open-source work, national hackathon results, certifications, and campus leadership.',
     images: ['/og-image.jpg'],
   },
@@ -41,4 +46,3 @@ export const metadata: Metadata = {
 export default function AchievementsPage() {
   return <AchievementsClient />;
 }
-

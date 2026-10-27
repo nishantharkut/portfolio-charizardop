@@ -1,0 +1,64 @@
+# Nishant Harkut
+
+> Pre-final-year Information Technology student at IIIT Gwalior (graduating 2028), based in Surat, Gujarat, India. Software Engineer with 1 year of production experience at QuickIntell.
+
+## Availability & Target Roles
+- **Summer 2027**: Seeking Software Engineering Internships (SDE Intern, Backend Engineer Intern, Full Stack Intern).
+- **2028**: Seeking Full-Time Software Engineer positions and 6-Month Internships (January to July 2028).
+- **Locations**: Bangalore, Hyderabad, Pune, Delhi NCR, Mumbai, Remote (India & Worldwide).
+
+## Contact & Profiles
+- **Website**: https://www.nishantharkut.tech
+- **Email**: nhnishantharkut@gmail.com
+- **LinkedIn**: https://www.linkedin.com/in/nishant-harkut/
+- **GitHub**: https://github.com/nishantharkut
+- **LeetCode**: https://leetcode.com/u/nishanth14/
+- **Codeforces**: https://codeforces.com/profile/Nishanth2908
+- **CodeChef**: https://www.codechef.com/users/nishant_h_27
+- **Devfolio**: https://devfolio.co/@CharizardOP
+- **Resume**: Available upon request via email (nhnishantharkut@gmail.com)
+
+## Education
+- **Institution**: Indian Institute of Information Technology and Management (IIIT) Gwalior
+- **Degree**: Integrated Dual Degree, B.Tech in Information Technology
+- **Graduation**: May 2028
+- **Hometown / Base**: Surat, Gujarat, India
+- **Campus / Study Residence**: Gwalior, Madhya Pradesh, India
+
+## Work Experience
+- **QuickIntell** (Aug 2025 - Aug 2026 | 1 Year)
+  - Role: Software Engineering Intern
+  - Healthcare revenue-cycle platform converting EOB documents into EDI X12 835 ERA files.
+  - Built 19 payer-specific Python parsers, lifting field extraction from 55% to 95% on evaluated payer workflows (expanded support from 44 to 71 formats).
+  - Corrected ERA generation output across 44 generators.
+  - Diagnosed and fixed Amazon Bedrock production failures.
+  - Delivered 40+ product, security, and test changes through 5 review cycles.
+- **Cook N Klean** (May 2024 - Dec 2024)
+  - Role: Product Designer & UI/UX
+  - Delivered 40+ user-facing screens and unified design systems.
+
+## Key Projects
+- **PocketBuddy** (Campus Finance Platform)
+  - End-to-end platform with Kotlin Android connector, FastAPI services, React web app, and AWS Bedrock / SQS / DynamoDB.
+  - Deterministic financial runway computation backed by explanatory AI.
+  - GitHub: https://github.com/nishantharkut/PocketBuddy | Demo: https://d3g6cg7q9hn7hi.cloudfront.net/
+- **GitLore** (Engineering Knowledge Graph)
+  - HackByte 4.0 project converting GitHub PR and commit histories into a searchable decision graph with 35+ Hono / Node.js API endpoints.
+  - GitHub: https://github.com/Codealpha07/GitLore | Demo: https://gitlore-weld.vercel.app/
+- **TinyRF-KD** (TinyML Edge Intrusion Detection Research)
+  - Faculty-supervised research compressing large teacher models into KB-scale neural students replayed with 100% agreement on ESP32-C3 and Arduino R4 microcontrollers.
+  - GitHub: https://github.com/nishantharkut/TinyRF-KD
+- **Covid-RARS** (Respiratory Acoustic Robustness Study)
+  - Research analyzing acoustic feature shifts and generalization under cross-dataset distributions.
+  - GitHub: https://github.com/nishantharkut/Covid-RARS
+
+## Open Source Contributions
+- 16 merged pull requests across Kiwix, Learning Unlimited, and the Palisadoes Foundation.
+- Repositories include Kiwix JS Windows, Learning Unlimited (Django web platform), and Talawa.
+
+## Core Technical Skills
+- **Languages**: Python, Go (Golang), TypeScript, JavaScript, C/C++, SQL, Bash, Kotlin.
+- **Backend & Cloud**: FastAPI, Next.js, Node.js, Express, Hono, AWS (Lambda, Bedrock, S3, SQS, EC2, DynamoDB), Docker, Linux.
+- **Databases**: PostgreSQL, MongoDB, DynamoDB, MySQL.
+- **Machine Learning**: PyTorch, scikit-learn, TinyML, ONNX, SHAP, Pandas, NumPy.
+- **Quality & Testing**: pytest, Jest, Vitest, Postman, CI/CD, GitHub Actions.
